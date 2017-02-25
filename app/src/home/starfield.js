@@ -52,8 +52,7 @@ module.exports = class Starfield {
 
   // Render
   draw() {
-    this.ctx.fillStyle = 'black';
-    this.ctx.fillRect(0, 0, this.elem.width, this.elem.height);
+    this.ctx.clearRect(0, 0, this.elem.width, this.elem.height);
 
     for (let i = 0; i < this.stars.length; i += 1) {
       const star = this.stars[i];
