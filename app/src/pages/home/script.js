@@ -1,4 +1,4 @@
-const Starfield = require('../../scripts/starfield.js');
+import Starfield from '../../scripts/starfield';
 
 export default {
   name: 'home',

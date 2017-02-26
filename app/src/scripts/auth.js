@@ -15,7 +15,7 @@ lock.on('authenticated', (authResult) => {
   window.app.authenticated = true;
 });
 
-module.exports = {
+export default {
   lock,
   checkAuth: () => localStorage.getItem('id_token') !== null,
 

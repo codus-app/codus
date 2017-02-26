@@ -1,4 +1,4 @@
-module.exports = class Starfield {
+export default class Starfield {
   constructor(elem, starCount, speed, fps) {
     this.elem = elem;
     this.ctx = this.elem.getContext('2d');
@@ -93,4 +93,4 @@ module.exports = class Starfield {
   stop() {
     clearInterval(this.interval);
   }
-};
+}

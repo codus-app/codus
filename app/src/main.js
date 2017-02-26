@@ -1,13 +1,12 @@
-const Vue = require('vue');
-const VueRouter = require('vue-router');
+import Vue from 'vue';
+import VueRouter from 'vue-router';
 
-const auth = require('./scripts/auth');
+import Home from './pages/home/home.vue';
+import auth from './scripts/auth';
 
 Vue.use(VueRouter);
 
 // Vue router setup
-
-const Home = require('./pages/home/home.vue');
 
 const router = new VueRouter({
   mode: 'history',
