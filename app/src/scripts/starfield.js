@@ -7,8 +7,8 @@ module.exports = class Starfield {
     this.speed = speed || 1;
 
     // Set up resizing
-    this.elem.width = this.elem.offsetWidth;
-    this.elem.height = this.elem.offsetHeight;
+    this.elem.width = window.innerWidth;
+    this.elem.height = window.innerHeight;
     window.addEventListener('resize', () => this.resize());
 
     // Build a list of stars with X Y and Z coordinates
@@ -45,8 +45,8 @@ module.exports = class Starfield {
 
   // When the window is resized, adjust canvas coordinate system
   resize() {
-    this.elem.width = this.elem.offsetWidth;
-    this.elem.height = this.elem.offsetHeight;
+    this.elem.width = window.innerWidth;
+    this.elem.height = window.innerHeight;
     this.draw();
   }
 

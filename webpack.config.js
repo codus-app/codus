@@ -2,15 +2,10 @@ const path = require('path');
 const webpack = require('webpack');
 
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
-
-const DashboardPlugin = require('webpack-dashboard/plugin');
 
 module.exports = {
   entry: {
-    // These names MUST match the folder name within app/src so that the JS bundle doesn't end up in
-    // a different directory from the files copied by file-loader
-    home: path.join(__dirname, 'app/src/home'),
+    main: path.join(__dirname, 'app/src'),
   },
 
   module: {
@@ -18,25 +13,35 @@ module.exports = {
       // SASS files
       {
         test: /\.sass$/,
-        loader: ExtractTextWebpackPlugin.extract(['css-loader', 'postcss-loader', 'sass-loader']),
+        loaders: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
       },
       // CSS files
       {
         test: /\.css$/,
-        loader: ExtractTextWebpackPlugin.extract(['css-loader', 'postcss-loader']),
+        loaders: ['style-loader', 'css-loader', 'postcss-loader'],
+      },
+      // Vue template files
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+        options: {
+          loaders: {
+            scss: 'vue-style-loader!css-loader!sass-loader',
+            sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax',
+          },
+        },
       },
       // JavaScript files
       {
         test: /\.js$/,
         loader: 'babel-loader',
         exclude: 'node_modules',
-        query: { presets: ['es2015'] },
       },
       // HTML files
       {
         test: /\.html$/,
         loaders: [
-          'file-loader?name=[path][name].html&context=app/src',
+          'file-loader?name=[name].html',
           'extract-loader',
           'html-loader',
         ],
@@ -45,15 +50,15 @@ module.exports = {
       {
         test: /\.(ttf|woff|woff2|eot|png|svg)/,
         loader: 'url-loader',
-        query: { limit: 10000, name: '[path][name].[ext]', context: 'app/src' },
+        query: { limit: 10000, name: '[name].[ext]' },
       },
     ],
   },
 
   output: {
     path: path.join(__dirname, 'app/build'),
-    publicPath: '/',
-    filename: '[name]/index.js',
+    publicPath: '/build/',
+    filename: 'index.js',
   },
 
   resolve: {
@@ -65,9 +70,6 @@ module.exports = {
   plugins: [
     new webpack.optimize.UglifyJsPlugin({ minimize: true, compress: { warnings: false } }),
     new CopyWebpackPlugin([{ from: 'app/favicons' }]),
-    new ExtractTextWebpackPlugin('[name]/style.css'),
-
-    new DashboardPlugin(),
   ],
 
 
@@ -75,6 +77,6 @@ module.exports = {
 
 
   devServer: {
-    contentBase: path.join(__dirname, 'app/build'),
+    contentBase: path.join(__dirname, 'app'),
   },
 };

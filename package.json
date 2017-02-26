@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "Efficient code practice for individuals and classrooms.",
   "scripts": {
-    "start": "webpack-dashboard -- webpack-dev-server",
+    "start": "webpack-dev-server",
     "c9-serve": "webpack-dev-server --host $IP --port $PORT",
     "build": "webpack",
     "watch": "webpack --watch",
@@ -36,7 +36,6 @@
     "eslint-plugin-jsx-a11y": "^3.0.2",
     "eslint-plugin-react": "^6.9.0",
     "extract-loader": "^0.1.0",
-    "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
     "html-loader": "^0.4.4",
     "jsdoc": "^3.4.3",
@@ -47,12 +46,14 @@
     "sass-loader": "^4.1.1",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
+    "vue-loader": "^11.1.3",
+    "vue-template-compiler": "^2.2.0",
     "webpack": "^1.14.0",
-    "webpack-dashboard": "^0.3.0",
     "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
     "ionicons": "^3.0.0",
-    "vue": "^2.2.0"
+    "vue": "^2.2.0",
+    "vue-router": "^2.2.1"
   }
 }

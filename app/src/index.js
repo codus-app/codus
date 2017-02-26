@@ -1,11 +1,8 @@
 // Styles
-require('./main.sass');
+require('./styles.sass');
 
 // Libraries
 require('ionicons/dist/css/ionicons.css'); // Ionicons
-
-// Files to be copied
-require('./index.html');
 
 // Main scripts
 require('./main.js');
