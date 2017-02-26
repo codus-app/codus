@@ -71,7 +71,7 @@ module.exports = {
 
   plugins: [
     new webpack.optimize.UglifyJsPlugin({ minimize: true, compress: { warnings: false } }),
-    new CopyWebpackPlugin([{ from: 'app/favicons' }]),
+    new CopyWebpackPlugin([{ from: 'app/src/favicons' }]),
   ],
 
 
