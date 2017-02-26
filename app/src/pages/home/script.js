@@ -1,6 +1,6 @@
 const Starfield = require('../../scripts/starfield.js');
 
-module.exports = {
+export default {
   name: 'home',
 
   data() {
