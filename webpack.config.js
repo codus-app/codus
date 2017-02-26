@@ -80,6 +80,8 @@ module.exports = {
 
   devServer: {
     contentBase: path.join(__dirname, 'app'),
+    historyApiFallback: true,
+    noInfo: true,
   },
 };
 

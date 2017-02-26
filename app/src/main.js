@@ -6,6 +6,7 @@ Vue.use(VueRouter);
 const Home = require('./pages/home/home.vue');
 
 const router = new VueRouter({
+  mode: 'history',
   routes: [
     { path: '/', component: Home },
   ],
