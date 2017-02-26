@@ -1,5 +1,0 @@
-{
-  "extends": "clock",
-  "disallowIdLiterals": null,
-  "disallowMultipleLineBreaks": null
-}

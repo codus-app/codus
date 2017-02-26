@@ -9,8 +9,7 @@
     "watch": "webpack --watch",
     "lint-sass": "sass-lint 'app/**/*.sass' -v",
     "lint-js": "eslint .",
-    "lint-pug": "pug-lint .",
-    "test": "npm run -s lint-sass && npm run -s lint-js && npm run -s lint-pug",
+    "test": "npm run -s lint-sass && npm run -s lint-js",
     "docs": "jsdoc app/src -c jsdoc.config.json -r -d docs --verbose"
   },
   "repository": {
@@ -44,10 +43,6 @@
     "jsdoc-babel": "^0.3.0",
     "node-sass": "^4.2.0",
     "postcss-loader": "^1.2.2",
-    "pug": "^2.0.0-beta10",
-    "pug-html-loader": "^1.1.0",
-    "pug-lint": "^2.4.0",
-    "pug-lint-config-clock": "^2.0.0",
     "sass-lint": "^1.10.2",
     "sass-loader": "^4.1.1",
     "style-loader": "^0.13.1",
@@ -57,6 +52,7 @@
     "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
-    "ionicons": "^3.0.0"
+    "ionicons": "^3.0.0",
+    "vue": "^2.2.0"
   }
 }

@@ -32,14 +32,6 @@ module.exports = {
         exclude: 'node_modules',
         query: { presets: ['es2015'] },
       },
-      // Pug files
-      {
-        test: /\.pug$/,
-        loaders: [
-          'file-loader?name=[path][name].html&context=app/src',
-          'pug-html-loader?exports=false',
-        ],
-      },
       // HTML files
       {
         test: /\.html$/,
@@ -62,6 +54,12 @@ module.exports = {
     path: path.join(__dirname, 'app/build'),
     publicPath: '/',
     filename: '[name]/index.js',
+  },
+
+  resolve: {
+    alias: {
+      vue$: 'vue/dist/vue.common.js',
+    },
   },
 
   plugins: [
