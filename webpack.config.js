@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 const path = require('path');
 const webpack = require('webpack');
 
@@ -80,3 +82,10 @@ module.exports = {
     contentBase: path.join(__dirname, 'app'),
   },
 };
+
+if (process.env.C9_HOSTNAME) {
+  console.log('Detected Cloud9');
+  console.log(`Preview at ${process.env.C9_HOSTNAME}`);
+  module.exports.devServer.port = process.env.PORT;
+  module.exports.devServer.host = process.env.IP;
+}
