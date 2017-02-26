@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "Efficient code practice for individuals and classrooms.",
   "scripts": {
-    "start": "webpack-dev-server",
+    "start": "webpack-dev-server --hot --inline --open",
     "c9-serve": "webpack-dev-server --host $IP --port $PORT",
     "build": "webpack",
     "watch": "webpack --watch",
