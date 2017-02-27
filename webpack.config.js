@@ -11,7 +11,7 @@ module.exports = {
   },
 
   module: {
-    loaders: [
+    rules: [
       // SASS files
       {
         test: /\.sass$/,
