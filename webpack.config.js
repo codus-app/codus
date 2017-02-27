@@ -70,7 +70,6 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.optimize.UglifyJsPlugin({ minimize: true, compress: { warnings: false } }),
     new CopyWebpackPlugin([{ from: 'app/src/favicons' }]),
   ],
 
@@ -85,9 +84,36 @@ module.exports = {
   },
 };
 
+// Custom settings for Cloud9
+// detected by presence of C9_HOSTNAME environment variable
 if (process.env.C9_HOSTNAME) {
   console.log('Detected Cloud9');
   console.log(`Preview at ${process.env.C9_HOSTNAME}`);
   module.exports.devServer.port = process.env.PORT;
   module.exports.devServer.host = process.env.IP;
+}
+
+// Custom settings for production
+// detected when building in a path that begins with '/var/www'
+if (__dirname.startsWith('/var/www')) {
+  console.log('Production detected');
+  module.exports.plugins = module.exports.plugins.concat([
+    // Minify JS
+    new webpack.optimize.UglifyJsPlugin({
+      minimize: true,
+      compress: {
+        warnings: false,
+      },
+    }),
+    // Tell Vue to use production mode
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: '"production"',
+      },
+    }),
+    // Let all loaders know they can minimize output
+    new webpack.LoaderOptionsPlugin({
+      minimize: true,
+    }),
+  ]);
 }
