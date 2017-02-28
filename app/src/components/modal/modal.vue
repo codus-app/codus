@@ -1,14 +1,16 @@
 <template>
-  <div class="modal-bg"
-       :style="{ backgroundColor: bgcolor || 'rgba(0, 0, 0, 0.5)' }"
-       @click="bgClickClose"
-       ref="modal-bg">
-    <div class="modal-container">
-      <div class="modal">
-        <slot>Modal!</slot>
+  <transition name="modal-fade">
+    <div class="modal-bg"
+         :style="{ backgroundColor: bgcolor || 'rgba(0, 0, 0, 0.5)' }"
+         @click="bgClickClose"
+         ref="modal-bg">
+      <div class="modal-container">
+        <div class="modal">
+          <slot>Modal!</slot>
+        </div>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script src="./script.js"></script>
