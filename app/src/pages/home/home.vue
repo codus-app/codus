@@ -1,10 +1,10 @@
 <template>
   <div>
     <transition name="modal-header-fade">
-      <h1 v-if="!showLogin">codus</h1>
+      <h1 v-if="!loginShown">codus</h1>
     </transition>
     <canvas id="stars"></canvas>
-    <modal bgcolor="rgba(0, 0, 0, 0.75)" v-if="showLogin" @close="showLogin = false">
+    <modal bgcolor="rgba(0, 0, 0, 0.75)" v-if="loginShown" v-on:close="closeLogin()">
       <login></login>
     </modal>
   </div>

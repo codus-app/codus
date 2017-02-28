@@ -8,6 +8,20 @@ export default {
   },
 
   data: () => ({
-    showLogin: false,
+    loginShown: false,
   }),
+
+  methods: {
+    // Open the "log in" modal
+    openLogin() { this.loginShown = true; },
+
+    // Close the "log in" modal
+    closeLogin() { this.loginShown = false; },
+
+    // Toggle the "log in" modal
+    toggleLogin() {
+      if (this.loginShown) this.closeLogin();
+      else this.openLogin();
+    },
+  },
 };
