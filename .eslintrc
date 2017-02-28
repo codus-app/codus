@@ -12,5 +12,5 @@
   "settings": {
     "import/resolver": "webpack"
   },
-  "plugins": ["eslint-plugin-html"]
+  "plugins": ["vue"]
 }
