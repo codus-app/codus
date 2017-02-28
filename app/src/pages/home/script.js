@@ -6,4 +6,8 @@ export default {
   mounted() {
     this.stars = new Starfield(document.getElementById('stars'));
   },
+
+  data: () => ({
+    showLogin: true,
+  }),
 };
