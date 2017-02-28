@@ -5,6 +5,7 @@ import VueRouter from 'vue-router';
 import Home from './pages/home/home.vue';
 // Components
 import Modal from './components/modal/modal.vue';
+import Login from './components/login/login.vue';
 
 import auth from './scripts/auth';
 
@@ -25,6 +26,7 @@ router.beforeEach((to, from, next) => {
 
 // Register components
 Vue.component('modal', Modal);
+Vue.component('login', Login);
 
 // Create main Vue instance
 
