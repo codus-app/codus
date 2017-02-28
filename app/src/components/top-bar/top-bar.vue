@@ -9,17 +9,5 @@
   </div>
 </template>
 
-<script>
-  export default {
-    data: () => ({
-      dark: false,
-    }),
-    methods: {
-      toggleDark() {
-        this.dark = !this.dark;
-      },
-    },
-  };
-</script>
-
+<script src="./script.js"></script>
 <style scoped lang="sass" src="./style.sass"></style>
