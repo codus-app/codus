@@ -14,6 +14,16 @@
   text-transform: uppercase
   letter-spacing: .1em
 
+  display: flex
+
+  // Dark mode (for light backgrounds)
   &.dark
     background: transparentize($black, .95)
     color: $black
+
+  .left
+    flex-grow: 0
+
+  .right
+    flex-grow: 0
+    margin-left: auto

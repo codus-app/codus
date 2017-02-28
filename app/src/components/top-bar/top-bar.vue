@@ -1,6 +1,11 @@
 <template>
   <div class="top-bar" v-bind:class="{ dark }">
-    <slot></slot>
+    <div class="left">
+      <slot name="left"></slot>
+    </div>
+    <div class="right">
+      <slot name="right"></slot>
+    </div>
   </div>
 </template>
 
