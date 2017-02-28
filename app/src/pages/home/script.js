@@ -8,6 +8,6 @@ export default {
   },
 
   data: () => ({
-    showLogin: true,
+    showLogin: false,
   }),
 };
