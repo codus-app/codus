@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/controversial/codus#readme",
   "devDependencies": {
+    "auth0-js": "^8.2.0",
     "autoprefixer": "^6.6.1",
     "babel-core": "^6.21.0",
     "babel-loader": "^6.2.10",

@@ -7,7 +7,7 @@ import Home from './pages/home/home.vue';
 import Modal from './components/modal/modal.vue';
 import Login from './components/login/login.vue';
 
-import auth from './scripts/auth';
+require('./scripts/auth');
 
 // Vue router setup
 
@@ -32,19 +32,9 @@ Vue.component('login', Login);
 
 window.app = new Vue({
   router,
-  data: () => ({
-    authenticated: false,
-    secretThing: '',
-    lock: auth.lock,
-  }),
+  data: () => ({}),
 
-  ready() {
-    this.authenticated = auth.checkAuth();
-  },
+  ready() {},
 
-  methods: {
-    login: auth.login,
-    logout: auth.logout,
-    checkAuth: auth.checkAuth,
-  },
+  methods: {},
 }).$mount('#app');
