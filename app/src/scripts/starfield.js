@@ -2,7 +2,7 @@ export default class Starfield {
   constructor(elem, starCount, speed, fps) {
     this.elem = elem;
     this.ctx = this.elem.getContext('2d');
-    this.starCount = starCount || 1000;
+    this.starCount = starCount || 2000;
     this.fps = fps || 60;
     this.speed = speed || 1;
 
@@ -38,8 +38,6 @@ export default class Starfield {
       x: pos[0],
       y: pos[1],
       z: back ? 25 : rand(0, 25),
-      // Random char from code 33 to code 129
-      text: String.fromCharCode((Math.floor(Math.random() * 96) + 33)),
     };
   }
 
@@ -59,18 +57,15 @@ export default class Starfield {
       const progress = (1 - (star.z / 25));
       const lightness = Math.round(progress * 255);
       this.ctx.fillStyle = `rgb(${lightness}, ${lightness}, ${lightness})`;
-      this.ctx.font = `300 ${progress * 20}px Roboto Mono`;
 
       const projectedX = (100 / star.z) * star.x;
       const projectedY = (100 / star.z) * star.y;
       const finalX = projectedX + (this.elem.width / 2);
       const finalY = projectedY + (this.elem.height / 2);
 
-      this.ctx.fillText(
-        star.text, finalX, finalY,
-      );
+      this.ctx.fillRect(finalX, finalY, 5 * progress, 5 * progress);
 
-      star.z -= this.speed / 10;
+      star.z -= this.speed / 20;
       if (star.z < 0 ||
           finalX < 0 ||
           finalY < 0 ||
