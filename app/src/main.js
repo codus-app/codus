@@ -1,12 +1,16 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
+// Pages
 import Home from './pages/home/home.vue';
+// Components
+import Modal from './components/modal/modal.vue';
+
 import auth from './scripts/auth';
 
-Vue.use(VueRouter);
-
 // Vue router setup
+
+Vue.use(VueRouter);
 
 const router = new VueRouter({
   mode: 'history',
@@ -18,6 +22,9 @@ router.beforeEach((to, from, next) => {
   document.title = to.meta.title || 'Codus';
   next();
 });
+
+// Register components
+Vue.component('modal', Modal);
 
 // Create main Vue instance
 
