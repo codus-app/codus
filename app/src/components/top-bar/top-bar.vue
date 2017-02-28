@@ -12,12 +12,12 @@
 <script>
   export default {
     data: () => ({
-      dark: false
+      dark: false,
     }),
     methods: {
       toggleDark() {
         this.dark = !this.dark;
-      }
+      },
     },
   };
 </script>
