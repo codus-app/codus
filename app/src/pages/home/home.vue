@@ -1,3 +1,14 @@
-<template src="./template.html"></template>
+<template>
+  <div>
+    <transition name="modal-header-fade">
+      <h1 v-if="!showLogin">codus</h1>
+    </transition>
+    <canvas id="stars"></canvas>
+    <modal bgcolor="rgba(0, 0, 0, 0.75)" v-if="showLogin" @close="showLogin = false">
+      <login></login>
+    </modal>
+  </div>
+</template>
+
 <script src="./script.js"></script>
 <style scoped lang="sass" src="./style.sass"></style>
