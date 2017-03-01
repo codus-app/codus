@@ -10,6 +10,9 @@ import TopBar from './components/top-bar/top-bar.vue';
 
 require('./scripts/auth');
 
+// Global event bus
+window.bus1 = new Vue();
+
 // Vue router setup
 
 Vue.use(VueRouter);
@@ -22,7 +25,7 @@ const router = new VueRouter({
       path: '/',
       components: {
         default: Home,
-        navlinks: { template: '<div>Log In</div>' },
+        navlinks: require('./pages/home/top-bar.vue'),
       },
       meta: { title: 'Codus' },
     },

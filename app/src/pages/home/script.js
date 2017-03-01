@@ -3,13 +3,17 @@ import Starfield from '../../scripts/starfield';
 export default {
   name: 'home',
 
+  data: () => ({
+    loginShown: false,
+  }),
+
   mounted() {
     this.stars = new Starfield(document.getElementById('stars'));
   },
 
-  data: () => ({
-    loginShown: false,
-  }),
+  created() {
+    window.bus1.$on('showModal', this.openLogin);
+  },
 
   methods: {
     // Open the "log in" modal
