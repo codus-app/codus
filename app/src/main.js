@@ -17,7 +17,15 @@ Vue.use(VueRouter);
 const router = new VueRouter({
   mode: 'history',
   routes: [
-    { name: 'home', path: '/', component: Home, meta: { title: 'Codus' } },
+    {
+      name: 'home',
+      path: '/',
+      components: {
+        default: Home,
+        navlinks: { template: '<div>Log In</div>' },
+      },
+      meta: { title: 'Codus' },
+    },
   ],
 });
 router.beforeEach((to, from, next) => {
