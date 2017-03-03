@@ -86,9 +86,12 @@ module.exports = {
 
 // Custom settings for Cloud9
 // detected by presence of C9_HOSTNAME environment variable
-if (process.env.C9_HOSTNAME) {
+const isC9 = Boolean(process.env.C9_HOSTNAME);
+const isDevServer = process.argv[1].indexOf('webpack-dev-server') !== -1;
+
+if (isC9) {
   console.log('Detected Cloud9');
-  console.log(`Preview at ${process.env.C9_HOSTNAME}`);
+  if (isDevServer) console.log(`Preview at ${process.env.C9_HOSTNAME}`);
   module.exports.devServer.port = process.env.PORT;
   module.exports.devServer.host = process.env.IP;
 }
