@@ -20,6 +20,10 @@ export default {
   },
 
   logout() {
+    localStorage.removeItem('id_token');
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('profile');
+
     webAuth.logout({
       returnTo: window.location.origin,
       client_id: webAuth.client.baseOptions.clientID,
