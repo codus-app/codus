@@ -8,7 +8,9 @@ import Modal from './components/modal/modal.vue';
 import Login from './components/login/login.vue';
 import TopBar from './components/top-bar/top-bar.vue';
 
-require('./scripts/auth');
+import auth from './scripts/auth';
+
+window.auth = auth;
 
 // Global event bus
 window.bus1 = new Vue();
