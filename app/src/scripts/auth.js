@@ -15,6 +15,7 @@ export default {
       username,
       password,
       scope: 'openid',
+      redirectUri: `${window.location.origin}/login`,
     });
   },
 

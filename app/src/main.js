@@ -2,7 +2,9 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 // Pages
-import Home from './pages/home/home.vue';
+import HomePage from './pages/home/home.vue';
+import LoginPage from './pages/login/login.vue';
+
 // Components
 import Modal from './components/modal/modal.vue';
 import Login from './components/login/login.vue';
@@ -26,10 +28,16 @@ const router = new VueRouter({
       name: 'home',
       path: '/',
       components: {
-        default: Home,
+        default: HomePage,
         navlinks: require('./pages/home/top-bar.vue'),
       },
       meta: { title: 'Codus' },
+    },
+    {
+      name: 'login',
+      path: '/login',
+      components: { default: LoginPage },
+      meta: { title: 'Logging in...' },
     },
   ],
 });
