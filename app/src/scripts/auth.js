@@ -29,4 +29,11 @@ export default {
       client_id: webAuth.client.baseOptions.clientID,
     });
   },
+
+  // See if the user is authenticated
+  isAuthenticated() {
+    return localStorage.getItem('id_token') !== null &&
+           localStorage.getItem('access_token') !== null &&
+           localStorage.getItem('profile') !== null;
+  },
 };
