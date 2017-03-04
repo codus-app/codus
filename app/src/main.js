@@ -3,7 +3,7 @@ import VueRouter from 'vue-router';
 
 // Pages
 import HomePage from './pages/home/home.vue';
-import LoginPage from './pages/login/login.vue';
+import LoginCallbackPage from './pages/login-callback/login-callback.vue';
 
 // Components
 import Modal from './components/modal/modal.vue';
@@ -36,7 +36,7 @@ const router = new VueRouter({
     {
       name: 'login',
       path: '/login',
-      components: { default: LoginPage },
+      components: { default: LoginCallbackPage },
       meta: { title: 'Logging in...' },
     },
   ],
