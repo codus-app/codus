@@ -5,6 +5,9 @@ const webpack = require('webpack');
 
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
+// Disable deprecation warnings
+process.noDeprecation = true;
+
 module.exports = {
   entry: {
     main: path.join(__dirname, 'app/src'),
