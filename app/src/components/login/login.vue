@@ -2,13 +2,13 @@
   <form>
     <div>
       <i class="icon ion-person"></i>
-      <input type="text" placeholder="username">
+      <input type="text" v-model="username" placeholder="username">
     </div>
     <div>
       <i class="icon ion-locked"></i>
-      <input type="password" placeholder="password">
+      <input type="password" v-model="password" placeholder="password">
     </div>
-    <a>Sign in</a>
+    <a v-on:click="login">Sign in</a>
   </form>
 </template>
 
