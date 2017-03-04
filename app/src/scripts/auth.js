@@ -8,4 +8,20 @@ const webAuth = new auth0.WebAuth({
 
 export default {
   webAuth,
+
+  login(username, password) {
+    webAuth.redirect.loginWithCredentials({
+      connection: 'Username-Password-Authentication',
+      username,
+      password,
+      scope: 'openid',
+    });
+  },
+
+  logout() {
+    webAuth.logout({
+      returnTo: window.location.origin,
+      client_id: webAuth.client.baseOptions.clientID,
+    });
+  },
 };
