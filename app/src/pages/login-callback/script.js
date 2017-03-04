@@ -18,9 +18,9 @@ export default {
         auth.webAuth.client.userInfo(res.accessToken, (profileErr, profile) => {
           if (profileErr) console.log(profileErr);
           else localStorage.setItem('profile', JSON.stringify(profile));
+          window.app.$router.push('/');
         });
       }
-      window.app.$router.push('/');
     });
   },
 };
