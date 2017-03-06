@@ -1,3 +1,4 @@
+import auth from '../../scripts/auth';
 import Starfield from '../../scripts/starfield';
 
 export default {
@@ -27,5 +28,8 @@ export default {
       if (this.loginShown) this.closeLogin();
       else this.openLogin();
     },
+
+    // Check authentication
+    isAuthenticated: auth.isAuthenticated,
   },
 };
