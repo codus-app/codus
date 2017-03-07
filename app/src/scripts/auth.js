@@ -1,4 +1,5 @@
 import auth0 from 'auth0-js';
+import Vue from 'vue';
 
 const webAuth = new auth0.WebAuth({
   domain: 'codus.auth0.com',
@@ -6,8 +7,11 @@ const webAuth = new auth0.WebAuth({
   responseType: 'token',
 });
 
+const bus = new Vue();
+
 export default {
   webAuth,
+  bus,
 
   login(username, password) {
     webAuth.redirect.loginWithCredentials({
@@ -17,6 +21,7 @@ export default {
       scope: 'openid',
       redirectUri: `${window.location.origin}/login`,
     });
+    bus.$emit('login');
   },
 
   logout() {
@@ -28,6 +33,7 @@ export default {
       returnTo: window.location.origin,
       client_id: webAuth.client.baseOptions.clientID,
     });
+    bus.$emit('logout');
   },
 
   // See if the user is authenticated

@@ -1,5 +1,5 @@
 <template>
-  <div v-on:click="openModal" v-if='loggedIn'>Log In</div>
+  <div v-on:click="openModal" v-if='!loggedIn'>Log In</div>
 </template>
 
 <script>
@@ -11,8 +11,14 @@ export default {
       window.bus1.$emit('showModal');
     },
   },
+
+  created() {
+    auth.bus.$on('login', () => { this.loggedIn = true; });
+    auth.bus.$on('logout', () => { this.loggedIn = false; });
+  },
+
   data: () => ({
-    loggedIn: auth.isAuthenticated,
+    loggedIn: auth.isAuthenticated(),
   }),
 };
 </script>
