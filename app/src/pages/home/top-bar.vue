@@ -1,5 +1,8 @@
 <template>
-  <div v-on:click="openModal" v-if='!loggedIn'>Log In</div>
+  <div>
+    <div v-on:click="openModal" v-if='!loggedIn'>Log In</div>
+    <div v-on:click="auth.logout()" v-if='loggedIn'>Log Out</div>
+  </div>
 </template>
 
 <script>
@@ -19,6 +22,7 @@ export default {
 
   data: () => ({
     loggedIn: auth.isAuthenticated(),
+    auth,
   }),
 };
 </script>
