@@ -1,11 +1,11 @@
 <template>
   <form>
     <div>
-      <i class="icon ion-person"></i>
+      <i class="material-icons">person</i>
       <input type="text" v-model="username" placeholder="username">
     </div>
     <div>
-      <i class="icon ion-locked"></i>
+      <i class="material-icons">vpn_key</i>
       <input type="password" v-model="password" placeholder="password">
     </div>
     <a v-on:click="login">Sign in</a>
