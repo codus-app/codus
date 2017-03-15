@@ -1,10 +1,10 @@
 export default class Starfield {
-  constructor(elem, starCount, speed, fps) {
+  constructor(elem, starCount = 2000, speed = 1, fps = 60) {
     this.elem = elem;
     this.ctx = this.elem.getContext('2d');
-    this.starCount = starCount || 2000;
-    this.fps = fps || 60;
-    this.speed = speed || 1;
+    this.starCount = starCount;
+    this.fps = fps;
+    this.speed = speed;
 
     // Set up resizing
     this.elem.width = window.innerWidth;
