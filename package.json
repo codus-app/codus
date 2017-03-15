@@ -55,6 +55,7 @@
   },
   "dependencies": {
     "animate.css": "^3.5.2",
+    "babel-polyfill": "^6.23.0",
     "vue": "^2.2.0",
     "vue-router": "^2.2.1",
     "vuex": "^2.2.1"

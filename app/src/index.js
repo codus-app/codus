@@ -1,5 +1,8 @@
+// Polyfills
+import 'babel-polyfill';
+
 // Styles
 import './styles.sass';
 
-// Main scripts
+// Main script
 import './main';
