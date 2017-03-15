@@ -1,5 +1,5 @@
 // Styles
-require('./styles.sass');
+import './styles.sass';
 
 // Main scripts
-require('./main.js');
+import './main';
