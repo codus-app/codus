@@ -3,8 +3,9 @@ import VueRouter from 'vue-router';
 import Vuex from 'vuex';
 
 // Pages
-import HomePage from './pages/home/home.vue';
+import LandingPage from './pages/landing/landing.vue';
 import LoginCallbackPage from './pages/login-callback/login-callback.vue';
+import AppHomePage from './pages/app/home/home.vue';
 
 // Components
 import Modal from './components/modal/modal.vue';
@@ -41,8 +42,8 @@ const router = new VueRouter({
       name: 'home',
       path: '/',
       components: {
-        default: HomePage,
-        navlinks: require('./pages/home/top-bar.vue'),
+        default: LandingPage,
+        navlinks: require('./pages/landing/top-bar.vue'),
       },
       meta: { title: 'Codus' },
     },
@@ -51,6 +52,15 @@ const router = new VueRouter({
       path: '/login',
       components: { default: LoginCallbackPage },
       meta: { title: 'Logging in...' },
+    },
+    {
+      name: 'app',
+      path: '/app',
+      components: {
+        default: AppHomePage,
+        navlinks: require('./pages/landing/top-bar.vue'),
+      },
+      meta: { title: 'Codus' },
     },
   ],
 });
