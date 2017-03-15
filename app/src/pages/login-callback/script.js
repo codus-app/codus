@@ -14,11 +14,12 @@ export default {
         // Store ID token in localStorage
         localStorage.setItem('id_token', res.idToken);
         localStorage.setItem('access_token', res.accessToken);
+        this.$store.commit('setLoggedIn');
         // Fetch more user information
         auth.webAuth.client.userInfo(res.accessToken, (profileErr, profile) => {
           if (profileErr) console.log(profileErr);
           else localStorage.setItem('profile', JSON.stringify(profile));
-          window.app.$router.push('/');
+          this.$router.push('/');
         });
       }
     });

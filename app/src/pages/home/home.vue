@@ -4,7 +4,7 @@
       <h1 v-if="!$store.state.loginShown">codus</h1>
     </transition>
     <canvas id="stars"></canvas>
-    <modal bgcolor="rgba(0, 0, 0, 0.75)" v-if="$store.state.loginShown" v-on:close="$store.commit('toggleLogin')">
+    <modal bgcolor="rgba(0, 0, 0, 0.75)" v-if="$store.state.loginShown" v-on:close="$store.commit('toggleLoginModal')">
       <login></login>
     </modal>
   </div>
