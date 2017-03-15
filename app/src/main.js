@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import Vuex from 'vuex';
 
 // Pages
 import HomePage from './pages/home/home.vue';
@@ -13,6 +14,11 @@ import TopBar from './components/top-bar/top-bar.vue';
 import auth from './scripts/auth';
 
 window.auth = auth;
+
+// Vuex setup
+Vue.use(Vuex);
+
+const store = new Vuex.Store({});
 
 // Global event bus
 window.bus1 = new Vue();
@@ -55,6 +61,7 @@ Vue.component('top-bar', TopBar);
 
 window.app = new Vue({
   router,
+  store,
   data: () => ({}),
 
   ready() {},
