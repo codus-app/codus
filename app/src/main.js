@@ -18,10 +18,16 @@ window.auth = auth;
 // Vuex setup
 Vue.use(Vuex);
 
-const store = new Vuex.Store({});
-
-// Global event bus
-window.bus1 = new Vue();
+const store = new Vuex.Store({
+  state: {
+    loginShown: false,
+  },
+  mutations: {
+    toggleLogin(state) {
+      state.loginShown = !state.loginShown;
+    },
+  },
+});
 
 // Vue router setup
 

@@ -12,23 +12,7 @@ export default {
     this.stars = new Starfield(document.getElementById('stars'));
   },
 
-  created() {
-    window.bus1.$on('showModal', this.openLogin);
-  },
-
   methods: {
-    // Open the "log in" modal
-    openLogin() { this.loginShown = true; },
-
-    // Close the "log in" modal
-    closeLogin() { this.loginShown = false; },
-
-    // Toggle the "log in" modal
-    toggleLogin() {
-      if (this.loginShown) this.closeLogin();
-      else this.openLogin();
-    },
-
     // Check authentication
     isAuthenticated: auth.isAuthenticated,
   },
