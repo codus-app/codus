@@ -54,6 +54,7 @@ const router = new VueRouter({
     },
   ],
 });
+// Set page title based on page metadata on each navigation
 router.beforeEach((to, from, next) => {
   document.title = to.meta.title || 'Codus';
   next();

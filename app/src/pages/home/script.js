@@ -1,4 +1,3 @@
-import auth from '../../scripts/auth';
 import Starfield from '../../scripts/starfield';
 
 export default {
@@ -10,10 +9,5 @@ export default {
 
   mounted() {
     this.stars = new Starfield(document.getElementById('stars'));
-  },
-
-  methods: {
-    // Check authentication
-    isAuthenticated: auth.isAuthenticated,
   },
 };
