@@ -1,9 +1,7 @@
 <template>
-  <div class="component-root"></div>
+  <div>Well hello there</div>
 </template>
 
 <script>
 export default {};
 </script>
-
-<style scoped lang="sass" src="./style.sass"></style>
