@@ -11,6 +11,7 @@ import AppPage from './pages/app/app.vue';
 import Modal from './components/modal/modal.vue';
 import Login from './components/login/login.vue';
 import TopBar from './components/top-bar/top-bar.vue';
+import AuthButton from './components/auth-button.vue';
 
 // Misc
 import appRoutes from './pages/app/routes';
@@ -45,25 +46,19 @@ const router = new VueRouter({
     {
       name: 'home',
       path: '/',
-      components: {
-        default: LandingPage,
-        navlinks: require('./pages/landing/top-bar.vue'),
-      },
+      component: LandingPage,
       meta: { title: 'Codus' },
     },
     {
       name: 'login',
       path: '/login',
-      components: { default: LoginCallbackPage },
+      component: LoginCallbackPage,
       meta: { title: 'Logging in...' },
     },
     {
       name: 'app',
       path: '/app/:id',
-      components: {
-        default: AppPage,
-        navlinks: require('./pages/landing/top-bar.vue'),
-      },
+      component: AppPage,
       meta: { title: 'Codus' },
       children: appRoutes,
     },
@@ -80,6 +75,7 @@ router.beforeEach((to, from, next) => {
 Vue.component('modal', Modal);
 Vue.component('login', Login);
 Vue.component('top-bar', TopBar);
+Vue.component('auth-button', AuthButton);
 
 // Create main Vue instance
 

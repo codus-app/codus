@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import auth from '../../scripts/auth';
+import auth from '../scripts/auth';
 
 export default {
   data: () => ({

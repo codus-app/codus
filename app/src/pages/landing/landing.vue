@@ -1,5 +1,9 @@
 <template>
   <div>
+    <top-bar>
+      <div slot="left"><router-link to="/">C</router-link></div>
+      <div slot="right"><auth-button></auth-button></div>
+    </top-bar>
     <transition name="modal-header-fade">
       <h1 v-if="!$store.state.loginShown">codus</h1>
     </transition>
