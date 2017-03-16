@@ -5,13 +5,17 @@ import Vuex from 'vuex';
 // Pages
 import LandingPage from './pages/landing/landing.vue';
 import LoginCallbackPage from './pages/login-callback/login-callback.vue';
-import AppHomePage from './pages/app/home/home.vue';
+import AppPage from './pages/app/app.vue';
 
 // Components
 import Modal from './components/modal/modal.vue';
 import Login from './components/login/login.vue';
 import TopBar from './components/top-bar/top-bar.vue';
 
+// Misc
+import appRoutes from './pages/app/routes';
+
+// Scripts
 import auth from './scripts/auth';
 
 window.auth = auth;
@@ -55,15 +59,17 @@ const router = new VueRouter({
     },
     {
       name: 'app',
-      path: '/app',
+      path: '/app/:id',
       components: {
-        default: AppHomePage,
+        default: AppPage,
         navlinks: require('./pages/landing/top-bar.vue'),
       },
       meta: { title: 'Codus' },
+      children: appRoutes,
     },
   ],
 });
+
 // Set page title based on page metadata on each navigation
 router.beforeEach((to, from, next) => {
   document.title = to.meta.title || 'Codus';
