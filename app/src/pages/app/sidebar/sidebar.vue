@@ -6,7 +6,7 @@
         <div class="profile-name">Elijah Tamarchenko</div>
       </div>
 
-      <router-link class="sidebar-link" to="/app/home">
+      <router-link class="sidebar-link" to="/app">
         <i class="material-icons">home</i> Home
       </router-link>
       <router-link class="sidebar-link" to="/app/practice">
