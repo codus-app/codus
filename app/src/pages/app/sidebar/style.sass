@@ -1,7 +1,11 @@
 @import '../../../colors.sass'
 
-div.sidebar
+div.root
+  display: flex
   position: absolute
+
+div.sidebar
+  flex-grow: 0
   height: 100vh
   background-color: $dark-3
 
@@ -19,6 +23,10 @@ div.sidebar
 
     i
       padding: .25em 1em
+
+.router-view
+  position: relative
+  padding: 5vw
 
 .profile
   .profile-image
