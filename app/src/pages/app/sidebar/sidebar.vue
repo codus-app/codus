@@ -5,12 +5,12 @@
       <div class="profile-name">Elijah Tamarchenko</div>
     </div>
 
-    <div class="sidebar-link">
+    <router-link class="sidebar-link" to="/app/home">
       <i class="material-icons">home</i> Home
-    </div>
-    <div class="sidebar-link">
+    </router-link>
+    <router-link class="sidebar-link" to="/app/practice">
       <i class="material-icons">code</i> Practice
-    </div>
+    </router-link>
   </div>
 </template>
 
