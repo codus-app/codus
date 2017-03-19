@@ -79,6 +79,14 @@ export default {
         }
       }
     },
+
+    // Begin render loop
+    start() {
+      setTimeout(() => {
+        if (this.running) this.step();
+        this.start(); // Recur
+      }, 1000 / this.fps);
+    },
   },
 
   mounted() {
@@ -91,5 +99,7 @@ export default {
     for (let i = 0; i < this.starCount; i += 1) {
       this.stars.push(this.getStar());
     }
+    // Start
+    this.start();
   },
 };
