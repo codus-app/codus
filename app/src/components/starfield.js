@@ -21,6 +21,7 @@ export default {
   data: () => ({
     ctx: undefined,
     stars: [],
+    running: true,
   }),
 
   methods: {
@@ -50,6 +51,34 @@ export default {
       this.$refs.stars.width = this.$refs.stars.offsetWidth;
       this.$refs.stars.height = this.$refs.stars.offsetHeight;
     },
+
+    // Draw and move all stars
+    step() {
+      this.ctx.clearRect(0, 0, this.$refs.stars.width, this.$refs.stars.height);
+
+      for (let i = 0; i < this.stars.length; i += 1) {
+        const star = this.stars[i];
+        const progress = (1 - (star.z / 25));
+        const lightness = Math.round(progress * 255);
+        this.ctx.fillStyle = `rgb(${lightness}, ${lightness}, ${lightness})`;
+
+        const projectedX = (100 / star.z) * star.x;
+        const projectedY = (100 / star.z) * star.y;
+        const finalX = projectedX + (this.$refs.stars.width / 2);
+        const finalY = projectedY + (this.$refs.stars.height / 2);
+
+        this.ctx.fillRect(finalX, finalY, 5 * progress, 5 * progress);
+
+        star.z -= this.speed / 20;
+        if (star.z < 0 ||
+            finalX < 0 ||
+            finalY < 0 ||
+            finalX > this.$refs.stars.width ||
+            finalY > this.$refs.stars.height) {
+          this.stars[i] = this.getStar(true);
+        }
+      }
+    },
   },
 
   mounted() {
@@ -58,7 +87,6 @@ export default {
     // Set up resizing
     this.resize();
     window.addEventListener('resize', () => this.resize());
-
     // Populate stars
     for (let i = 0; i < this.starCount; i += 1) {
       this.stars.push(this.getStar());
