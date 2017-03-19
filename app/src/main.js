@@ -8,6 +8,7 @@ import LoginCallbackPage from './pages/login-callback/login-callback.vue';
 import AppPage from './pages/app/app.vue';
 
 // Components
+import Starfield from './components/starfield';
 import Modal from './components/modal/modal.vue';
 import Login from './components/login/login.vue';
 import TopBar from './components/top-bar/top-bar.vue';
@@ -72,6 +73,7 @@ router.beforeEach((to, from, next) => {
 });
 
 // Register components
+Vue.component('starfield', Starfield);
 Vue.component('modal', Modal);
 Vue.component('login', Login);
 Vue.component('top-bar', TopBar);
