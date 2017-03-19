@@ -17,4 +17,12 @@ export default {
       default: 60,
     },
   },
+
+  data: () => ({
+    ctx: undefined,
+  }),
+
+  mounted() {
+    this.ctx = this.$refs.stars.getContext('2d');
+  },
 };
