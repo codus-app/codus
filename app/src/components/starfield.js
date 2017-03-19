@@ -69,7 +69,7 @@ export default {
 
         this.ctx.fillRect(finalX, finalY, 5 * progress, 5 * progress);
 
-        star.z -= this.speed / 20;
+        star.z -= this.speed / 15;
         if (star.z < 0 ||
             finalX < 0 ||
             finalY < 0 ||
