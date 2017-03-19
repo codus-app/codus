@@ -22,7 +22,17 @@ export default {
     ctx: undefined,
   }),
 
+  methods: {
+    // Adjust canvas coordinate size
+    resize() {
+      this.$refs.stars.width = this.$refs.stars.offsetWidth;
+      this.$refs.stars.height = this.$refs.stars.offsetHeight;
+    },
+  },
+
   mounted() {
     this.ctx = this.$refs.stars.getContext('2d');
+    this.resize();
+    window.addEventListener('resize', () => this.resize());
   },
 };
