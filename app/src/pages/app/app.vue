@@ -9,7 +9,7 @@
 <script>
 import Vue from 'vue';
 
-Vue.component('sidebar', require('./sidebar/sidebar.vue'));
+Vue.component('sidebar', require('../../components/sidebar/sidebar.vue'));
 
 export default {};
 </script>
