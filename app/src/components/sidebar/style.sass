@@ -13,7 +13,6 @@ div.sidebar
     display: flex
     align-items: center
 
-    background: $sidebar-selected-gradient
     padding: .25em 10em .25em 0
     font-family: 'Lato', sans-serif
     font-size: .75rem
@@ -23,6 +22,9 @@ div.sidebar
 
     i
       padding: .25em 1em
+
+    &.router-link-active
+      background: $sidebar-selected-gradient
 
 .router-view
   position: relative
