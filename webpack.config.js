@@ -94,7 +94,7 @@ const isDevServer = process.argv[1].indexOf('webpack-dev-server') !== -1;
 
 if (isC9) {
   console.log('Detected Cloud9');
-  if (isDevServer) console.log(`Preview at ${process.env.C9_HOSTNAME}`);
+  if (isDevServer) console.log(`Preview at http://${process.env.C9_HOSTNAME}`);
   module.exports.devServer.port = process.env.PORT;
   module.exports.devServer.host = process.env.IP;
 }
