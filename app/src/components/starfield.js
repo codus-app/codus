@@ -24,6 +24,20 @@ export default {
     running: true,
   }),
 
+  mounted() {
+    // Get canvas context
+    this.ctx = this.$refs.stars.getContext('2d');
+    // Set up resizing
+    this.resize();
+    window.addEventListener('resize', () => this.resize());
+    // Populate stars
+    for (let i = 0; i < this.starCount; i += 1) {
+      this.stars.push(this.getStar());
+    }
+    // Start
+    this.start();
+  },
+
   methods: {
     // Generate a star object
     getStar(back) {
@@ -87,19 +101,5 @@ export default {
         this.start(); // Recur
       }, 1000 / this.fps);
     },
-  },
-
-  mounted() {
-    // Get canvas context
-    this.ctx = this.$refs.stars.getContext('2d');
-    // Set up resizing
-    this.resize();
-    window.addEventListener('resize', () => this.resize());
-    // Populate stars
-    for (let i = 0; i < this.starCount; i += 1) {
-      this.stars.push(this.getStar());
-    }
-    // Start
-    this.start();
   },
 };
