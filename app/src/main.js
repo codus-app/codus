@@ -13,6 +13,7 @@ import Modal from './components/modal/modal.vue';
 import Login from './components/login/login.vue';
 import TopBar from './components/top-bar/top-bar.vue';
 import AuthButton from './components/auth-button.vue';
+import BinaryBackground from './components/binary-background';
 
 // Misc
 import appRoutes from './pages/app/routes';
@@ -78,6 +79,7 @@ Vue.component('modal', Modal);
 Vue.component('login', Login);
 Vue.component('top-bar', TopBar);
 Vue.component('auth-button', AuthButton);
+Vue.component('binary-background', BinaryBackground);
 
 // Create main Vue instance
 
