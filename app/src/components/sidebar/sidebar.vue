@@ -1,5 +1,4 @@
 <template>
-  <div class="root">
     <div class="sidebar">
       <div class="profile">
         <img src="https://arkisio.now.sh/profile/Conqueror1776" class="profile-image">
@@ -13,8 +12,6 @@
         <i class="material-icons">code</i> Practice
       </router-link>
     </div>
-
-    <router-view class="router-view"><!-- router-view class is for CSS selection --></router-view>
   </div>
 </template>
 
