@@ -21,13 +21,11 @@ export default {
     window.addEventListener('resize', () => this.resize());
   },
 
-  computed: {
+  methods: {
+    // Get a random digit (0 or 1)
+    randomDigit() { return [0, 1][Math.round(Math.random())]; },
     // Return the size of the canvas
     canvasSize() { return [this.$refs.binarybg.width, this.$refs.binarybg.height]; },
-  },
-
-  methods: {
-    randomDigit() { return [0, 1][Math.round(Math.random())]; },
     resize() {
       // Update canvas coordinate systenm to match actual canvas size
       this.$refs.binarybg.width = this.$refs.binarybg.offsetWidth;
@@ -47,8 +45,8 @@ export default {
       const fontSize = window.devicePixelRatio === 2 ? 30 : 15;
       this.ctx.font = `${fontSize}px Inconsolata`;
       this.ctx.fillStyle = this.textColor;
-      const numRows = Math.ceil(this.canvasSize[1] / fontSize) + 1;
-      const numCols = Math.ceil(this.canvasSize[0] / this.ctx.measureText(`0${thinSpace}`).width);
+      const numRows = Math.ceil(this.canvasSize()[1] / fontSize) + 1;
+      const numCols = Math.ceil(this.canvasSize()[0] / this.ctx.measureText(`0${thinSpace}`).width);
 
       // Populate rows
       while (this.rows.length < numRows) {
@@ -78,7 +76,7 @@ export default {
       }
 
       // Render
-      this.ctx.clearRect(0, 0, ...this.canvasSize);
+      this.ctx.clearRect(0, 0, ...this.canvasSize());
       for (let r = 0; r < numRows; r += 1) {
         this.ctx.fillText(this.rows[r].split('').join(thinSpace), 0, r * fontSize);
       }
