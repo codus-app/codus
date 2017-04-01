@@ -17,7 +17,7 @@ export default {
     // Get canvas context
     this.ctx = this.$refs.binarybg.getContext('2d');
     // Set up resizing
-    this.resize();
+    setTimeout(() => this.resize(), 50);
     window.addEventListener('resize', () => this.resize());
   },
 
