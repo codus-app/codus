@@ -12,7 +12,13 @@ import Vue from 'vue';
 
 Vue.component('sidebar', require('../../components/sidebar/sidebar.vue'));
 
-export default {};
+export default {
+  watch: {
+    $route(to, from) {
+      console.log(to, from);
+    },
+  },
+};
 </script>
 
 <style scoped lang="sass" src="./style.sass"></style>
