@@ -78,7 +78,7 @@ export default {
       // Render
       this.ctx.clearRect(0, 0, ...this.canvasSize());
       for (let r = 0; r < numRows; r += 1) {
-        this.ctx.fillText(this.rows[r].split('').join(thinSpace), 0, r * fontSize);
+        this.ctx.fillText(this.rows[r].split('').join(thinSpace), fontSize / 3, r * fontSize);
       }
     },
   },
