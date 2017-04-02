@@ -1,7 +1,7 @@
 <template>
   <div>
     <binary-background></binary-background>
-    Home
+    <h1> Welcome <br> Back, <br> Elijah </h1>
   </div>
 </template>
 
