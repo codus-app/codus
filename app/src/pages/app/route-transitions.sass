@@ -6,14 +6,17 @@
 @import '../../../../node_modules/animate.css/source/sliding_exits/slideOutDown.css'
 
 
+$duration: 1.25s
+$easing: cubic-bezier(.645, .045, .355, 1)
+
 .route-slide-down-enter-active
-  animation: slideInDown 1s
+  animation: slideInDown $duration $easing
 
 .route-slide-down-leave-active
-  animation: slideOutDown 1s
+  animation: slideOutDown $duration $easing
 
 .route-slide-up-enter-active
-  animation: slideInUp 1s
+  animation: slideInUp $duration $easing
 
 .route-slide-up-leave-active
-  animation: slideOutUp 1s
+  animation: slideOutUp $duration $easing
