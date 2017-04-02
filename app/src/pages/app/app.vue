@@ -3,7 +3,11 @@
 <template>
   <div class="component-root">
     <sidebar></sidebar>
-    <router-view class="router-view"><!-- router-view class is for CSS selection --></router-view>
+    <div class="route-container">
+      <transition :name="transitionName">
+        <router-view class="router-view"><!-- router-view class is for CSS selection --></router-view>
+      </transition>
+    </div>
   </div>
 </template>
 
@@ -13,6 +17,9 @@ import Vue from 'vue';
 Vue.component('sidebar', require('../../components/sidebar/sidebar.vue'));
 
 export default {
+  data: () => ({
+    transitionName: 'route-slide-down',
+  }),
   watch: {
     $route(to, from) {
       console.log(to, from);
@@ -22,3 +29,4 @@ export default {
 </script>
 
 <style scoped lang="sass" src="./style.sass"></style>
+<style scoped lang="sass" src="./route-transitions.sass"></style>
