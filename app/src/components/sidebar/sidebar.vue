@@ -5,7 +5,7 @@
         <div class="profile-name">Elijah Tamarchenko</div>
       </div>
 
-      <router-link class="sidebar-link" v-for="route in routes" v-bind:to="route.path" v-bind:exact="route.meta.exact || false">
+      <router-link class="sidebar-link" v-for="route in routes" v-bind:key="route.path" v-bind:to="route.path" v-bind:exact="route.meta.exact || false">
         <i class="material-icons">{{route.meta.icon}}</i> {{route.meta.label}}
       </router-link>
     </div>
