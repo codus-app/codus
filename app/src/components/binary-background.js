@@ -4,7 +4,11 @@ export default {
   props: {
     textColor: {
       type: String,
-      default: 'rgba(255,255,255,0.2)',
+      default: 'rgba(255, 255, 255, 0.2)',
+    },
+    fontSize: {
+      type: Number,
+      default: 15,
     },
   },
 
@@ -42,7 +46,7 @@ export default {
 
     draw() {
       const thinSpace = String.fromCharCode(8201);
-      const fontSize = window.devicePixelRatio === 2 ? 30 : 15;
+      const fontSize = this.fontSize * (window.devicePixelRatio === 2 ? 2 : 1);
       this.ctx.font = `${fontSize}px Inconsolata`;
       this.ctx.fillStyle = this.textColor;
       const numRows = Math.ceil(this.canvasSize()[1] / fontSize) + 1;
