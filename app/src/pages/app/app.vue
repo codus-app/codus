@@ -13,6 +13,7 @@
 
 <script>
 import Vue from 'vue';
+import routes from './routes';
 
 Vue.component('sidebar', require('../../components/sidebar/sidebar.vue'));
 
@@ -22,7 +23,12 @@ export default {
   }),
   watch: {
     $route(to, from) {
-      console.log(to, from);
+      const paths = routes.map(x => x.path);
+      if (paths.indexOf(to.path) < paths.indexOf(from.path)) {
+        this.transitionName = 'route-slide-down';
+      } else {
+        this.transitionName = 'route-slide-up';
+      }
     },
   },
 };
