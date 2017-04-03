@@ -25,17 +25,19 @@ export default {
   }),
 
   mounted() {
-    // Get canvas context
-    this.ctx = this.$refs.stars.getContext('2d');
-    // Set up resizing
-    this.resize();
-    window.addEventListener('resize', () => this.resize());
-    // Populate stars
-    for (let i = 0; i < this.starCount; i += 1) {
-      this.stars.push(this.getStar());
-    }
-    // Start
-    this.start();
+    setTimeout(() => {
+      // Get canvas context
+      this.ctx = this.$refs.stars.getContext('2d');
+      // Set up resizing
+      this.resize();
+      window.addEventListener('resize', () => this.resize());
+      // Populate stars
+      for (let i = 0; i < this.starCount; i += 1) {
+        this.stars.push(this.getStar());
+      }
+      // Start
+      this.start();
+    }, 50);
   },
 
   methods: {
