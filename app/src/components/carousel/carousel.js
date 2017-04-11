@@ -10,22 +10,20 @@ require('./carousel.sass');
 
 
 export const CarouselItem = {
-  template: '<div class="carousel-item" v-bind:style="style" v-on:click="centerSelf"><slot></slot></div>',
+  template: '<div class="carousel-item" v-bind:style="style" v-bind:class="classes" v-on:click="centerSelf"><slot></slot></div>',
   data: () => ({
     zIndex: 0,
     xtrans: 0,
     ytrans: 0,
     scale: 1,
-    opacity: 1,
+    fadeLevel: 0,
   }),
 
   computed: {
     style() {
       return {
-        transition: 'transform 0.5s, opacity 0.5s',
         transform: this.transform,
         'z-index': this.zIndex,
-        opacity: this.opacity,
       };
     },
 
@@ -34,6 +32,10 @@ export const CarouselItem = {
         `translate(${this.xtrans - 50}%, ${this.ytrans - 50}%)`,
         `scale(${this.scale})`,
       ].join(' ');
+    },
+
+    classes() {
+      return [`fade-${this.fadeLevel}`];
     },
   },
 
@@ -105,7 +107,7 @@ export const Carousel = {
       // 3. Position the center element
       center.xtrans = 0;
       center.scale = 1;
-      center.opacity = 1;
+      center.fadeLevel = 0;
       center.zIndex = Math.max(before.length, after.length) + 1;
 
       // 4. Position elements to the left and right. These elements have identical properties except
@@ -122,9 +124,8 @@ export const Carousel = {
           const absolute = (50 * item.scale * 1.25) + parentTrans;
           parentTrans = absolute; // Update how much parent was translated by
           item.xtrans = (listIndex === 0 ? -1 : 1) * absolute;
-          // Set opacity
-          item.opacity = (0.25 ** (i + 1));
-          if (item.opacity < 0.05) item.opacity = 0;
+          // Set level of fade (see carousel.sass)
+          item.fadeLevel = Math.min(i + 1, 3);
           // Set z-index
           item.zIndex = Math.max(before.length, after.length) - i;
         });

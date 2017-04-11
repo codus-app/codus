@@ -1,3 +1,5 @@
+@import '../../colors.sass'
+
 .carousel
   position: relative
   overflow-x: hidden
@@ -7,3 +9,51 @@
     top: 50%
     left: 50%
     transform: translate(-50%, -50%)
+    transition: transform .5s, opacity .5s
+    overflow: hidden
+
+    // In order to make the cards fade into the background, each card has a div displayed over it.
+    // This div is by default completely see-through, however when the fade-1, fade-2, and fade-3
+    // classes are applied to carousel-items, the div gains opacity, which makes the elements appear
+    // faded into the background while still completely covering the elements behind them
+
+    &::after
+      // Placeholder text to force rendering
+      content: ''
+      // Cover the entire card
+      position: absolute
+      top: 0
+      left: 0
+      width: 100%
+      height: 100%
+      // This is a little extra insurance for covering so that the edges never bleed through.
+      // overflow: hidden on the parent prevents this scale from darkening borders into the elements
+      // behind.
+      transform: scale(1.1)
+      // Invisible when no fade classes are applied. Fades over half a second to look nice and smooth
+      opacity: 0
+      transition: opacity .5s
+      // Make sure text is still selectable through this covering, etc.
+      pointer-events: none
+      // The color that the carousel is fading to
+      background-color: $dark-2
+
+    // First fade level: simulates 0.25 opacity
+    &.fade-1::after
+      opacity: .75
+
+    // Second fade level: simulates (0.25 ^ 2) opacity
+    &.fade-2::after
+      opacity: .9375
+
+    // Beyond second fade level, become entirely invisible. Opacity: 0 is set on the entire element
+    // just because there's no reason to render an entirely cloaked element, so this improves
+    // performance
+    &.fade-3
+      opacity: 0
+
+      // This keeps level 2 opacity because the animation easing would be messed up if it was
+      // simulataneously darkened by two methods. Choosing not to change the cover opacity and only
+      // transparentizing the parent element results in smoother transitions.
+      &::after
+        opacity: .9375
