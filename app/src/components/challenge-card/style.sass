@@ -1,0 +1,40 @@
+@import '../../colors.sass'
+
+.card
+  // Size
+  width: 24vw
+  height: 36vw
+  // Color
+  background-color: $blue
+  // Children should be aligned with flexbox
+  display: flex
+  flex-direction: column
+
+  // First direct child is the top section
+  & > *:first-child
+    text-transform: uppercase
+    letter-spacing: .3em
+    font-size: 1em
+    padding: .75em
+    text-align: center
+    flex: 0 0
+
+  // Second direct child is the middle section
+  & > div:nth-child(2)
+    background-color: $dark-3
+    position: relative
+    flex: 5 0
+
+    // Direct child of this is the second slot
+    & > *
+      position: absolute
+      width: 100%
+      top: 50%
+      transform: translateY(-50%)
+      font-size: 2em
+      text-align: center
+
+  // Third direct child is the bottom section
+  & > *:nth-child(3)
+    flex: 4 0
+    padding: 1.5em
