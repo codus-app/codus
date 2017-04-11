@@ -23,10 +23,15 @@
   & > div:nth-child(2)
     background-color: $dark-3
     position: relative
-    flex: 5 0
+    flex: 5 5
 
-    // Direct child of this is the second slot
-    & > *
+    canvas
+      position: absolute
+      width: 100%
+      height: 100%
+
+    // Second direct child of this is the second slot
+    & > *:nth-child(2)
       position: absolute
       width: 100%
       top: 50%
@@ -36,5 +41,5 @@
 
   // Third direct child is the bottom section
   & > *:nth-child(3)
-    flex: 4 0
+    flex: 4 4
     padding: 1.5em
