@@ -90,22 +90,9 @@ export const Carousel = {
         item.transitionEasing = easing;
       });
     },
-  },
 
-  watch: {
     // Distribute elements so that they align with the selected elemenent in the center
-    centerIndex(index, old) {
-      let distance;
-      if (old === undefined) distance = 0;
-      else if (Math.abs(index - old) === this.$children.length - 1) distance = 1;
-      else {
-        distance = Math.min(
-          this.mod(index - old, this.$children.length),
-          this.mod(old - index, this.$children.length),
-        );
-      }
-      console.log(distance);
-
+    moveTo(index) {
       // The element to be placed in the center position of the carousel
       const center = this.$children[index];
       // Half the length of the carousel (floor)
@@ -157,6 +144,23 @@ export const Carousel = {
           item.zIndex = Math.max(before.length, after.length) - i;
         });
       });
+    },
+  },
+
+  watch: {
+    // move elements around in a smooth animation to align the selected index in the center
+    centerIndex(index, old) {
+      // Calculate distance between the old position and th enew position
+      let distance;
+      if (old === undefined) distance = 0;
+      else {
+        distance = Math.min(
+          this.mod(index - old, this.$children.length),
+          this.mod(old - index, this.$children.length),
+        );
+      }
+      console.log(distance);
+      this.moveTo(index);
     },
   },
 };
