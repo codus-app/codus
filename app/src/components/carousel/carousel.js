@@ -123,7 +123,8 @@ export const Carousel = {
           parentTrans = absolute; // Update how much parent was translated by
           item.xtrans = (listIndex === 0 ? -1 : 1) * absolute;
           // Set opacity
-          item.opacity = Math.max(1 - (0.25 * (((i / 2) + 1) ** 2)), 0);
+          item.opacity = (0.25 ** (i + 1));
+          if (item.opacity < 0.05) item.opacity = 0;
           // Set z-index
           item.zIndex = Math.max(before.length, after.length) - i;
         });
