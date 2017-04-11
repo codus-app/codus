@@ -1,5 +1,5 @@
 // Component to display an interactive carousel for a series of items
-
+require('./carousel.sass');
 
 /*
  * CarouselItem component
@@ -119,7 +119,7 @@ export const Carousel = {
           // Set size
           item.scale = 0.8 ** (i + 1);
           // Set x offset. Negative for before, positive for after
-          const absolute = (105 * item.scale * 1.125) + parentTrans;
+          const absolute = (50 * item.scale * 1.125) + parentTrans;
           parentTrans = absolute; // Update how much parent was translated by
           item.xtrans = (listIndex === 0 ? -1 : 1) * absolute;
           // Set opacity
