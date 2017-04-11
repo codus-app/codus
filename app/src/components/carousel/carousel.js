@@ -17,6 +17,9 @@ export const CarouselItem = {
     ytrans: 0,
     scale: 1,
     fadeLevel: 0,
+
+    transitionSeconds: 0.5,
+    transitionEasing: 'ease',
   }),
 
   computed: {
@@ -24,6 +27,8 @@ export const CarouselItem = {
       return {
         transform: this.transform,
         'z-index': this.zIndex,
+        transitionDuration: `${this.transitionSeconds}s`,
+        transitionTimingFunction: this.transitionEasing,
       };
     },
 
@@ -78,6 +83,13 @@ export const Carousel = {
   methods: {
     // http://stackoverflow.com/q/4467539
     mod: (n, m) => ((n % m) + m) % m,
+
+    setTransition(duration = 0.5, easing = 'ease') {
+      this.$children.forEach((item) => {
+        item.transitionSeconds = duration;
+        item.transitionEasing = easing;
+      });
+    },
   },
 
   watch: {
