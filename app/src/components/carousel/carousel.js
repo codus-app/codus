@@ -150,17 +150,36 @@ export const Carousel = {
   watch: {
     // move elements around in a smooth animation to align the selected index in the center
     centerIndex(index, old) {
+      // This is the case for the first run
+      if (old === undefined) old = index;
+
       // Calculate distance between the old position and th enew position
+      const rightDistance = this.mod(index - old, this.$children.length); // Distance if we go right
+      const leftDistance = this.mod(old - index, this.$children.length); // Distance if we go left
       let distance;
-      if (old === undefined) distance = 0;
-      else {
-        distance = Math.min(
-          this.mod(index - old, this.$children.length),
-          this.mod(old - index, this.$children.length),
-        );
+      if (leftDistance === 0 || rightDistance === 0) distance = 0;
+      else if (leftDistance < rightDistance) distance = -1 * leftDistance;
+      else if (leftDistance > rightDistance) distance = rightDistance;
+      else throw new Error('something went wrong');
+      // Direction is -1 if we're going left, 1 if we're going right
+      const direction = Math.sign(distance);
+
+      // Move directly if distance is 0 or 1
+      if (Math.abs(distance) <= 1) {
+        this.moveTo(index);
+
+      // If we're moving more than one card back or forth, we transition one step at a time
+      } else {
+        // Total delay, used to allow sequence of setTimeout
+        let delay = 0;
+        // Change an index value by one step in whichever direction the carousel is moving
+        const step = n => this.mod(n + direction, this.$children.length);
+        // Loop through and move
+        for (let i = step(old); i !== step(index); i = step(i)) {
+          setTimeout(() => this.moveTo(i), delay);
+          delay += 500;
+        }
       }
-      console.log(distance);
-      this.moveTo(index);
     },
   },
 };
