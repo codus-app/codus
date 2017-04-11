@@ -41,7 +41,7 @@ export const CarouselItem = {
 
   methods: {
     centerSelf() {
-      this.$parent.arrange(this.$parent.$children.indexOf(this));
+      this.$parent.centerIndex = this.$parent.$children.indexOf(this);
     },
   },
 };
@@ -68,26 +68,30 @@ export const Carousel = {
     );
   },
 
-  data: () => ({}),
+  data: () => ({
+    centerIndex: undefined,
+  }),
 
   // Begin by centering the first element in the carousel
-  mounted() { this.arrange(0); },
+  mounted() { this.centerIndex = 0; },
 
   methods: {
     // http://stackoverflow.com/q/4467539
     mod: (n, m) => ((n % m) + m) % m,
+  },
 
+  watch: {
     // Distribute elements so that they align with the selected elemenent in the center
-    arrange(centerIndex) {
+    centerIndex(index) {
       // The element to be placed in the center position of the carousel
-      const center = this.$children[centerIndex];
+      const center = this.$children[index];
       // Half the length of the carousel (floor)
       const half = this.$children.length / 2;
 
       // 1. Build a list of items that will be displayed to the left of the item at centerIndex
       const before = [];
       // Keep adding items until half the non-centerIndex items have been added
-      for (let i = centerIndex - 1; before.length < half; i -= 1) {
+      for (let i = index - 1; before.length < half; i -= 1) {
         // this._mod is used to emulate a toroidal array by mapping elements below index 0 or beyond
         // the max index to elements in the valid array range
         before.push(this.$children[this.mod(i, this.$children.length)]);
@@ -98,7 +102,7 @@ export const Carousel = {
       // Number of elements that have not yet been accounted for (neither before nor center)
       const numberRemaining = (this.$children.length - before.length - 1);
       // Add the rest of the elements to 'after'
-      for (let i = centerIndex + 1; after.length < numberRemaining; i += 1) {
+      for (let i = index + 1; after.length < numberRemaining; i += 1) {
         after.push(this.$children[this.mod(i, this.$children.length)]);
       }
 
