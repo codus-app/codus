@@ -94,7 +94,18 @@ export const Carousel = {
 
   watch: {
     // Distribute elements so that they align with the selected elemenent in the center
-    centerIndex(index) {
+    centerIndex(index, old) {
+      let distance;
+      if (old === undefined) distance = 0;
+      else if (Math.abs(index - old) === this.$children.length - 1) distance = 1;
+      else {
+        distance = Math.min(
+          this.mod(index - old, this.$children.length),
+          this.mod(old - index, this.$children.length),
+        );
+      }
+      console.log(distance);
+
       // The element to be placed in the center position of the carousel
       const center = this.$children[index];
       // Half the length of the carousel (floor)
