@@ -269,7 +269,7 @@ export const CarouselDots = {
   template: `
     <div class="carousel-dots">
       <label class="carousel-dot" v-for="i in numDots">
-        <input type="radio" name="carousel-dot" value="i - 1" v-model="selected"/>
+        <input type="radio" name="carousel-dot" v-bind:value="i - 1" v-model="selected"/>
         <div></div>
       </label>
     </div>
