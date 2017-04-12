@@ -14,7 +14,7 @@ import Login from './components/login/login.vue';
 import TopBar from './components/top-bar/top-bar.vue';
 import AuthButton from './components/auth-button.vue';
 import BinaryBackground from './components/binary-background';
-import { CarouselItem, Carousel } from './components/carousel/carousel';
+import { CarouselItem, Carousel, CarouselArrow } from './components/carousel/carousel';
 import ChallengeCard from './components/challenge-card/challenge-card.vue';
 
 // Misc
@@ -84,6 +84,7 @@ Vue.component('auth-button', AuthButton);
 Vue.component('binary-background', BinaryBackground);
 Vue.component('carousel-item', CarouselItem);
 Vue.component('carousel', Carousel);
+Vue.component('carousel-arrow', CarouselArrow);
 Vue.component('challenge-card', ChallengeCard);
 
 // Create main Vue instance

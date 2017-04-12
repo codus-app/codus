@@ -207,3 +207,44 @@ export const Carousel = {
     },
   },
 };
+
+
+/*
+ * CarouselArrow component
+ *
+ * This displays a left or right arrow depending on the passed direction. This is not automatically
+ * connected to a carousel, the user is responsible for facilitating that connection.
+ */
+
+
+export const CarouselArrow = {
+  props: {
+    direction: {
+      type: String,
+      validator(value) {
+        return value === 'left' || value === 'right';
+      },
+    },
+  },
+
+  // Material icons "chevron left" or "chevron right"
+  template: '<i v-bind:class="classes" v-on:click="move">keyboard_arrow_{{direction}}</i>',
+
+  methods: {
+    move() {
+      if (this.direction === 'left') this.$emit('left');
+      if (this.direction === 'right') this.$emit('right');
+    },
+  },
+
+  computed: {
+    // Classes are carousel-arrow, material-icons, and left or right
+    classes() {
+      return [
+        'carousel-arrow',
+        'material-icons',
+        this.direction,
+      ];
+    },
+  },
+};

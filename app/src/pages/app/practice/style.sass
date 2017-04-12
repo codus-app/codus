@@ -1,4 +1,26 @@
+@import '../../../colors.sass'
+
 .carousel
+  position: absolute
+  top: 0
   left: 0
   width: 100%
   height: 100%
+  z-index: 0
+
+.carousel-arrow
+  position: absolute
+  top: 50%
+  transform: translateY(-50%)
+  z-index: 1
+  color: transparentize($white, .75)
+  transition: color .25s
+
+  &.left
+    left: 2.5vw
+
+  &.right
+    right: 2.5vw
+
+  &:hover
+    color: transparentize($white, .25)
