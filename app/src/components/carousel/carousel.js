@@ -248,3 +248,34 @@ export const CarouselArrow = {
     },
   },
 };
+
+
+/*
+ * CarouselDots component
+ *
+ * This displays a sequence of dots and fires events when each is clicked. Again, the user is
+ * responsible for connecting this to a carousel.
+ */
+
+
+export const CarouselDots = {
+  props: {
+    numDots: {
+      type: Number,
+      required: true,
+    },
+  },
+
+  template: `
+    <div class="carousel-dots">
+      <label class="carousel-dot" v-for="i in numDots">
+        <input type="radio" name="carousel-dot" value="i - 1" v-model="selected"/>
+        <div></div>
+      </label>
+    </div>
+  `,
+
+  data: () => ({
+    selected: 0,
+  }),
+};
