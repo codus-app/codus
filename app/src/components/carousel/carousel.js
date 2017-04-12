@@ -172,9 +172,8 @@ export const Carousel = {
       let distance;
       if (leftDistance === 0 || rightDistance === 0) distance = 0;
       else if (leftDistance < rightDistance) distance = -1 * leftDistance;
-      else if (leftDistance > rightDistance) distance = rightDistance;
-      else if (Number.isNaN(leftDistance)) throw new Error('Cannot set carousel centerIndex to undefined');
-      else distance = rightDistance;
+      else if (leftDistance >= rightDistance) distance = rightDistance;
+      else throw new Error('Cannot set carousel centerIndex to undefined');
       // Direction is -1 if we're going left, 1 if we're going right
       const direction = Math.sign(distance);
 
