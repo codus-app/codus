@@ -164,15 +164,15 @@ export const Carousel = {
       // Direction is -1 if we're going left, 1 if we're going right
       const direction = Math.sign(distance);
 
-      // Move directly if distance is less than 2
-      if (Math.abs(distance) <= 2) {
+      // Move directly if distance is 0 or 1
+      if (Math.abs(distance) <= 1) {
         this.setTransition(0.5);
         this.moveTo(index);
 
       // If we're moving more than one card back or forth, we transition one step at a time
       } else {
         // Adjust the time in between each transition
-        const delayInterval = 0.5 / Math.abs(distance);
+        const delayInterval = Math.min(0.125, 0.5 / (Math.abs(distance) + 1));
         this.setTransition(delayInterval, 'linear');
         // Total delay, used to allow sequence of setTimeout
         let delay = 0;
