@@ -145,6 +145,16 @@ export const Carousel = {
         });
       });
     },
+
+    // Slide to the left
+    left(n = 1) {
+      this.centerIndex = this.mod(this.centerIndex - n, this.$children.length);
+    },
+
+    // Slide to the right
+    right(n = 1) {
+      this.centerIndex = this.mod(this.centerIndex + n, this.$children.length);
+    },
   },
 
   watch: {
