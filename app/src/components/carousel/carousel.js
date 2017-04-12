@@ -164,7 +164,7 @@ export const Carousel = {
       // Direction is -1 if we're going left, 1 if we're going right
       const direction = Math.sign(distance);
 
-      // Move directly if distance is 0 or 1
+      // Move directly if distance is less than 2
       if (Math.abs(distance) <= 2) {
         this.setTransition(0.5);
         this.moveTo(index);
@@ -172,16 +172,26 @@ export const Carousel = {
       // If we're moving more than one card back or forth, we transition one step at a time
       } else {
         // Adjust the time in between each transition
-        const delayInterval = 500 / Math.abs(distance);
-        this.setTransition(delayInterval / 1000, 'linear');
+        const delayInterval = 0.5 / Math.abs(distance);
+        this.setTransition(delayInterval, 'linear');
         // Total delay, used to allow sequence of setTimeout
         let delay = 0;
         // Change an index value by one step in whichever direction the carousel is moving
         const step = n => this.mod(n + direction, this.$children.length);
+        // Move function that adjusts easing before moving. If it's the first shift, ease in, and if
+        // it's the last, ease out. Otherwise, use linear easing.
+        const move = (i, initial, end) => {
+          // Adjust easing
+          if (i === initial) this.setTransition(delayInterval, 'ease-in');
+          if (i === end) this.setTransition(delayInterval, 'ease-out');
+          else this.setTransition(delayInterval, 'linear');
+          this.moveTo(i);
+        };
         // Loop through and move
         for (let i = step(old); i !== step(index); i = step(i)) {
-          setTimeout(() => this.moveTo(i), delay);
-          delay += delayInterval;
+          // Adjust transition easing
+          setTimeout(() => move(i, step(old), index), delay);
+          delay += delayInterval * 1000;
         }
       }
     },
