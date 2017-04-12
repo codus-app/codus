@@ -58,7 +58,32 @@
       &::after
         opacity: .9375
 
+
+
 .carousel-arrow
   display: block
   font-size: 3rem
   cursor: pointer
+
+
+
+.carousel-dots
+  text-align: center
+
+  .carousel-dot
+    margin: 0 .2em
+    display: inline-block
+
+    input
+      display: none
+
+      &:checked + div
+        background-color: $dark-4
+
+    div
+      display: block
+      width: .5em
+      height: .5em
+      background-color: $dark-3
+      border-radius: 50%
+      transition: background-color .25s
