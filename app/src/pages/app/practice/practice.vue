@@ -11,7 +11,7 @@
       </challenge-card>
     </carousel>
 
-    <carousel-dots :numDots="10"></carousel-dots>
+    <carousel-dots ref="dots" :numDots="10" v-on:change="dotUpdate"></carousel-dots>
   </div>
 </template>
 
@@ -23,6 +23,9 @@ export default {
     },
     moveRight() {
       this.$refs.carousel.right();
+    },
+    dotUpdate() {
+      this.$refs.carousel.centerIndex = this.$refs.dots.selected;
     },
   },
 };

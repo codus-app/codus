@@ -278,4 +278,10 @@ export const CarouselDots = {
   data: () => ({
     selected: 0,
   }),
+
+  watch: {
+    selected() {
+      this.$emit('change');
+    },
+  },
 };
