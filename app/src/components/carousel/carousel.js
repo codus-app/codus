@@ -74,11 +74,11 @@ export const Carousel = {
   },
 
   data: () => ({
-    centerIndex: undefined,
+    centerIndex: 0,
   }),
 
   // Begin by centering the first element in the carousel
-  mounted() { this.centerIndex = 0; },
+  mounted() { this.moveTo(this.centerIndex); },
 
   methods: {
     // http://stackoverflow.com/q/4467539
@@ -102,7 +102,7 @@ export const Carousel = {
       const before = [];
       // Keep adding items until half the non-centerIndex items have been added
       for (let i = index - 1; before.length < half; i -= 1) {
-        // this._mod is used to emulate a toroidal array by mapping elements below index 0 or beyond
+        // this._mod is used to emulate a circular array by mapping elements below index 0 or beyond
         // the max index to elements in the valid array range
         before.push(this.$children[this.mod(i, this.$children.length)]);
       }
@@ -166,7 +166,7 @@ export const Carousel = {
       // This is the case for the first run
       if (old === undefined) old = index;
 
-      // Calculate distance between the old position and th enew position
+      // Calculate distance between the old position and the new position
       const rightDistance = this.mod(index - old, this.$children.length); // Distance if we go right
       const leftDistance = this.mod(old - index, this.$children.length); // Distance if we go left
       let distance;
