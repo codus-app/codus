@@ -46,6 +46,7 @@ export const CarouselItem = {
 
   methods: {
     centerSelf() {
+      this.$parent.circularMove = true;
       this.$parent.centerIndex = this.$parent.$children.indexOf(this);
     },
   },
@@ -75,6 +76,9 @@ export const Carousel = {
 
   data: () => ({
     centerIndex: 0,
+    // Used to decide whether the carousel can move circularly when animating. Circular movement
+    // makes sense for arrow and click navigation, but not for dot navigation.
+    circularMove: true,
   }),
 
   // Begin by centering the first element in the carousel
@@ -170,10 +174,15 @@ export const Carousel = {
       const rightDistance = this.mod(index - old, this.$children.length); // Distance if we go right
       const leftDistance = this.mod(old - index, this.$children.length); // Distance if we go left
       let distance;
-      if (leftDistance === 0 || rightDistance === 0) distance = 0;
-      else if (leftDistance < rightDistance) distance = -1 * leftDistance;
-      else if (leftDistance >= rightDistance) distance = rightDistance;
-      else throw new Error('Cannot set carousel centerIndex to undefined');
+      // If circular movement is on, we take the shortest path to the new index
+      if (this.circularMove) {
+        if (leftDistance === 0 || rightDistance === 0) distance = 0;
+        else if (leftDistance < rightDistance) distance = -leftDistance;
+        else if (leftDistance >= rightDistance) distance = rightDistance;
+        else throw new Error('Cannot set carousel centerIndex to undefined');
+      // If circular movement is off we can't loop around
+      } else distance = index < old ? -leftDistance : rightDistance;
+
       // Direction is -1 if we're going left, 1 if we're going right
       const direction = Math.sign(distance);
 

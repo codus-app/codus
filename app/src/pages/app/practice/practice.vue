@@ -19,13 +19,16 @@
 export default {
   methods: {
     moveLeft() {
+      this.$refs.carousel.circularMove = true;
       this.$refs.carousel.left();
     },
     moveRight() {
+      this.$refs.carousel.circularMove = true;
       this.$refs.carousel.right();
     },
 
     updateCarouselFromDots() {
+      this.$refs.carousel.circularMove = false;
       this.$refs.carousel.centerIndex = this.$refs.dots.selected;
     },
     updateDotsFromCarousel() {
