@@ -144,6 +144,9 @@ export const Carousel = {
           item.zIndex = Math.max(before.length, after.length) - i;
         });
       });
+
+      // 5. Emit event to signify the change
+      this.$emit('change');
     },
 
     // Slide to the left

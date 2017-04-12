@@ -3,7 +3,7 @@
     <carousel-arrow direction="left" v-on:left="moveLeft"></carousel-arrow>
     <carousel-arrow direction="right" v-on:right="moveRight"></carousel-arrow>
 
-    <carousel ref="carousel">
+    <carousel ref="carousel" v-on:change="updateDotsFromCarousel">
       <challenge-card v-for="i in 10">
         <div slot="top">Test</div>
         <div slot="title">Card {{ i }}</div>
@@ -11,7 +11,7 @@
       </challenge-card>
     </carousel>
 
-    <carousel-dots ref="dots" :numDots="10" v-on:change="dotUpdate"></carousel-dots>
+    <carousel-dots ref="dots" :numDots="10" v-on:change="updateCarouselFromDots"></carousel-dots>
   </div>
 </template>
 
@@ -24,8 +24,12 @@ export default {
     moveRight() {
       this.$refs.carousel.right();
     },
-    dotUpdate() {
+
+    updateCarouselFromDots() {
       this.$refs.carousel.centerIndex = this.$refs.dots.selected;
+    },
+    updateDotsFromCarousel() {
+      this.$refs.dots.selected = this.$refs.carousel.centerIndex;
     },
   },
 };
