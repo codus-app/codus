@@ -9,6 +9,7 @@ const webAuth = new auth0.WebAuth({
 export default {
   webAuth,
 
+  // Log in with a username and password
   login(username, password) {
     webAuth.redirect.loginWithCredentials({
       connection: 'Username-Password-Authentication',
@@ -19,6 +20,7 @@ export default {
     });
   },
 
+  // Log the logged-in user out and return to home
   logout() {
     localStorage.removeItem('id_token');
     localStorage.removeItem('access_token');
@@ -36,5 +38,18 @@ export default {
     return localStorage.getItem('id_token') !== null &&
            localStorage.getItem('access_token') !== null &&
            localStorage.getItem('profile') !== null;
+  },
+
+  // Create a new account
+  signUp(username, password, email, fullName, callback) {
+    webAuth.signup({
+      // Parameters required by Auth0
+      email,
+      connection: 'Username-Password-Authentication',
+      password,
+      // Extra paramters required by Codus
+      username,
+      user_metadata: { name: fullName },
+    }, callback);
   },
 };
