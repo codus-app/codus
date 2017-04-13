@@ -41,7 +41,7 @@ export default {
   },
 
   // Create a new account
-  signUp(username, password, email, fullName, callback) {
+  signup(username, password, email, fullName, callback) {
     webAuth.signup({
       // Parameters required by Auth0
       email,
