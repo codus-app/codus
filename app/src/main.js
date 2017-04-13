@@ -103,7 +103,6 @@ Vue.component('challenge-card', ChallengeCard);
 window.app = new Vue({
   router,
   store,
-  data: () => ({}),
 
   ready() {},
 
