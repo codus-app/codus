@@ -38,6 +38,15 @@
       // The color that the carousel is fading to
       background-color: $dark-2
 
+    // Faded elements cannot be interacted with beyond a click to navigate.
+    &.fade-1,
+    &.fade-2,
+    &.fade-3
+      user-select: none
+
+      &::after
+        pointer-events: all
+
     // First fade level: simulates 0.25 opacity
     &.fade-1::after
       opacity: .75
