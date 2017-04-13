@@ -11,6 +11,9 @@
     <modal bgcolor="rgba(0, 0, 0, 0.75)" v-if="$store.state.loginShown" v-on:close="$store.commit('toggleLoginModal')">
       <login></login>
     </modal>
+    <modal bgcolor="rgba(0, 0, 0, 0.75)" v-if="$store.state.signupShown" v-on:close="$store.commit('toggleSignupModal')">
+      <signup></signup>
+    </modal>
   </div>
 </template>
 

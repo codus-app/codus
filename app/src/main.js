@@ -12,6 +12,7 @@ import AppPage from './pages/app/app.vue';
 import Starfield from './components/starfield';
 import Modal from './components/modal/modal.vue';
 import Login from './components/login/login.vue';
+import Signup from './components/signup/signup.vue';
 import TopBar from './components/top-bar/top-bar.vue';
 import AuthButtons from './components/auth-buttons.vue';
 import BinaryBackground from './components/binary-background';
@@ -36,9 +37,11 @@ const store = new Vuex.Store({
   state: {
     loggedIn: auth.isAuthenticated(),
     loginShown: false,
+    signupShown: false,
   },
   mutations: {
     toggleLoginModal(state) { state.loginShown = !state.loginShown; },
+    toggleSignupModal(state) { state.signupShown = !state.signupShown; },
     setLoggedIn(state) { state.loggedIn = true; },
     setLoggedOut(state) { state.loggedIn = false; },
   },
@@ -99,6 +102,7 @@ router.beforeEach((to, from, next) => {
 Vue.component('starfield', Starfield);
 Vue.component('modal', Modal);
 Vue.component('login', Login);
+Vue.component('signup', Signup);
 Vue.component('top-bar', TopBar);
 Vue.component('auth-buttons', AuthButtons);
 Vue.component('binary-background', BinaryBackground);
