@@ -84,6 +84,7 @@ module.exports = {
     contentBase: path.join(__dirname, 'app'),
     historyApiFallback: true,
     noInfo: true,
+    host: '0.0.0.0',
   },
 };
 
