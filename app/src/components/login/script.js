@@ -11,4 +11,8 @@ export default {
       auth.login(this.username, this.password);
     },
   },
+
+  mounted() {
+    this.$refs.usernameInput.focus();
+  },
 };
