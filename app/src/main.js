@@ -25,7 +25,10 @@ import auth from './scripts/auth';
 
 window.auth = auth;
 
+
 // Vuex setup
+
+
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
@@ -40,7 +43,9 @@ const store = new Vuex.Store({
   },
 });
 
+
 // Vue router setup
+
 
 Vue.use(VueRouter);
 
@@ -75,7 +80,10 @@ router.beforeEach((to, from, next) => {
   next();
 });
 
+
 // Register components
+
+
 Vue.component('starfield', Starfield);
 Vue.component('modal', Modal);
 Vue.component('login', Login);
@@ -88,7 +96,9 @@ Vue.component('carousel-arrow', CarouselArrow);
 Vue.component('carousel-dots', CarouselDots);
 Vue.component('challenge-card', ChallengeCard);
 
+
 // Create main Vue instance
+
 
 window.app = new Vue({
   router,

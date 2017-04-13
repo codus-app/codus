@@ -1,8 +1,8 @@
 <template>
     <div class="sidebar">
       <div class="profile">
-        <img src="https://arkisio.now.sh/profile/Conqueror1776" class="profile-image">
-        <div class="profile-name">Elijah Tamarchenko</div>
+        <img v-bind:src="profile.picture" class="profile-image">
+        <div class="profile-name">{{ profile.name }}</div>
       </div>
 
       <router-link class="sidebar-link" v-for="route in routes" v-bind:key="route.path" v-bind:to="route.path" v-bind:exact="route.meta.exact || false">
@@ -17,6 +17,9 @@ import routes from '../../pages/app/routes';
 
 export default {
   data: () => ({ routes }),
+  computed: {
+    profile: () => JSON.parse(localStorage.getItem('profile') || '{}'),
+  },
 };
 </script>
 
