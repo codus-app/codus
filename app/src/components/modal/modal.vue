@@ -1,6 +1,6 @@
 <template>
   <transition name="modal-fade">
-    <div class="modal-bg" ref="modal-bg" v-bind:style="style" v-on:click.self="$emit('close')">
+    <div class="modal-bg" v-bind:style="style" v-on:click.self="$emit('close')">
       <div class="modal-container">
         <div class="modal">
           <slot>Modal!</slot>
