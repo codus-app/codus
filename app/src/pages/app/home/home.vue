@@ -1,14 +1,14 @@
 <template>
   <div>
     <binary-background></binary-background>
-    <h1>Welcome<br>back,<br>{{ profile.nickname }}</h1>
+    <h1>Welcome<br>back,<br>{{ firstName }}</h1>
   </div>
 </template>
 
 <script>
 export default {
   computed: {
-    profile: () => JSON.parse(localStorage.getItem('profile') || '{}'),
+    firstName: () => JSON.parse(localStorage.getItem('profile')).user_metadata.name.split(' ')[0],
   },
 };
 </script>
