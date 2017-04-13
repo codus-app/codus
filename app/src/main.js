@@ -4,6 +4,7 @@ import Vuex from 'vuex';
 
 // Pages
 import LandingPage from './pages/landing/landing.vue';
+import LoginPage from './pages/login/login.vue';
 import LoginCallbackPage from './pages/login-callback/login-callback.vue';
 import AppPage from './pages/app/app.vue';
 
@@ -61,6 +62,12 @@ const router = new VueRouter({
     {
       name: 'login',
       path: '/login',
+      component: LoginPage,
+      meta: { title: 'Log In' },
+    },
+    {
+      name: 'login-callback',
+      path: '/login_callback',
       component: LoginCallbackPage,
       meta: { title: 'Logging in...' },
     },

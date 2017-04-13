@@ -1,5 +1,5 @@
 <template>
-  <form v-on:keydown.enter="login">
+  <form class="login-form" v-on:keydown.enter="login">
     <div>
       <i class="material-icons">person</i>
       <input type="text" v-model="username" placeholder="username">
