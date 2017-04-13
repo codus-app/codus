@@ -46,8 +46,11 @@ export const CarouselItem = {
 
   methods: {
     centerSelf() {
-      this.$parent.circularMove = true;
-      this.$parent.centerIndex = this.$parent.$children.indexOf(this);
+      // Invisible carousel elements can't be navigated to by clicking
+      if (this.fadeLevel < 3) {
+        this.$parent.circularMove = true;
+        this.$parent.centerIndex = this.$parent.$children.indexOf(this);
+      }
     },
   },
 };
