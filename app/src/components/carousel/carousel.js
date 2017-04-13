@@ -194,7 +194,7 @@ export const Carousel = {
       // If we're moving more than one card back or forth, we transition one step at a time
       } else {
         // Adjust the time in between each transition
-        const delayInterval = Math.min(0.125, 0.5 / (Math.abs(distance) + 1));
+        const delayInterval = Math.max(0.05, 0.5 / (Math.abs(distance) + 1));
         this.setTransition(delayInterval, 'linear');
         // Total delay, used to allow sequence of setTimeout
         let delay = 0;
