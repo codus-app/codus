@@ -18,7 +18,7 @@ import routes from '../../pages/app/routes';
 export default {
   data: () => ({ routes }),
   computed: {
-    profile: () => JSON.parse(localStorage.getItem('profile') || '{}'),
+    profile: () => JSON.parse(localStorage.getItem('profile')),
   },
 };
 </script>
