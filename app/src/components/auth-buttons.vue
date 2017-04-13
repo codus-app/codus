@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="auth-buttons">
+    <div v-on:click="$store.commit('toggleSignupModal')" v-if='!$store.state.loggedIn'>Sign Up</div>
     <div v-on:click="$store.commit('toggleLoginModal')" v-if='!$store.state.loggedIn'>Log In</div>
     <div v-on:click="auth.logout()" v-if='$store.state.loggedIn'>Log Out</div>
   </div>
@@ -16,6 +17,13 @@ export default {
 </script>
 
 <style scoped lang="sass">
-  div
-    cursor: pointer
+  .auth-buttons
+    height: 1rem
+    display: flex
+    font-size: .75rem
+    align-items: center
+
+    div
+      margin-left: 1em
+      cursor: pointer
 </style>
