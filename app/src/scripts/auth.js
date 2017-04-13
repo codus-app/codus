@@ -9,6 +9,14 @@ const webAuth = new auth0.WebAuth({
 export default {
   webAuth,
 
+  // Return an auth0.Management instance
+  getManagement() {
+    return new auth0.Management({
+      domain: 'codus.auth0.com',
+      token: localStorage.getItem('id_token'),
+    });
+  },
+
   // Log in with a username and password
   login(username, password) {
     webAuth.redirect.loginWithCredentials({
