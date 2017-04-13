@@ -7,8 +7,11 @@
 
 <script>
 export default {
+  data: () => ({
+    userInfo: JSON.parse(localStorage.getItem('profile')),
+  }),
   computed: {
-    firstName: () => JSON.parse(localStorage.getItem('profile')).user_metadata.name.split(' ')[0],
+    firstName() { return this.userInfo.user_metadata.name.split(' ')[0]; },
   },
 };
 </script>
