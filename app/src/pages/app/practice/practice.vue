@@ -4,19 +4,22 @@
     <carousel-arrow direction="right" v-on:right="moveRight"></carousel-arrow>
 
     <carousel ref="carousel" v-on:change="updateDotsFromCarousel">
-      <challenge-card v-for="i in 10" v-bind:key="i">
+      <challenge-card v-for="i in cardCount" v-bind:key="i">
         <div slot="top">Test</div>
         <div slot="title">Card {{ i }}</div>
         <div slot="bottom">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</div>
       </challenge-card>
     </carousel>
 
-    <carousel-dots ref="dots" :numDots="10" v-on:change="updateCarouselFromDots"></carousel-dots>
+    <carousel-dots ref="dots" :numDots="cardCount" v-on:change="updateCarouselFromDots"></carousel-dots>
   </div>
 </template>
 
 <script>
 export default {
+  data: () => ({
+    cardCount: 25,
+  }),
   methods: {
     moveLeft() {
       this.$refs.carousel.circularMove = true;
