@@ -4,7 +4,7 @@
     <carousel-arrow direction="right" v-on:right="moveRight"></carousel-arrow>
 
     <carousel ref="carousel" v-on:change="updateDotsFromCarousel">
-      <challenge-card v-for="i in 10">
+      <challenge-card v-for="i in 10" v-bind:key="i">
         <div slot="top">Test</div>
         <div slot="title">Card {{ i }}</div>
         <div slot="bottom">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</div>
