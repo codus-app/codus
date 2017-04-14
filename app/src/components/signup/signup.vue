@@ -31,4 +31,6 @@
 <script src="./script.js"></script>
 <style scoped lang="sass">
   @import '../login/style.sass'
+  form > div > div input
+    width: 6.5em
 </style>
