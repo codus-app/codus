@@ -12,10 +12,15 @@
 
 <script>
 export default {
-  props: ['bgcolor'],
+  props: {
+    bgcolor: {
+      type: String,
+      default: 'rgba(0, 0, 0, 0.75)',
+    },
+  },
   computed: {
     style() {
-      return { backgroundColor: this.bgcolor || 'rgba(0, 0, 0, 0.5)' };
+      return { backgroundColor: this.bgcolor };
     },
   },
 };
