@@ -36,12 +36,8 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
     loggedIn: auth.isAuthenticated(),
-    loginShown: false,
-    signupShown: false,
   },
   mutations: {
-    toggleLoginModal(state) { state.loginShown = !state.loginShown; },
-    toggleSignupModal(state) { state.signupShown = !state.signupShown; },
     setLoggedIn(state) { state.loggedIn = true; },
     setLoggedOut(state) { state.loggedIn = false; },
   },

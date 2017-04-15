@@ -1,7 +1,7 @@
 <template>
   <div class="auth-buttons">
-    <div v-on:click="$store.commit('toggleSignupModal')" v-if='!$store.state.loggedIn'>Sign Up</div>
-    <div v-on:click="$store.commit('toggleLoginModal')" v-if='!$store.state.loggedIn'>Log In</div>
+    <div v-on:click="$emit('signup')" v-if='!$store.state.loggedIn'>Sign Up</div>
+    <div v-on:click="$emit('login')" v-if='!$store.state.loggedIn'>Log In</div>
     <div v-on:click="auth.logout()" v-if='$store.state.loggedIn'>Log Out</div>
   </div>
 </template>
