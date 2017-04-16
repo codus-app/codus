@@ -1,6 +1,9 @@
 <template>
   <div class="profile">
-    <img v-bind:src="profile.picture" class="profile-image">
+    <div class="overlay-image">
+      <img v-bind:src="profile.picture" class="profile-image">
+      <div class="material-icons">settings</div>
+    </div>
     <div class="profile-name">{{ profile.user_metadata.name }}</div>
   </div>
 </template>
