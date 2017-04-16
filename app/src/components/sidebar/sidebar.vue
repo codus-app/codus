@@ -1,9 +1,6 @@
 <template>
     <div class="sidebar">
-      <div class="profile">
-        <img v-bind:src="profile.picture" class="profile-image">
-        <div class="profile-name">{{ profile.user_metadata.name }}</div>
-      </div>
+      <profile></profile>
 
       <router-link class="sidebar-link" v-for="route in routes" v-bind:key="route.path" v-bind:to="route.path" v-bind:exact="route.meta.exact || false">
         <i class="material-icons">{{route.meta.icon}}</i> {{route.meta.label}}
@@ -16,10 +13,7 @@
 import routes from '../../pages/app/routes';
 
 export default {
-  data: () => ({
-    routes,
-    profile: JSON.parse(localStorage.getItem('profile')),
-  }),
+  data: () => ({ routes }),
 };
 </script>
 
