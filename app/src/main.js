@@ -18,7 +18,6 @@ import AuthButtons from './components/auth-buttons.vue';
 import BinaryBackground from './components/binary-background';
 import { CarouselItem, Carousel, CarouselArrow, CarouselDots } from './components/carousel/carousel';
 import ChallengeCard from './components/challenge-card/challenge-card.vue';
-import Profile from './components/profile/profile.vue';
 
 // Misc
 import appRoutes from './pages/app/routes';
@@ -108,7 +107,6 @@ Vue.component('carousel', Carousel);
 Vue.component('carousel-arrow', CarouselArrow);
 Vue.component('carousel-dots', CarouselDots);
 Vue.component('challenge-card', ChallengeCard);
-Vue.component('profile', Profile);
 
 // Create main Vue instance
 
