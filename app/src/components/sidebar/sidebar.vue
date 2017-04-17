@@ -1,9 +1,9 @@
 <template>
     <div class="sidebar">
       <div class="profile">
-        <div class="overlay-image">
+        <div class="overlay-image" v-on:click="toggleProfileSettings" v-bind:style="overlayStyle">
           <img v-bind:src="profile.picture" class="profile-image">
-          <div class="material-icons">settings</div>
+          <div class="material-icons">more_horiz</div>
         </div>
         <div class="profile-name">{{ profile.user_metadata.name }}</div>
       </div>
@@ -22,7 +22,18 @@ export default {
   data: () => ({
     routes,
     profile: JSON.parse(localStorage.getItem('profile')),
+    profileSettingsShown: false,
   }),
+  computed: {
+    overlayStyle() {
+      return { 'border-radius': this.profileSettingsShown ? '0' : '50%' };
+    },
+  },
+  methods: {
+    toggleProfileSettings() {
+      this.profileSettingsShown = !this.profileSettingsShown;
+    },
+  },
 };
 </script>
 
