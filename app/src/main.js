@@ -79,6 +79,11 @@ const router = new VueRouter({
       // beforeEnter hook used to redirect to home if not logged in.
       beforeEnter(to, from, next) {
         if (!auth.isAuthenticated()) next({ path: '/login' });
+        else if (auth.loginExpired()) {
+          auth.renew((didRenew) => {
+            next();
+          });
+        }
         else next();
       },
     },

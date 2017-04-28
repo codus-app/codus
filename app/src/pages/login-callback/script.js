@@ -9,7 +9,8 @@ export default {
   beforeCreate() {
     // Parse hash passed to callback URL
     auth.webAuth.parseHash(window.location.hash, (err, res) => {
-      if (err) console.log(err);
+      if (window != window.top) parent.postMessage(err || res, "*");
+      else if (err) console.log(err);
       else {
         // Store ID token in localStorage
         localStorage.setItem('id_token', res.idToken);

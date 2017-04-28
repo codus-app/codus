@@ -1,4 +1,6 @@
 import auth0 from 'auth0-js';
+import jwtDecode from 'jwt-decode';
+
 
 const webAuth = new auth0.WebAuth({
   domain: 'codus.auth0.com',
@@ -8,6 +10,7 @@ const webAuth = new auth0.WebAuth({
 
 export default {
   webAuth,
+  jwtDecode,
 
   // Return an auth0.Management instance
   getManagement() {
@@ -60,4 +63,35 @@ export default {
       user_metadata: { name: fullName },
     }, callback);
   },
+  
+  // Check whether our ID token is expired
+  loginExpired() {
+    return (Date.now() / 1000 - jwtDecode(localStorage.getItem('id_token')).exp) > 0;
+  },
+
+  // Renew the token. Callback is passed a boolean representing whether the token was renewed successfully.
+  renew(callback) {
+    alert('renewing auth');
+    webAuth.renewAuth({
+      scope: 'openid',
+      redirectUri: `${window.location.origin}/login_callback`,
+    }, (err, res) => {
+      if (err) {
+        console.log(err);
+        callback(false);
+      } else {
+        console.log('res', res);
+        localStorage.setItem('id_token', res.idToken);
+        localStorage.setItem('access_token', res.accessToken);
+        webAuth.client.userInfo(res.accessToken, (profileErr, profile) => {
+          if (profileErr) {
+            console.log(profileErr);
+            callback(false);
+          }
+          else localStorage.setItem('profile', JSON.stringify(profile));
+          callback(true);
+        });
+      }
+    });
+  }
 };
