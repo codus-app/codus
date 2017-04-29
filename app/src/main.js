@@ -76,15 +76,20 @@ const router = new VueRouter({
       component: AppPage,
       meta: { title: 'Codus' },
       children: appRoutes,
-      // beforeEnter hook used to redirect to home if not logged in.
+      // beforeEnter hook used to redirect to login page if not logged in.
       beforeEnter(to, from, next) {
-        if (!auth.isAuthenticated()) next({ path: '/login' });
-        else if (auth.loginExpired()) {
-          auth.renew((didRenew) => {
-            next();
+        if (!auth.isAuthenticated()) { // If not logged in, go to login
+          next({ path: '/login' });
+        } else if (auth.loginExpired()) { // If the login has expired, try to renew
+          auth.renew((didRenew, err) => {
+            // For an unsuccessful renewal, go to login page
+            if (!didRenew && err.error === 'login_required') next({ path: '/login' });
+            // If it succeeds continue
+            else next();
           });
+        } else { // No problems have occurred
+          next();
         }
-        else next();
       },
     },
   ],

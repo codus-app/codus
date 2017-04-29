@@ -63,13 +63,14 @@ export default {
       user_metadata: { name: fullName },
     }, callback);
   },
-  
+
   // Check whether our ID token is expired
   loginExpired() {
-    return (Date.now() / 1000 - jwtDecode(localStorage.getItem('id_token')).exp) > 0;
+    return ((Date.now() / 1000) - jwtDecode(localStorage.getItem('id_token')).exp) > 0;
   },
 
-  // Renew the token. Callback is passed a boolean representing whether the token was renewed successfully.
+  // Renew the token. Callback is passed a boolean representing whether the token was renewed
+  // successfully.
   renew(callback) {
     alert('renewing auth');
     webAuth.renewAuth({
@@ -78,7 +79,7 @@ export default {
     }, (err, res) => {
       if (err) {
         console.log(err);
-        callback(false);
+        callback(false, err);
       } else {
         console.log('res', res);
         localStorage.setItem('id_token', res.idToken);
@@ -86,12 +87,13 @@ export default {
         webAuth.client.userInfo(res.accessToken, (profileErr, profile) => {
           if (profileErr) {
             console.log(profileErr);
-            callback(false);
+            callback(false, profileErr);
+          } else {
+            localStorage.setItem('profile', JSON.stringify(profile));
           }
-          else localStorage.setItem('profile', JSON.stringify(profile));
           callback(true);
         });
       }
     });
-  }
+  },
 };
