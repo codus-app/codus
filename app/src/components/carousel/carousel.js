@@ -72,6 +72,8 @@ export const Carousel = {
       {
         class: 'carousel',
         ref: 'carousel',
+        attrs: { tabindex: 0 },
+        on: { keydown: this.keydown, keyup: this.keyup },
       },
       this.$slots.default.map(el => createElement('carousel-item', [el])),
     );
@@ -82,10 +84,16 @@ export const Carousel = {
     // Used to decide whether the carousel can move circularly when animating. Circular movement
     // makes sense for arrow and click navigation, but not for dot navigation.
     circularMove: true,
+    // Use to record which keys are pressed down so that events don't fire multiple times
+    keysPressed: [],
   }),
 
   // Begin by centering the first element in the carousel
-  mounted() { this.moveTo(this.centerIndex); },
+  mounted() {
+    this.moveTo(this.centerIndex);
+    // setTimeout is necessary for some mysterious reason http://stackoverflow.com/a/1096938/4414003
+    setTimeout(() => this.$refs.carousel.focus(), 50);
+  },
 
   methods: {
     // http://stackoverflow.com/q/4467539
@@ -164,6 +172,24 @@ export const Carousel = {
     // Slide to the right
     right(n = 1) {
       this.centerIndex = this.mod(this.centerIndex + n, this.$children.length);
+    },
+
+    keydown(e) {
+      const kc = e.keyCode;
+      this.circularMove = true;
+      if (!this.keysPressed.includes(kc)) {
+        this.keysPressed.push(kc);
+        if (kc === 37 || kc === 39) {
+          (e.keyCode === 37 ? this.left : this.right)();
+        }
+      }
+    },
+
+    keyup(e) {
+      const kc = e.keyCode;
+      if (this.keysPressed.includes(kc)) {
+        this.keysPressed.splice(this.keysPressed.indexOf(e), 1);
+      }
     },
   },
 
