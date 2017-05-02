@@ -72,8 +72,6 @@ export const Carousel = {
       {
         class: 'carousel',
         ref: 'carousel',
-        attrs: { tabindex: 0 },
-        on: { keydown: this.keydown, keyup: this.keyup },
       },
       this.$slots.default.map(el => createElement('carousel-item', [el])),
     );
@@ -91,8 +89,14 @@ export const Carousel = {
   // Begin by centering the first element in the carousel
   mounted() {
     this.moveTo(this.centerIndex);
-    // setTimeout is necessary for some mysterious reason http://stackoverflow.com/a/1096938/4414003
-    setTimeout(() => this.$refs.carousel.focus(), 50);
+    // Add event listeners to window when mounted
+    window.addEventListener('keydown', this.keydown);
+    window.addEventListener('keyup', this.keyup);
+  },
+
+  beforeDestroy() {
+    window.removeEventListener('keydown', this.keydown);
+    window.removeEventListener('keyup', this.keyup);
   },
 
   methods: {
