@@ -10,7 +10,7 @@ require('./carousel.sass');
 
 
 export const CarouselItem = {
-  template: '<div class="carousel-item" v-bind:style="style" v-bind:class="classes" v-on:click="centerSelf"><slot></slot></div>',
+  template: '<div class="carousel-item" v-bind:style="style" v-bind:class="classes" v-on:click="clicked"><slot></slot></div>',
   data: () => ({
     zIndex: 0,
     xtrans: 0,
@@ -45,12 +45,15 @@ export const CarouselItem = {
   },
 
   methods: {
+    clicked() {
+      // Already centered: the click activates the click action instead of centering
+      if (this.fadeLevel === 0) alert('select');
+      // This needs to be centered when clicked (check that it's not invisible)
+      else if (this.fadeLevel < 3) this.centerSelf();
+    },
     centerSelf() {
-      // Invisible carousel elements can't be navigated to by clicking
-      if (this.fadeLevel < 3) {
-        this.$parent.circularMove = true;
-        this.$parent.centerIndex = this.$parent.$children.indexOf(this);
-      }
+      this.$parent.circularMove = true;
+      this.$parent.centerIndex = this.$parent.$children.indexOf(this);
     },
   },
 };
