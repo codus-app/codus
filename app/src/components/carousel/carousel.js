@@ -17,6 +17,7 @@ export const CarouselItem = {
     ytrans: 0,
     scale: 1,
     fadeLevel: 0,
+    selected: false,
 
     transitionSeconds: 0.5,
     transitionEasing: 'ease',
@@ -47,13 +48,27 @@ export const CarouselItem = {
   methods: {
     clicked() {
       // Already centered: the click activates the click action instead of centering
-      if (this.fadeLevel === 0) alert('select');
+      if (this.fadeLevel === 0) this.toggleSelect();
       // This needs to be centered when clicked (check that it's not invisible)
       else if (this.fadeLevel < 3) this.centerSelf();
     },
     centerSelf() {
       this.$parent.circularMove = true;
       this.$parent.centerIndex = this.$parent.$children.indexOf(this);
+    },
+    toggleSelect() {
+      if (this.selected) {
+        this.$parent.moveTo(this.$parent.$children.indexOf(this));
+        this.selected = false;
+      } else {
+        this.selected = true;
+        // Grow
+        this.scale = 1.1;
+        // all other elements
+        const others = this.$parent.$children.filter(n => n !== this);
+        // All others should not be faded less than level 2
+        others.forEach((n) => { n.fadeLevel = Math.max(n.fadeLevel, 2); });
+      }
     },
   },
 };
