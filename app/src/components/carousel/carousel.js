@@ -40,7 +40,7 @@ export const CarouselItem = {
     },
 
     classes() {
-      return [`fade-${this.fadeLevel}`];
+      return [`fade-${Math.min(this.fadeLevel, 3)}`];
     },
   },
 
