@@ -63,6 +63,13 @@
     "vuex": "^2.2.1"
   },
 
+  "babel": {
+    "presets": [
+      ["es2015", { "modules": false }],
+      "es2016"
+    ]
+  },
+
   "eslintConfig": {
     "extends": "airbnb",
     "env": {
