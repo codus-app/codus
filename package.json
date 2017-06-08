@@ -61,5 +61,22 @@
     "vue": "^2.3.2",
     "vue-router": "^2.5.3",
     "vuex": "^2.2.1"
+  },
+
+  "eslintConfig": {
+    "extends": "airbnb",
+    "env": {
+      "browser": true
+    },
+    "rules": {
+      "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
+      "import/no-webpack-loader-syntax": "off",
+      "global-require": "off",
+      "no-param-reassign": "off"
+    },
+    "settings": {
+      "import/resolver": "webpack"
+    },
+    "plugins": ["vue"]
   }
 }
