@@ -62,21 +62,29 @@
     "vue-router": "^2.5.3",
     "vuex": "^2.2.1"
   },
-
   "babel": {
     "presets": [
-      ["es2015", { "modules": false }],
+      [
+        "es2015",
+        {
+          "modules": false
+        }
+      ],
       "es2016"
     ]
   },
-
   "eslintConfig": {
     "extends": "airbnb",
     "env": {
       "browser": true
     },
     "rules": {
-      "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
+      "import/no-extraneous-dependencies": [
+        "error",
+        {
+          "devDependencies": true
+        }
+      ],
       "import/no-webpack-loader-syntax": "off",
       "global-require": "off",
       "no-param-reassign": "off"
@@ -84,6 +92,8 @@
     "settings": {
       "import/resolver": "webpack"
     },
-    "plugins": ["vue"]
+    "plugins": [
+      "vue"
+    ]
   }
 }
