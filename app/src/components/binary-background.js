@@ -45,12 +45,11 @@ export default {
     },
 
     draw() {
-      const thinSpace = String.fromCharCode(8201);
       const fontSize = this.fontSize * (window.devicePixelRatio === 2 ? 2 : 1);
       this.ctx.font = `${fontSize}px Inconsolata`;
       this.ctx.fillStyle = this.textColor;
       const numRows = Math.ceil(this.canvasSize()[1] / fontSize) + 1;
-      const numCols = Math.ceil(this.canvasSize()[0] / this.ctx.measureText(`0${thinSpace}`).width);
+      const numCols = Math.ceil(this.canvasSize()[0] / this.ctx.measureText('0 ').width);
 
       // Populate rows
       while (this.rows.length < numRows) {
@@ -82,7 +81,7 @@ export default {
       // Render
       this.ctx.clearRect(0, 0, ...this.canvasSize());
       for (let r = 0; r < numRows; r += 1) {
-        this.ctx.fillText(this.rows[r].split('').join(thinSpace), fontSize / 3, r * fontSize);
+        this.ctx.fillText(this.rows[r].split('').join(' '), fontSize / 3, r * fontSize);
       }
     },
   },
