@@ -9,7 +9,8 @@
     "lint-sass": "sass-lint 'app/**/*.sass' -v",
     "lint-js": "eslint . --ext js,vue",
     "test": "npm run -s lint-sass && npm run -s lint-js",
-    "docs": "jsdoc app/src -c jsdoc.config.json -r -d docs --verbose"
+    "docs": "jsdoc app/src -c jsdoc.config.json -r -d docs --verbose",
+    "count": "cloc . --vcs=git --not-match-f=package-lock.json"
   },
   "repository": {
     "type": "git",
@@ -28,6 +29,7 @@
     "babel-loader": "^7.0.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-es2016": "^6.24.1",
+    "cloc": "^2.2.0",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.1",
     "eslint": "^3.19.0",
