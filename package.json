@@ -1,0 +1,15 @@
+{
+  "name": "codus-engine",
+  "version": "0.0.0",
+  "description": "The server-side engine powering Codus\"",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arkis/codus-engine.git"
+  },
+  "author": "Arkis",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/arkis/codus-engine/issues"
+  },
+  "homepage": "https://github.com/arkis/codus-engine#readme"
+}
