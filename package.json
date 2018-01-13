@@ -2,6 +2,10 @@
   "name": "codus-engine",
   "version": "0.0.0",
   "description": "The server-side engine powering Codus",
+  "main": "app/index.js",
+  "scripts": {
+    "start": "node app/index.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/arkis/codus-engine.git"
