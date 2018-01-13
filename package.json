@@ -4,7 +4,7 @@
   "description": "The server-side engine powering Codus",
   "main": "app/index.js",
   "scripts": {
-    "start": "node app/index.js"
+    "start": "nodemon app/index.js"
   },
   "repository": {
     "type": "git",
@@ -18,5 +18,8 @@
   "homepage": "https://github.com/arkis/codus-engine#readme",
   "dependencies": {
     "express": "^4.16.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.14.11"
   }
 }
