@@ -33,4 +33,13 @@ const db = mongoose.connection;
 db.on('error', e => console.log('connection error:', e));
 // Otherwise go ahead
 db.once('open', () => {
+  // User model
+  const userSchema = new mongoose.Schema({
+    auth0_id: String,
+  });
+  const User = mongoose.model('User', userSchema);
+
+  User.find()
+    .catch(console.error)
+    .then(console.log);
 });
