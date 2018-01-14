@@ -1,6 +1,13 @@
 const express = require('express');
 const cors = require('cors');
+// Authentication
 const auth0 = require('./auth');
+// Database connection
+const db = require('./db');
+// Mongoose models
+const models = {};
+models.User = require('./models/User');
+
 
 const app = express();
 app.use(cors());
@@ -9,8 +16,19 @@ app.get('/', (req, res) => {
   res.send('success');
 });
 
+// Return the user info encoded in the Authorization header
 app.get('/userinfo', auth0(), (req, res) => {
   res.send(JSON.stringify(req.user));
+});
+
+// Query the database for the authenticated user and return all info
+app.get('/user', auth0(), async (req, res) => {
+  const auth0Id = req.user.sub;
+  await db.ready;
+  const user = models.User
+    .findOne()
+    .where('auth0_id').equals(auth0Id);
+  res.send(JSON.stringify(user));
 });
 
 const args = process.argv.slice(2);
