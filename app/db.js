@@ -29,17 +29,19 @@ mongoose.connect(uri, {
 const db = mongoose.connection;
 
 
-// Throw error if we can't connect
-db.on('error', e => console.log('connection error:', e));
-// Otherwise go ahead
-db.once('open', () => {
-  // User model
-  const userSchema = new mongoose.Schema({
-    auth0_id: String,
-  });
-  const User = mongoose.model('User', userSchema);
+// Requiring this module will yield the 'mongoose.connection' object
+module.exports = db;
 
-  User.find()
-    .catch(console.error)
-    .then(console.log);
+
+// This promise will be resolved once the database is connected and allows use of the syntax
+// 'await db.ready' in functions that depend on database connection. Simple and clear.
+module.exports.ready = new Promise((resolve, reject) => {
+  // Reject if we can't connect
+  db.on('error', reject);
+  // Otherwise resolve
+  console.time('Database connected in');
+  db.once('open', () => {
+    console.timeEnd('Database connected in');
+    resolve();
+  });
 });
