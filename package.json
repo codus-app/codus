@@ -23,7 +23,6 @@
   },
   "homepage": "https://github.com/controversial/codus#readme",
   "devDependencies": {
-    "auth0-js": "^8.12.1",
     "autoprefixer": "^6.7.7",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
@@ -57,6 +56,7 @@
     "webpack-dev-server": "^2.9.7"
   },
   "dependencies": {
+    "auth0-js": "^8.12.1",
     "animate.css": "^3.5.2",
     "babel-polyfill": "^6.26.0",
     "jwt-decode": "^2.2.0",
