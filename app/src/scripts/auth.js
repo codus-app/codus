@@ -27,7 +27,6 @@ export default {
   // Log in with a username and password
   login(username, password) {
     webAuth.login({
-      connection: 'Username-Password-Authentication',
       username,
       password,
     }, (err) => { console.log(`Error: ${err}`); });
