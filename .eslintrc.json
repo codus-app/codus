@@ -7,6 +7,6 @@
     "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
     "no-param-reassign": ["error", { "props": false }],
     "no-underscore-dangle": ["error", { "allowAfterThis": true, "allowAfterSuper": true }],
-    "no-console": ["warn", { "allow": ["warn"] }]
+    "no-console": "off"
   }
 }
