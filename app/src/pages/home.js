@@ -5,7 +5,7 @@ import home from './app/home/home.vue';
 export default {
   render(createElement) {
     return this.$store.state.loggedIn
-    ? createElement(home)
-    : createElement(landing);
+      ? createElement(home)
+      : createElement(landing);
   },
 };

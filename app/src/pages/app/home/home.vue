@@ -10,18 +10,11 @@ import auth from '../../../scripts/auth';
 
 export default {
   data: () => ({
-    userInfo: JSON.parse(localStorage.getItem('profile')),
-    loginCount: 0,
+    userInfo: JSON.parse(localStorage.getItem('user')),
   }),
   computed: {
     firstName() { return this.userInfo.user_metadata.name.split(' ')[0]; },
-  },
-  created() {
-    const man = auth.getManagement();
-    man.getUser(this.userInfo.user_id, (err, rsp) => {
-      if (err) console.log(err);
-      else this.loginCount = rsp.logins_count;
-    });
+    loginCount() { return this.userInfo.logins_count; },
   },
 };
 </script>

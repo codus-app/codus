@@ -13,13 +13,15 @@ export default {
       else if (err) console.log(err);
       else {
         // Store ID token in localStorage
+        localStorage.setItem('res', JSON.stringify(res));
         localStorage.setItem('id_token', res.idToken);
         localStorage.setItem('access_token', res.accessToken);
         this.$store.commit('setLoggedIn');
         // Fetch more user information
-        auth.webAuth.client.userInfo(res.accessToken, (profileErr, profile) => {
-          if (profileErr) console.log(profileErr);
-          else localStorage.setItem('profile', JSON.stringify(profile));
+        const userId = auth.jwtDecode(res.idToken).sub;
+        auth.getManagement().getUser(userId, (e, rsp) => {
+          if (e) console.log(e);
+          else localStorage.setItem('user', JSON.stringify(rsp));
           this.$router.push('/');
         });
       }

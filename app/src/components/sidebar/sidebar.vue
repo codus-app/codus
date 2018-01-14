@@ -2,10 +2,10 @@
     <div class="sidebar">
       <div class="profile">
         <div class="overlay-image" v-on:click="logout">
-          <img v-bind:src="profile.picture" class="profile-image">
+          <img v-bind:src="user.picture" class="profile-image">
           <div class="material-icons">power_settings_new</div>
         </div>
-        <div class="profile-name">{{ profile.user_metadata.name }}</div>
+        <div class="profile-name">{{ user.user_metadata.name }}</div>
       </div>
 
       <router-link class="sidebar-link" v-for="route in routes" v-bind:key="route.path" v-bind:to="route.path" v-bind:exact="route.meta.exact || false">
@@ -22,7 +22,7 @@ import routes from '../../pages/app/routes';
 export default {
   data: () => ({
     routes,
-    profile: JSON.parse(localStorage.getItem('profile')),
+    user: JSON.parse(localStorage.getItem('user')),
   }),
   methods: {
     logout() {

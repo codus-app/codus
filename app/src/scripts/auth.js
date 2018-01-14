@@ -5,8 +5,11 @@ import jwtDecode from 'jwt-decode';
 const webAuth = new auth0.WebAuth({
   domain: 'codus.auth0.com',
   clientID: 'y4m8JcL7boD2FKwH3fwTS9GusF07z4IT',
-  responseType: 'token',
+  responseType: 'token id_token',
+  realm: 'Username-Password-Authentication',
   audience: 'https://api.codus.arkis.io/',
+  scope: 'openid profile email execute write:solutions read:solutions',
+  redirectUri: `${window.location.origin}/login_callback`,
 });
 
 export default {
@@ -23,20 +26,18 @@ export default {
 
   // Log in with a username and password
   login(username, password) {
-    webAuth.redirect.loginWithCredentials({
+    webAuth.login({
       connection: 'Username-Password-Authentication',
       username,
       password,
-      scope: 'openid profile email execute write:solutions read:solutions',
-      redirectUri: `${window.location.origin}/login_callback`,
-    });
+    }, (err) => { console.log(`Error: ${err}`); });
   },
 
   // Log the logged-in user out and return to home
   logout() {
     localStorage.removeItem('id_token');
     localStorage.removeItem('access_token');
-    localStorage.removeItem('profile');
+    localStorage.removeItem('user');
 
     webAuth.logout({
       returnTo: window.location.origin,
@@ -49,7 +50,7 @@ export default {
   isAuthenticated() {
     return localStorage.getItem('id_token') !== null &&
            localStorage.getItem('access_token') !== null &&
-           localStorage.getItem('profile') !== null;
+           localStorage.getItem('user') !== null;
   },
 
   // Create a new account
@@ -73,28 +74,7 @@ export default {
   // Renew the token. Callback is passed a boolean representing whether the token was renewed
   // successfully.
   renew(callback) {
-    alert('renewing auth');
-    webAuth.renewAuth({
-      scope: 'openid',
-      redirectUri: `${window.location.origin}/login_callback`,
-    }, (err, res) => {
-      if (err) {
-        console.log(err);
-        callback(false, err);
-      } else {
-        console.log('res', res);
-        localStorage.setItem('id_token', res.idToken);
-        localStorage.setItem('access_token', res.accessToken);
-        webAuth.client.userInfo(res.accessToken, (profileErr, profile) => {
-          if (profileErr) {
-            console.log(profileErr);
-            callback(false, profileErr);
-          } else {
-            localStorage.setItem('profile', JSON.stringify(profile));
-          }
-          callback(true);
-        });
-      }
-    });
+    // TODO
+    callback(false);
   },
 };
