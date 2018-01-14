@@ -15,7 +15,7 @@
 import Vue from 'vue';
 import routes from './routes';
 
-Vue.component('sidebar', require('../../components/sidebar/sidebar.vue'));
+Vue.component('sidebar', require('../../components/sidebar/sidebar.vue').default);
 
 export default {
   data: () => ({
