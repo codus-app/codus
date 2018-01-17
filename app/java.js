@@ -40,7 +40,6 @@ module.exports.keywords = [
 
 // Checks if a given string is a valid java identifier
 module.exports.isValidIdentifier = function isValidIdentifier(obj) {
-  if (typeof obj !== 'string') return false;
   // Certain names are illegal identifiers
   if (module.exports.keywords.includes(obj) || ['true', 'false', 'null'].includes(obj)) return false;
   // Sticking to the enligh alphabet because there's no easy way to do it properly
