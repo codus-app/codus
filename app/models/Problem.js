@@ -25,6 +25,8 @@ const problemSchema = new mongoose.Schema({
   name: { type: String, unique: true },
   // category is a string (not unique)
   category: String,
+  // Description is a string
+  description: String,
   // parameters should be an array of objects with name and type
   parameters: [parameterSchema],
   // resultType should be a String representing Java type
