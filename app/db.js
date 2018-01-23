@@ -3,6 +3,7 @@
 const mongoose = require('mongoose');
 
 mongoose.Promise = Promise;
+
 // Construct URI for connection
 
 const username = 'admin';

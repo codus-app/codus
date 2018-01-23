@@ -1,3 +1,6 @@
+// Defines mongoose model for a problem, containing its name, category, method parameters, method
+// return type, and a set of test cases for validating any solution.
+
 const mongoose = require('mongoose');
 const java = require('../java');
 
@@ -19,7 +22,7 @@ const testCaseSchema = new mongoose.Schema({
 
 
 // Schema for an entire problem, containing its parameters and return type, and a set of test cases,
-//  as well its name and category
+// as well its name and category
 const problemSchema = new mongoose.Schema({
   // name is a unique String
   name: { type: String, unique: true },
