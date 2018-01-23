@@ -25,7 +25,7 @@ app.get('/userinfo', auth0(), (req, res) => {
 app.get('/user', auth0(), async (req, res) => {
   const auth0Id = req.user.sub;
   await db.ready;
-  const user = models.User
+  const user = await models.User
     .findOne()
     .where('auth0_id').equals(auth0Id);
   res.send(JSON.stringify(user));
