@@ -1,12 +1,12 @@
 const express = require('express');
 const cors = require('cors');
+
 // Authentication
 const auth0 = require('./auth');
 // Database connection
 const db = require('./db');
 // Mongoose models
-const models = {};
-models.User = require('./models/User');
+const models = require('./models');
 
 
 const app = express();
