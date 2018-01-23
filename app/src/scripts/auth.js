@@ -65,9 +65,10 @@ export default {
     }, callback);
   },
 
-  // Check whether our ID token is expired
+  // Check whether our access token is expired
+  // Returns true if the token is expired
   loginExpired() {
-    return ((Date.now() / 1000) - jwtDecode(localStorage.getItem('id_token')).exp) > 0;
+    return Date.now() / 1000 > jwtDecode(localStorage.getItem('access_token')).exp;
   },
 
   // Renew the token. Callback is passed a boolean representing whether the token was renewed
