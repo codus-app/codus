@@ -11,6 +11,8 @@ const models = require('./models');
 
 const app = express();
 app.use(cors());
+app.set('json spaces', 2);
+
 
 app.get('/', (req, res) => {
   res.send('success');
@@ -18,7 +20,7 @@ app.get('/', (req, res) => {
 
 // Return the user info encoded in the Authorization header
 app.get('/userinfo', auth0(), (req, res) => {
-  res.send(JSON.stringify(req.user));
+  res.json(req.user);
 });
 
 // Query the database for the authenticated user and return all info
@@ -28,8 +30,9 @@ app.get('/user', auth0(), async (req, res) => {
   const user = await models.User
     .findOne()
     .where('auth0_id').equals(auth0Id);
-  res.send(JSON.stringify(user));
+  res.json(user);
 });
+
 
 const args = process.argv.slice(2);
 const port = args.length ? args[0] : 3000;
