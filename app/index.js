@@ -3,10 +3,8 @@ const cors = require('cors');
 
 // Authentication
 const auth0 = require('./auth');
-// Database connection
-const db = require('./db');
-// Mongoose models
-const models = require('./models');
+// Database stuff
+const data = require('./data');
 
 
 const app = express();
@@ -25,15 +23,11 @@ app.get('/userinfo', auth0(), (req, res) => {
 
 // Query the database for the authenticated user and return all info
 app.get('/user', auth0(), async (req, res) => {
-  const auth0Id = req.user.sub;
-  await db.ready;
-  const user = await models.User
-    .findOne()
-    .where('auth0_id').equals(auth0Id);
-  res.json(user);
+  data.getUser(req.user.sub).then(u => res.json(u));
 });
 
 
+// Run server
 const args = process.argv.slice(2);
 const port = args.length ? args[0] : 3000;
 console.log(`Now listening at 0.0.0.0:${port}`);
