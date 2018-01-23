@@ -70,11 +70,4 @@ export default {
   loginExpired() {
     return Date.now() / 1000 > jwtDecode(localStorage.getItem('access_token')).exp;
   },
-
-  // Renew the token. Callback is passed a boolean representing whether the token was renewed
-  // successfully.
-  renew(callback) {
-    // TODO
-    callback(false);
-  },
 };

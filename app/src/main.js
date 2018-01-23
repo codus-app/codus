@@ -80,13 +80,9 @@ const router = new VueRouter({
       beforeEnter(to, from, next) {
         if (!auth.isAuthenticated()) { // If not logged in, go to login
           next({ path: '/login' });
-        } else if (auth.loginExpired()) { // If the login has expired, try to renew
-          auth.renew((didRenew, err) => {
-            // For an unsuccessful renewal, go to login page
-            if (!didRenew && err.error === 'login_required') next({ path: '/login' });
-            // If it succeeds continue
-            else next();
-          });
+        } else if (auth.loginExpired()) { // If the login has expired, log out
+          // TODO: renew
+          auth.logout();
         } else { // No problems have occurred
           next();
         }
