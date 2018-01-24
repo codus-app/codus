@@ -18,7 +18,7 @@ module.exports.getUser = {
 
 
 // Query the database for one or more problems and return all info
-module.exports.getProblem = {
+module.exports.getProblem = module.exports.getProblems = {
   // Find a single problem by its name
   async byName(name) {
     await db.ready;
@@ -26,5 +26,14 @@ module.exports.getProblem = {
       .findOne()
       .where('name').equals(name);
     return problem;
+  },
+
+  // Return info about all of the problems in a category
+  async byCategory(cat) {
+    await db.ready;
+    const problems = await models.Problem
+      .find()
+      .where('category').equals(cat);
+    return problems;
   },
 };
