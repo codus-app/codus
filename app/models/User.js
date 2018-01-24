@@ -30,12 +30,11 @@ const userSchema = new mongoose.Schema({
   auth0_id: String,
   solutions: [solutionSchema],
 });
-
 // Add a problem solution to the user's data
 userSchema.methods.addSolution = async function addSolution(problemName, code, passed) {
   if (typeof passed === 'undefined') { /* TODO: evaluate user's solution ? */ }
   this.solutions.push({ name: problemName, solution: code, passed });
-  this.save();
+  await this.save();
 };
 
 module.exports = mongoose.model('User', userSchema);
