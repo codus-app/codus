@@ -23,7 +23,7 @@ app.get('/userinfo', auth0(), (req, res) => {
 
 // Query the database for the authenticated user and return all info
 app.get('/user', auth0(), async (req, res) => {
-  data.getUser(req.user.sub).then(u => res.json(u));
+  data.getUser.byAuth0(req.user.sub).then(u => res.json(u));
 });
 
 
