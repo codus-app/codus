@@ -1,6 +1,8 @@
 // Defines mongoose model for a user, containing their corresponding Auth0 ID and basic information
 // on all of their problem solutions
 
+/* eslint-disable newline-per-chained-call */
+
 const mongoose = require('mongoose');
 
 const Problem = require('./Problem');
@@ -12,9 +14,10 @@ const solutionSchema = new mongoose.Schema({
   name: {
     type: String,
     // name must be in the problems collection
-    validate: (name, cb) => Problem.findOne().where('name').equals(name)
-      .then(r => !!r) // Convert to boolean
-      .then(cb),
+    validate: {
+      isAsync: true,
+      validator: (name, cb) => Problem.findOne().where('name').equals(name).then(r => !!r).then(cb),
+    },
   },
   solution: String,
   passed: Boolean,
