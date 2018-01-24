@@ -26,6 +26,25 @@ app.get('/user', auth0(), async (req, res) => {
   data.getUser.byAuth0(req.user.sub).then(u => res.json(u));
 });
 
+// Query the database for a problem
+app.get(['/problem', '/problems'], async (req, res) => {
+  // By name
+  if (req.query.name) {
+    data.getProblem.byName(req.query.name)
+      .then(prob => res.json(prob));
+    return;
+  }
+  // By category
+  if (req.query.cat) req.query.category = req.query.cat; // cat works as an abbreviation of catgeory
+  if (req.query.category) {
+    data.getProblem.byCategory(req.query.category)
+      .then(probs => res.json(probs));
+    return;
+  }
+  // Fail if neither name nor cat|category was passed
+  res.status(400).json({ error: 'name or category parameter is required' });
+});
+
 
 // Run server
 const args = process.argv.slice(2);
