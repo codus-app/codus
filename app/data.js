@@ -15,3 +15,16 @@ module.exports.getUser = {
     return user;
   },
 };
+
+
+// Query the database for one or more problems and return all info
+module.exports.getProblem = {
+  // Find a single problem by its name
+  async byName(name) {
+    await db.ready;
+    const problem = await models.Problem
+      .findOne()
+      .where('name').equals(name);
+    return problem;
+  },
+};
