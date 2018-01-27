@@ -4,6 +4,7 @@
 /* eslint-disable newline-per-chained-call */
 
 const mongoose = require('mongoose');
+const javaExec = require('codus-execute-java');
 
 const Problem = require('./Problem');
 
@@ -22,7 +23,11 @@ const solutionSchema = new mongoose.Schema({
   solution: String,
   passed: Boolean,
 });
-
+solutionSchema.methods.check = async function checkSolution() {
+  const problem = await Problem.findOne().where('name').equals(this.name);
+  const results = await javaExec(problem, this.solution);
+  console.log(results);
+};
 // Schema for a user. The only profile information stored is their Auth0 ID, which allows access to
 // all the rest of the user data from Auth0's database. MongoDB users are essentially just a
 // container for user solutions, containing as little identification information as possible
