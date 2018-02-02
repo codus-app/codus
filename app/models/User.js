@@ -44,7 +44,10 @@ userSchema.methods.getSolution = async function getSolution(problemName) {
     .where('solutions.name').equals(problemName)
     .then((results) => {
       if (!results) return undefined;
-      return results.solutions[0];
+      // For some reason the object returned in results isn't connected to the parent right, so
+      // after we get a results object, we find that same object again by its id, the result of
+      // which seems to be connected better.
+      return this.solutions.id(results.solutions[0]._id);// eslint-disable-line no-underscore-dangle
     });
 };
 // Add a problem solution to the user's data
