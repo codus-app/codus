@@ -20,12 +20,12 @@ const solutionSchema = new mongoose.Schema({
       validator: (name, cb) => Problem.findOne().where('name').equals(name).then(r => !!r).then(cb),
     },
   },
-  solution: String,
+  code: String,
   passed: Boolean,
 });
 solutionSchema.methods.check = async function checkSolution() {
   const problem = await Problem.findOne().where('name').equals(this.name);
-  return javaExec(problem, this.solution);
+  return javaExec(problem, this.code);
 };
 
 
@@ -54,7 +54,7 @@ userSchema.methods.getSolution = async function getSolution(problemName) {
 // Add a problem solution to the user's data
 userSchema.methods.addSolution = async function addSolution(problemName, code, passed) {
   if (typeof passed === 'undefined') { /* TODO: evaluate user's solution ? */ }
-  this.solutions.push({ name: problemName, solution: code, passed });
+  this.solutions.push({ name: problemName, code, passed });
   await this.save();
 };
 // Change one of the user's already-existing solutions
@@ -63,7 +63,7 @@ userSchema.methods.changeSolution = async function changeSolution(problemName, c
   const solution = await this.getSolution(problemName);
   if (typeof solution === 'undefined') throw new Error(`Could not update solution to ${problemName} because no existing solution was found`);
   // Update
-  Object.assign(solution, { solution: code, passed });
+  Object.assign(solution, { code, passed });
   await this.save();
 };
 
