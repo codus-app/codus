@@ -36,6 +36,7 @@ const userSchema = new mongoose.Schema({
   auth0_id: String,
   solutions: [solutionSchema],
 });
+// Get the subdocument describing one of the user's solutions
 userSchema.methods.getSolution = async function getSolution(problemName) {
   // module.exports is the User model
   return module.exports
@@ -56,21 +57,14 @@ userSchema.methods.addSolution = async function addSolution(problemName, code, p
   this.solutions.push({ name: problemName, solution: code, passed });
   await this.save();
 };
-// Change the user's solution to an already-completed problem
+// Change one of the user's already-existing solutions
 userSchema.methods.changeSolution = async function changeSolution(problemName, code, passed) {
   if (typeof passed === 'undefined') { /* TODO: evaluate user's solution ? */ }
-  // Get existing solution
   const solution = await this.getSolution(problemName);
-
-  if (typeof solution !== 'undefined') {
-    // If existing solution exists, update
-    solution.solution = code;
-    solution.passed = passed;
-    await this.save();
-  } else {
-    // If there's no existing solution, add one
-    await this.addSolution(problemName, code, passed);
-  }
+  if (typeof solution === 'undefined') throw new Error(`Could not update solution to ${problemName} because no existing solution was found`);
+  // Update
+  Object.assign(solution, { solution: code, passed });
+  await this.save();
 };
 
 
