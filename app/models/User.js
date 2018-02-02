@@ -42,7 +42,10 @@ userSchema.methods.getSolution = async function getSolution(problemName) {
     .findOne()
     .where('auth0_id').equals(this.auth0_id)
     .where('solutions.name').equals(problemName)
-    .then(results => results.solutions[0]);
+    .then((results) => {
+      if (!results) return undefined;
+      return results.solutions[0];
+    });
 };
 // Add a problem solution to the user's data
 userSchema.methods.addSolution = async function addSolution(problemName, code, passed) {
