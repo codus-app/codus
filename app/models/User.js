@@ -56,6 +56,21 @@ userSchema.methods.addSolution = async function addSolution(problemName, code, p
   this.solutions.push({ name: problemName, solution: code, passed });
   await this.save();
 };
+// Change the user's solution to an already-completed problem
+userSchema.methods.changeSolution = async function changeSolution(problemName, code, passed) {
+  if (typeof passed === 'undefined') { /* TODO: evaluate user's solution ? */ }
+  // Get existing solution
+  const solution = await this.getSolution(problemName);
+
+  if (typeof solution !== 'undefined') {
+    // If existing solution exists, update
+    solution.solution = code;
+    solution.passed = passed;
+    await this.save();
+  } else {
+    // If there's no existing solution, add one
+    await this.addSolution(problemName, code, passed);
+  }
 };
 
 
