@@ -2,8 +2,6 @@
 
 const mongoose = require('mongoose');
 
-mongoose.Promise = Promise;
-
 // Construct URI for connection
 
 const username = 'admin';
@@ -25,7 +23,6 @@ mongoose.connect(uri, {
   replicaSet,
   ssl: true,
   authSource: 'admin',
-  useMongoClient: true,
 });
 const db = mongoose.connection;
 
