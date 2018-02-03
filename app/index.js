@@ -51,6 +51,17 @@ app.get(['/problem', '/problems'], (req, res) => {
   res.status(400).json({ error: '"name" or "category" parameter is required' });
 });
 
+// Get a user's solution to a problem
+app.get('/solution', auth0(), (req, res) => {
+  if (!req.query.problem) res.status(400).json({ error: '"problem" parameter is required' });
+  else {
+    data.getUser.byAuth0(req.user.sub)
+      .then(user => user.getSolution(req.query.problem))
+      .then(stripId) // Remove _id key
+      .then(solution => res.json(solution));
+  }
+});
+
 
 // Run server
 const args = process.argv.slice(2);
