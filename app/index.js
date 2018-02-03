@@ -24,14 +24,14 @@ app.get('/userinfo', auth0(), (req, res) => {
 });
 
 // Query the database for the authenticated user and return all info
-app.get('/user', auth0(), async (req, res) => {
+app.get('/user', auth0(), (req, res) => {
   data.getUser.byAuth0(req.user.sub)
     .then(stripId) // Remove _id key
     .then(u => res.json(u));
 });
 
 // Query the database for a problem
-app.get(['/problem', '/problems'], async (req, res) => {
+app.get(['/problem', '/problems'], (req, res) => {
   // By name
   if (req.query.name) {
     data.getProblem.byName(req.query.name)
