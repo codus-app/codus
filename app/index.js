@@ -52,13 +52,13 @@ app.get(['/problem', '/problems'], (req, res) => {
 });
 
 // Get a user's solution to a problem
-app.get('/solution', auth0(), (req, res) => {
+app.get('/solution', auth0(), async (req, res) => {
   if (!req.query.problem) res.status(400).json({ error: '"problem" parameter is required' });
   else {
-    data.getUser.byAuth0(req.user.sub)
-      .then(user => user.getSolution(req.query.problem))
-      .then(stripId) // Remove _id key
-      .then(solution => res.json(solution));
+    const user = await data.getUser.byAuth0(req.user.sub);
+    const solution = await user.getSolution(req.query.problem);
+    if (!solution) res.status(404).json({ error: `no solution by the authorized user for problem ${req.query.problem} was found` });
+    else res.send(stripId(solution));
   }
 });
 
