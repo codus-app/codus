@@ -5,6 +5,8 @@ const cors = require('cors');
 const auth0 = require('./auth');
 // Database stuff
 const data = require('./data');
+// Helper methods
+const { stripId } = require('./helpers');
 
 
 const app = express();
@@ -24,8 +26,7 @@ app.get('/userinfo', auth0(), (req, res) => {
 // Query the database for the authenticated user and return all info
 app.get('/user', auth0(), async (req, res) => {
   data.getUser.byAuth0(req.user.sub)
-    .then(u => u.toObject())
-    .then(u => Object.assign(u, { _id: undefined })) // Remove _id key
+    .then(stripId) // Remove _id key
     .then(u => res.json(u));
 });
 
@@ -34,8 +35,7 @@ app.get(['/problem', '/problems'], async (req, res) => {
   // By name
   if (req.query.name) {
     data.getProblem.byName(req.query.name)
-      .then(prob => prob.toObject())
-      .then(prob => Object.assign(prob, { _id: undefined })) // Remove _id key
+      .then(stripId) // Remove _id key
       .then(prob => res.json(prob));
     return;
   }
@@ -43,8 +43,7 @@ app.get(['/problem', '/problems'], async (req, res) => {
   if (req.query.cat) req.query.category = req.query.cat; // cat works as an abbreviation of catgeory
   if (req.query.category) {
     data.getProblem.byCategory(req.query.category)
-      .then(probs => probs.map(p => p.toObject()))
-      .then(probs => probs.map(p => Object.assign(p, { _id: undefined }))) // Remove _id keys
+      .then(stripId) // Remove _id keys
       .then(probs => res.json(probs));
     return;
   }
