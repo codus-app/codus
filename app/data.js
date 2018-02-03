@@ -14,6 +14,7 @@ module.exports.getUser = {
       .where('auth0_id').equals(sub);
     return user;
   },
+  byId(sub) { return this.byAuth0(sub); },
 };
 
 
