@@ -8,6 +8,7 @@
     "no-param-reassign": ["error", { "props": false }],
     "no-underscore-dangle": "off",
     "no-console": "off",
-    "no-multi-assign": "off"
+    "no-multi-assign": "off",
+    "no-prototype-builtins": "off"
   }
 }
