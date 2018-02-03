@@ -48,7 +48,7 @@ app.get(['/problem', '/problems'], (req, res) => {
     return;
   }
   // Fail if neither name nor cat|category was passed
-  res.status(400).json({ error: 'name or category parameter is required' });
+  res.status(400).json({ error: '"name" or "category" parameter is required' });
 });
 
 
