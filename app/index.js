@@ -41,7 +41,7 @@ app.get('/solution/:problemName', auth0(), async (req, res) => {
 
 
 // Query the database for a problem
-app.get(['/problem/:name', '/problems/:name'], async (req, res) => {
+app.get('/problem/:name', async (req, res) => {
   // By name
   const problem = await data.getProblem.byName(req.params.name);
   if (!problem) res.status(404).json({ error: `Problem ${req.params.name} was not found`})
