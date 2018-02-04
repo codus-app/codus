@@ -32,14 +32,11 @@ app.get('/user', auth0(), (req, res) => {
 });
 
 // Get a user's solution to a problem
-app.get('/solution', auth0(), async (req, res) => {
-  if (!req.query.problem) res.status(400).json({ error: '"problem" parameter is required' });
-  else {
-    const user = await data.getUser.byAuth0(req.user.sub);
-    const solution = await user.getSolution(req.query.problem);
-    if (!solution) res.status(404).json({ error: `no solution by the authorized user for problem ${req.query.problem} was found` });
-    else res.send(stripId(solution));
-  }
+app.get('/solution/:problemName', auth0(), async (req, res) => {
+  const user = await data.getUser.byAuth0(req.user.sub);
+  const solution = await user.getSolution(req.params.problemName);
+  if (!solution) res.status(404).json({ error: `no solution by the authenticated user for problem ${req.params.problemName} was found` });
+  else res.json(stripId(solution));
 });
 
 
