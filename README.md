@@ -17,10 +17,10 @@ header. This token can be obtained by going through the login process in
 
 ### Querying info
 
-##### `GET /problem?name=[name]`
+##### `GET /problem/[name]`
 Returns information on the problem with a given name
 ```bash
-curl https://api.codus.arkis.io/problem?name=Sum
+curl https://api.codus.arkis.io/problem/Sum
 ```
 ```json
 {
@@ -40,10 +40,10 @@ curl https://api.codus.arkis.io/problem?name=Sum
 }
 ```
 
-##### `GET /problems?category=[name]`
+##### `GET /category/[name]`
 Returns information on all the problems in a given category
 ```bash
-curl https://api.codus.arkis.io/problem?category=warmup
+curl https://api.codus.arkis.io/category/warmup
 ```
 ```json
 [
@@ -74,7 +74,6 @@ curl https://api.codus.arkis.io/problem?category=warmup
       { "parameters": [2, 1], "result": 1 }
     ]
   }
-  ...
 ]
 ```
 
@@ -116,15 +115,14 @@ curl -H "Authorization: Bearer ACCESS_TOKEN_HERE" https://api.codus.arkis.io/use
       "code": "\npublic class Sum {\n\n  public int main(int a, int b) {\n    return a + b;\n  }\n\n}\n\n",
       "passed": true
     }
-    ...
   ]
 }
 ```
 
-##### `GET /solution?problem=[name]` *requires Authorization*
+##### `GET /solution/[problemName]` *requires Authorization*
 Returns stored information on the user's solution to a given problem
 ```bash
-curl -H "Authorization: Bearer ACCESS_TOKEN_HERE" https://api.codus.arkis.io/solution?problem=Sum
+curl -H "Authorization: Bearer ACCESS_TOKEN_HERE" https://api.codus.arkis.io/solution/Sum
 ```
 ```json
 {
