@@ -44,14 +44,14 @@ app.get('/solution/:problemName', auth0(), async (req, res) => {
 app.get('/problem/:name', async (req, res) => {
   // By name
   const problem = await data.getProblem.byName(req.params.name);
-  if (!problem) res.status(404).json({ error: `Problem ${req.params.name} was not found`})
+  if (!problem) res.status(404).json({ error: `Problem ${req.params.name} was not found` });
   else res.json(stripId(problem));
 });
 
 // Get all the problems in a category
 app.get('/category/:name', async (req, res) => {
   const problems = await data.getProblems.byCategory(req.params.name);
-  if (!problems.length) res.status(404).json({ error: `No problems match category ${req.params.name}`});
+  if (!problems.length) res.status(404).json({ error: `No problems match category ${req.params.name}` });
   else res.json(stripId(problems));
 });
 

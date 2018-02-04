@@ -61,7 +61,7 @@ userSchema.methods.changeSolution = async function changeSolution(problemName, c
   const solution = await this.getSolution(problemName);
   if (typeof solution === 'undefined') throw new Error(`Could not update solution to ${problemName} because no existing solution was found`);
   // Update
-  Object.assign(solution, { code, passed: undefined }); // We no longer know whether the code passes tests, so 'passed' is reset to undefined
+  Object.assign(solution, { code, passed: undefined }); // We no longer know whether the code passes
   await this.save();
 };
 
