@@ -25,7 +25,14 @@ const solutionSchema = new mongoose.Schema({
 });
 solutionSchema.methods.check = async function checkSolution() {
   const problem = await Problem.findOne().where('name').equals(this.name);
-  return javaExec(problem, this.code);
+  const results = await javaExec(problem, this.code);
+  if (results.error) throw new Error(results.error); // If an error arises, throw it
+  const tests = results.data;
+  // Record results in database
+  const failedTests = tests.filter(t => !t.pass);
+  this.passed = failedTests.length > 0;
+
+  return { tests, pass: this.passed };
 };
 
 
