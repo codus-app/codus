@@ -18,6 +18,7 @@ app.get('/', (req, res) => {
   res.send('success');
 });
 
+
 // Return the user info encoded in the Authorization header
 app.get('/userinfo', auth0(), (req, res) => {
   res.json(req.user);
@@ -29,6 +30,18 @@ app.get('/user', auth0(), (req, res) => {
     .then(stripId) // Remove _id key
     .then(u => res.json(u));
 });
+
+// Get a user's solution to a problem
+app.get('/solution', auth0(), async (req, res) => {
+  if (!req.query.problem) res.status(400).json({ error: '"problem" parameter is required' });
+  else {
+    const user = await data.getUser.byAuth0(req.user.sub);
+    const solution = await user.getSolution(req.query.problem);
+    if (!solution) res.status(404).json({ error: `no solution by the authorized user for problem ${req.query.problem} was found` });
+    else res.send(stripId(solution));
+  }
+});
+
 
 // Query the database for a problem
 app.get(['/problem', '/problems'], (req, res) => {
@@ -49,17 +62,6 @@ app.get(['/problem', '/problems'], (req, res) => {
   }
   // Fail if neither name nor cat|category was passed
   res.status(400).json({ error: '"name" or "category" parameter is required' });
-});
-
-// Get a user's solution to a problem
-app.get('/solution', auth0(), async (req, res) => {
-  if (!req.query.problem) res.status(400).json({ error: '"problem" parameter is required' });
-  else {
-    const user = await data.getUser.byAuth0(req.user.sub);
-    const solution = await user.getSolution(req.query.problem);
-    if (!solution) res.status(404).json({ error: `no solution by the authorized user for problem ${req.query.problem} was found` });
-    else res.send(stripId(solution));
-  }
 });
 
 
