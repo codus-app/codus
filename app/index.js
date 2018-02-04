@@ -41,24 +41,11 @@ app.get('/solution/:problemName', auth0(), async (req, res) => {
 
 
 // Query the database for a problem
-app.get(['/problem', '/problems'], (req, res) => {
+app.get(['/problem/:name', '/problems/:name'], async (req, res) => {
   // By name
-  if (req.query.name) {
-    data.getProblem.byName(req.query.name)
-      .then(stripId) // Remove _id key
-      .then(prob => res.json(prob));
-    return;
-  }
-  // By category
-  if (req.query.cat) req.query.category = req.query.cat; // cat works as an abbreviation of catgeory
-  if (req.query.category) {
-    data.getProblem.byCategory(req.query.category)
-      .then(stripId) // Remove _id keys
-      .then(probs => res.json(probs));
-    return;
-  }
-  // Fail if neither name nor cat|category was passed
-  res.status(400).json({ error: '"name" or "category" parameter is required' });
+  const problem = await data.getProblem.byName(req.params.name);
+  if (!problem) res.status(404).json({ error: `Problem ${req.params.name} was not found`})
+  else res.json(stripId(problem));
 });
 
 
