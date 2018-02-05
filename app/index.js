@@ -55,6 +55,17 @@ app.get('/solution/:problemName', auth0(), async (req, res) => {
   else res.json(stripId(solution));
 });
 
+// Check a user's solution to a problem
+app.get('/check/:problemName', auth0(), async (req, res) => {
+  const user = await data.getUser.byAuth0(req.user.sub);
+  const solution = await user.getSolution(req.params.problemName);
+  if (!solution) res.status(404).json({ error: `no solution by the authenticated user for problem ${req.params.problemName} was found` });
+  else {
+    const results = await solution.check();
+    res.json(results);
+  }
+});
+
 
 // Run server
 const args = process.argv.slice(2);
