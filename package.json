@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/arkis/codus-engine#readme",
   "dependencies": {
+    "auth0": "^2.9.1",
     "codus-execute-java": "^1.4.0",
     "cors": "^2.8.4",
     "dotenv": "^5.0.0",
