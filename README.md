@@ -99,6 +99,39 @@ curl -H "Authorization: Bearer ACCESS_TOKEN_HERE" https://api.codus.arkis.io/use
 }
 ```
 
+##### `GET /userinfo` *requires Authorization*
+Queries the Auth0 Management API for the authenticated user and dumps all info
+```bash
+curl -H "Authorization: Bearer ACCESS_TOKEN_HERE" https://api.codus.arkis.io/userinfo
+```
+```json
+{
+  "email": "johndoe@example.com",
+  "username": "johndoe",
+  "email_verified": true,
+  "user_id": "auth0|123456",
+  "picture": "https://example.com/avatar.png",
+  "nickname": "johndoe",
+  "identities": [
+    {
+      "user_id": "123456",
+      "provider": "auth0",
+      "connection": "Username-Password-Authentication",
+      "isSocial": false
+    }
+  ],
+  "updated_at": "2018-01-01T00:00:00.000Z",
+  "created_at": "2018-01-01T00:00:00.000Z",
+  "name": "johndoe@example.com",
+  "user_metadata": {
+    "name": "John Doe"
+  },
+  "last_ip": "0.0.0.0",
+  "last_login": "2018-01-01T00:00:00.000Z",
+  "logins_count": 1
+}
+```
+
 ##### `GET /solution/[problemName]` *requires Authorization*
 Returns stored information on the user's solution to a given problem
 ```bash
