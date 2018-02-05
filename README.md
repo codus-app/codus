@@ -81,26 +81,6 @@ curl https://api.codus.arkis.io/category/warmup
 
 ### Authenticated user actions
 
-##### `GET /userinfo` *requires Authorization*
-Used for debugging purposes. Returns all of the user information that is encoded in the request.
-```bash
-curl -H "Authorization: Bearer ACCESS_TOKEN_HERE" https://api.codus.arkis.io/userinfo
-```
-```json
-{
-  "iss": "https://codus.auth0.com/",
-  "sub": "auth0|123456",
-  "aud": [
-    "https://api.codus.arkis.io/",
-    "https://codus.auth0.com/userinfo"
-  ],
-  "iat": 1514764800,
-  "exp": 1514772000,
-  "azp": "client_id_here",
-  "scope": "openid profile email"
-}
-```
-
 ##### `GET /user` *requires Authorization*
 Dumps all information stored in the database for the authenticated user
 ```bash
