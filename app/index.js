@@ -60,6 +60,19 @@ app.get('/solution/:problemName', auth0(), async (req, res) => {
   else res.json(stripId(solution));
 });
 
+// Add/change a user's solution to a problem
+app.put('/solution/:problemName', auth0(), async (req, res) => {
+  const user = await data.getUser.byAuth0(req.user.sub);
+  const solutionExists = !!(await user.getSolution(req.params.problemName));
+  if (solutionExists) { // Update existing
+    await user.changeSolution(req.params.problemName, req.body);
+    res.status(200).json({ success: true });
+  } else { // Create new
+    await user.addSolution(req.params.problemName, req.body);
+    res.status(201).json({ success: true });
+  }
+});
+
 // Check a user's solution to a problem
 app.get('/check/:problemName', auth0(), async (req, res) => {
   const user = await data.getUser.byAuth0(req.user.sub);
