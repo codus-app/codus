@@ -44,6 +44,12 @@ app.get('/user', auth0(), (req, res) => {
     .then(u => res.json(u));
 });
 
+// Get all of the information auth0 stores on the authenticated user
+app.get('/userinfo', auth0(), (req, res) => {
+  auth0.getUser(req.user.sub)
+    .then(u => res.json(u));
+});
+
 // Get a user's solution to a problem
 app.get('/solution/:problemName', auth0(), async (req, res) => {
   const user = await data.getUser.byAuth0(req.user.sub);
