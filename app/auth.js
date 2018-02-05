@@ -23,3 +23,20 @@ module.exports = function verify(scopes = []) {
   const checkScopes = jwtAuthz(scopes);
   return [checkJwt, checkScopes];
 };
+
+
+// Export an additional auth0.getUser function to query the management API for a given user
+
+const { ManagementClient } = require('auth0');
+
+const management = new ManagementClient({
+  domain: 'codus.auth0.com',
+  clientId: 'JfqbfePwu53xNJ755rhcDM51G89vnjwr',
+  clientSecret: process.env.CLIENT_SECRET,
+  scope: 'read:users',
+});
+
+// Given an Auth0 user id, return full information
+module.exports.getUser = function getUser(id) {
+  return management.getUser({ id });
+};
