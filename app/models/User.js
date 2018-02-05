@@ -52,17 +52,15 @@ userSchema.methods.getSolution = async function getSolution(problemName) {
   });
   return result;
 };
-// Add a problem solution to the user's data
-userSchema.methods.addSolution = async function addSolution(problemName, code) {
-  this.solutions.push({ name: problemName, code, passed: undefined });
-  await this.save();
-};
 // Change one of the user's already-existing solutions
-userSchema.methods.changeSolution = async function changeSolution(problemName, code) {
+userSchema.methods.putSolution = async function changeSolution(problemName, code) {
   const solution = await this.getSolution(problemName);
-  if (typeof solution === 'undefined') throw new Error(`Could not update solution to ${problemName} because no existing solution was found`);
-  // Update
-  Object.assign(solution, { code, passed: undefined }); // We no longer know whether the code passes
+  // Add if no solution exists
+  if (typeof solution === 'undefined') this.solutions.push({ name: problemName, code, passed: undefined });
+  // Otherwise update ('passed' is reset to undefined because we no longer know whether the user's
+  // solution passes tests)
+  else Object.assign(solution, { code, passed: undefined });
+
   await this.save();
 };
 
