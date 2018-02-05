@@ -44,20 +44,13 @@ const userSchema = new mongoose.Schema({
   auth0_id: String,
   solutions: [solutionSchema],
 });
-// Get the subdocument describing one of the user's solutions
+// Get the subdocument describing one of the user's solutions, searching by name
 userSchema.methods.getSolution = async function getSolution(problemName) {
-  // module.exports is the User model
-  return module.exports
-    .findOne()
-    .where('auth0_id').equals(this.auth0_id)
-    .where('solutions.name').equals(problemName)
-    .then((results) => {
-      if (!results) return undefined;
-      // For some reason the object returned in results isn't connected to the parent right, so
-      // after we get a results object, we find that same object again by its id, the result of
-      // which seems to be connected better.
-      return this.solutions.id(results.solutions[0]._id);// eslint-disable-line no-underscore-dangle
-    });
+  let result;
+  this.solutions.forEach((s) => {
+    if (s.name === problemName) result = s;
+  });
+  return result;
 };
 // Add a problem solution to the user's data
 userSchema.methods.addSolution = async function addSolution(problemName, code) {
