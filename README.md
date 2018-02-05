@@ -79,7 +79,7 @@ curl https://api.codus.arkis.io/category/warmup
 
 
 
-### User info
+### Authenticated user actions
 
 ##### `GET /userinfo` *requires Authorization*
 Used for debugging purposes. Returns all of the user information that is encoded in the request.
@@ -129,5 +129,20 @@ curl -H "Authorization: Bearer ACCESS_TOKEN_HERE" https://api.codus.arkis.io/sol
   "name": "Sum",
   "code": "\npublic class Sum {\n\n  public int main(int a, int b) {\n    return a + b;\n  }\n\n}\n\n",
   "passed": true
+}
+```
+
+##### `GET /check/[problemName]` *requires Authorization*
+Executes the user's stored solution for the given problem and returns the results
+```bash
+curl -H "Authorization: Bearer ACCESS_TOKEN_HERE" https://api.codus.arkis.io/check/Sum
+```
+```json
+{
+  "tests": [
+    { "value": 8, "expected": 8, "pass": true },
+    { "value": 3, "expected": 3, "pass": true }
+  ],
+  "pass": true
 }
 ```
