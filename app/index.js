@@ -35,11 +35,6 @@ app.get('/category/:name', async (req, res) => {
 });
 
 
-// Return the user info encoded in the Authorization header
-app.get('/userinfo', auth0(), (req, res) => {
-  res.json(req.user);
-});
-
 // Query the database for the authenticated user and return all info
 app.get('/user', auth0(), (req, res) => {
   data.getUser.byAuth0(req.user.sub)
