@@ -31,6 +31,7 @@ solutionSchema.methods.check = async function checkSolution() {
   // Record results in database
   const failedTests = tests.filter(t => !t.pass);
   this.passed = !failedTests.length;
+  this.parent().save();
 
   return { tests, pass: this.passed };
 };
