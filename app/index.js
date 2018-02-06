@@ -85,6 +85,10 @@ app.get('/check/:problemName', auth0(), async (req, res) => {
 });
 
 
+// Error handling
+app.use(require('./errorHandle'));
+
+
 // Run server
 const args = process.argv.slice(2);
 const port = args.length ? args[0] : 3000;
