@@ -5,7 +5,8 @@
   "main": "app/index.js",
   "scripts": {
     "dev": "nodemon app/index.js",
-    "start": "node app"
+    "start": "node app",
+    "prod": "pm2 start app"
   },
   "repository": {
     "type": "git",
