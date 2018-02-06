@@ -4,7 +4,8 @@
   "description": "The server-side engine powering Codus",
   "main": "app/index.js",
   "scripts": {
-    "start": "nodemon app/index.js"
+    "dev": "nodemon app/index.js",
+    "start": "node app"
   },
   "repository": {
     "type": "git",
