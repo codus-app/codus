@@ -1,7 +1,7 @@
 // Higher-level database functions
 
 const models = require('./models');
-const db = require('./db');
+const db = require('./connection');
 
 
 // Query the database for a user and return all info

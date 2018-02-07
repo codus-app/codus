@@ -2,7 +2,7 @@
 // return type, and a set of test cases for validating any solution.
 
 const mongoose = require('mongoose');
-const java = require('../java');
+const java = require('../../java');
 
 
 // Schema for defining a single parameter in a problem
