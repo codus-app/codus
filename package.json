@@ -96,6 +96,7 @@
         }
       ],
       "import/no-webpack-loader-syntax": "off",
+      "import/newline-after-import": "off",
       "global-require": "off",
       "no-param-reassign": "off"
     },
