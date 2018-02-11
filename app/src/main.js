@@ -1,12 +1,5 @@
 import Vue from 'vue';
-import VueRouter from 'vue-router';
 import Vuex from 'vuex';
-
-// Pages
-import LandingPage from './pages/landing/landing.vue';
-import LoginPage from './pages/login/login.vue';
-import LoginCallbackPage from './pages/login-callback/login-callback.vue';
-import AppPage from './pages/app/app.vue';
 
 // Components
 import Starfield from './components/starfield';
@@ -19,8 +12,9 @@ import BinaryBackground from './components/binary-background';
 import { CarouselItem, Carousel, CarouselArrow, CarouselDots } from './components/carousel/carousel';
 import ChallengeCard from './components/challenge-card/challenge-card.vue';
 
-// Misc
-import appRoutes from './pages/app/routes';
+
+// Router
+import router from './router';
 
 // Scripts
 import auth from './scripts/auth';
@@ -41,60 +35,6 @@ const store = new Vuex.Store({
     setLoggedIn(state) { state.loggedIn = true; },
     setLoggedOut(state) { state.loggedIn = false; },
   },
-});
-
-
-// Vue router setup
-
-
-Vue.use(VueRouter);
-
-const router = new VueRouter({
-  mode: 'history',
-  routes: [
-    {
-      name: 'home',
-      path: '/',
-      component: LandingPage,
-      meta: { title: 'Codus' },
-    },
-    {
-      name: 'login',
-      path: '/login',
-      component: LoginPage,
-      meta: { title: 'Log In' },
-    },
-    {
-      name: 'login-callback',
-      path: '/login_callback',
-      component: LoginCallbackPage,
-      meta: { title: 'Logging in...' },
-    },
-    {
-      name: 'app',
-      path: '/app/:id',
-      component: AppPage,
-      meta: { title: 'Codus' },
-      children: appRoutes,
-      // beforeEnter hook used to redirect to login page if not logged in.
-      beforeEnter(to, from, next) {
-        if (!auth.isAuthenticated()) { // If not logged in, go to login
-          next({ path: '/login' });
-        } else if (auth.loginExpired()) { // If the login has expired, log out
-          // TODO: renew
-          auth.logout();
-        } else { // No problems have occurred
-          next();
-        }
-      },
-    },
-  ],
-});
-
-// Set page title based on page metadata on each navigation
-router.beforeEach((to, from, next) => {
-  document.title = to.meta.title || 'Codus';
-  next();
 });
 
 
