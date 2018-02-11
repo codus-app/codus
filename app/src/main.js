@@ -1,5 +1,4 @@
 import Vue from 'vue';
-import Vuex from 'vuex';
 
 // Components
 import Starfield from './components/starfield';
@@ -16,6 +15,9 @@ import ChallengeCard from './components/challenge-card/challenge-card.vue';
 // Router
 import router from './router';
 
+// VueX
+import store from './store';
+
 // Scripts
 import auth from './scripts/auth';
 
@@ -23,19 +25,6 @@ window.auth = auth;
 
 
 // Vuex setup
-
-
-Vue.use(Vuex);
-
-const store = new Vuex.Store({
-  state: {
-    loggedIn: auth.isAuthenticated(),
-  },
-  mutations: {
-    setLoggedIn(state) { state.loggedIn = true; },
-    setLoggedOut(state) { state.loggedIn = false; },
-  },
-});
 
 
 // Register components
