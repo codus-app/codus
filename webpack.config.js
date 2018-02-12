@@ -3,8 +3,6 @@
 const path = require('path');
 const webpack = require('webpack');
 
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-
 // Disable deprecation warnings
 process.noDeprecation = true;
 
@@ -71,10 +69,6 @@ module.exports = {
       vue$: 'vue/dist/vue.esm.js',
     },
   },
-
-  plugins: [
-    new CopyWebpackPlugin([{ from: 'app/src/favicons' }]),
-  ],
 
 
   // --------------------------------------------------------------------------
