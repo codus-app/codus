@@ -3,9 +3,6 @@
 const path = require('path');
 const webpack = require('webpack');
 
-// Disable deprecation warnings
-process.noDeprecation = true;
-
 module.exports = {
   entry: {
     main: path.join(__dirname, 'app/src'),
