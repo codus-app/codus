@@ -5,7 +5,8 @@ const webpack = require('webpack');
 
 module.exports = {
   entry: {
-    main: path.join(__dirname, 'app/src'),
+    app: path.join(__dirname, 'src/app'),
+    '': path.join(__dirname, 'src'), // Landing page
   },
 
   module: {
@@ -41,7 +42,7 @@ module.exports = {
       {
         test: /\.html$/,
         loaders: [
-          'file-loader?name=[name].html',
+          'file-loader?name=[path][name].html&context=app',
           'extract-loader',
           'html-loader',
         ],
@@ -50,15 +51,15 @@ module.exports = {
       {
         test: /\.(ttf|woff|woff2|eot|png|svg)/,
         loader: 'url-loader',
-        query: { limit: 10000, name: '[name].[ext]' },
+        query: { limit: 10000, name: '[path][name].[ext]', context: 'app' },
       },
     ],
   },
 
   output: {
-    path: path.join(__dirname, 'app/build'),
-    publicPath: '/build/',
-    filename: 'index.js',
+    path: path.join(__dirname, 'build'),
+    publicPath: '/',
+    filename: '[name]/index.js',
   },
 
   resolve: {
