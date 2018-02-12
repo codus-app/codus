@@ -1,0 +1,52 @@
+@import '../../app/colors.sass'
+
+$unfocused-gray: #616161
+
+form
+  color: $white
+  font-family: 'Lato', sans-serif
+
+  & > div
+    position: relative
+    display: flex
+
+    i.material-icons
+      font-size: inherit
+      flex-grow: 0
+      padding: .75em 1em 0 0
+
+    input
+      flex-grow: 1
+      width: 13em
+
+      color: $white
+
+      background: none
+      border: 0
+      border-bottom: 1px solid $unfocused-gray
+      border-radius: 0
+      transition: border-bottom .25s
+
+      font: 1em 'Lato'
+      letter-spacing: .025em
+
+      padding: .5em .5em .5em 0
+
+      &:focus
+        outline: none
+        border-bottom-color: $white
+
+      &::placeholder
+        color: $unfocused-gray
+
+  a
+    display: inline-block
+    margin: 1.5em 0 0
+    float: right
+    color: $white
+    cursor: pointer
+
+    text-decoration: none
+    text-transform: uppercase
+    letter-spacing: .2em
+    font-weight: 300

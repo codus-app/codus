@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="description" content="Codus: easy, efficient code practice.">
+
+    <title>Codus</title>
+  </head>
+
+  <body>
+    <div id="app">
+
+
+      <!-- Top nav bar -->
+      <top-bar>
+        <div slot="left"><a href="/">C</a></div>
+        <div slot="right">
+          <auth-buttons v-on:login="$refs.loginModal.show()" v-on:signup="$refs.signupModal.show()"></auth-buttons>
+        </div>
+      </top-bar>
+      <!-- Center title -->
+      <transition name="modal-header-fade">
+        <h1 v-if="showTitle">codus</h1>
+      </transition>
+      <!-- Background animation -->
+      <starfield></starfield>
+      <!-- Login form -->
+      <modal ref="loginModal">
+        <login></login>
+      </modal>
+      <!-- Sign up form -->
+      <modal ref="signupModal">
+        <signup></signup>
+      </modal>
+
+
+    </div>
+
+    <script src="1/index.js"></script>
+  </body>
+
+</html>

@@ -1,0 +1,37 @@
+@import 'app/colors'
+
+canvas
+  position: fixed
+  top: 0
+  left: 0
+  width: 100vw
+  height: 100vh
+  z-index: 0
+
+  background-color: $black
+
+h1
+  color: $white
+
+  position: fixed
+  top: 50vh
+  left: 50vw
+  transform: translate(-50%, -50%)
+  z-index: 1
+
+  margin: 0
+  text-transform: uppercase
+  $spacing: .2em
+  letter-spacing: $spacing
+  padding-left: $spacing
+
+.modal-contents
+  color: $white
+
+.modal-header-fade-enter-active,
+.modal-header-fade-leave-active
+  transition: opacity .75s
+
+.modal-header-fade-enter,
+.modal-header-fade-leave-to
+  opacity: 0
