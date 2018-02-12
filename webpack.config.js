@@ -74,7 +74,11 @@ module.exports = {
 
   devServer: {
     contentBase: path.join(__dirname, 'build'),
-    historyApiFallback: true,
+    historyApiFallback: {
+      rewrites: [
+        { from: /^\/app/, to: '/app/index.html' }, // /app routes should be rewritten
+      ],
+    },
     noInfo: true,
     host: '0.0.0.0',
     disableHostCheck: true,
