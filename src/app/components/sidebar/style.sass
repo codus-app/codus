@@ -1,0 +1,75 @@
+@import '../../../colors'
+
+div.sidebar
+  flex-grow: 0
+  height: 100vh
+  background-color: $dark-3
+
+  .sidebar-link
+    display: flex
+    align-items: center
+
+    padding: .25em 10em .25em 0
+    font-family: 'Lato', sans-serif
+    font-size: .75rem
+    font-weight: 100
+    text-transform: uppercase
+    letter-spacing: .1em
+
+    i
+      padding: .25em 1em
+
+    &.router-link-active
+      background: $sidebar-selected-gradient
+
+  .profile
+    margin: 1.5em .75em
+    text-align: center
+
+    .overlay-image
+      position: relative
+      width: 5em
+      height: 5em
+      margin: .5em auto .75em
+      border-radius: 50%
+      transition: border-radius .25s
+      overflow: hidden
+
+      // Force hardware-accelerated rendering
+      transform: translateZ(0)
+
+      img
+        position: absolute
+        top: 0
+        left: 0
+        width: 100%
+        height: 100%
+
+      // The overlay
+      div
+        // Cover full size
+        position: absolute
+        top: 0
+        left: 0
+        width: 100%
+        height: 100%
+        // Transparent black background
+        opacity: 0
+        background-color: transparentize($black, .5)
+        transition: opacity .3s
+        // Text styles
+        color: $white
+        font-size: 2rem
+        // Center the text
+        display: flex
+        align-items: center
+        justify-content: center
+
+        cursor: pointer
+
+        // Become visible when hovered
+        &:hover
+          opacity: 1
+
+    .profile-name
+      letter-spacing: .05em

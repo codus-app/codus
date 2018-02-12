@@ -1,0 +1,45 @@
+@import '../../../colors'
+
+.card
+  // Size
+  width: 24vw
+  height: 36vw
+  // Color
+  background-color: $blue
+  // Children should be aligned with flexbox
+  display: flex
+  flex-direction: column
+
+  // First direct child is the top section
+  & > *:first-child
+    text-transform: uppercase
+    letter-spacing: .3em
+    padding: .75em 0 .75em .3em
+    font-size: 1em
+    text-align: center
+    flex: 0 0
+
+  // Second direct child is the middle section
+  & > div:nth-child(2)
+    background-color: $dark-3
+    position: relative
+    flex: 5 5
+
+    canvas
+      position: absolute
+      width: 100%
+      height: 100%
+
+    // Second direct child of this is the second slot
+    & > *:nth-child(2)
+      position: absolute
+      width: 100%
+      top: 50%
+      transform: translateY(-50%)
+      font-size: 2em
+      text-align: center
+
+  // Third direct child is the bottom section
+  & > *:nth-child(3)
+    flex: 4 4
+    padding: 1.5em
