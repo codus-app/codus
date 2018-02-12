@@ -42,7 +42,7 @@ module.exports = {
       {
         test: /\.html$/,
         loaders: [
-          'file-loader?name=[path][name].html&context=app',
+          'file-loader?name=[path][name].html&context=src',
           'extract-loader',
           'html-loader',
         ],
@@ -51,7 +51,7 @@ module.exports = {
       {
         test: /\.(ttf|woff|woff2|eot|png|svg)/,
         loader: 'url-loader',
-        query: { limit: 10000, name: '[path][name].[ext]', context: 'app' },
+        query: { limit: 10000, name: '[path][name].[ext]', context: 'src' },
       },
     ],
   },
@@ -73,7 +73,7 @@ module.exports = {
 
 
   devServer: {
-    contentBase: path.join(__dirname, 'app'),
+    contentBase: path.join(__dirname, 'build'),
     historyApiFallback: true,
     noInfo: true,
     host: '0.0.0.0',
