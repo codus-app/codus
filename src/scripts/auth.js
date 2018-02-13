@@ -9,7 +9,7 @@ const webAuth = new auth0.WebAuth({
   realm: 'Username-Password-Authentication',
   audience: 'https://api.codus.arkis.io/',
   scope: 'openid profile email execute write:solutions read:solutions',
-  redirectUri: `${window.location.origin}/login_callback`,
+  redirectUri: `${window.location.origin}/app`,
 });
 
 export default {
