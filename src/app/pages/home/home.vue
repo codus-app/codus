@@ -6,7 +6,6 @@
 </template>
 
 <script>
-import auth from '../../../scripts/auth';
 
 export default {
   data: () => ({
@@ -17,6 +16,7 @@ export default {
     loginCount() { return this.userInfo.logins_count; },
   },
 };
+
 </script>
 
 <style scoped lang="sass" src="./style.sass"></style>
