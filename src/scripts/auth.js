@@ -43,6 +43,7 @@ export default {
       this.getManagement().getUser(userId, (e, rsp) => {
         if (e) reject(e);
         else localStorage.setItem('user', JSON.stringify(rsp));
+        window.location.hash = '';
         resolve();
       });
     });
