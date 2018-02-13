@@ -16,11 +16,7 @@ export default {
         this.password,
         this.email,
         [this.firstName, this.lastName].join(' '),
-        (err) => {
-          if (err) console.log(err);
-          else auth.login(this.username, this.password);
-        },
-      );
+      ).then(() => auth.login(this.username, this.password));
     },
   },
 
