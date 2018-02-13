@@ -82,11 +82,11 @@
     ]
   },
   "eslintConfig": {
-    "extends": "airbnb",
+    "extends": [ "airbnb", "plugin:vue/essential" ],
     "env": {
       "browser": true
     },
-    "parser": "babel-eslint",
+    "parserOptions": { "parser": "babel-eslint" },
     "rules": {
       "import/no-extraneous-dependencies": [
         "error",
