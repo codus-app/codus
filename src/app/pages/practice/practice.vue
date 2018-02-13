@@ -7,11 +7,18 @@
       <challenge-card v-for="i in cardCount" v-bind:key="i">
         <div slot="top">Test</div>
         <div slot="title">Card {{ i }}</div>
-        <div slot="bottom">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</div>
+        <div slot="bottom">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+          ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+        </div>
       </challenge-card>
     </carousel>
 
-    <carousel-dots ref="dots" :numDots="cardCount" v-on:change="updateCarouselFromDots"></carousel-dots>
+    <carousel-dots
+      ref="dots"
+      :numDots="cardCount"
+      v-on:change="updateCarouselFromDots">
+    </carousel-dots>
   </div>
 </template>
 

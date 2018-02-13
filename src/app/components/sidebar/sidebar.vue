@@ -8,7 +8,11 @@
       <div class="profile-name">{{ user.user_metadata.name }}</div>
     </div>
 
-    <router-link class="sidebar-link" v-for="route in routes" v-bind:key="route.path" v-bind:to="route.path" v-bind:exact="route.meta.exact || false">
+    <router-link class="sidebar-link"
+                 v-for="route in routes"
+                 v-bind:key="route.path"
+                 v-bind:to="route.path"
+                 v-bind:exact="route.meta.exact || false">
       <i class="material-icons">{{route.meta.icon}}</i> {{route.meta.label}}
     </router-link>
   </div>
