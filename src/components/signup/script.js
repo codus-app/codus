@@ -1,4 +1,4 @@
-import auth from '../../scripts/auth';
+import auth from '../../auth';
 
 export default {
   data: () => ({

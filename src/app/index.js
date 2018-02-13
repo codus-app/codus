@@ -22,7 +22,7 @@ import './components';
 import routes from './pages';
 import router from './router';
 
-import auth from '../scripts/auth';
+import auth from '../auth';
 window.auth = auth;
 
 
