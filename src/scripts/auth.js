@@ -29,7 +29,7 @@ export default {
     webAuth.login({
       username,
       password,
-    }, (err) => { console.log(`Error: ${err}`); });
+    });
   },
 
   // Once login callback happens, store encoded information in localStorage
