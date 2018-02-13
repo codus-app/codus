@@ -32,6 +32,22 @@ export default {
     }, (err) => { console.log(`Error: ${err}`); });
   },
 
+  // Once login callback happens, store encoded information in localStorage
+  loginCallback(res) {
+    return new Promise((resolve, reject) => {
+      // Store hash-encoded elements in localStorage
+      localStorage.setItem('res', JSON.stringify(res));
+      localStorage.setItem('id_token', res.idToken);
+      localStorage.setItem('access_token', res.accessToken);
+      const userId = jwtDecode(res.idToken).sub;
+      this.getManagement().getUser(userId, (e, rsp) => {
+        if (e) reject(e);
+        else localStorage.setItem('user', JSON.stringify(rsp));
+        resolve();
+      });
+    });
+  },
+
   // Log the logged-in user out and return to home
   logout() {
     localStorage.removeItem('id_token');

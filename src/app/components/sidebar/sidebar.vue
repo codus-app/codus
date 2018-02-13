@@ -1,6 +1,6 @@
 <template>
     <div class="sidebar">
-      <div class="profile">
+      <div v-if="user" class="profile">
         <div class="overlay-image" v-on:click="logout">
           <img v-bind:src="user.picture" class="profile-image">
           <div class="material-icons">power_settings_new</div>
@@ -29,6 +29,11 @@ export default {
       auth.logout();
     },
   },
+  created() {
+    this.$root.$on('loggedIn', () => {
+      this.user = JSON.parse(localStorage.getItem('user'));
+    });
+  }
 };
 </script>
 
