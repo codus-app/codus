@@ -59,7 +59,6 @@ export default {
       returnTo: window.location.origin,
       client_id: webAuth.client.baseOptions.clientID,
     });
-    window.app.$store.commit('setLoggedOut');
   },
 
   // See if the user is authenticated
