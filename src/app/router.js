@@ -23,7 +23,7 @@ router.beforeEach((to, from, next) => {
       next();
       router.app.$emit('loggedIn'); // So that components can refresh
     // hash was either not present or improperly formatted
-    } else if (auth.loginExpred()) auth.logout();
+    } else if (auth.loginExpired()) auth.logout();
     else next();
   });
 });
