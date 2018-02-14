@@ -1,8 +1,5 @@
 import Vue from 'vue';
 
-import Sidebar from './sidebar/sidebar.vue';
-import BinaryBackground from './binary-background';
+// Import components
 
-
-Vue.component('binary-background', BinaryBackground);
-Vue.component('sidebar', Sidebar);
+// Register components
