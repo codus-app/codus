@@ -44,5 +44,12 @@ window.app = new Vue({
     },
   },
 
+  methods: {
+    checkAuth() { if (auth.loginExpired()) auth.logout(); },
+  },
+
+  created() { window.addEventListener('visibilitychange', this.checkAuth); },
+  destroyed() { window.removeEventListener('visibilitychange', this.checkAuth); },
+
   el: '#app',
 });
