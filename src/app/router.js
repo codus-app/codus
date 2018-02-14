@@ -12,7 +12,7 @@ const router = new VueRouter({
   routes,
 });
 
-// Set page title based on page metadata on each navigation
+// Set page title based on page metadata and check login on each navigation
 router.beforeEach((to, from, next) => {
   document.title = to.meta.title || 'Codus';
 
