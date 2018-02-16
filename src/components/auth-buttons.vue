@@ -24,6 +24,6 @@ export default {
     align-items: center
 
     div
-      margin-left: 1em
+      margin-left: 1rem
       cursor: pointer
 </style>
