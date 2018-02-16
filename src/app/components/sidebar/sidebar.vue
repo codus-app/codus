@@ -8,14 +8,14 @@
       <h2>You</h2>
       <router-link class="sb-link" v-for="r in userRoutes" v-bind:key="r.path" v-bind:to="r.path">
         <component v-bind:is="`${r.meta.icon}-icon`"></component>
-        <span>{{r.meta.label}}</span>
+        <span class="montserrat light">{{r.meta.label}}</span>
       </router-link>
 
       <!-- Class-related links -->
       <h2>Class</h2>
       <router-link class="sb-link" v-for="r in classRoutes" v-bind:key="r.path" v-bind:to="r.path">
         <component v-bind:is="`${r.meta.icon}-icon`"></component>
-        <span>{{r.meta.label}}</span>
+        <span class="montserrat light">{{r.meta.label}}</span>
       </router-link>
 
     </div>
