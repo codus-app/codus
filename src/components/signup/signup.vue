@@ -30,7 +30,13 @@
 
 <script src="./script.js"></script>
 <style scoped lang="sass">
-  @import '../login/style.sass'
-  form > div > div input
-    width: 6.5em
+
+@import '../login/style.sass'
+
+form > div > div input
+  width: 6.25em
+
+  &:first-child
+    margin-right: .5em
+
 </style>
