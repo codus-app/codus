@@ -4,7 +4,6 @@ import Vue from 'vue';
 import './index.html';
 
 // Styles
-import './styles.sass';
 import './style.sass';
 
 // Load components
