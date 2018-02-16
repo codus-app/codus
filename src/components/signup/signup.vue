@@ -4,8 +4,8 @@
     <div>
       <user-icon></user-icon>
       <div>
-        <input type="text" v-model="firstName" placeholder="First name" ref="firstNameInput">
-        <input type="text" v-model="lastName" placeholder="Last name" ref="lastNameInput">
+        <input type="text" v-model="firstName" placeholder="first" ref="firstNameInput">
+        <input type="text" v-model="lastName" placeholder="last" ref="lastNameInput">
       </div>
     </div>
     <!-- 2. Email -->
