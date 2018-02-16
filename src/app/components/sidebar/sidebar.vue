@@ -6,14 +6,33 @@
 
       <!-- Personal user-related links -->
       <h2>You</h2>
+      <router-link class="sb-link" v-for="r in userRoutes" v-bind:key="r.path" v-bind:to="r.path">
+        <component v-bind:is="`icon-${r.meta.icon}`"></component>
+        <span>{{r.meta.label}}</span>
+      </router-link>
 
       <!-- Class-related links -->
       <h2>Class</h2>
+      <router-link class="sb-link" v-for="r in classRoutes" v-bind:key="r.path" v-bind:to="r.path">
+        <component v-bind:is="`icon-${r.meta.icon}`"></component>
+        <span>{{r.meta.label}}</span>
+      </router-link>
 
     </div>
   </div>
 </template>
 
-<script> export default {}; </script>
+<script>
+
+import routes from '../../pages';
+
+export default {
+  data: () => ({
+    userRoutes: routes.filter(r => r.meta.category === 'user'),
+    classRoutes: routes.filter(r => r.meta.category === 'class'),
+  }),
+};
+
+</script>
 
 <style scoped lang="sass" src='./style.sass'></style>
