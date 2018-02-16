@@ -1,6 +1,6 @@
 import Vue from 'vue';
 
-import { UserIcon, LockIcon } from 'vue-feather-icons';
+import { UserIcon, LockIcon, AtSignIcon, MailIcon } from 'vue-feather-icons';
 
 import Starfield from './starfield';
 import Modal from './modal/modal.vue';
@@ -11,6 +11,8 @@ import AuthButtons from './auth-buttons.vue';
 
 Vue.component('user-icon', UserIcon);
 Vue.component('lock-icon', LockIcon);
+Vue.component('at-sign-icon', AtSignIcon);
+Vue.component('mail-icon', MailIcon);
 
 Vue.component('starfield', Starfield);
 Vue.component('modal', Modal);
