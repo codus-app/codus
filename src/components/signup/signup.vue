@@ -2,7 +2,7 @@
   <form class="signup-form" v-on:keydown.enter="signup">
     <!-- 1. First and last name -->
     <div>
-      <i class="material-icons">mood</i>
+      <user-icon></user-icon>
       <div>
         <input type="text" v-model="firstName" placeholder="First name" ref="firstNameInput">
         <input type="text" v-model="lastName" placeholder="Last name" ref="lastNameInput">
@@ -10,17 +10,17 @@
     </div>
     <!-- 2. Email -->
     <div>
-      <i class="material-icons">email</i>
+      <mail-icon></mail-icon>
       <input type="text" v-model="email" placeholder="email" ref="emailInput">
     </div>
     <!-- 3. Username -->
     <div>
-      <i class="material-icons">person</i>
+      <at-sign-icon></at-sign-icon>
       <input type="text" v-model="username" placeholder="username" ref="usernameInput">
     </div>
     <!-- 4. Password -->
     <div>
-      <i class="material-icons">vpn_key</i>
+      <lock-icon></lock-icon>
       <input type="password" v-model="password" placeholder="password" ref="passwordInput">
     </div>
     <!-- Sign up -->
