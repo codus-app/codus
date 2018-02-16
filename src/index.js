@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import feather from 'feather-icons';
 
 // HTML
 import './index.html';
@@ -24,6 +25,8 @@ window.app = new Vue({
     this.$refs.signupModal.$on('show', () => { this.showTitle = false; });
     this.$refs.loginModal.$on('close', () => { this.showTitle = true; });
     this.$refs.signupModal.$on('close', () => { this.showTitle = true; });
+
+    feather.replace();
   },
 
 });
