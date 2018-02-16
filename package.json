@@ -60,10 +60,10 @@
     "animate.css": "^3.5.2",
     "auth0-js": "^9.0.2",
     "babel-polyfill": "^6.26.0",
-    "feather-icons": "^4.5.0",
     "jwt-decode": "^2.2.0",
     "promise-polyfill": "^7.0.0",
     "vue": "^2.5.13",
+    "vue-feather-icons": "^4.5.0",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
     "whatwg-fetch": "^2.0.3"
