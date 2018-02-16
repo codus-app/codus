@@ -20,7 +20,7 @@ export default {
   .auth-buttons
     height: 1rem
     display: flex
-    font-size: .75rem
+    font-size: .6rem
     align-items: center
 
     div
