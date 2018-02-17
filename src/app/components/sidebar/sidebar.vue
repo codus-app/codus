@@ -22,7 +22,7 @@
         <span class="montserrat light" v-if="!collapsed">{{r.meta.label}}</span>
       </router-link>
 
-      <div class="sb-link logout">
+      <div class="sb-link logout" v-on:click="logout">
         <log-out-icon></log-out-icon>
         <span class="montserrat light" v-if="!collapsed">Log out</span>
       </div>
@@ -34,6 +34,7 @@
 <script>
 
 import routes from '../../pages';
+import auth from '../../../auth';
 
 export default {
   data: () => ({
@@ -42,6 +43,8 @@ export default {
 
     collapsed: false,
   }),
+
+  methods: { logout: auth.logout },
 };
 
 </script>
