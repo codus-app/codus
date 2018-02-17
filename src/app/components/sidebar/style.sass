@@ -12,6 +12,17 @@
   .links
     padding: 1.75rem
 
+  &.collapsed
+    .links
+      padding: 1.75rem 1rem
+
+    .sb-link svg
+      margin-right: 0
+      opacity: .75
+
+    .sb-link.router-link-exact-active svg
+      opacity: 1
+
   h2
     font-size: .6rem
     color: $light-text-hint
