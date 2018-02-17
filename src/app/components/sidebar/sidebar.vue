@@ -22,6 +22,11 @@
         <span class="montserrat light" v-if="!collapsed">{{r.meta.label}}</span>
       </router-link>
 
+      <div class="sb-link logout">
+        <log-out-icon></log-out-icon>
+        <span class="montserrat light" v-if="!collapsed">Log out</span>
+      </div>
+
     </div>
   </div>
 </template>

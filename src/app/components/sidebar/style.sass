@@ -2,6 +2,7 @@
 
 .sidebar
   background: $dark-1
+  position: relative
 
   h1
     font-size: 1.75rem
@@ -22,6 +23,10 @@
 
     .sb-link.router-link-exact-active svg
       opacity: 1
+
+    .logout
+      transform: translateX(-50%)
+      opacity: .75
 
   h2
     font-size: .6rem
@@ -56,3 +61,16 @@
 
     &.router-link-exact-active .indicator
       display: block
+
+  .logout
+    position: absolute
+    bottom: 1.75em
+    left: 50%
+    // 1.2em is half the icon's width, so that the text can be centered regardless of the icon
+    transform: translateX(-50%) translateX(-1.2em)
+    opacity: .6
+
+    span
+      text-transform: uppercase
+      letter-spacing: .15em
+      white-space: nowrap
