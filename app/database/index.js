@@ -17,7 +17,7 @@ module.exports.getUser = {
   byId(sub) { return this.byAuth0(sub); },
 };
 
-
+// Find a problem in a given category with a given name
 module.exports.getProblem = async function getProblem(category, name) {
   await db.ready;
   const problem = await models.Problem
@@ -37,6 +37,7 @@ module.exports.getCategories = async function getCategories() {
   return categories;
 };
 
+// Get a single Category by name
 module.exports.getCategory = async function getCategory(categoryName) {
   await db.ready;
   const category = await models.Category
