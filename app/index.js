@@ -25,10 +25,14 @@ app.get('/', (req, res) => {
 
 // Query the database for a problem
 app.get('/problem/:category/:name', async (req, res) => {
-  // By name
   const problem = await database.getProblem(req.params.category, req.params.name);
   if (!problem) res.status(404).json({ error: `Problem ${req.params.name} was not found` });
   else res.json(stripId(problem));
+});
+
+// Get all the categories
+app.get('/categories', async (req, res) => {
+  database.getCategories().then(cats => res.json(cats));
 });
 
 // Get all the problems in a category
