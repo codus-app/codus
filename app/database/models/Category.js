@@ -21,9 +21,9 @@ categorySchema.methods.getProblems = async function getProblems(strip = false) {
 };
 // Get the user's solution to each problem referenced by this category
 categorySchema.methods.getSolutions = async function getSolutions(user) {
-  return Promise.all(this.problems.map(problemName => user.getSolution(problemName)))
+  return Promise.all(this.problems.map(problemName => user.getSolution(this.id, problemName)))
     // Replace 'undefined' solutions with an object containing the name of the problem.
-    .then(solutions => solutions.map((s, i) => s || { name: this.problems[i] }));
+    .then(solutions => solutions.map((s, i) => s || { name: this.problems[i], passed: false }));
 };
 // Add a mongoose problem document to the category
 categorySchema.methods.addProblem = async function addProblem(problem) {
