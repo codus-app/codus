@@ -167,6 +167,15 @@ curl -H "Authorization: Bearer ACCESS_TOKEN_HERE" https://api.codus.arkis.io/sol
 }
 ```
 
+##### `PUT /solution/[category]/[problemName]` *requires Authorization*
+Store a user's solution to a given problem
+```bash
+curl -X PUT -H "Authorization: Bearer ACCESS_TOKEN_HERE" -H "Content-Type: text/plain" -d "SOLUTION_HERE" https://api.codus.arkis.io/solution/warmup/Sum
+```
+```json
+{ "success": true }
+```
+
 ##### `GET /check/[category]/[problemName]` *requires Authorization*
 Executes the user's stored solution for the given problem and returns the results
 ```bash
