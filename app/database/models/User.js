@@ -12,14 +12,8 @@ const Problem = require('./Problem');
 // Schema for a solution. This contains the name (unique) of a problem described in the Problems
 // collection, as well as the user's solution and whether the solution passes tests.
 const solutionSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    // name must be in the problems collection
-    validate: {
-      isAsync: true,
-      validator: (name, cb) => Problem.findOne().where('name').equals(name).then(r => !!r).then(cb),
-    },
-  },
+  name: String,
+  category: String,
   code: String,
   passed: Boolean,
 }, { _id: false });
@@ -45,22 +39,27 @@ const userSchema = new mongoose.Schema({
   solutions: [solutionSchema],
 });
 // Get the subdocument describing one of the user's solutions, searching by name
-userSchema.methods.getSolution = async function getSolution(problemName) {
+userSchema.methods.getSolution = async function getSolution(category, problemName) {
   let result;
   this.solutions.forEach((s) => {
-    if (s.name === problemName) result = s;
+    if (s.category === category && s.name === problemName) result = s;
   });
   return result;
 };
 // Add a problem solution to the user's data
-userSchema.methods.addSolution = async function addSolution(problemName, code) {
-  this.solutions.push({ name: problemName, code, passed: undefined });
+userSchema.methods.addSolution = async function addSolution(category, problemName, code) {
+  this.solutions.push({
+    category,
+    name: problemName,
+    code,
+    passed: undefined,
+  });
   await this.save();
 };
 // Change one of the user's already-existing solutions
-userSchema.methods.changeSolution = async function changeSolution(problemName, code) {
-  const solution = await this.getSolution(problemName);
-  if (typeof solution === 'undefined') throw new Error(`Could not update solution to ${problemName} because no existing solution was found`);
+userSchema.methods.changeSolution = async function changeSolution(category, problemName, code) {
+  const solution = await this.getSolution(category, problemName);
+  if (typeof solution === 'undefined') throw new Error(`Could not update solution to ${category}/${problemName} because no existing solution was found`);
   // Update
   Object.assign(solution, { code, passed: undefined }); // We no longer know whether the code passes
   await this.save();
