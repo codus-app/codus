@@ -29,6 +29,16 @@ module.exports.getProblem = async function getProblem(category, name) {
 
 // Query the database for one or more problems and return all info
 module.exports.getProblems = {
+  // Return all the problems with the given names
+  async byNames(category, names) {
+    await db.ready;
+    const problems = await models.Problem
+      .find()
+      .where('category').equals(category)
+      .where('name').in(names);
+    return problems;
+  },
+
   // Return info about all of the problems in a category
   async byCategory(cat) {
     await db.ready;
