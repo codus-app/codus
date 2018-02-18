@@ -9,6 +9,7 @@
     "no-underscore-dangle": "off",
     "no-console": "off",
     "no-multi-assign": "off",
-    "no-prototype-builtins": "off"
+    "no-prototype-builtins": "off",
+    "newline-per-chained-call": "off"
   }
 }
