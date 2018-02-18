@@ -32,10 +32,10 @@ module.exports.getCategories = async function getCategories(strip = false) {
 };
 
 // Get a single Category by name
-module.exports.getCategory = async function getCategory(categoryName, strip = false) {
+module.exports.getCategory = async function getCategory(id, strip = false) {
   await db.ready;
   return models.Category
     .findOne()
-    .where('name').equals(categoryName)
+    .where('id').equals(id)
     .select(strip ? '-_id -__v' : ''); // Remove _id and __v properties if strip is passed
 };

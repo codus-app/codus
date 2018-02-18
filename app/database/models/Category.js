@@ -4,7 +4,7 @@ const Problem = require('./Problem');
 
 
 const categorySchema = new mongoose.Schema({
-  name: String,
+  id: String,
   description: String,
   problems: [String],
 });
@@ -14,7 +14,7 @@ categorySchema.methods.getProblems = async function getProblems(strip = false) {
   await connection.ready;
   return Problem
     .find()
-    .where('category').equals(this.name)
+    .where('category').equals(this.id)
     .where('name').in(this.problems)
     .select(strip ? '-_id -__v' : ''); // Remove _id and __v properties if strip is passed
 };
@@ -30,7 +30,7 @@ categorySchema.methods.addProblem = async function addProblem(problem) {
     this.problems.push(problem.name); // Add to category's record
     await this.save();
     // Problem should have its category property set to this
-    problem.category = this.name();
+    problem.category = this.id;
     await problem.save();
   }
 };

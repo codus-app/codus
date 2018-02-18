@@ -35,9 +35,9 @@ app.get('/categories', async (req, res) => {
 });
 
 // Get all the problems in a category
-app.get('/category/:name', async (req, res) => {
-  const category = await database.getCategory(req.params.name, true);
-  if (!category) res.status(404).json({ error: `Category ${req.params.name} was not found` });
+app.get('/category/:id', async (req, res) => {
+  const category = await database.getCategory(req.params.id, true);
+  if (!category) res.status(404).json({ error: `Category ${req.params.id} was not found` });
   else {
     const problems = await category.getProblems(true);
     const out = category.toObject();
@@ -61,9 +61,9 @@ app.get('/userinfo', auth0(), (req, res) => {
 
 // Get a user-specific overview of a category including the category's name/description, the names
 // of all contained problems, and whether the user's solution to each passes
-app.get('/categoryOverview/:category', auth0(), async (req, res) => {
+app.get('/categoryOverview/:id', auth0(), async (req, res) => {
   const user = await database.getUser(req.user.sub);
-  const category = await database.getCategory(req.params.category, true);
+  const category = await database.getCategory(req.params.id, true);
   if (!category) res.status(404).json({ error: `Category ${req.params.name} was not found` });
   else {
     const solutions = await category.getSolutions(user);
@@ -74,31 +74,31 @@ app.get('/categoryOverview/:category', auth0(), async (req, res) => {
 });
 
 // Get a user's solution to a problem
-app.get('/solution/:category/:problemName', auth0(), async (req, res) => {
+app.get('/solution/:category/:problem', auth0(), async (req, res) => {
   const user = await database.getUser(req.user.sub);
-  const solution = await user.getSolution(req.params.category, req.params.problemName);
+  const solution = await user.getSolution(req.params.category, req.params.problem);
   if (!solution) res.status(404).json({ error: `no solution by the authenticated user for problem ${req.params.problemName} was found` });
   else res.json(solution);
 });
 
 // Add/change a user's solution to a problem
-app.put('/solution/:category/:problemName', auth0(), async (req, res) => {
+app.put('/solution/:category/:problem', auth0(), async (req, res) => {
   const user = await database.getUser(req.user.sub);
-  const solutionExists = !!(await user.getSolution(req.params.category, req.params.problemName));
+  const solutionExists = !!(await user.getSolution(req.params.category, req.params.problem));
   if (solutionExists) { // Update existing
-    await user.changeSolution(req.params.category, req.params.problemName, req.body);
+    await user.changeSolution(req.params.category, req.params.problem, req.body);
     res.status(200).json({ success: true });
   } else { // Create new
-    await user.addSolution(req.params.category, req.params.problemName, req.body);
+    await user.addSolution(req, req.params.problem, req.body);
     res.status(201).json({ success: true });
   }
 });
 
 // Check a user's solution to a problem
-app.get('/check/:category/:problemName', auth0(), async (req, res) => {
+app.get('/check/:category/:problem', auth0(), async (req, res) => {
   const user = await database.getUser(req.user.sub);
-  const solution = await user.getSolution(req.params.category, req.params.problemName);
-  if (!solution) res.status(404).json({ error: `no solution by the authenticated user for problem ${req.params.problemName} was found` });
+  const solution = await user.getSolution(req.params.category, req.params.problem);
+  if (!solution) res.status(404).json({ error: `no solution by the authenticated user for problem ${req.params.problem} was found` });
   else {
     const results = await solution.check();
     res.json(results);
