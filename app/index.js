@@ -95,9 +95,9 @@ app.put('/solution/:problemName', auth0(), async (req, res) => {
 });
 
 // Check a user's solution to a problem
-app.get('/check/:problemName', auth0(), async (req, res) => {
+app.get('/check/:category/:problemName', auth0(), async (req, res) => {
   const user = await database.getUser(req.user.sub);
-  const solution = await user.getSolution(req.params.problemName);
+  const solution = await user.getSolution(req.params.category, req.params.problemName);
   if (!solution) res.status(404).json({ error: `no solution by the authenticated user for problem ${req.params.problemName} was found` });
   else {
     const results = await solution.check();
