@@ -57,6 +57,20 @@ app.get('/userinfo', auth0(), (req, res) => {
     .then(u => res.json(u));
 });
 
+// Get a user-specific overview of a category including the category's name/description, the names
+// of all contained problems, and whether the user's solution to each passes
+app.get('/categoryOverview/:category', auth0(), async (req, res) => {
+  const user = await database.getUser.byAuth0(req.user.sub);
+  const category = await database.getCategory(req.params.category);
+  if (!category) res.status(404).json({ error: `Category ${req.params.name} was not found` });
+  else {
+    const solutions = await category.getSolutions(user);
+    const out = category.toObject();
+    out.solutions = solutions;
+    res.json(stripId(out));
+  }
+});
+
 // Get a user's solution to a problem
 app.get('/solution/:problemName', auth0(), async (req, res) => {
   const user = await database.getUser.byAuth0(req.user.sub);
