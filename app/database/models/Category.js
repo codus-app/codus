@@ -10,12 +10,13 @@ const categorySchema = new mongoose.Schema({
 });
 
 // Get all of the problem documents referenced by this category
-categorySchema.methods.getProblems = async function getProblems() {
+categorySchema.methods.getProblems = async function getProblems(strip = false) {
   await connection.ready;
   return Problem
     .find()
     .where('category').equals(this.name)
-    .where('name').in(this.problems);
+    .where('name').in(this.problems)
+    .select(strip ? '-_id -__v' : ''); // Remove _id and __v properties if strip is passed
 };
 // Get the user's solution to each problem referenced by this category
 categorySchema.methods.getSolutions = async function getSolutions(user) {
