@@ -27,7 +27,7 @@ export default [
   {
     path: '/class',
     component: require('./class/class.vue').default,
-    meta: { icon: 'user', label: 'Members', category: 'class' },
+    meta: { icon: 'users', label: 'Members', category: 'class' },
   },
   {
     path: '/leaderboard',
