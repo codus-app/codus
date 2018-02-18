@@ -1,7 +1,10 @@
 # codus-engine
-The server-side engine powering Codus. The Codus Engine is responsible for making database queries
-and orchestrating containers in response to authenticated user requests coming from the
-[client](https://github.com/arkis/codus).
+> The server-side engine powering Codus.
+
+The Codus Engine is responsible for making database queries and orchestrating execution containers
+in response to authenticated user requests coming from the [client](https://github.com/arkis/codus).
+It can retrieve and modify information from the database via `mongoose` and it can execute user
+solutions via [`codus-execute-java`](https://github.com/arkis/codus-execute-java)
 
 # API documentation
 The Codus Engine exposes a web interface for reading and manipulating data.
