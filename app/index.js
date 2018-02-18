@@ -33,9 +33,14 @@ app.get('/problem/:category/:name', async (req, res) => {
 
 // Get all the problems in a category
 app.get('/category/:name', async (req, res) => {
-  const problems = await database.getProblems.byCategory(req.params.name);
-  if (!problems.length) res.status(404).json({ error: `No problems match category ${req.params.name}` });
-  else res.json(stripId(problems));
+  const category = await database.getCategory(req.params.name);
+  if (!category) res.status(404).json({ error: `Category ${req.params.name} was not found` });
+  else {
+    const problems = await category.getProblems();
+    const out = category.toObject();
+    out.problems = problems;
+    res.json(stripId(out));
+  }
 });
 
 
