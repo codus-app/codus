@@ -22,7 +22,7 @@ const solutionSchema = new mongoose.Schema({
   },
   code: String,
   passed: Boolean,
-});
+}, { _id: false });
 solutionSchema.methods.check = async function checkSolution() {
   const problem = await Problem.findOne().where('name').equals(this.name);
   const results = await javaExec(problem, this.code);
