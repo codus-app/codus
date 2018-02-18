@@ -5,6 +5,7 @@ const Problem = require('./Problem');
 
 const categorySchema = new mongoose.Schema({
   id: String,
+  readableName: String,
   description: String,
   problems: [String],
 });
