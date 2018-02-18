@@ -24,10 +24,7 @@ module.exports.getProblem = async function getProblem(category, name) {
 // Get the names of all categories
 module.exports.getCategories = async function getCategories() {
   await db.ready;
-  return models.Category
-    .find()
-    .select('name')
-    .then(cats => cats.map(c => c.name)); // Return the name field of each object
+  return models.Category.find();
 };
 
 // Get a single Category by name

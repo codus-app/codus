@@ -32,7 +32,9 @@ app.get('/problem/:category/:name', async (req, res) => {
 
 // Get all the categories
 app.get('/categories', async (req, res) => {
-  database.getCategories().then(cats => res.json(cats));
+  database.getCategories()
+    .then(stripId)
+    .then(cats => res.json(cats));
 });
 
 // Get all the problems in a category
