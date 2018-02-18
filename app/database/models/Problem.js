@@ -25,7 +25,7 @@ const testCaseSchema = new mongoose.Schema({
 // as well its name and category
 const problemSchema = new mongoose.Schema({
   // name is a unique String
-  name: { type: String, unique: true },
+  name: String,
   // category is a string (not unique)
   category: String,
   // Description is a string
