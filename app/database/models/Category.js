@@ -1,10 +1,21 @@
 const mongoose = require('mongoose');
+const connection = require('../connection');
+const Problem = require('./Problem');
+
 
 const categorySchema = new mongoose.Schema({
   name: String,
   problems: [String],
 });
 
+// Get all of the problem documents referenced by this category
+categorySchema.methods.getProblems = async function getProblems() {
+  await connection.ready;
+  return Problem
+    .find()
+    .where('category').equals(this.name)
+    .where('name').in(this.problems);
+};
 // Add a mongoose problem document to the category
 categorySchema.methods.addProblem = async function addProblem(problem) {
   if (problem && !this.problems.includes(problem.name)) {
