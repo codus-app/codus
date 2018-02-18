@@ -17,6 +17,10 @@ categorySchema.methods.getProblems = async function getProblems() {
     .where('category').equals(this.name)
     .where('name').in(this.problems);
 };
+// Get the user's solution to each problem referenced by this category
+categorySchema.methods.getSolutions = async function getSolutions(user) {
+  return Promise.all(this.problems.map(problemName => user.getSolution(problemName)));
+};
 // Add a mongoose problem document to the category
 categorySchema.methods.addProblem = async function addProblem(problem) {
   if (problem && !this.problems.includes(problem.name)) {
