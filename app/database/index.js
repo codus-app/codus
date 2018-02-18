@@ -27,4 +27,10 @@ module.exports.getProblem = async function getProblem(category, name) {
   return problem;
 };
 
+module.exports.getCategory = async function getCategory(categoryName) {
+  await db.ready;
+  const category = await models.Category
+    .find()
+    .where('name').equals(categoryName);
+  return category;
 };
