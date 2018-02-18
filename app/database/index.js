@@ -30,7 +30,7 @@ module.exports.getProblem = async function getProblem(category, name) {
 module.exports.getCategory = async function getCategory(categoryName) {
   await db.ready;
   const category = await models.Category
-    .find()
+    .findOne()
     .where('name').equals(categoryName);
   return category;
 };
