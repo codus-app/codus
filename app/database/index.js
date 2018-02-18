@@ -27,6 +27,16 @@ module.exports.getProblem = async function getProblem(category, name) {
   return problem;
 };
 
+// Get the names of all categories
+module.exports.getCategories = async function getCategories() {
+  await db.ready;
+  const categories = await models.Category
+    .find()
+    .select('name')
+    .then(cats => cats.map(c => c.name)); // Return the name field of each object
+  return categories;
+};
+
 module.exports.getCategory = async function getCategory(categoryName) {
   await db.ready;
   const category = await models.Category
