@@ -17,10 +17,10 @@ header. This token can be obtained by going through the login process in
 
 ### Querying info
 
-##### `GET /problem/[name]`
+##### `GET /problem/[category]/[name]`
 Returns information on the problem with a given name
 ```bash
-curl https://api.codus.arkis.io/problem/Sum
+curl https://api.codus.arkis.io/problem/warmup/Sum
 ```
 ```json
 {
@@ -40,41 +40,61 @@ curl https://api.codus.arkis.io/problem/Sum
 }
 ```
 
-##### `GET /category/[name]`
-Returns information on all the problems in a given category
+##### `GET /categories`
+Returns basic information on each category. Includes problem names but not the full set of info on
+each problem.
 ```bash
-curl https://api.codus.arkis.io/category/warmup
+curl https://api.codus.arkis.io/categories
 ```
 ```json
 [
   {
-    "name": "Sum",
-    "category": "warmup",
-    "parameters": [
-      { "name": "a", "type": "Integer" },
-      { "name": "b", "type": "Integer" }
-    ],
-    "resultType": "Integer",
-    "testCases": [
-      { "parameters": [5, 3], "result": 8 },
-      { "parameters": [1, 2], "result": 3 }
-    ]
-  },
-
-  {
-    "name": "Difference",
-    "category": "warmup",
-    "parameters": [
-      { "name": "a", "type": "Integer" },
-      { "name": "b", "type": "Integer" }
-    ],
-    "resultType": "Integer",
-    "testCases": [
-      { "parameters": [5, 3], "result": 2 },
-      { "parameters": [2, 1], "result": 1 }
-    ]
+    "name": "warmup",
+    "description": "Some simple sample problems to get you started.",
+    "problems": [ "Sum", "Difference" ]
   }
 ]
+```
+
+##### `GET /category/[name]`
+Returns information on the category with the given name
+```bash
+curl https://api.codus.arkis.io/category/warmup
+```
+```json
+{
+  "name": "warmup",
+  "description": "Some simple sample problems to get you started.",
+  "problems": [
+    {
+      "category": "warmup",
+      "name": "Sum",
+      "parameters": [
+        { "name": "a", "type": "Integer" },
+        { "name": "b", "type": "Integer" }
+      ],
+      "resultType": "Integer",
+      "testCases": [
+        { "parameters": [5, 3], "result": 8 },
+        { "parameters": [1, 2], "result": 3 }
+      ]
+    },
+
+    {
+      "category": "warmup",
+      "name": "Difference",
+      "parameters": [
+        { "name": "a", "type": "Integer" },
+        { "name": "b", "type": "Integer" }
+      ],
+      "resultType": "Integer",
+      "testCases": [
+        { "parameters": [5, 3], "result": 2 },
+        { "parameters": [2, 1], "result": 1 }
+      ]
+    }
+  ]
+}
 ```
 
 
@@ -91,6 +111,7 @@ curl -H "Authorization: Bearer ACCESS_TOKEN_HERE" https://api.codus.arkis.io/use
   "auth0_id": "auth0|123456",
   "solutions": [
     {
+      "category": "warmup",
       "name": "Sum",
       "code": "\npublic class Sum {\n\n  public int main(int a, int b) {\n    return a + b;\n  }\n\n}\n\n",
       "passed": true
@@ -132,23 +153,24 @@ curl -H "Authorization: Bearer ACCESS_TOKEN_HERE" https://api.codus.arkis.io/use
 }
 ```
 
-##### `GET /solution/[problemName]` *requires Authorization*
+##### `GET /solution/[category]/[problemName]` *requires Authorization*
 Returns stored information on the user's solution to a given problem
 ```bash
-curl -H "Authorization: Bearer ACCESS_TOKEN_HERE" https://api.codus.arkis.io/solution/Sum
+curl -H "Authorization: Bearer ACCESS_TOKEN_HERE" https://api.codus.arkis.io/solution/warmup/Sum
 ```
 ```json
 {
+  "category": "warmup",
   "name": "Sum",
   "code": "\npublic class Sum {\n\n  public int main(int a, int b) {\n    return a + b;\n  }\n\n}\n\n",
   "passed": true
 }
 ```
 
-##### `GET /check/[problemName]` *requires Authorization*
+##### `GET /check/[category]/[problemName]` *requires Authorization*
 Executes the user's stored solution for the given problem and returns the results
 ```bash
-curl -H "Authorization: Bearer ACCESS_TOKEN_HERE" https://api.codus.arkis.io/check/Sum
+curl -H "Authorization: Bearer ACCESS_TOKEN_HERE" https://api.codus.arkis.io/check/warmup/Sum
 ```
 ```json
 {
