@@ -18,15 +18,24 @@ module.exports.getUser = {
 };
 
 
+module.exports.getProblem = async function getProblem(category, name) {
+  await db.ready;
+  const problem = await models.Problem
+    .findOne()
+    .where('category').equals(category)
+    .where('name').equals(name);
+  return problem;
+};
+
 // Query the database for one or more problems and return all info
-module.exports.getProblem = module.exports.getProblems = {
+module.exports.getProblems = {
   // Find a single problem by its name
   async byName(name) {
     await db.ready;
-    const problem = await models.Problem
-      .findOne()
+    const problems = await models.Problem
+      .find()
       .where('name').equals(name);
-    return problem;
+    return problems;
   },
 
   // Return info about all of the problems in a category
