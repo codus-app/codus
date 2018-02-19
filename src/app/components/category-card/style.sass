@@ -1,24 +1,8 @@
 @import '../../../global-styles'
 
-// The links that go inside the cards
-.problem-link
-  // Slightly more saturated and brighter than $dark-2
-  background: #1a1a1f
-  font-family: 'Montserrat', sans-serif
-  font-size: .6rem
-  font-weight: 200
-  color: $light-text-secondary
 
-  display: block
-  float: left
-  padding: .6rem .95rem
-  margin: 0 .55rem .55rem 0
-
-  border-radius: 2px
-
-  &.completed
-    color: $green-text
-
+// Slightly more saturated and brighter than $dark-2
+$link-bg: #1a1a1f
 
 .category-card
   width: calc((100% - 2rem) / 3)
@@ -43,3 +27,38 @@
   &.invisible
     .problem-link
       visibility: hidden
+
+
+// The links that go inside the cards
+.problem-link
+  background: $link-bg
+  font-family: 'Montserrat', sans-serif
+  font-size: .6rem
+  font-weight: 200
+  color: $light-text-secondary
+
+  display: block
+  float: left
+  padding: .6rem .95rem
+  margin: 0 .55rem .55rem 0
+
+  border-radius: 2px
+
+  &.completed
+    color: $green-text
+
+
+// The indicator specifying how many problems are not displayed
+.remainder
+  font-family: 'Montserrat', sans-serif
+  font-size: .6rem
+  font-weight: 300
+  color: $green-text
+
+  display: block
+  float: left
+  padding: calc(.6rem - 3px)
+  margin: 0
+
+  border-radius: 4px
+  border: 2.5px solid $link-bg
