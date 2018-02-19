@@ -6,6 +6,8 @@ export default {
     name: this.categoryId, // Will be replaced with readable name after first HTTP request completes
     description: '',
 
+    completion: 0,
+
     problems: [], // All problems in the category
     displayProblems: [], // All problems that fit on the unexpanded card
     remainder: 0, // The number of problems not displayed
@@ -29,6 +31,8 @@ export default {
       const solvedNames = category.solutions.filter(s => s.passed).map(s => s.name);
 
       problemNames.forEach(p => this.problems.push({ name: p, passed: solvedNames.includes(p) }));
+
+      this.completion = solvedNames.length / problemNames.length;
 
       this.layout();
     },
