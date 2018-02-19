@@ -45,8 +45,13 @@ $link-bg: #1a1a1f
 
   border-radius: 2px
 
+  transition: background .25s
+
   &.completed
     color: $green-text
+
+  &:hover
+    background: lighten($link-bg, 3)
 
 
 // The indicator specifying how many problems are not displayed
@@ -58,10 +63,15 @@ $link-bg: #1a1a1f
 
   display: block
   float: left
-  padding: calc(.6rem - 3px)
+  padding: calc(1em - 3px)
   margin: 0
 
   border-radius: 4px
   border: 2.5px solid $link-bg
 
   cursor: pointer
+
+  transition: background .25s
+
+  &:hover
+    background: $link-bg
