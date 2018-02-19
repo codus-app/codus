@@ -8,6 +8,7 @@ export default {
 
     problems: [], // All problems in the category
     displayProblems: [], // All problems that fit on the unexpanded card
+    remainder: 0, // The number of problems not displayed
     invisible: true, // Should the problems be visible yet?
   }),
 
@@ -43,6 +44,7 @@ export default {
           this.displayProblems = first2Rows;
           this.displayProblems.pop();
         }
+        this.remainder = this.problems.length - this.displayProblems.length;
         this.invisible = false;
       });
     },
