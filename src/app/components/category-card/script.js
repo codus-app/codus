@@ -38,9 +38,10 @@ export default {
 
         // Need to hide some if there are more than 2 rwos
         if (rowYs.length > 2) {
-          // Cut to the first two rows of problems
+          // Cut to the first two rows of problems and then remove the final problem
           const first2Rows = this.displayProblems.filter((prob, i) => renderYs[i] < rowYs[2]);
           this.displayProblems = first2Rows;
+          this.displayProblems.pop();
         }
         this.invisible = false;
       });
