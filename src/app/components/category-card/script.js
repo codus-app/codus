@@ -14,6 +14,8 @@ export default {
 
   created() {
     this.fetchData();
+
+    window.addEventListener('resize', () => this.layout());
   },
 
   methods: {
@@ -27,6 +29,12 @@ export default {
       const solvedNames = category.solutions.filter(s => s.passed).map(s => s.name);
 
       problemNames.forEach(p => this.problems.push({ name: p, passed: solvedNames.includes(p) }));
+
+      this.layout();
+    },
+
+    layout() {
+      this.invisible = true;
 
       this.displayProblems = this.problems;
 
