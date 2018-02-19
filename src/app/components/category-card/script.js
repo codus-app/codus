@@ -1,5 +1,5 @@
 import * as api from '../../api';
-global.api = api;
+
 export default {
   props: ['categoryId'],
   data: () => ({
