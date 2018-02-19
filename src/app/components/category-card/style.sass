@@ -16,6 +16,8 @@ $link-bg: #1a1a1f
   border-radius: 4px
   box-shadow: 0 10px 20px -5px transparentize($black, .75)
 
+  // every third child (last in each row) should have its right margin omitted to avoid unnecessary
+  // wrapping
   &:nth-child(3n)
     margin-right: 0
 
