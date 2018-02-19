@@ -15,11 +15,16 @@ $link-bg: #1a1a1f
   background: $dark-1
   border-radius: 4px
   box-shadow: 0 10px 20px -5px transparentize($black, .75)
+  transition: box-shadow .25s, transform .25s
 
   // every third child (last in each row) should have its right margin omitted to avoid unnecessary
   // wrapping
   &:nth-child(3n)
     margin-right: 0
+
+  &:hover
+    box-shadow: 0 12px 35px -3px transparentize($black, .75)
+    transform: translateY(-1px)
 
   h1
     font-size: .8rem
