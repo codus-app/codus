@@ -1,0 +1,40 @@
+@import '../../../global-styles'
+
+// The links that go inside the cards
+.problem-link
+  // Slightly more saturated and brighter than $dark-2
+  background: #1a1a1f
+  font-family: 'Montserrat', sans-serif
+  font-size: .6rem
+  font-weight: 300
+  color: $light-text-secondary
+
+  display: inline-block
+  padding: .5rem 1rem
+  margin: 0 .55rem .55rem 0
+
+  border-radius: 2px
+
+  &.completed
+    color: $green-text
+
+
+.category-card
+  width: calc((100% - 2rem) / 3)
+  height: 8rem
+
+  padding: 1rem
+  margin: 0 1rem 1rem 0
+  float: left
+
+  background: $dark-1
+  border-radius: 4px
+  box-shadow: 0 10px 20px -5px transparentize($black, .75)
+
+  &:nth-child(3n)
+    margin-right: 0
+
+  h1
+    font-size: .8rem
+    font-weight: 300
+    margin: 0 0 1rem
