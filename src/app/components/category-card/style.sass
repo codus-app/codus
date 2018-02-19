@@ -4,11 +4,7 @@
 // Slightly more saturated and brighter than $dark-2
 $link-bg: #1a1a1f
 
-$num-columns: 3
-
 .category-card
-  // Allot 1rem space between each column, then divide remaining space by total number of columns
-  width: calc((100% - #{$num-columns - 1}rem) / #{$num-columns})
   height: 8.2rem
 
   padding: 1rem 0 1rem 1rem
@@ -20,11 +16,6 @@ $num-columns: 3
   border-radius: 4px
   box-shadow: 0 10px 20px -5px transparentize($black, .75)
   transition: box-shadow .25s, transform .25s
-
-  // every third child (last in each row) should have its right margin omitted to avoid unnecessary
-  // wrapping
-  &:nth-child(#{$num-columns}n)
-    margin-right: 0
 
   &:hover
     box-shadow: 0 12px 35px -3px transparentize($black, .75)
@@ -40,6 +31,40 @@ $num-columns: 3
   &.invisible
     .problem-link
       visibility: hidden
+
+
+// Small screens: 1 column
+@media screen and (max-width: 650px)
+  $num-columns: 1
+
+  .category-card
+    // Allot 1rem between each card and divide the remaining space by the number of columns
+    width: calc((100% - #{$num-columns - 1}rem) / #{$num-columns})
+
+    &:nth-child(#{$num-columns}n)
+      // Rightmost card in each row should have no margin-right to prevent unnecessary wrapping
+      margin-right: 0
+
+// Medium screens: 2 columns
+@media screen and (min-width: 650px)
+  $num-columns: 2
+
+  .category-card
+    width: calc((100% - #{$num-columns - 1}rem) / #{$num-columns})
+
+    &:nth-child(#{$num-columns}n)
+      margin-right: 0
+
+// Large screens: 3 columns
+@media screen and (min-width: 1000px)
+  $num-columns: 3
+
+  .category-card
+    width: calc((100% - #{$num-columns - 1}rem) / #{$num-columns})
+
+    &:nth-child(#{$num-columns}n)
+      margin-right: 0
+
 
 
 // The links that go inside the cards
