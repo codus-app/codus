@@ -34,4 +34,12 @@ export default [
     component: require('./leaderboard/leaderboard.vue').default,
     meta: { icon: 'award', label: 'Leaderboard', category: 'class' },
   },
+
+  // Problem editor
+
+  {
+    path: '/problem/:category/:name',
+    component: require('./editor/editor.vue').default,
+    meta: {}, // Won't render in sidebar because it has no category
+  },
 ];
