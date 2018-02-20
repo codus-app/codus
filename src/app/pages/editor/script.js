@@ -6,6 +6,7 @@ export default {
       category: this.$route.params.category,
       problemName: this.$route.params.name,
       problem: {},
+      code: '',
     };
   },
 
@@ -13,10 +14,22 @@ export default {
     async fetchData() {
       const problem = await api.get(`/problem/${this.category}/${this.problemName}`);
       this.problem = problem;
+      this.code = this.getBase();
+    },
+
+    getBase() {
+      const parameters = this.problem.parameters.map(p => `${p.type} ${p.name}`);
+      return `\
+public class ${this.problem.name} {
+  public ${this.problem.resultType} main(${parameters.join(', ')}) {
+    // Your code here
+  }
+}`;
     },
   },
 
-  created() {
-    this.fetchData();
+  async created() {
+    await this.fetchData();
+    this.code = this.getBase();
   },
 };
