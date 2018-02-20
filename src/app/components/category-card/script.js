@@ -22,7 +22,7 @@ export default {
 
   methods: {
     async fetchData() {
-      const category = await api.get(`/categoryOverview/${this.categoryId}`).then(r => r.json());
+      const category = await api.get(`/categoryOverview/${this.categoryId}`);
 
       this.name = category.readableName;
       this.description = category.description;

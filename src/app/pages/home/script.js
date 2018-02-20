@@ -11,7 +11,7 @@ export default {
 
   methods: {
     async fetchData() {
-      const categories = await api.get('/categories').then(r => r.json());
+      const categories = await api.get('/categories');
       this.categories = categories.map(c => c.id);
     },
   },

@@ -9,7 +9,7 @@ function apiRequest(endpoint, method, heads, body) {
 
   return fetch(path.join(base, endpoint), {
     headers, method, body,
-  });
+  }).then(r => r.json());
 }
 
 /** Perform a GET request and return a promise */
