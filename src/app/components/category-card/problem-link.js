@@ -4,6 +4,6 @@ export default {
   props: ['problem', 'completed'],
 
   computed: {
-    location: () => `/app/problem/${this.problem}`,
+    location() { return `/app/problem/${this.problem}`; },
   },
 };
