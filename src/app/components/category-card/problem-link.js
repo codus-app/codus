@@ -1,9 +1,9 @@
 export default {
-  template: '<a v-bind:href="location" class="problem-link" v-bind:class="{completed}">{{ problemName }}</a>',
+  template: '<a v-bind:href="location" class="problem-link" v-bind:class="{passed}">{{ name }}</a>',
 
-  props: ['category', 'problemName', 'completed'],
+  props: ['category', 'name', 'passed'],
 
   computed: {
-    location() { return `/app/problem/${this.category}/${this.problemName}`; },
+    location() { return `/app/problem/${this.category}/${this.name}`; },
   },
 };
