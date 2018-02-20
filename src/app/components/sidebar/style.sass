@@ -71,9 +71,13 @@
     // 1.2em is half the icon's width, so that the text can be centered regardless of the icon
     transform: translateX(-50%) translateX(-1.2em)
     opacity: .6
+    transition: opacity .25s
     cursor: pointer
 
     span
       text-transform: uppercase
       letter-spacing: .15em
       white-space: nowrap
+
+    &:hover
+      opacity: .75
