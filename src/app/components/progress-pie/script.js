@@ -1,7 +1,7 @@
 export default {
   props: {
     colors: Array,
-    background: String,
+    background: { type: String, default: 'transparent' },
     gradientAngle: { type: Number, default: 135 },
     progress: { type: Number, default: 0 },
   },
