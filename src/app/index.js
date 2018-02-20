@@ -41,12 +41,16 @@ window.app = new Vue({
       } else {
         this.transitionName = 'route-slide-up';
       }
+      this.updateSidebar();
     },
   },
 
   methods: {
     checkAuth() { if (auth.loginExpired()) auth.logout(); },
+    updateSidebar() { this.$refs.sidebar.collapsed = this.$route.meta.collapseSidebar || false; },
   },
+
+  mounted() { this.updateSidebar(); },
 
   created() { window.addEventListener('visibilitychange', this.checkAuth); },
   destroyed() { window.removeEventListener('visibilitychange', this.checkAuth); },

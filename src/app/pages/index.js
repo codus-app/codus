@@ -36,10 +36,11 @@ export default [
   },
 
   // Problem editor
+  // Won't render in sidebar because it has no category set in meta
 
   {
     path: '/problem/:category/:name',
     component: require('./editor/editor.vue').default,
-    meta: {}, // Won't render in sidebar because it has no category
+    meta: { collapseSidebar: true },
   },
 ];
