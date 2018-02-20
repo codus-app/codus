@@ -1,6 +1,6 @@
 <!-- A component that can display a "pie-style" circular progress indicator with a gradient fill -->
 <template>
-  <div class="progress-pie">
+  <div class="progress-pie" v-bind:style="{ background }">
     <div class="left">
       <div class="fill" ref="leftFill"></div>
     </div>
