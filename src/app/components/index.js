@@ -1,11 +1,15 @@
 import Vue from 'vue';
 
+import { CodeMirror } from 'vue-codemirror';
+
 import { HomeIcon, BarChart2Icon, ClockIcon, InboxIcon, UsersIcon, AwardIcon, LogOutIcon } from 'vue-feather-icons';
 
 import Sidebar from './sidebar/sidebar.vue';
 import ProblemLink from './category-card/problem-link';
 import CategoryCard from './category-card/category-card.vue';
 import ProgressPie from './progress-pie/progress-pie.vue';
+
+Vue.component('codemirror', CodeMirror);
 
 Vue.component('home-icon', HomeIcon);
 Vue.component('bar-chart-2-icon', BarChart2Icon);
