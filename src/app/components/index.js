@@ -5,6 +5,7 @@ import { HomeIcon, BarChart2Icon, ClockIcon, InboxIcon, UsersIcon, AwardIcon, Lo
 import Sidebar from './sidebar/sidebar.vue';
 import ProblemLink from './category-card/problem-link';
 import CategoryCard from './category-card/category-card.vue';
+import PieProgress from './pie-progress/pie-progress.vue';
 
 Vue.component('home-icon', HomeIcon);
 Vue.component('bar-chart-2-icon', BarChart2Icon);
@@ -17,3 +18,4 @@ Vue.component('log-out-icon', LogOutIcon);
 Vue.component('sidebar', Sidebar);
 Vue.component('problem-link', ProblemLink);
 Vue.component('category-card', CategoryCard);
+Vue.component('pie-progress', PieProgress);
