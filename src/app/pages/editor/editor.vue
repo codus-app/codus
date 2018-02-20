@@ -1,12 +1,12 @@
 <template>
   <div class="editor">
-    <span class="code bold">Category:&nbsp;</span><span class="code light">
-      {{ $route.params.category }}
-    </span>
-    <br/>
-    <span class="code bold">Problem:&nbsp;&nbsp;</span><span class="code light">
-      {{ $route.params.name }}
-    </span>
+    <span class="montserrat medium">{{ category }} /</span>
+    <span class="montserrat extralight">{{ problemName }}</span>
+
+    <pre class="code light">
+{{ JSON.stringify(problem, null, '  ') }}
+    </pre>
+
   </div>
 </template>
 
