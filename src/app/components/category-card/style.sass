@@ -7,6 +7,7 @@ $link-bg: #1a1a1f
 .category-card
   height: 8.2rem
 
+  position: relative
   padding: 1rem 0 1rem 1rem
   margin: 0 1rem 1rem 0
   overflow: hidden
@@ -20,13 +21,6 @@ $link-bg: #1a1a1f
   &:hover
     box-shadow: 0 12px 35px -3px transparentize($black, .75)
     transform: translateY(-1px)
-
-  h1
-    font-size: .8rem
-    font-weight: 300
-    white-space: nowrap
-    margin: 0 0 1rem
-    cursor: pointer
 
   &.invisible
     .problem-link
@@ -65,6 +59,24 @@ $link-bg: #1a1a1f
     &:nth-child(#{$num-columns}n)
       margin-right: 0
 
+
+
+// The title of the card
+h1
+  font-size: .8rem
+  font-weight: 300
+  white-space: nowrap
+  margin: 0 0 1rem
+  cursor: pointer
+
+
+// The progress indicator
+.category-card .progress-pie
+  position: absolute
+  top: 1rem
+  right: 1rem
+  width: 1rem
+  height: 1rem
 
 
 // The links that go inside the cards
