@@ -1,7 +1,7 @@
 // Mode
 import 'codemirror/mode/clike/clike';
 // Theme
-import 'codemirror/theme/base16-dark.css';
+import 'codemirror/theme/material.css';
 // Addons
 import 'codemirror/addon/edit/matchbrackets';
 import 'codemirror/addon/edit/closebrackets';
@@ -11,7 +11,7 @@ import './codemirror.sass';
 export default {
   tabSize: 2,
   mode: 'text/x-java',
-  theme: 'base16-dark',
+  theme: 'material',
   lineNumbers: true,
   matchBrackets: true,
   autoCloseBrackets: true,
