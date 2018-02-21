@@ -1,3 +1,4 @@
+import dedent from 'dedent';
 import * as api from '../../api';
 
 export default {
@@ -19,12 +20,13 @@ export default {
 
     getBase() {
       const parameters = this.problem.parameters.map(p => `${p.type} ${p.name}`);
-      return `\
-public class ${this.problem.name} {
-  public ${this.problem.resultType} main(${parameters.join(', ')}) {
-    // Your code here
-  }
-}`;
+      return dedent`
+        public class ${this.problem.name} {
+          public ${this.problem.resultType} main(${parameters.join(', ')}) {
+            // Your code here
+          }
+        }
+      `;
     },
   },
 

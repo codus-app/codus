@@ -60,6 +60,7 @@
     "animate.css": "^3.5.2",
     "auth0-js": "^9.0.2",
     "babel-polyfill": "^6.26.0",
+    "dedent": "^0.7.0",
     "jwt-decode": "^2.2.0",
     "promise-polyfill": "^7.0.0",
     "vue": "^2.5.13",
