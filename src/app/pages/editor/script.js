@@ -1,7 +1,6 @@
 import dedent from 'dedent';
 
-import 'codemirror/mode/clike/clike';
-import 'codemirror/theme/base16-dark.css';
+import cmOptions from './codemirror-config';
 
 import * as api from '../../api';
 
@@ -9,12 +8,7 @@ import * as api from '../../api';
 export default {
   data() {
     return {
-      cmOptions: {
-        tabSize: 2,
-        mode: 'text/x-java',
-        theme: 'base16-dark',
-        lineNumbers: true,
-      },
+      cmOptions,
       category: this.$route.params.category,
       problemName: this.$route.params.name,
       problem: {},
