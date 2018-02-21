@@ -3,9 +3,7 @@
     <span class="montserrat medium">{{ category }} /</span>
     <span class="montserrat extralight">{{ problemName }}</span>
 
-    <pre class="code light">
-{{ JSON.stringify(problem, null, '  ') }}
-    </pre>
+    <pre class="code light">{{code}}</pre>
 
   </div>
 </template>
