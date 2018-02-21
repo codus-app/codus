@@ -104,12 +104,12 @@ if (__dirname.startsWith('/var/www')) {
   console.log('Production detected');
   module.exports.plugins = (module.exports.plugins || []).concat([
     // Minify JS
-    new webpack.optimize.UglifyJsPlugin({
-      minimize: true,
-      compress: {
-        warnings: false,
-      },
-    }),
+    // new webpack.optimize.UglifyJsPlugin({
+    //   minimize: true,
+    //   compress: {
+    //     warnings: false,
+    //   },
+    // }),
     // Tell Vue to use production mode
     new webpack.DefinePlugin({
       'process.env': {
