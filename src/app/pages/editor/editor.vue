@@ -3,7 +3,7 @@
     <span class="montserrat medium">{{ category }} /</span>
     <span class="montserrat extralight">{{ problemName }}</span>
 
-    <pre class="code light">{{code}}</pre>
+    <codemirror v-model="code" v-bind:options="cmOptions"></codemirror>
 
   </div>
 </template>

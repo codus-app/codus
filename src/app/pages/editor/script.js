@@ -1,9 +1,20 @@
 import dedent from 'dedent';
+
+import 'codemirror/mode/clike/clike';
+import 'codemirror/theme/base16-dark.css';
+
 import * as api from '../../api';
+
 
 export default {
   data() {
     return {
+      cmOptions: {
+        tabSize: 2,
+        mode: 'text/clike',
+        theme: 'base16-dark',
+        lineNumbers: true,
+      },
       category: this.$route.params.category,
       problemName: this.$route.params.name,
       problem: {},
