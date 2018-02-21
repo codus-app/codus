@@ -11,7 +11,7 @@ export default {
     return {
       cmOptions: {
         tabSize: 2,
-        mode: 'text/clike',
+        mode: 'text/x-java',
         theme: 'base16-dark',
         lineNumbers: true,
       },
