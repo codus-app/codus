@@ -5,6 +5,8 @@ import 'codemirror/theme/base16-dark.css';
 // Addons
 import 'codemirror/addon/edit/matchbrackets';
 import 'codemirror/addon/edit/closebrackets';
+// Additional styles
+import './codemirror.sass';
 
 export default {
   tabSize: 2,
