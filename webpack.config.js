@@ -102,7 +102,7 @@ if (isC9) {
 // detected when building in a path that begins with '/var/www'
 if (__dirname.startsWith('/var/www')) {
   console.log('Production detected');
-  module.exports.plugins = module.exports.plugins.concat([
+  module.exports.plugins = (module.exports.plugins || []).concat([
     // Minify JS
     new webpack.optimize.UglifyJsPlugin({
       minimize: true,
