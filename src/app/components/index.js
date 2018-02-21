@@ -2,8 +2,9 @@
 import Vue from 'vue';
 
 // External components
-import { CodeMirror } from 'vue-codemirror';
-Vue.component('codemirror', CodeMirror);
+import { codemirror } from 'vue-codemirror';
+import 'codemirror/lib/codemirror.css';
+Vue.component('codemirror', codemirror);
 
 // Feather icons
 import { HomeIcon, BarChart2Icon, ClockIcon, InboxIcon, UsersIcon, AwardIcon, LogOutIcon } from 'vue-feather-icons';
