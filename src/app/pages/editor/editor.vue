@@ -1,7 +1,9 @@
 <template>
   <div class="editor">
-    <span class="montserrat medium">{{ category }} /</span>
-    <span class="montserrat extralight">{{ problemName }}</span>
+    <div class="title">
+      <span class="montserrat medium">{{ category }} /</span>
+      <span class="montserrat extralight">{{ problemName }}</span>
+    </div>
 
     <codemirror v-model="code" v-bind:options="cmOptions"></codemirror>
 
