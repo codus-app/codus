@@ -1,5 +1,3 @@
-import path from 'path';
-
 const base = 'https://api.codus.arkis.io/';
 
 /** Most generic function */
@@ -7,7 +5,12 @@ function apiRequest(endpoint, method, heads, body) {
   const headers = { Authorization: `Bearer ${localStorage.access_token}` };
   Object.assign(headers, heads);
 
-  return fetch(path.join(base, endpoint), {
+  const url = [
+    base.replace(/\/$/g, ''), // Strip trailing slash
+    endpoint.replace(/^\//g, ''), // Strip leading slash
+  ].join('/');
+
+  return fetch(url, {
     headers, method, body,
   }).then(r => r.json());
 }
