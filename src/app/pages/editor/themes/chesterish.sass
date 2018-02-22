@@ -68,17 +68,7 @@ $code-cyan: $cyan
 
   .CodeMirror-matchingbracket // sass-lint:disable-block no-important
     color: $code-fg !important
-    position: relative
-
-    &::after
-      content: ''
-      position: absolute
-      top: 100%
-      left: 0
-      width: 100%
-      border-bottom: 1px solid $code-fg
-      transform: translateY(-1px)
-
+    border-bottom: 1px solid $code-fg
 
 
   div.CodeMirror-selected
