@@ -10,11 +10,12 @@ import './codemirror.sass';
 // Custom themes
 import './themes/jackhammer.sass';
 import './themes/chesterish.sass';
+import './themes/nord.sass';
 
 export default {
   tabSize: 2,
   mode: 'text/x-java',
-  theme: 'chesterish',
+  theme: 'nord',
   lineNumbers: true,
   matchBrackets: true,
   autoCloseBrackets: true,
