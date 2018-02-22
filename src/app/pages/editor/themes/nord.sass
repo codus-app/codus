@@ -1,0 +1,170 @@
+// Adapted from https://github.com/arcticicestudio/nord-brackets
+
+
+// Original theme license:
+
+// MIT License (MIT)
+//
+// Copyright (c) 2017-present Arctic Ice Studio development@arcticicestudio.com (http://arcticicestudio.com)
+// Copyright (c) 2017-present Sven Greb code@svengreb.de (http://svengreb.de)
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+
+
+// sass-lint:disable class-name-format
+
+
+
+$nord0: #2e3440
+$nord1: #3b4252
+$nord2: #434c5e
+$nord3: #4c566a
+$nord4: #d8dee9
+$nord5: #e5e9f0
+$nord6: #eceff4
+$nord7: #8fbcbb
+$nord8: #88c0d0
+$nord9: #81a1c1
+$nord10: #5e81ac
+$nord11: #bf616a
+$nord12: #d08770
+$nord13: #ebcb8b
+$nord14: #a3be8c
+$nord15: #b48ead
+
+$editor-background-color: $nord0
+$editor-active-line: fade($nord2, 32%)
+$editor-selection-color: fade($nord2, 80%)
+$editor-text-color: $nord4
+$editor-text-color-subtle: fade($editor-text-color, 40%)
+
+$editor-cursor-color: $editor-text-color
+$editor-invisible-character-color: $nord3
+
+$editor-gutter-background-color: $editor-background-color
+$editor-gutter-text-color: fade($editor-text-color, 40%)
+$editor-gutter-background-color-selected: transparent
+$editor-gutter-text-color-selected: $nord6
+
+$editor-syntax-color-annotation: $nord12
+$editor-syntax-color-attribute: $nord7
+$editor-syntax-color-class: $nord7
+$editor-syntax-color-comment: $nord3
+$editor-syntax-color-function: $nord8
+$editor-syntax-color-keyword: $nord9
+$editor-syntax-color-method: $nord8
+$editor-syntax-color-numeric: $nord15
+$editor-syntax-color-operator: $nord9
+$editor-syntax-color-property: $nord9
+$editor-syntax-color-punctuation: $nord4
+$editor-syntax-color-regex: $nord13
+$editor-syntax-color-string: $nord14
+$editor-syntax-color-tag: $nord9
+$editor-syntax-color-variable: $nord4
+$editor-syntax-color-illegal: $nord11
+
+$editor-matcher-color: $nord8
+
+
+.cm-s-nord
+  &.CodeMirror
+    background: #1e1e21
+    color: $editor-text-color
+
+  .CodeMirror-cursor
+    border-left: 2px solid $editor-cursor-color
+
+  .CodeMirror-gutters
+    background-color: $editor-gutter-background-color
+    border-right: 0
+
+  .CodeMirror-linenumber
+    color: $editor-gutter-text-color
+
+  .CodeMirror-activeline-background
+    background-color: $editor-active-line
+
+  .CodeMirror-activeline
+    .CodeMirror-gutter-elt
+      color: $editor-gutter-text-color-selected
+
+  .CodeMirror-selected
+    background: $editor-selection-color
+
+  .CodeMirror-matchingbracket // sass-lint:disable-block no-important
+    color: inherit !important
+    background-color: transparent !important
+    border-bottom: 2px solid $editor-matcher-color
+
+
+  .cm-atom
+    color: $editor-syntax-color-keyword
+
+  .cm-attribute
+    color: $editor-syntax-color-attribute
+
+  .cm-bracket,
+  .cm-hr
+    color: $editor-syntax-color-punctuation
+
+  .cm-builtin
+    color: $editor-syntax-color-method
+
+  .cm-comment
+    color: $editor-syntax-color-comment
+
+  .cm-def
+    color: $editor-syntax-color-method
+
+  .cm-error
+    color: $editor-syntax-color-illegal
+
+  .cm-keyword
+    color: $editor-syntax-color-keyword
+
+  .cm-meta
+    color: $editor-syntax-color-annotation
+
+  .cm-number
+    color: $editor-syntax-color-numeric
+
+  .cm-operator
+    color: $editor-syntax-color-operator
+
+  .cm-property
+    color: $editor-syntax-color-property
+
+  .cm-qualifier
+    color: $editor-syntax-color-class
+
+  .cm-rangeinfo
+    color: $editor-syntax-color-regex
+
+  .cm-string,
+  .cm-string-2,
+  .cm-quote
+    color: $editor-syntax-color-string
+
+  .cm-tag
+    color: $editor-syntax-color-tag
+
+  .cm-variable,
+  .cm-variable-2,
+  .cm-variable-3
+    color: $editor-syntax-color-variable
