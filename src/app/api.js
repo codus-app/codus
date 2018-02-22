@@ -1,4 +1,6 @@
-const base = 'https://api.codus.arkis.io/';
+const base = window.location.hostname === '0.0.0.0'
+  ? 'http://0.0.0.0:3000/'
+  : 'https://api.codus.arkis.io/';
 
 /** Most generic function */
 function apiRequest(endpoint, method, heads, body) {
