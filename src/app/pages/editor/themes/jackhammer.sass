@@ -68,7 +68,16 @@ $syntax-color-removed: $red
 
   .CodeMirror-matchingbracket // sass-lint:disable-block no-important
     color: $syntax-text-color !important
-    text-decoration: underline
+    position: relative
+
+    &::after
+      content: ''
+      position: absolute
+      top: 100%
+      left: 0
+      width: 100%
+      border-bottom: 1px solid $syntax-text-color
+      transform: translateY(-1px)
 
 
 
