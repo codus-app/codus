@@ -9,11 +9,12 @@ import 'codemirror/addon/edit/closebrackets';
 import './codemirror.sass';
 // Custom themes
 import './themes/jackhammer.sass';
+import './themes/chesterish.sass';
 
 export default {
   tabSize: 2,
   mode: 'text/x-java',
-  theme: 'jackhammer',
+  theme: 'chesterish',
   lineNumbers: true,
   matchBrackets: true,
   autoCloseBrackets: true,
