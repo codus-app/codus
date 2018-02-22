@@ -66,6 +66,9 @@ $syntax-color-removed: $red
   div.CodeMirror-selected
     background: $syntax-selection-color
 
+  .CodeMirror-matchingbracket // sass-lint:disable-block no-important
+    color: $syntax-text-color !important
+
 
 
   .cm-keyword
@@ -97,6 +100,3 @@ $syntax-color-removed: $red
 
   .cm-meta
     color: $light-navy
-
-  .CodeMirror-matchingbracket // sass-lint:disable-block no-important
-    color: $syntax-text-color !important
