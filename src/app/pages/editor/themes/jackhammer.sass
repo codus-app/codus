@@ -1,0 +1,101 @@
+// Adapted from https://github.com/muukii/jackhammer-syntax/
+// sass-lint:disable class-name-format
+
+$very-light-gray: #c5c8c6
+$light-gray: #485375
+$gray: #373f59
+$dark-gray: #262b3d
+$very-dark-gray: #1d212e
+
+$light-navy: #65759b
+$blue: #8abcd5
+$purple: #c4b4c6
+$pink: #e99fbf
+$red: #e04d69
+$orange: #ca708a
+
+
+$syntax-text-color: $very-light-gray
+$syntax-cursor-color: #fff
+$syntax-selection-color: lighten($dark-gray, 10%)
+$syntax-background-color: $very-dark-gray
+
+// Guide colors
+$syntax-wrap-guide-color: $dark-gray
+$syntax-indent-guide-color: $gray
+$syntax-invisible-character-color: $gray
+
+// For find and replace markers
+$syntax-result-marker-color: $light-gray
+$syntax-result-marker-color-selected: #fff
+
+// Gutter colors
+$syntax-gutter-text-color: $very-light-gray
+$syntax-gutter-text-color-selected: $syntax-gutter-text-color
+$syntax-gutter-background-color: lighten($very-dark-gray, 1%)
+$syntax-gutter-background-color-selected: $gray
+
+// For git diff info. i.e. in the gutter
+$syntax-color-renamed: $blue
+$syntax-color-added: $pink
+$syntax-color-modified: $orange
+$syntax-color-removed: $red
+
+
+
+.cm-s-jackhammer
+  &.CodeMirror
+    background: #1e1e21
+    color: $syntax-text-color
+
+    font-family: 'Fira Code', monospace
+    font-size: .7rem
+    line-height: 1rem
+
+  .CodeMirror-gutters
+    color: $syntax-gutter-text-color
+    background: $syntax-gutter-background-color
+    border: 0
+
+  .CodeMirror-linenumber
+    color: $syntax-gutter-text-color
+
+  .CodeMirror-cursor
+    border-left: 1px solid $syntax-cursor-color
+
+  div.CodeMirror-selected
+    background: $syntax-selection-color
+
+
+  .cm-keyword
+    color: $red
+
+  .cm-operator
+    color: $syntax-text-color
+
+  .cm-variable,
+  .cm-variable-2,
+  .cm-variable-3
+    color: $syntax-text-color
+
+  .cm-type
+    color: $orange
+
+  .cm-number
+    color: $pink
+
+  .cm-def
+    color: $blue
+    text-decoration: underline
+
+  .cm-string
+    color: $orange
+
+  .cm-comment
+    color: $light-gray
+
+  .cm-meta
+    color: $light-navy
+
+  .CodeMirror-matchingbracket // sass-lint:disable-block no-important
+    color: $syntax-text-color !important
