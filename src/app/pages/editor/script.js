@@ -1,6 +1,6 @@
 import dedent from 'dedent';
 
-import cmOptions from './codemirror-config';
+import cmOptions from './codemirror-config/';
 
 import * as api from '../../api';
 
