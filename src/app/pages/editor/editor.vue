@@ -1,8 +1,16 @@
 <template>
-  <div class="editor">
-    <div class="top-bar"></div>
+  <div class="editor-page">
+    <!-- Problem browser -->
+    <div class="problem-browser">
+      <div class="top-bar"></div>
+      <div class="listing"></div>
+    </div>
 
-    <codemirror v-model="code" v-bind:options="cmOptions"></codemirror>
+    <!-- Code editing -->
+    <div class="editor">
+      <div class="top-bar"></div>
+      <codemirror v-model="code" v-bind:options="cmOptions"></codemirror>
+    </div>
 
   </div>
 </template>
