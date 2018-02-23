@@ -91,17 +91,17 @@ $editor-matcher-color: $nord8
     border-left: 2px solid $editor-cursor-color
 
   .CodeMirror-gutters
-    background-color: $editor-gutter-background-color
+    background-color: transparent
     border-right: 0
 
   .CodeMirror-linenumber
     color: $editor-gutter-text-color
 
   .CodeMirror-activeline-background
-    background-color: $editor-active-line
+    background-color: transparent
 
-  .CodeMirror-activeline
-    .CodeMirror-gutter-elt
+  .CodeMirror-activeline .CodeMirror-gutter-elt
+      background-color: $editor-active-line
       color: $editor-gutter-text-color-selected
 
   .CodeMirror-selected
