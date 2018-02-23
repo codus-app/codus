@@ -13,6 +13,13 @@ module.exports.getUser = async function getUser(sub, strip = false) {
     .select(strip ? '-_id -__v' : ''); // Remove _id and __v properties if strip is passed
 };
 
+module.exports.getProblems = async function getProblems(strip = false) {
+  await db.ready;
+  return models.Problem
+    .find()
+    .select(`name category ${strip ? '-_id' : ''}`);
+};
+
 // Find a problem in a given category with a given name
 module.exports.getProblem = async function getProblem(category, name, strip = false) {
   await db.ready;
