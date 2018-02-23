@@ -5,6 +5,7 @@ import 'codemirror/theme/material.css';
 // Addons
 import 'codemirror/addon/edit/matchbrackets';
 import 'codemirror/addon/edit/closebrackets';
+import 'codemirror/addon/selection/active-line';
 // Additional styles
 import './codemirror.sass';
 // Custom themes
@@ -19,4 +20,5 @@ export default {
   lineNumbers: true,
   matchBrackets: true,
   autoCloseBrackets: true,
+  styleActiveLine: true,
 };
