@@ -49,7 +49,7 @@ $nord14: #a3be8c
 $nord15: #b48ead
 
 $editor-background-color: $nord0
-$editor-active-line: rgba($nord2, .32)
+$editor-active-line: transparent
 $editor-selection-color: rgba($nord2, .8)
 $editor-text-color: $nord4
 $editor-text-color-subtle: rgba($editor-text-color, .4)
@@ -59,7 +59,7 @@ $editor-invisible-character-color: $nord3
 
 $editor-gutter-background-color: $editor-background-color
 $editor-gutter-text-color: #3a3a45
-$editor-gutter-background-color-selected: transparent
+$editor-gutter-background-color-selected: rgba($nord2, .32)
 $editor-gutter-text-color-selected: rgba($editor-text-color, .4)
 
 $editor-syntax-color-annotation: $nord12
@@ -98,10 +98,10 @@ $editor-matcher-color: $nord8
     color: $editor-gutter-text-color
 
   .CodeMirror-activeline-background
-    background-color: transparent
+    background-color: $editor-active-line
 
   .CodeMirror-activeline .CodeMirror-gutter-elt
-      background-color: $editor-active-line
+      background-color: $editor-gutter-background-color-selected
       color: $editor-gutter-text-color-selected
 
   .CodeMirror-selected
