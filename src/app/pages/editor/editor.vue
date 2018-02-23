@@ -1,7 +1,5 @@
 <template>
   <div class="editor">
-    <div class="corner-square"></div>
-
     <div class="top-bar"></div>
 
     <codemirror v-model="code" v-bind:options="cmOptions"></codemirror>
