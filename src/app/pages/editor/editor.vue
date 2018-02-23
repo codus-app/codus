@@ -2,7 +2,7 @@
   <div class="editor-page">
     <!-- Problem browser -->
     <div class="problem-browser">
-      <div class="top-bar"></div>
+      <div class="top-bar">Problems</div>
       <div class="listing"></div>
     </div>
 

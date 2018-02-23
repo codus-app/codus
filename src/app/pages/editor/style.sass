@@ -3,6 +3,8 @@
 $gap: .175rem
 $bar-width: 2.5rem
 
+
+
 .editor-page
   position: absolute
   top: 0
@@ -11,6 +13,8 @@ $bar-width: 2.5rem
   height: 100%
   display: flex
 
+
+
 .problem-browser
   margin-left: $gap
   width: 10em
@@ -18,11 +22,20 @@ $bar-width: 2.5rem
   .top-bar
     background: $dark-1
     height: $bar-width
+    padding: 0 .75em
+
+    font-family: 'Montserrat', sans-serif
+    font-size: 1.1rem
+    font-weight: 500
+    display: flex
+    align-items: center
 
   .listing
     background: $dark-1
     margin-top: $gap
     height: calc(100vh - #{$bar-width + $gap})
+
+
 
 .editor
   margin-left: $gap
