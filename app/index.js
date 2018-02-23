@@ -59,6 +59,31 @@ app.get('/userinfo', auth0(), (req, res) => {
     .then(u => res.json(u));
 });
 
+app.get('/solutions', auth0(), async (req, res) => {
+  const user = await database.getUser(req.user.sub);
+  const problems = await database.getProblems(true);
+  const { solutions } = user;
+  const passed = solutions
+    .filter(s => s.passed)
+    .map(s => ({ category: s.category, name: s.name }));
+
+  const failed = problems
+    .filter(p => !passed.find(n => (n.name === p.name && n.category === p.category)));
+
+  const out = {};
+
+  passed.forEach((p) => {
+    if (!out[p.category]) out[p.category] = [];
+    out[p.category].push({ name: p.name, passed: true });
+  });
+  failed.forEach((p) => {
+    if (!out[p.category]) out[p.category] = [];
+    out[p.category].push({ name: p.name, passed: false });
+  });
+
+  res.json(out);
+});
+
 // Get a user-specific overview of a category including the category's name/description, the names
 // of all contained problems, and whether the user's solution to each passes
 app.get('/categoryOverview/:id', auth0(), async (req, res) => {
