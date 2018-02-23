@@ -67,18 +67,14 @@ app.get('/solutions', auth0(), async (req, res) => {
     .filter(s => s.passed)
     .map(s => ({ category: s.category, name: s.name }));
 
-  const failed = problems
-    .filter(p => !passed.find(n => (n.name === p.name && n.category === p.category)));
-
   const out = {};
 
-  passed.forEach((p) => {
+  problems.forEach((p) => {
     if (!out[p.category]) out[p.category] = [];
-    out[p.category].push({ name: p.name, passed: true });
-  });
-  failed.forEach((p) => {
-    if (!out[p.category]) out[p.category] = [];
-    out[p.category].push({ name: p.name, passed: false });
+    out[p.category].push({
+      name: p.name,
+      passed: !!passed.find(n => (n.name === p.name && n.category === p.category)),
+    });
   });
 
   res.json(out);
