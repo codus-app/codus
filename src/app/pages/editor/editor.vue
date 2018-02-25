@@ -3,7 +3,7 @@
     <!-- Problem browser -->
     <div class="problem-browser">
       <div class="top-bar">Problems</div>
-      <div class="listing"></div>
+      <problems-tree class="listing"></problems-tree>
     </div>
 
     <!-- Code editing -->
