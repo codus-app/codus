@@ -12,6 +12,7 @@ export default {
     displayProblems: [], // All problems that fit on the unexpanded card
     remainder: 0, // The number of problems not displayed
     invisible: true, // Should the problems be visible yet?
+    expanded: false, // Should the "expanded" view with all problems be open?
   }),
 
   created() {

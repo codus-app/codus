@@ -16,25 +16,61 @@ $link-bg: #1a1a1f
 
 .category-card
   height: 8.2rem
-
   position: relative
-  padding: 1rem 0 1rem 1rem
   margin: 0 1rem 1rem 0
-  overflow: hidden
   float: left
 
-  background: $dark-1
-  border-radius: 4px
-  box-shadow: 0 10px 20px -5px transparentize($black, .75)
-  transition: box-shadow .25s, transform .25s
+  transition: transform .25s
 
   &:hover
-    box-shadow: 0 12px 35px -3px transparentize($black, .75)
     transform: translateY(-1px)
 
   &.invisible
-    .problem-link
+    .problem-link,
+    .remainder
       visibility: hidden
+
+
+  .background
+    padding: 1rem 0 1rem 1rem
+    width: 100%
+    min-height: 100%
+    max-height: 100%
+    background: $dark-1
+    border-radius: 4px
+    box-shadow: 0 10px 20px -5px transparentize($black, .75)
+    transition: box-shadow .25s, width .35s, min-height .35s, max-height .35s
+
+    &:not(.expanded):hover
+      box-shadow: 0 12px 35px -3px transparentize($black, .75)
+
+    &.expanded
+      width: 120%
+      min-height: 120%
+      max-height: 140%
+
+      .expanded-view
+        width: calc(100% - 1rem)
+
+
+    .invisible
+      opacity: 0
+      pointer-events: none
+
+    // Fixed size, position: absolute and can't size background
+    .collapsed-view
+      position: absolute
+      width: calc(100% - 1rem)
+      height: calc(100% - 2rem)
+      transition: opacity .35s
+
+    // When this enters the DOM it stretches the background element (which then transitions in max-width)
+    .expanded-view
+      width: calc(120% - 1rem)
+      overflow: hidden
+      transition: opacity .35s, width .35s
+
+
 
   // Small screens: 1 column
   @media (min-width: 0)
@@ -65,7 +101,7 @@ h1
 // The progress indicator
 .category-card .progress-pie
   position: absolute
-  top: 1rem
+  top: 0
   right: 1rem
   width: 1rem
   height: 1rem
