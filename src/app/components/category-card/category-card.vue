@@ -13,6 +13,10 @@
 
       <div class="expanded-view" v-bind:class="{ invisible: !expanded }">
         <h1>{{ name }}</h1>
+        <progress-pie :colors="['#4deb9b', '#1db965']" background="#1e1e21" v-bind:progress="this.completion"></progress-pie>
+        <div class="description lato regular">
+          {{ description }}
+        </div>
         <problem-link v-for="p in problems" v-bind="p" v-bind:category="categoryId" v-bind:key="p.name"></problem-link>
       </div>
 
