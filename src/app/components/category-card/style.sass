@@ -49,7 +49,11 @@ $link-bg: #1a1a1f
       min-height: 120%
       max-height: 140%
 
+      .collapsed-view
+        transition: opacity .2s
+
       .expanded-view
+        transition: opacity .2s .15s, width .35s
         width: calc(100% - 1rem)
 
 
@@ -62,13 +66,13 @@ $link-bg: #1a1a1f
       position: absolute
       width: calc(100% - 1rem)
       height: calc(100% - 2rem)
-      transition: opacity .35s
+      transition: opacity .2s .15s
 
     // When this enters the DOM it stretches the background element (which then transitions in max-width)
     .expanded-view
       width: calc(120% - 1rem)
       overflow: hidden
-      transition: opacity .35s, width .35s
+      transition: opacity .2s, width .35s
 
 
 
