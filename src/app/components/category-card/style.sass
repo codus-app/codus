@@ -41,59 +41,59 @@ $link-bg: #1a1a1f
     box-shadow: 0 10px 20px -5px transparentize($black, .75)
     transition: box-shadow .25s, width .35s, min-height .35s, max-height .35s
 
-    &:not(.expanded):hover
+  &:not(.expanded) .background:hover
       box-shadow: 0 12px 35px -3px transparentize($black, .75)
 
-    &.expanded
-      width: 130%
-      min-height: 130%
-      max-height: 160%
+  &.expanded .background
+    width: 130%
+    min-height: 130%
+    max-height: 160%
 
-      .collapsed-view
-        transition: opacity .2s
-
-      .expanded-view
-        transition: opacity .2s .15s, width .35s
-        width: calc(100% - 1rem)
-
-      .progress-pie
-        right: calc(-30% + 1rem)
-        width: 1.15rem
-        height: 1.15rem
-
-
-    .invisible
-      opacity: 0
-      pointer-events: none
-
-    // Fixed size, position: absolute and can't size background
     .collapsed-view
-      position: absolute
-      width: calc(100% - 1rem)
-      height: calc(100% - 2rem)
-      transition: opacity .2s .15s
+      transition: opacity .2s
 
-    // When this enters the DOM it stretches the background element (which then transitions in max-width)
     .expanded-view
-      width: calc(130% - 1rem)
-      overflow: hidden
-      transition: opacity .2s, width .35s
+      transition: opacity .2s .15s, width .35s
+      width: calc(100% - 1rem)
 
-      h1
-        font-size: 1.05rem
-        font-weight: 600
-        letter-spacing: .02em
-        margin-bottom: .25rem
-        cursor: text
+    .progress-pie
+      right: calc(-30% + 1rem)
+      width: 1.15rem
+      height: 1.15rem
 
-      .progress-pie
-        top: 1rem
 
-      .description
-        color: $light-text-hint
-        font-size: .75rem
-        margin-bottom: 1rem
-        width: calc(100% - 1.5rem)
+  .invisible
+    opacity: 0
+    pointer-events: none
+
+  // Fixed size, position: absolute and can't size background
+  .collapsed-view
+    position: absolute
+    width: calc(100% - 1rem)
+    height: calc(100% - 2rem)
+    transition: opacity .2s .15s
+
+  // When this enters the DOM it stretches the background element (which then transitions in max-width)
+  .expanded-view
+    width: calc(130% - 1rem)
+    overflow: hidden
+    transition: opacity .2s, width .35s
+
+    h1
+      font-size: 1.05rem
+      font-weight: 600
+      letter-spacing: .02em
+      margin-bottom: .25rem
+      cursor: text
+
+    .progress-pie
+      top: 1rem
+
+    .description
+      color: $light-text-hint
+      font-size: .75rem
+      margin-bottom: 1rem
+      width: calc(100% - 1.5rem)
 
 
 
