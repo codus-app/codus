@@ -13,6 +13,19 @@ $link-bg: #1a1a1f
     // Rightmost card in each row should have no margin-right to prevent unnecessary wrapping
     margin-right: 0
 
+  // The last $num-columns children should have no margin-bottom so that the bottom of the container
+  // doesn't have any (even if the last row isn't full it still works bc there will always be at
+  // least one child in the previous row with a margin-bottom)
+  @for $i from 1 through $num-columns
+    // Select the first element in the last row (<= $num-columns from the end, and first in its row)
+    // it's near the end   : it's the first in its row
+    &:nth-last-child(#{$i}):nth-child(#{$num-columns}n + 1)
+      margin-bottom: 0
+
+      // Include all others after (all in last row)
+      & ~ *
+        margin-bottom: 0
+
 
 .category-card
   height: 8.2rem
@@ -98,15 +111,15 @@ $link-bg: #1a1a1f
 
 
   // Small screens: 1 column
-  @media (min-width: 0)
+  @media (min-width: 0) and (max-width: 649px)
     @include column-layout(1)
 
   // medium screens: 2 columns
-  @media (min-width: 650px)
+  @media (min-width: 650px) and (max-width: 1099px)
     @include column-layout(2)
 
   // large screens: 3 columns
-  @media (min-width: 1100px)
+  @media (min-width: 1100px) and (max-width: 1599px)
     @include column-layout(3)
 
   // extra large screens: 4 columns

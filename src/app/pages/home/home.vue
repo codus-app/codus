@@ -1,6 +1,8 @@
 <template>
   <div class="page">
-    <category-card v-for="id in categories" v-bind:key="id" v-bind:category-id="id"></category-card>
+    <div class="cards">
+      <category-card v-for="id in categories" v-bind:key="id" v-bind:category-id="id"></category-card>
+    </div>
   </div>
 </template>
 
