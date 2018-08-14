@@ -1,7 +1,13 @@
 <template>
-  <div class="page">
-    <div class="cards">
-      <category-card v-for="id in categories" v-bind:key="id" v-bind:category-id="id"></category-card>
+  <div class="page" v-bind:class="{ faded: cardsFaded }">
+    <div class="scrim"></div>
+    <div class="cards" v-if="categories.length">
+      <category-card
+        v-for="id in categories"
+        v-bind:key="id"
+        v-bind:category-id="id"
+        v-on:expanded="cardsFaded = $event"
+      ></category-card>
     </div>
     <div class="fade"></div>
   </div>

@@ -3,6 +3,7 @@ import * as api from '../../api';
 export default {
   data: () => ({
     categories: [],
+    cardsFaded: false,
   }),
 
   created() {

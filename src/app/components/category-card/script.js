@@ -62,4 +62,8 @@ export default {
       });
     },
   },
+
+  watch: {
+    expanded() { this.$emit('expanded', this.expanded); },
+  },
 };
