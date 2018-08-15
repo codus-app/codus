@@ -15,5 +15,9 @@ export default {
       const categories = await api.get('/categories');
       this.categories = categories.map(c => c.id);
     },
+
+    closeAll() {
+      this.$children.forEach((c) => { c.expanded = false; });
+    },
   },
 };

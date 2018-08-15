@@ -1,6 +1,6 @@
 <template>
   <div class="page" v-bind:class="{ faded: cardsFaded }">
-    <div class="scrim"></div>
+    <div class="scrim" v-on:click="closeAll"></div>
     <div class="cards" v-if="categories.length">
       <category-card
         v-for="id in categories"

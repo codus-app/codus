@@ -32,10 +32,11 @@ $link-bg: #1a1a1f
   position: relative
   margin: 0 1rem 1rem 0
   float: left
+  z-index: 5
 
-  transition: transform .25s
+  transition: transform .25s, z-index .1s ease .35s
 
-  &:hover
+  &:not(.expanded):hover
     transform: translateY(-1px)
 
   &.invisible
@@ -59,6 +60,7 @@ $link-bg: #1a1a1f
 
   &.expanded
     z-index: 100
+    transition: transform .35s
 
     .background
       width: 130%
