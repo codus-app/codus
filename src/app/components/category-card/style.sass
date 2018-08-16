@@ -46,10 +46,12 @@ $link-bg: #1a1a1f
 
 
   .background
+    position: relative
     padding: 1rem 0 1rem 1rem
     width: 100%
     min-height: 100%
     max-height: 100%
+    overflow: hidden
     background: $dark-1
     border-radius: 4px
     box-shadow: 0 10px 20px -5px transparentize($black, .75)
@@ -75,7 +77,6 @@ $link-bg: #1a1a1f
         width: calc(100% - 1rem)
 
       .progress-pie
-        right: calc(-30% + 1rem)
         width: 1.15rem
         height: 1.15rem
 

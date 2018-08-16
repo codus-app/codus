@@ -13,7 +13,11 @@ export default {
     remainder: 0, // The number of problems not displayed
     invisible: true, // Should the problems be visible yet?
     expanded: false, // Should the "expanded" view with all problems be open?
+
+    mounted: false,
   }),
+
+  mounted() { this.mounted = true; },
 
   created() {
     this.fetchData();
@@ -65,5 +69,38 @@ export default {
 
   watch: {
     expanded() { this.$emit('expanded', this.expanded); },
+  },
+
+  computed: {
+    positionStyles() {
+      // Default: centered on both axes
+
+      let top = '50%';
+      let left = '50%';
+      let translateX = '-50%';
+      let translateY = '-50%';
+
+      // Adjust if on edges of container
+
+      if (this.mounted) {
+        const bounds = this.$el.parentElement.getBoundingClientRect();
+        const collapsedCardBounds = this.$el.getBoundingClientRect();
+        // Pin to left edge
+        if (collapsedCardBounds.left <= bounds.left + 5) { left = '0px'; translateX = '0px'; }
+        // Pin to right edge
+        if (collapsedCardBounds.right >= bounds.right - 5) { left = '100%'; translateX = '-100%'; }
+        // Pin to top edge
+        if (collapsedCardBounds.top <= bounds.top + 5) { top = '0px'; translateY = '0px'; }
+        // Pin to bottom edge
+        if (collapsedCardBounds.bottom >= bounds.bottom - 5) { top = '100%'; translateY = '-100%'; }
+      }
+
+
+      return {
+        top,
+        left,
+        transform: `translate(${translateX}, ${translateY})`,
+      };
+    },
   },
 };

@@ -2,7 +2,7 @@
   <div class="category-card" v-bind:class="{ invisible, expanded }">
     <!-- This element is out of the flow of the category cards so it can expand without changing
     category card flow -->
-    <div class="background">
+    <div class="background" v-bind:style="positionStyles">
 
       <div class="collapsed-view" v-bind:class="{ invisible: expanded }">
         <h1 v-on:click="expanded = true">{{ name }}</h1>
