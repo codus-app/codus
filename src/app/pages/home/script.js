@@ -6,6 +6,7 @@ export default {
     categories: [],
     cardsFaded: false,
 
+    resizeListener: undefined,
     windowSize: [null, null],
     scrollPos: 0,
   }),
@@ -13,7 +14,8 @@ export default {
   created() {
     this.fetchData();
 
-    window.addEventListener('resize', () => { this.windowSize = [window.innerWidth, window.innerHeight]; });
+    this.onResize = this.onResize.bind(this);
+    window.addEventListener('resize', this.onResize);
   },
 
   methods: {
@@ -26,6 +28,7 @@ export default {
       this.$children.forEach((c) => { c.expanded = false; });
     },
 
+    onResize() { this.windowSize = [window.innerWidth, window.innerHeight]; },
     onScroll: debounce(function onScroll(e) { this.scrollPos = e.target.scrollTop; }, 100),
   },
 
@@ -45,4 +48,6 @@ export default {
       };
     },
   },
+
+  destroyed() { window.removeEventListener('resize', this.onResize); },
 };

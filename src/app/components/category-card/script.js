@@ -23,7 +23,8 @@ export default {
   created() {
     this.fetchData();
 
-    window.addEventListener('resize', () => this.layout());
+    this.layout = this.layout.bind(this);
+    window.addEventListener('resize', this.layout);
   },
 
   methods: {
@@ -108,4 +109,6 @@ export default {
       };
     },
   },
+
+  destroyed() { window.removeEventListener('resize', this.layout); },
 };
