@@ -1,7 +1,7 @@
 import * as api from '../../api';
 
 export default {
-  props: ['categoryId'],
+  props: ['categoryId', 'bounds'],
   data: () => ({
     name: this.categoryId, // Will be replaced with readable name after first HTTP request completes
     description: '',
@@ -89,16 +89,15 @@ export default {
       // Adjust if on edges of container
 
       if (this.mounted) {
-        const bounds = this.$el.parentElement.getBoundingClientRect();
         const collapsedCardBounds = this.$el.getBoundingClientRect();
         // Pin to left edge
-        if (collapsedCardBounds.left <= bounds.left + 5) { left = '0px'; translateX = '0px'; }
+        if (collapsedCardBounds.left <= this.bounds.left + 5) { left = '0px'; translateX = '0px'; }
         // Pin to right edge
-        if (collapsedCardBounds.right >= bounds.right - 5) { left = '100%'; translateX = '-100%'; }
+        if (collapsedCardBounds.right >= this.bounds.right - 5) { left = '100%'; translateX = '-100%'; }
         // Pin to top edge
-        if (collapsedCardBounds.top <= bounds.top + 5) { top = '0px'; translateY = '0px'; }
+        if (collapsedCardBounds.top <= this.bounds.top + 5) { top = '0px'; translateY = '0px'; }
         // Pin to bottom edge
-        if (collapsedCardBounds.bottom >= bounds.bottom - 5) { top = '100%'; translateY = '-100%'; }
+        if (collapsedCardBounds.bottom >= this.bounds.bottom - 5) { top = '100%'; translateY = '-100%'; }
       }
 
 

@@ -6,6 +6,7 @@
         v-for="id in categories"
         v-bind:key="id"
         v-bind:category-id="id"
+        v-bind:bounds="cardBounds"
         v-on:expanded="cardsFaded = $event"
       ></category-card>
     </div>
