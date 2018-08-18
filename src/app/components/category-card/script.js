@@ -15,6 +15,7 @@ export default {
     expanded: false, // Should the "expanded" view with all problems be open?
 
     mounted: false,
+    windowWidth: null,
   }),
 
   mounted() { this.mounted = true; },
@@ -43,6 +44,8 @@ export default {
     },
 
     layout() {
+      this.windowWidth = window.innerWidth;
+
       this.invisible = true;
 
       this.displayProblems = this.problems;
@@ -73,6 +76,9 @@ export default {
 
   computed: {
     positionStyles() {
+      // Make sure it recomputes on window resize
+      (() => {})(this.windowWidth);
+
       // Default: centered on both axes
 
       let top = '50%';
