@@ -51,7 +51,7 @@ export default {
       this.displayProblems = this.problems;
 
       // After items have rendered
-      setTimeout(() => {
+      this.$nextTick(() => {
         // An array containing the Y position of each problem's link
         const renderYs = this.problems.map(p => this.$refs[p.name][0].$el.offsetTop);
         // Each unique problem Y position; the Y position of each row of links
