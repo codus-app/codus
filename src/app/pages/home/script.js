@@ -1,3 +1,4 @@
+import debounce from 'debounce';
 import * as api from '../../api';
 
 export default {
@@ -24,6 +25,8 @@ export default {
     closeAll() {
       this.$children.forEach((c) => { c.expanded = false; });
     },
+
+    onScroll: debounce(function onScroll(e) { this.scrollPos = e.target.scrollTop; }, 100),
   },
 
   computed: {

@@ -1,7 +1,7 @@
 <template>
   <div class="page"
     v-bind:class="{ faded: cardsFaded }"
-    v-on:scroll="scrollPos = $event.target.scrollTop"
+    v-on:scroll="onScroll"
   >
     <div class="scrim" v-on:click="closeAll"></div>
     <div class="cards" v-if="categories.length">
