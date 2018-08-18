@@ -4,7 +4,9 @@ export default {
   data: () => ({
     categories: [],
     cardsFaded: false,
+
     windowSize: [null, null],
+    scrollPos: 0,
   }),
 
   created() {

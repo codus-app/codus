@@ -1,7 +1,7 @@
 import * as api from '../../api';
 
 export default {
-  props: ['categoryId', 'bounds'],
+  props: ['categoryId', 'bounds', 'scroll'],
   data: () => ({
     name: this.categoryId, // Will be replaced with readable name after first HTTP request completes
     description: '',
@@ -77,7 +77,7 @@ export default {
   computed: {
     positionStyles() {
       // Make sure it recomputes on window resize
-      (() => {})(this.windowWidth);
+      (() => {})(this.windowWidth, this.scroll);
 
       // Default: centered on both axes
 
