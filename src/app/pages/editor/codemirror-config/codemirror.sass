@@ -1,15 +1,15 @@
 // sass-lint:disable class-name-format
+@import '../style.sass'
 
 
 .CodeMirror
-  height: calc(100vh - 2.5rem)
+  height: calc(100vh - #{$bar-width + $gap})
 
   font-family: 'Fira Code', monospace
   font-weight: 300
   font-size: .7rem
   line-height: 1.05rem
+  cursor: text
 
-.CodeMirror-sizer,
-.CodeMirror-sizer > div,
-.CodeMirror-sizer > div > .CodeMirror-lines
-  height: 100%
+  .CodeMirror-linenumbers
+    cursor: default
