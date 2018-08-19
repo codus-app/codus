@@ -2,8 +2,12 @@
 @import '../style.sass'
 
 
+$problem-browser-width: 12rem
+$sidebar-width: 2.5rem
+
 .CodeMirror
   height: calc(100vh - #{$bar-width + $gap})
+  width: calc(100vw - #{$problem-browser-width + $gap + $sidebar-width + $gap})
 
   font-family: 'Fira Code', monospace
   font-weight: 300
