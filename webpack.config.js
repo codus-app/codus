@@ -6,7 +6,7 @@ const webpack = require('webpack');
 module.exports = {
   entry: {
     app: path.join(__dirname, 'src/app'),
-    '': path.join(__dirname, 'src'), // Landing page
+    '': path.join(__dirname, 'src/landing'), // Landing page
   },
 
   module: {
