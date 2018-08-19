@@ -6,8 +6,6 @@ import 'codemirror/theme/material.css';
 import 'codemirror/addon/edit/matchbrackets';
 import 'codemirror/addon/edit/closebrackets';
 import 'codemirror/addon/selection/active-line';
-import 'codemirror/addon/scroll/simplescrollbars';
-import 'codemirror/addon/scroll/simplescrollbars.css';
 // Additional styles
 import './codemirror.sass';
 // Custom themes
@@ -23,5 +21,5 @@ export default {
   matchBrackets: true,
   autoCloseBrackets: true,
   styleActiveLine: true,
-  scrollbarStyle: 'overlay',
+  scrollbarStyle: 'null',
 };
