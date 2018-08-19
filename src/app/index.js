@@ -21,6 +21,7 @@ import './components';
 
 import routes from './pages';
 import router from './router';
+import store from './vuex';
 
 import auth from '../auth';
 window.auth = auth;
@@ -28,6 +29,7 @@ window.auth = auth;
 
 window.app = new Vue({
   router,
+  store,
 
   data: {
     transitionName: 'route-slide-down',
