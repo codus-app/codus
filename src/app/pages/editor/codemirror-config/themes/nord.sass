@@ -29,7 +29,7 @@
 
 // sass-lint:disable class-name-format
 
-
+@import '../../../../../global-styles.sass'
 
 $nord0: #2e3440
 $nord1: #3b4252
@@ -48,7 +48,7 @@ $nord13: #ebcb8b
 $nord14: #a3be8c
 $nord15: #b48ead
 
-$editor-background-color: $nord0
+$editor-background-color: $dark-1
 $editor-active-line: transparent
 $editor-selection-color: rgba($nord2, .8)
 $editor-text-color: $nord4
@@ -58,8 +58,8 @@ $editor-cursor-color: $editor-text-color
 $editor-invisible-character-color: $nord3
 
 $editor-gutter-background-color: $editor-background-color
-$editor-gutter-text-color: #3a3a45
-$editor-gutter-background-color-selected: rgba($nord2, .32)
+$editor-gutter-text-color: transparentize(#3a3a45, .5)
+$editor-gutter-background-color-selected: $dark-3
 $editor-gutter-text-color-selected: rgba($editor-text-color, .4)
 
 $editor-syntax-color-annotation: $nord12
@@ -84,7 +84,7 @@ $editor-matcher-color: $nord8
 
 .cm-s-nord
   &.CodeMirror
-    background: #131313
+    background: $editor-background-color
     color: $editor-text-color
 
   .CodeMirror-cursor
