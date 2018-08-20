@@ -8,7 +8,11 @@ import actions from './actions';
 import getters from './getters';
 
 export default new Vuex.Store({
-  state: {},
+  state: {
+    categories: [],
+    categoriesFetched: false,
+  },
+
   mutations,
   actions,
   getters,
