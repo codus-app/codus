@@ -54,7 +54,7 @@ app.get('/user', auth0(), (req, res) => {
 });
 
 // Get all of the information auth0 stores on the authenticated user
-app.get('/userinfo', auth0(), (req, res) => {
+app.get('/user-info', auth0(), (req, res) => {
   auth0.getUser(req.user.sub)
     .then(u => res.json(u));
 });
@@ -82,7 +82,7 @@ app.get('/solutions', auth0(), async (req, res) => {
 
 // Get a user-specific overview of a category including the category's name/description, the names
 // of all contained problems, and whether the user's solution to each passes
-app.get('/categoryOverview/:id', auth0(), async (req, res) => {
+app.get('/category-overview/:id', auth0(), async (req, res) => {
   const user = await database.getUser(req.user.sub);
   const category = await database.getCategory(req.params.id, true);
   if (!category) res.status(404).json({ error: `Category ${req.params.name} was not found` });
