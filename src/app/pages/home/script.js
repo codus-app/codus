@@ -1,9 +1,8 @@
 import debounce from 'debounce';
-import * as api from '../../api';
+import { mapState, mapGetters, mapActions } from 'vuex';
 
 export default {
   data: () => ({
-    categories: [],
     cardsFaded: false,
 
     resizeListener: undefined,
@@ -12,17 +11,14 @@ export default {
   }),
 
   created() {
-    this.fetchData();
-
     this.onResize = this.onResize.bind(this);
     window.addEventListener('resize', this.onResize);
+
+    if (!this.categoriesFetched) this.fetchCategories();
   },
 
   methods: {
-    async fetchData() {
-      const categories = await api.get('/categories');
-      this.categories = categories.map(c => c.id);
-    },
+    ...mapActions(['fetchCategories']),
 
     closeAll() {
       this.$children.forEach((c) => { c.expanded = false; });
@@ -33,6 +29,9 @@ export default {
   },
 
   computed: {
+    ...mapState(['categoriesFetched']),
+    ...mapGetters(['categoryIds']),
+
     cardBounds() {
       // Recompute on resize
       (() => {})(this.windowSize);

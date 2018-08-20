@@ -4,9 +4,9 @@
     v-on:scroll="onScroll"
   >
     <div class="scrim" v-on:click="closeAll"></div>
-    <div class="cards" v-if="categories.length">
+    <div class="cards" v-if="categoryIds.length">
       <category-card
-        v-for="id in categories"
+        v-for="id in categoryIds"
         v-bind:key="id"
         v-bind:category-id="id"
         v-bind:scroll="scrollPos"
