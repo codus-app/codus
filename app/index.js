@@ -89,7 +89,9 @@ app.get('/categoryOverview/:id', auth0(), async (req, res) => {
   else {
     const solutions = await category.getSolutions(user);
     const out = category.toObject();
-    out.solutions = solutions;
+    out.solved = solutions
+      .filter(s => s.passed)
+      .map(s => s.name);
     res.json(out);
   }
 });
