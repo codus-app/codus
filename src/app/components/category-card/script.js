@@ -29,17 +29,19 @@ export default {
 
   methods: {
     async fetchData() {
-      const category = await api.get(`/categoryOverview/${this.categoryId}`);
+      const category = await api.get(`/category-overview/${this.categoryId}`);
 
       this.name = category.readableName;
       this.description = category.description;
 
-      const problemNames = category.problems;
-      const solvedNames = category.solutions.filter(s => s.passed).map(s => s.name);
+      category.problems
+        .forEach(p =>
+          this.problems.push({
+            name: p,
+            passed: category.solved.includes(p),
+          }));
 
-      problemNames.forEach(p => this.problems.push({ name: p, passed: solvedNames.includes(p) }));
-
-      this.completion = solvedNames.length / problemNames.length;
+      this.completion = category.solved.length / category.problems.length;
 
       this.layout();
     },
