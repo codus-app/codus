@@ -9,4 +9,7 @@ export default {
       .filter(({ category, passed }) => category === id && passed)
       .map(c => c.name),
   }),
+
+  getSolution: state => (searchCategory, searchName) => state.user.solutions
+    .find(({ category, name }) => category === searchCategory && name === searchName),
 };

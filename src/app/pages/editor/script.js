@@ -1,4 +1,5 @@
 import dedent from 'dedent';
+import { mapGetters } from 'vuex';
 
 import cmOptions from './codemirror-config/';
 
@@ -12,18 +13,30 @@ export default {
       category: this.$route.params.category,
       problemName: this.$route.params.name,
       problem: {},
-      code: '',
     };
+  },
+
+  computed: {
+    ...mapGetters(['getSolution']),
+
+    solution() { return this.getSolution(this.category, this.problemName) || {}; },
+
+    code: {
+      get() { return this.solution.code || this.getBase(); },
+      // TODO
+      set(val) { (() => {})(val); },
+    },
   },
 
   methods: {
     async fetchData() {
       const problem = await api.get(`/problem/${this.category}/${this.problemName}`);
       this.problem = problem;
-      this.code = this.getBase();
     },
 
     getBase() {
+      if (!Object.keys(this.problem).length) return '';
+
       const parameters = this.problem.parameters.map(p => `${p.type} ${p.name}`);
       return dedent`
         public class ${this.problem.name} {
@@ -35,8 +48,5 @@ export default {
     },
   },
 
-  async created() {
-    await this.fetchData();
-    this.code = this.getBase();
-  },
+  async created() { await this.fetchData(); },
 };
