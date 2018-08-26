@@ -61,7 +61,10 @@ window.app = new Vue({
 
   created() {
     window.addEventListener('visibilitychange', this.checkAuth);
-    if (!this.userFetched) this.fetchUser();
+    if (!this.userFetched) {
+      if (auth.isAuthenticated()) this.fetchUser();
+      else this.$once('loggedIn', () => this.fetchUser());
+    }
   },
   destroyed() { window.removeEventListener('visibilitychange', this.checkAuth); },
 
