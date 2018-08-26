@@ -13,30 +13,15 @@ export default {
       category: this.$route.params.category,
       problemName: this.$route.params.name,
       problem: {},
+      code: '',
     };
   },
 
   computed: {
     ...mapGetters(['getSolution']),
 
-    solution() { return this.getSolution(this.category, this.problemName) || {}; },
-
-    code: {
-      get() { return this.solution.code || this.getBase(); },
-      // TODO
-      set(val) { (() => {})(val); },
-    },
-  },
-
-  methods: {
-    async fetchData() {
-      const problem = await api.get(`/problem/${this.category}/${this.problemName}`);
-      this.problem = problem;
-    },
-
-    getBase() {
-      if (!Object.keys(this.problem).length) return '';
-
+    // The "starting" code for the problem
+    baseCode() {
       const parameters = this.problem.parameters.map(p => `${p.type} ${p.name}`);
       return dedent`
         public class ${this.problem.name} {
@@ -46,7 +31,30 @@ export default {
         }
       `;
     },
+
+    // The version of the user's code that's on the server
+    remoteCode() {
+      return (this.getSolution(this.category, this.problemName) || {}).code;
+    },
   },
 
-  async created() { await this.fetchData(); },
+  methods: {
+    async fetchData() {
+      const problem = await api.get(`/problem/${this.category}/${this.problemName}`);
+      this.problem = problem;
+    },
+  },
+
+  async created() {
+    await Promise.all([
+      // Fetch problem info
+      this.fetchData(),
+      // Wait for user data
+      new Promise((resolve) => {
+        if (this.userFetched) resolve();
+        else this.$store.subscribe((mutation) => { if (mutation.type === 'userFetched') resolve(); });
+      }),
+    ]);
+    this.code = this.remoteCode || this.baseCode;
+  },
 };
