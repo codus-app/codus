@@ -9,6 +9,9 @@ import getters from './getters';
 
 export default new Vuex.Store({
   state: {
+    user: { solutions: [] },
+    userFetched: false,
+
     categories: [],
     categoriesFetched: false,
   },

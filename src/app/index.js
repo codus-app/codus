@@ -5,6 +5,7 @@ import 'whatwg-fetch';
 
 // Vue
 import Vue from 'vue';
+import { mapState, mapActions } from 'vuex';
 
 // HTML
 import './index.html';
@@ -34,6 +35,7 @@ window.app = new Vue({
   data: {
     transitionName: 'route-slide-down',
   },
+  computed: { ...mapState(['userFetched']) },
 
   watch: {
     $route(to, from) {
@@ -48,13 +50,19 @@ window.app = new Vue({
   },
 
   methods: {
+    ...mapActions(['fetchUser']),
+
     checkAuth() { if (auth.loginExpired()) auth.logout(); },
+    // TODO: make this a prop
     updateSidebar() { this.$refs.sidebar.collapsed = this.$route.meta.collapseSidebar || false; },
   },
 
   mounted() { this.updateSidebar(); },
 
-  created() { window.addEventListener('visibilitychange', this.checkAuth); },
+  created() {
+    window.addEventListener('visibilitychange', this.checkAuth);
+    if (!this.userFetched) this.fetchUser();
+  },
   destroyed() { window.removeEventListener('visibilitychange', this.checkAuth); },
 
   el: '#app',
