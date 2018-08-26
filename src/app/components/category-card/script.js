@@ -1,14 +1,8 @@
-import * as api from '../../api';
+import { mapGetters } from 'vuex';
 
 export default {
   props: ['categoryId', 'bounds', 'scroll'],
   data: () => ({
-    name: this.categoryId, // Will be replaced with readable name after first HTTP request completes
-    description: '',
-
-    completion: 0,
-
-    problems: [], // All problems in the category
     displayProblems: [], // All problems that fit on the unexpanded card
     remainder: 0, // The number of problems not displayed
     invisible: true, // Should the problems be visible yet?
@@ -18,45 +12,26 @@ export default {
     windowWidth: null,
   }),
 
-  mounted() { this.mounted = true; },
+  mounted() { this.mounted = true; this.layout(); },
 
   created() {
-    this.fetchData();
-
     this.layout = this.layout.bind(this);
     window.addEventListener('resize', this.layout);
   },
 
   methods: {
-    async fetchData() {
-      const category = await api.get(`/category-overview/${this.categoryId}`);
-
-      this.name = category.readableName;
-      this.description = category.description;
-
-      category.problems
-        .forEach(p =>
-          this.problems.push({
-            name: p,
-            passed: category.solved.includes(p),
-          }));
-
-      this.completion = category.solved.length / category.problems.length;
-
-      this.layout();
-    },
 
     layout() {
       this.windowWidth = window.innerWidth;
 
       this.invisible = true;
 
-      this.displayProblems = this.problems;
+      this.displayProblems = this.category.problems;
 
       // After items have rendered
       this.$nextTick(() => {
         // An array containing the Y position of each problem's link
-        const renderYs = this.problems.map(p => this.$refs[p.name][0].$el.offsetTop);
+        const renderYs = this.category.problems.map(p => this.$refs[p][0].$el.offsetTop);
         // Each unique problem Y position; the Y position of each row of links
         const rowYs = renderYs.filter((y, i, arr) => arr.indexOf(y) === i);
 
@@ -67,7 +42,8 @@ export default {
           this.displayProblems = first2Rows;
           this.displayProblems.pop();
         }
-        this.remainder = this.problems.length - this.displayProblems.length;
+        this.remainder = this.category.problems.length - this.displayProblems.length;
+        this.completion = this.category.solved.length / this.category.problems.length;
         this.invisible = false;
       });
     },
@@ -75,9 +51,14 @@ export default {
 
   watch: {
     expanded() { this.$emit('expanded', this.expanded); },
+    category() { this.layout(); },
   },
 
   computed: {
+    ...mapGetters(['getCategory']),
+
+    category() { return this.getCategory(this.categoryId); },
+
     positionStyles() {
       // Make sure it recomputes on window resize
       (() => {})(this.windowWidth, this.scroll);
