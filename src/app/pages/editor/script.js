@@ -51,7 +51,7 @@ export default {
       this.fetchData(),
       // Wait for user data
       new Promise((resolve) => {
-        if (this.userFetched) resolve();
+        if (this.$store.state.userFetched) resolve();
         else this.$store.subscribe((mutation) => { if (mutation.type === 'userFetched') resolve(); });
       }),
     ]);
