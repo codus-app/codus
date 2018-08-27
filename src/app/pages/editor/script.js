@@ -38,6 +38,7 @@ export default {
     },
   },
 
+
   methods: {
     async fetchData() {
       const problem = await api.get(`/problem/${this.category}/${this.problemName}`);
@@ -47,13 +48,13 @@ export default {
 
   async created() {
     await Promise.all([
-      // Fetch problem info
-      this.fetchData(),
-      // Wait for user data
+      // Wait for user data so that we can display a pre-existing solution
       new Promise((resolve) => {
         if (this.$store.state.userFetched) resolve();
         else this.$store.subscribe((mutation) => { if (mutation.type === 'userFetched') resolve(); });
       }),
+      // Fetch problem info so that we can display a base solution in lieu of a user solution
+      this.fetchData(),
     ]);
     this.code = this.remoteCode || this.baseCode;
   },

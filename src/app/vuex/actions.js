@@ -11,4 +11,11 @@ export default {
     const categories = await api.get('/categories');
     commit('categoriesFetched', categories);
   },
+
+  // Save a solution to a problem
+  async saveSolution({ commit }, { name, category, code }) {
+    commit('beginSolutionSave');
+    await api.put(`/solution/${category}/${name}`, code);
+    commit('solutionSaved', { name, category, code });
+  },
 };
