@@ -9,7 +9,7 @@
     <!-- Code editing -->
     <div class="editor">
       <div class="top-bar"></div>
-      <codemirror v-model="code" v-bind:options="cmOptions"></codemirror>
+      <codemirror v-bind:value="code" v-on:input="onInput" v-bind:options="cmOptions"></codemirror>
     </div>
 
   </div>

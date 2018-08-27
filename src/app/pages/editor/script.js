@@ -1,5 +1,6 @@
 import dedent from 'dedent';
-import { mapGetters } from 'vuex';
+import debounce from 'debounce';
+import { mapGetters, mapActions } from 'vuex';
 
 import cmOptions from './codemirror-config/';
 
@@ -40,10 +41,27 @@ export default {
 
 
   methods: {
+    ...mapActions(['saveSolution']),
+
     async fetchData() {
       const problem = await api.get(`/problem/${this.category}/${this.problemName}`);
       this.problem = problem;
     },
+
+    onInput(e) {
+      this.code = e;
+      this.debouncedSave();
+    },
+
+    save() {
+      this.saveSolution({
+        name: this.problemName,
+        category: this.category,
+        code: this.code,
+      });
+    },
+
+    debouncedSave: debounce(function save2() { this.save(); }, 750),
   },
 
   async created() {
