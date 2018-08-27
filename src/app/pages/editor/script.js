@@ -61,7 +61,9 @@ export default {
       });
     },
 
-    debouncedSave: debounce(function save2() { this.save(); }, 750),
+    debouncedSave: debounce(function save2() {
+      if (this.code !== this.remoteCode) this.save();
+    }, 750),
   },
 
   async created() {
