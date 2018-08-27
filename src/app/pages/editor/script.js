@@ -1,6 +1,6 @@
 import dedent from 'dedent';
 import debounce from 'debounce';
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapActions, mapState } from 'vuex';
 
 import cmOptions from './codemirror-config/';
 
@@ -20,6 +20,7 @@ export default {
 
   computed: {
     ...mapGetters(['getSolution']),
+    ...mapState(['solutionSaveInProgress']),
 
     // The "starting" code for the problem
     baseCode() {

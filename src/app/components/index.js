@@ -18,12 +18,19 @@ Vue.component('log-out-icon', LogOutIcon);
 
 // Internal components
 import Sidebar from './sidebar/sidebar.vue';
-import ProblemLink from './category-card/problem-link';
-import CategoryCard from './category-card/category-card.vue';
-import ProgressPie from './progress-pie/progress-pie.vue';
-import ProblemsTree from './problems-tree/problems-tree.vue';
 Vue.component('sidebar', Sidebar);
+
+import ProblemLink from './category-card/problem-link';
 Vue.component('problem-link', ProblemLink);
+
+import CategoryCard from './category-card/category-card.vue';
 Vue.component('category-card', CategoryCard);
+
+import ProgressPie from './progress-pie/progress-pie.vue';
 Vue.component('progress-pie', ProgressPie);
+
+import ProblemsTree from './problems-tree/problems-tree.vue';
 Vue.component('problems-tree', ProblemsTree);
+
+import SaveStatus from './save-status/save-status.vue';
+Vue.component('save-status', SaveStatus);

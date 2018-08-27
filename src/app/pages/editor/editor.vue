@@ -8,7 +8,9 @@
 
     <!-- Code editing -->
     <div class="editor">
-      <div class="top-bar"></div>
+      <div class="top-bar">
+        <save-status v-bind:saving="solutionSaveInProgress"/>
+      </div>
       <codemirror v-bind:value="code" v-on:input="onInput" v-bind:options="cmOptions"></codemirror>
     </div>
 
