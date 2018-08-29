@@ -29,10 +29,10 @@ export default [
     meta: { icon: 'inbox', label: 'Assignments', category: 'class' },
   },
   {
-    path: '/class',
-    name: 'class',
-    component: require('./class/class.vue').default,
-    meta: { icon: 'users', label: 'Members', category: 'class' },
+    path: '/students',
+    name: 'students',
+    component: require('./students/students.vue').default,
+    meta: { icon: 'users', label: 'Students', category: 'class' },
   },
   {
     path: '/leaderboard',

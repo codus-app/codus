@@ -1,5 +1,5 @@
 <template>
-  <div>Members</div>
+  <div>Students</div>
 </template>
 
 <script> export default {}; </script>
