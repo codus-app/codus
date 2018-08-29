@@ -72,6 +72,10 @@ export default {
       this.saving = false;
     },
 
+    reset() {
+      this.code = this.baseCode;
+    },
+
 
     debouncedSave: debounce(function save2() { this.save(); }, 750),
   },
