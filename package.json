@@ -4,7 +4,7 @@
   "description": "The server-side engine powering Codus",
   "main": "app/index.js",
   "scripts": {
-    "dev": "nodemon app/index.js",
+    "dev": "nodemon --inspect app/index.js",
     "start": "node app",
     "prod": "pm2 start app"
   },
