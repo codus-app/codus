@@ -112,7 +112,7 @@ app.put('/solution/:category/:problem', auth0(), async (req, res) => {
     await user.changeSolution(req.params.category, req.params.problem, req.body);
     res.status(200).json({ success: true });
   } else { // Create new
-    await user.addSolution(req, req.params.problem, req.body);
+    await user.addSolution(req.params.category, req.params.problem, req.body);
     res.status(201).json({ success: true });
   }
 });
