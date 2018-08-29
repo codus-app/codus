@@ -6,7 +6,7 @@ import { codemirror } from 'vue-codemirror';
 import 'codemirror/lib/codemirror.css';
 Vue.component('codemirror', codemirror);
 
-// Feather icons
+
 import {
   // Sidebar icons
   HomeIcon,
@@ -16,6 +16,11 @@ import {
   UsersIcon,
   AwardIcon,
   LogOutIcon,
+  // Editor icons
+  PlayIcon,
+  Trash2Icon,
+  SettingsIcon,
+  ShareIcon,
 } from 'vue-feather-icons';
 
 // Sidebar icons
@@ -26,6 +31,12 @@ Vue.component('icon-inbox', InboxIcon);
 Vue.component('icon-users', UsersIcon);
 Vue.component('icon-award', AwardIcon);
 Vue.component('icon-log-out', LogOutIcon);
+// Editor icons
+Vue.component('icon-play', PlayIcon);
+Vue.component('icon-trash', Trash2Icon);
+Vue.component('icon-settings', SettingsIcon);
+Vue.component('icon-share', ShareIcon);
+
 
 // Internal components
 import Sidebar from './sidebar/sidebar.vue';

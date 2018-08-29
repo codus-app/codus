@@ -44,9 +44,20 @@ $bar-width: 2.5rem
   .top-bar
     background: $dark-1
     height: $bar-width
-    padding: 0 1rem
+    padding: 0 1.85rem
     margin-bottom: $gap
 
     display: flex
+    flex-direction: row-reverse
+    justify-content: flex-start
     align-items: center
-    justify-content: flex-end
+
+    .feather.button
+      width: .85rem
+      height: .85rem
+      margin-left: 1.3rem
+
+      cursor: pointer
+
+    .save-status
+      margin-right: .5rem

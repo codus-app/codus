@@ -9,6 +9,10 @@
     <!-- Code editing -->
     <div class="editor">
       <div class="top-bar">
+        <icon-play class="button"/>
+        <icon-trash class="button"/>
+        <icon-share class="button"/>
+        <icon-settings class="button"/>
         <save-status v-if="$store.state.userFetched" v-bind:saving="saving"/>
       </div>
       <codemirror v-bind:value="code" v-on:input="onInput" v-bind:options="cmOptions"></codemirror>
