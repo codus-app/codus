@@ -11,7 +11,7 @@ export default [
     path: '/statistics',
     name: 'statitstics',
     component: require('./statistics/statistics.vue').default,
-    meta: { icon: 'bar-chart-2', label: 'Statistics', category: 'user' },
+    meta: { icon: 'bar-chart', label: 'Statistics', category: 'user' },
   },
   {
     path: '/recently-completed',

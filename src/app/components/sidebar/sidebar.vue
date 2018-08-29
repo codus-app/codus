@@ -8,7 +8,7 @@
       <h2 v-if="!collapsed">You</h2>
       <router-link class="sb-link" v-for="r in userRoutes" v-bind:key="r.path" v-bind:to="r.path">
         <div class="indicator" v-if="!collapsed"></div>
-        <component v-bind:is="`${r.meta.icon}-icon`"></component>
+        <component v-bind:is="`icon-${r.meta.icon}`"></component>
         <span class="montserrat regular" v-if="!collapsed">{{r.meta.label}}</span>
       </router-link>
 
@@ -18,12 +18,12 @@
       <h2 v-if="!collapsed">Class</h2>
       <router-link class="sb-link" v-for="r in classRoutes" v-bind:key="r.path" v-bind:to="r.path">
         <div class="indicator" v-if="!collapsed"></div>
-        <component v-bind:is="`${r.meta.icon}-icon`"></component>
+        <component v-bind:is="`icon-${r.meta.icon}`"></component>
         <span class="montserrat regular" v-if="!collapsed">{{r.meta.label}}</span>
       </router-link>
 
       <div class="sb-link logout" v-on:click="logout">
-        <log-out-icon></log-out-icon>
+        <icon-log-out></icon-log-out>
         <span class="montserrat light" v-if="!collapsed">Log out</span>
       </div>
 

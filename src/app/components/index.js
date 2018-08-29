@@ -7,14 +7,25 @@ import 'codemirror/lib/codemirror.css';
 Vue.component('codemirror', codemirror);
 
 // Feather icons
-import { HomeIcon, BarChart2Icon, ClockIcon, InboxIcon, UsersIcon, AwardIcon, LogOutIcon } from 'vue-feather-icons';
-Vue.component('home-icon', HomeIcon);
-Vue.component('bar-chart-2-icon', BarChart2Icon);
-Vue.component('clock-icon', ClockIcon);
-Vue.component('inbox-icon', InboxIcon);
-Vue.component('users-icon', UsersIcon);
-Vue.component('award-icon', AwardIcon);
-Vue.component('log-out-icon', LogOutIcon);
+import {
+  // Sidebar icons
+  HomeIcon,
+  BarChart2Icon,
+  ClockIcon,
+  InboxIcon,
+  UsersIcon,
+  AwardIcon,
+  LogOutIcon,
+} from 'vue-feather-icons';
+
+// Sidebar icons
+Vue.component('icon-home', HomeIcon);
+Vue.component('icon-bar-chart', BarChart2Icon);
+Vue.component('icon-clock', ClockIcon);
+Vue.component('icon-inbox', InboxIcon);
+Vue.component('icon-users', UsersIcon);
+Vue.component('icon-award', AwardIcon);
+Vue.component('icon-log-out', LogOutIcon);
 
 // Internal components
 import Sidebar from './sidebar/sidebar.vue';
