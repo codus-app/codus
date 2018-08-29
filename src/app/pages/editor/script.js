@@ -61,9 +61,14 @@ export default {
       });
     },
 
+    /* eslint-disable max-len */
     debouncedSave: debounce(function save2() {
-      if (this.code !== this.remoteCode) this.save();
+      if (this.$store.state.userFetched // We have access to the current saved code
+        && this.code !== this.remoteCode // The code has changed since last save
+        && !(this.code === this.baseCode && !this.remoteCode) // If no solution is saved, only create once code deviates from base
+      ) this.save();
     }, 750),
+    /* eslint-enable max-len */
   },
 
   async created() {
