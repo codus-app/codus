@@ -9,7 +9,7 @@
     <!-- Code editing -->
     <div class="editor">
       <div class="top-bar">
-        <save-status v-bind:saving="code !== remoteCode"/>
+        <save-status v-if="$store.state.userFetched" v-bind:saving="saving"/>
       </div>
       <codemirror v-bind:value="code" v-on:input="onInput" v-bind:options="cmOptions"></codemirror>
     </div>

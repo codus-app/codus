@@ -1,13 +1,19 @@
 <template>
   <div class="save-status">
-    <div class="msg">{{ saving ? 'Saving' : 'Saved' }}</div>
-    <div class="indicator" v-bind:class="{ green: !saving, yellow: saving }"></div>
+    <div class="msg">{{ saveMsg }}</div>
+    <div class="indicator" v-bind:class="{ green: saving === false, yellow: saving, gray: saving === null }"></div>
   </div>
 </template>
 
 <script>
 export default {
   props: { saving: Boolean },
+  computed: {
+    saveMsg() {
+      if (this.saving === null) return 'Unsaved';
+      return this.saving ? 'Saving' : 'Saved';
+    },
+  },
 };
 </script>
 

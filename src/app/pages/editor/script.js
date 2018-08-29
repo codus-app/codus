@@ -15,6 +15,7 @@ export default {
       problemName: this.$route.params.name,
       problem: {},
       code: '',
+      saving: null,
     };
   },
 
@@ -48,27 +49,31 @@ export default {
       this.problem = problem;
     },
 
+    /* eslint-disable max-len */
     onInput(e) {
       this.code = e;
-      this.debouncedSave();
-    },
 
-    save() {
-      this.saveSolution({
+      if (this.$store.state.userFetched // We have access to the current saved code
+        && this.code !== this.remoteCode // The code has changed since last save
+        && !(this.code === this.baseCode && !this.remoteCode) // If no solution is saved, only create once code deviates from base
+      ) {
+        this.debouncedSave();
+        this.saving = true;
+      }
+    },
+    /* eslint-enable max-len */
+
+    async save() {
+      await this.saveSolution({
         name: this.problemName,
         category: this.category,
         code: this.code,
       });
+      this.saving = false;
     },
 
-    /* eslint-disable max-len */
-    debouncedSave: debounce(function save2() {
-      if (this.$store.state.userFetched // We have access to the current saved code
-        && this.code !== this.remoteCode // The code has changed since last save
-        && !(this.code === this.baseCode && !this.remoteCode) // If no solution is saved, only create once code deviates from base
-      ) this.save();
-    }, 750),
-    /* eslint-enable max-len */
+
+    debouncedSave: debounce(function save2() { this.save(); }, 750),
   },
 
   async created() {
@@ -82,5 +87,7 @@ export default {
       this.fetchData(),
     ]);
     this.code = this.remoteCode || this.baseCode;
+    // null for "unsaved" if there's no remote code, otherwise false for "saved"
+    this.saving = typeof this.remoteCode === 'undefined' ? null : false;
   },
 };
