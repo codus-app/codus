@@ -56,3 +56,6 @@ Vue.component('problems-tree', ProblemsTree);
 
 import SaveStatus from './save-status/save-status.vue';
 Vue.component('save-status', SaveStatus);
+
+import ConfirmModal from './confirm-modal/confirm-modal.vue';
+Vue.component('confirm-modal', ConfirmModal);
