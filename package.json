@@ -6,7 +6,7 @@
     "start": "webpack-dev-server --inline --open",
     "build": "webpack",
     "watch": "webpack --watch",
-    "lint-sass": "sass-lint 'app/**/*.sass' -v",
+    "lint-sass": "sass-lint 'src/app/**/*.sass' -v",
     "lint-js": "eslint . --ext js,vue",
     "test": "npm run -s lint-sass && npm run -s lint-js",
     "docs": "jsdoc app/src -c jsdoc.config.json -r -d docs --verbose",
