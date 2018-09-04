@@ -25,13 +25,14 @@ export default {
     // The "starting" code for the problem
     baseCode() {
       const parameters = this.problem.parameters.map(p => `${p.type} ${p.name}`);
-      return dedent`
+      const base = dedent`
         public class ${this.problem.name} {
           public ${this.problem.resultType} main(${parameters.join(', ')}) {
             // Your code here
           }
         }
       `;
+      return `${base}\n`;
     },
 
     // The version of the user's code that's on the server
