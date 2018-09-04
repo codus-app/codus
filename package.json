@@ -28,6 +28,7 @@
     "express-jwt": "^5.3.0",
     "express-jwt-authz": "^1.0.0",
     "jwks-rsa": "^1.2.1",
+    "keystone": "^4.0.0",
     "mongoose": "^5.0.3",
     "pm2": "^2.9.3"
   },
