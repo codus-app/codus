@@ -16,6 +16,7 @@ export default {
       problem: {},
       code: '',
       saving: null,
+      deletionConfirmOpen: false,
     };
   },
 
@@ -75,6 +76,7 @@ export default {
 
     reset() {
       this.code = this.baseCode;
+      this.deletionConfirmOpen = false;
     },
 
 
