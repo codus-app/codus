@@ -32,7 +32,7 @@ const { ManagementClient } = require('auth0');
 const management = new ManagementClient({
   domain: 'codus.auth0.com',
   clientId: 'JfqbfePwu53xNJ755rhcDM51G89vnjwr',
-  clientSecret: process.env.CLIENT_SECRET,
+  clientSecret: process.env.AUTH0_CLIENT_SECRET,
   scope: 'read:users',
 });
 
