@@ -1,47 +1,43 @@
-// Lato, Montserrat
-@import url('https://fonts.googleapis.com/css?family=Lato:400,700|Montserrat:200,300,400,500')
-// Fira code
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700|Montserrat:200,300,400,500')
 @import url('https://cdn.rawgit.com/tonsky/FiraCode/1.204/distr/fira_code.css')
 
+@import './variables'
 
-// Montserrat
 
-.montserrat.extralight
-  font-family: 'Montserrat', sans-serif
-  font-weight: 200
+.font-1
+  font-family: $font-1
 
-.montserrat.light
-  font-family: 'Montserrat', sans-serif
-  font-weight: 300
+  &.extralight
+    font-weight: 200
 
-.montserrat.regular
-  font-family: 'Montserrat', sans-serif
-  font-weight: 400
+  &.light
+    font-weight: 300
 
-.montserrat.medium
-  font-family: 'Montserrat', sans-serif
-  font-weight: 500
+  &.regular
+    font-weight: 400
 
-// Lato
+  &.medium
+    font-weight: 500
 
-.lato.regular
-  font-family: 'Lato', sans-serif
-  font-weight: 400
 
-.lato.bold
-  font-family: 'Lato', sans-serif
-  font-weight: 700
+.font-2
+  font-family: $font-2
 
-// Fira Code
+  &.regular
+    font-weight: 400
 
-.code.light
-  font-family: 'Fira Code', monospace
-  font-weight: 300
+  &.bold
+    font-weight: 700
 
-.code.regular
-  font-family: 'Fira Code', monospace
-  font-weight: 400
 
-.code.bold
-  font-family: 'Fira Code', monospace
-  font-weight: 700
+.code
+  font-family: $font-mono
+
+  &.light
+    font-weight: 300
+
+  &.regular
+    font-weight: 400
+
+  &.bold
+    font-weight: 700
