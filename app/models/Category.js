@@ -10,6 +10,12 @@ Category.add({
   description: { type: Types.Text, initial: true, required: true },
 });
 
+Category.relationship({
+  path: 'problems',
+  ref: 'Problem',
+  refPath: 'category',
+});
+
 Category.register();
 
 Category.defaultColumns = 'name, displayName, description';
