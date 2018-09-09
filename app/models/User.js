@@ -19,6 +19,12 @@ User.add({
   },
 });
 
+User.relationship({
+  path: 'solutions',
+  ref: 'Solution',
+  refPath: 'user',
+});
+
 User.register();
 
 User.defaultColumns = 'username, auth0id';
