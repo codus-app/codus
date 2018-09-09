@@ -46,6 +46,16 @@ module.exports.isValidIdentifier = function isValidIdentifier(obj) {
   return /^[a-zA-Z_][a-zA-Z0-9_]*$/.test(obj);
 };
 
+
+/* Given a string that contains a Java literal, and another that contains a Java type, try to return
+ * a JS value that represents that. Note that this is far from complete; it's good enough for this
+ * project because it's only used for interpreting problem test case arguments, which come from the
+ * Codus problem set and NOT from any kind of user-supplied that could be trying to leverage
+ * unsupported language features.
+
+ * The specific cases in which this function is used:
+ *   1. Passing test cases to codus-execute-java via a JSON file
+ */
 module.exports.javaStringToJS = function convertStringWithType(valueString, javaType) {
   const failureMessage = `Could not convert value "${valueString}" to ${javaType}`;
   if (!module.exports.types.includes(javaType)) throw new Error(`javaType must be one of ${module.exports.types.join(', ')}`);
