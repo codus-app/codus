@@ -8,9 +8,7 @@ keystone.init({
   'user model': 'AdminUser',
   'cookie secret': process.env.KEYSTONE_COOKIE_SECRET,
 
-  port: 8081,
-
-  'auto update': true,
+  port: 3001,
 });
 
 keystone.import('models');
