@@ -52,6 +52,27 @@ Problem.add({
   },
 });
 
+Problem.schema.methods.getTestCases = function getTestCases() {
+  console.log(this);
+  const functionParams = this.parameters.map(p => p.split('|').map(s => s.trim()));
+  const paramTypes = functionParams.map(p => p[1]);
+
+  return this.testCases
+    // Split parameters out from expected result
+    .map(t => t.split('->').map(part => part.trim()))
+    .map(([parameters, expectedResult]) => ({
+      parameters: parameters
+        // Split up parameters
+        .split(',').map(param => param.trim()) // split out each parameter
+        // Convert each parameter to the correct JS type
+        .map((param, i) => java.javaStringToJS(param, paramTypes[i])),
+
+      // Convert result to the correct JS type
+      result: java.javaStringToJS(expectedResult, this.resultType),
+    }));
+};
+
+
 Problem.register();
 
 Problem.defaultColumns = 'name, category, resultType';
