@@ -10,11 +10,17 @@ module.exports = {
 
   category: {
     async list(req, res) {
-      Category.model
-        .find()
-        .select('-_id -__v')
-        .then(cats => res.json(cats));
+      const [categories, problems] = await Promise.all([
+        Category.model.find().select('-__v'),
+        Problem.model.find().select('-_id -__v'),
+      ]);
+      const cats = categories.map(c => Object.assign(c.toObject(), {
+        problems: problems.filter(p => p.category.toString() === c._id.toString()).map(p => p.name),
+        _id: undefined,
+      }));
+      res.json(cats);
     },
+
     async get(req, res) {
       const category = await Category.model
         .findOne()
@@ -32,6 +38,7 @@ module.exports = {
       }
     },
   },
+
 
   problem: {
     async get(req, res) {
