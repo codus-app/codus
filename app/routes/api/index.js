@@ -13,5 +13,15 @@ module.exports = {
         .select('-_id -__v')
         .then(cats => res.json(cats));
     },
+    async get(req, res) {
+      const category = await Category.model
+        .findOne()
+        .where('name').equals(req.params.name)
+        .select('-_id -__v');
+      if (!category) res.status(404).json({ error: `Category ${req.params.name} was not found` });
+      else {
+        res.json(category.toObject());
+      }
+    },
   },
 };

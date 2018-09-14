@@ -10,4 +10,6 @@ module.exports = (app) => {
   app.get('/api', routes.api.base);
 
   app.get('/api/categories', routes.api.category.list);
+  app.get('/api/category/:name', routes.api.category.get);
+
 };
