@@ -19,10 +19,16 @@ module.exports = {
       const category = await Category.model
         .findOne()
         .where('name').equals(req.params.name)
-        .select('-_id -__v');
+        .select('-__v');
       if (!category) res.status(404).json({ error: `Category ${req.params.name} was not found` });
+
       else {
-        res.json(category.toObject());
+        const problems = (await Problem.model
+          .find()
+          .where('category').equals(category._id))
+          .map(prob => prob.name);
+
+        res.json(Object.assign(category.toObject(), { problems, _id: undefined }));
       }
     },
   },
