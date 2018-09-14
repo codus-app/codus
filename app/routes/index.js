@@ -12,4 +12,5 @@ module.exports = (app) => {
   app.get('/api/categories', routes.api.category.list);
   app.get('/api/category/:name', routes.api.category.get);
 
+  app.get('/api/problem/:category/:name', routes.api.problem.get);
 };
