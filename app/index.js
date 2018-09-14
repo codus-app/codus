@@ -16,3 +16,5 @@ keystone.import('models');
 keystone.set('routes', require('./routes'));
 
 keystone.start();
+
+keystone.app.set('json spaces', 2);
