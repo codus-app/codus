@@ -4,6 +4,7 @@ const keystone = require('keystone');
 
 const Category = keystone.list('Category');
 const Problem = keystone.list('Problem');
+const Solution = keystone.list('Solution');
 
 module.exports = {
   base(req, res) { res.json({ status: 'ok' }); },
@@ -60,6 +61,28 @@ module.exports = {
         if (!problem) res.status(404).json({ error: `Problem ${req.params.name} was not found` });
         else res.json(problem);
       }
+    },
+  },
+
+
+  user: {
+    async getSolutions(req, res) {
+      const solutions = await Solution.model
+        .find()
+        .where('userId').equals(req.user.sub)
+        .select('-_id -__v')
+        .populate('problem');
+
+      const stripped = solutions.map(s => ({
+        ...s.toObject(),
+        problem: {
+          ...s.problem.toObject(),
+          _id: undefined,
+          __v: undefined,
+        },
+      }));
+
+      res.json(stripped);
     },
   },
 };

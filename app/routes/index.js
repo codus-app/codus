@@ -1,3 +1,5 @@
+const auth0 = require('./auth');
+
 /* eslint-disable global-require */
 const routes = {
   api: require('./api'),
@@ -13,4 +15,6 @@ module.exports = (app) => {
   app.get('/api/category/:name', routes.api.category.get);
 
   app.get('/api/problem/:category/:name', routes.api.problem.get);
+
+  app.get('/api/user/solutions', auth0(), routes.api.user.getSolutions);
 };
