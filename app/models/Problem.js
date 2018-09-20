@@ -52,8 +52,13 @@ Problem.add({
   },
 });
 
-Problem.schema.methods.getTestCases = function getTestCases() {
-  console.log(this);
+Problem.schema.virtual('parameters2').get(function expandedParams() {
+  return this.parameters
+    .map(p => p.split('|').map(piece => piece.trim()))
+    .map(([name, type]) => ({ name, type }));
+});
+
+Problem.schema.virtual('testCases2').get(function expandedTestCases() {
   const functionParams = this.parameters.map(p => p.split('|').map(s => s.trim()));
   const paramTypes = functionParams.map(p => p[1]);
 
@@ -70,7 +75,7 @@ Problem.schema.methods.getTestCases = function getTestCases() {
       // Convert result to the correct JS type
       result: java.javaStringToJS(expectedResult, this.resultType),
     }));
-};
+});
 
 
 Problem.register();
