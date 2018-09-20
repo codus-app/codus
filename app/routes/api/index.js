@@ -1,6 +1,7 @@
 /* eslint-disable global-require */
 
 const keystone = require('keystone');
+const { getUser: getAuth0User } = require('../auth');
 
 const Category = keystone.list('Category');
 const Problem = keystone.list('Problem');
@@ -66,6 +67,11 @@ module.exports = {
 
 
   user: {
+    async get(req, res) {
+      const userInfo = await getAuth0User(req.user.sub);
+      res.send(userInfo);
+    },
+
     async getSolutions(req, res) {
       const solutions = await Solution.model
         .find()
