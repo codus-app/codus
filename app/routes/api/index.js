@@ -60,7 +60,20 @@ module.exports = {
           .select('-_id -__v');
 
         if (!problem) res.status(404).json({ error: `Problem ${req.params.name} was not found` });
-        else res.json(problem);
+        else {
+          res.json({
+            ...problem.toObject(),
+            // Replace testCases and parameters with richer forms from virtuals
+            testCases: problem.testCases2,
+            parameters: problem.parameters2,
+            // Remove _id and __v from category
+            category: {
+              ...problem.category.toObject(),
+              _id: undefined,
+              __v: undefined,
+            },
+          });
+        }
       }
     },
   },
