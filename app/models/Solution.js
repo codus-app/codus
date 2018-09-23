@@ -9,7 +9,7 @@ Solution.add({
   userId: { type: Types.Text, note: 'From auth0', initial: true, required: true },
   problem: { type: Types.Relationship, ref: 'Problem', initial: true, required: true },
   code: { type: Types.Code, language: 'java', initial: true, required: true },
-  passed: { type: Types.Boolean, initial: true, required: true },
+  passed: { type: Types.Boolean, initial: true },
 });
 
 Solution.register();
