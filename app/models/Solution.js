@@ -1,4 +1,5 @@
 const keystone = require('keystone');
+const javaExec = require('codus-execute-java');
 
 const { Types } = keystone.Field;
 
@@ -11,6 +12,30 @@ Solution.add({
   code: { type: Types.Code, language: 'java', initial: true, required: true },
   passed: { type: Types.Boolean, initial: true },
 });
+
+Solution.schema.methods.check = async function checkSolution() {
+  const problem = await keystone.list('Problem').model
+    .findById(this.problem.toString());
+
+  // Test code
+  const results = await javaExec({
+    ...problem.toObject(),
+    // Replace testCases and parameters with richer forms from virtuals
+    testCases: problem.testCases2,
+    parameters: problem.parameters2,
+  }, this.code);
+
+  if (results.error) throw new Error(results.error);
+  const tests = results.data;
+  const passed = tests.every(t => t.pass);
+
+  return new Promise((resolve, reject) => {
+    Solution.updateItem(this, { passed }, (error) => {
+      if (error) reject(error);
+      else resolve({ tests, passed: this.passed });
+    });
+  });
+};
 
 Solution.register();
 
