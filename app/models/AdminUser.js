@@ -7,6 +7,6 @@ AdminUser.add({
   password: { type: keystone.Field.Types.Password },
 });
 AdminUser.schema.virtual('canAccessKeystone').get(() => true);
-AdminUser.defaultColumns = 'id, email';
+AdminUser.defaultColumns = 'email';
 
 AdminUser.register();
