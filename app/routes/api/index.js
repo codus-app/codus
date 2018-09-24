@@ -92,15 +92,11 @@ module.exports = {
         .find()
         .where('userId').equals(req.user.sub)
         .select('-_id -__v')
-        .populate('problem');
+        .populate({ path: 'problem', populate: { path: 'category' } });
 
       const stripped = solutions.map(s => ({
         ...s.toObject(),
-        problem: {
-          ...s.problem.toObject(),
-          _id: undefined,
-          __v: undefined,
-        },
+        problem: `${s.problem.category.name}/${s.problem.name}`,
       }));
 
       res.json(stripped);
