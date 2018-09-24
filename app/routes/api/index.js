@@ -84,8 +84,10 @@ module.exports = {
       const userInfo = await getAuth0User(req.user.sub);
       res.send(userInfo);
     },
+  },
 
-    async getSolutions(req, res) {
+  userSolution: {
+    async list(req, res) {
       const solutions = await Solution.model
         .find()
         .where('userId').equals(req.user.sub)
