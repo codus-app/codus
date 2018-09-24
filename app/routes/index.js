@@ -19,4 +19,5 @@ module.exports = (app) => {
   app.get('/api/user', auth0(), routes.api.user.get);
 
   app.get('/api/user/solutions', auth0(), routes.api.userSolution.list);
+  app.get('/api/user/solution/check/:category/:problem', auth0(), routes.api.userSolution.check);
 };

@@ -105,5 +105,39 @@ module.exports = {
 
       res.json(stripped);
     },
+
+    async check(req, res) {
+      const problemCategory = await Category.model
+        .findOne()
+        .where('name').equals(req.params.category);
+      if (!problemCategory) { res.status(404).json({ error: `Category ${req.params.category} was not found` }); return; }
+
+      const problem = await Problem.model
+        .findOne()
+        .where('category').equals(problemCategory._id)
+        .where('name').equals(req.params.problem);
+      if (!problem) { res.status(404).json({ error: `Problem ${req.params.category}/${req.params.problem} was not found` }); return; }
+
+      const solution = await Solution.model
+        .findOne()
+        .where('userId').equals(req.user.sub)
+        .where('problem').equals(problem._id);
+      if (!solution) { res.status(404).json({ error: `No solution to problem ${req.params.category}/${req.params.problem} was found for authenticated user ${req.user.sub}` }); return; }
+
+      res.json({
+        ...(await solution.check()),
+
+        solution: {
+          code: solution.code,
+          problem: {
+            ...problem.toObject(),
+            parameters: problem.parameters2,
+            testCases: problem.testCases2,
+            _id: undefined,
+            __v: undefined,
+          },
+        },
+      });
+    },
   },
 };
