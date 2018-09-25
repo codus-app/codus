@@ -96,7 +96,7 @@ module.exports = {
 
       const stripped = solutions.map(s => ({
         ...s.toObject(),
-        problem: `${s.problem.category.name}/${s.problem.name}`,
+        problem: { category: s.problem.category.name, name: s.problem.name },
       }));
 
       res.json(stripped);
