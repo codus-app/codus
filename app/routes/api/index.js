@@ -177,7 +177,7 @@ module.exports = {
           });
           created = true;
         }
-      });
+      }).catch(err => res.status(400).json(err));
 
       res.status(created ? 201 : 200).json({ success: true });
     },
