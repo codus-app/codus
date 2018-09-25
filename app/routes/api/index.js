@@ -28,7 +28,7 @@ module.exports = {
         .findOne()
         .where('name').equals(req.params.name)
         .select('-__v');
-      if (!category) res.status(404).json({ error: `Category ${req.params.name} was not found` });
+      if (!category) res.status(404).json({ error: `Category '${req.params.name}' was not found` });
 
       else {
         const problems = (await Problem.model
@@ -48,7 +48,7 @@ module.exports = {
       const category = await Category.model
         .findOne()
         .where('name').equals(req.params.category);
-      if (!category) res.status(404).json({ error: `Category ${req.params.category} was not found` });
+      if (!category) res.status(404).json({ error: `Category '${req.params.category}' was not found` });
 
       // Find problem with right category and right name
       else {
@@ -59,7 +59,7 @@ module.exports = {
           .populate('category')
           .select('-_id -__v');
 
-        if (!problem) res.status(404).json({ error: `Problem ${req.params.name} was not found` });
+        if (!problem) res.status(404).json({ error: `Problem '${req.params.name}' was not found` });
         else {
           res.json({
             ...problem.toObject(),
@@ -106,20 +106,20 @@ module.exports = {
       const problemCategory = await Category.model
         .findOne()
         .where('name').equals(req.params.category);
-      if (!problemCategory) { res.status(404).json({ error: `Category ${req.params.category} was not found` }); return; }
+      if (!problemCategory) { res.status(404).json({ error: `Category '${req.params.category}' was not found` }); return; }
 
       const problem = await Problem.model
         .findOne()
         .where('category').equals(problemCategory._id)
         .where('name').equals(req.params.problem);
-      if (!problem) { res.status(404).json({ error: `Problem ${req.params.category}/${req.params.problem} was not found` }); return; }
+      if (!problem) { res.status(404).json({ error: `Problem '${req.params.category}/${req.params.problem}' was not found` }); return; }
 
       const solution = await Solution.model
         .findOne()
         .where('userId').equals(req.user.sub)
         .where('problem').equals(problem._id)
         .select('-_id -__v');
-      if (!solution) { res.status(404).json({ error: `No solution to problem ${req.params.category}/${req.params.problem} was found for authenticated user ${req.user.sub}` }); return; }
+      if (!solution) { res.status(404).json({ error: `No solution to problem '${req.params.category}/${req.params.problem}' was found for authenticated user ${req.user.sub}` }); return; }
 
       res.json({
         ...solution.toObject(),
@@ -142,13 +142,13 @@ module.exports = {
       const problemCategory = await Category.model
         .findOne()
         .where('name').equals(req.params.category);
-      if (!problemCategory) { res.status(404).json({ error: `Category ${req.params.category} was not found` }); return; }
+      if (!problemCategory) { res.status(404).json({ error: `Category '${req.params.category}' was not found` }); return; }
 
       const problem = await Problem.model
         .findOne()
         .where('category').equals(problemCategory._id)
         .where('name').equals(req.params.problem);
-      if (!problem) { res.status(404).json({ error: `Problem ${req.params.category}/${req.params.problem} was not found` }); return; }
+      if (!problem) { res.status(404).json({ error: `Problem '${req.params.category}/${req.params.problem}' was not found` }); return; }
 
       const solution = await Solution.model
         .findOne()
@@ -186,19 +186,19 @@ module.exports = {
       const problemCategory = await Category.model
         .findOne()
         .where('name').equals(req.params.category);
-      if (!problemCategory) { res.status(404).json({ error: `Category ${req.params.category} was not found` }); return; }
+      if (!problemCategory) { res.status(404).json({ error: `Category '${req.params.category}' was not found` }); return; }
 
       const problem = await Problem.model
         .findOne()
         .where('category').equals(problemCategory._id)
         .where('name').equals(req.params.problem);
-      if (!problem) { res.status(404).json({ error: `Problem ${req.params.category}/${req.params.problem} was not found` }); return; }
+      if (!problem) { res.status(404).json({ error: `Problem '${req.params.category}/${req.params.problem}' was not found` }); return; }
 
       const solution = await Solution.model
         .findOne()
         .where('userId').equals(req.user.sub)
         .where('problem').equals(problem._id);
-      if (!solution) { res.status(404).json({ error: `No solution to problem ${req.params.category}/${req.params.problem} was found for authenticated user ${req.user.sub}` }); return; }
+      if (!solution) { res.status(404).json({ error: `No solution to problem '${req.params.category}/${req.params.problem}' was found for authenticated user ${req.user.sub}` }); return; }
 
       res.json({
         ...(await solution.check()),
