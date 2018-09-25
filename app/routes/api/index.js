@@ -96,6 +96,7 @@ module.exports = {
 
       const stripped = solutions.map(s => ({
         ...s.toObject(),
+        userId: undefined,
         problem: { category: s.problem.category.name, name: s.problem.name },
       }));
 
@@ -123,6 +124,7 @@ module.exports = {
 
       res.json({
         ...solution.toObject(),
+        userId: undefined,
         problem: {
           ...problem.toObject(),
           category: {
