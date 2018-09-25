@@ -18,5 +18,7 @@ keystone.set('routes', require('./routes'));
 keystone.start();
 
 // Misc express config
+const cors = require('cors');
 
 keystone.app.set('json spaces', 2);
+keystone.app.use(cors());
