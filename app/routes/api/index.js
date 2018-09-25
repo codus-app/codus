@@ -138,6 +138,50 @@ module.exports = {
       });
     },
 
+    async put(req, res) {
+      const problemCategory = await Category.model
+        .findOne()
+        .where('name').equals(req.params.category);
+      if (!problemCategory) { res.status(404).json({ error: `Category ${req.params.category} was not found` }); return; }
+
+      const problem = await Problem.model
+        .findOne()
+        .where('category').equals(problemCategory._id)
+        .where('name').equals(req.params.problem);
+      if (!problem) { res.status(404).json({ error: `Problem ${req.params.category}/${req.params.problem} was not found` }); return; }
+
+      const solution = await Solution.model
+        .findOne()
+        .where('userId').equals(req.user.sub)
+        .where('problem').equals(problem._id);
+
+      const { code = '' } = req.body;
+
+      let created = false;
+
+      await new Promise((resolve, reject) => {
+        if (solution) {
+          // Update an existing solution
+          Solution.updateItem(solution, { code, passed: undefined }, (error) => {
+            if (error) reject(error);
+            else resolve();
+          });
+        } else {
+          // Add a new solution
+          const newSolution = new Solution.model(); // eslint-disable-line new-cap
+          Solution.updateItem(newSolution, {
+            problem, userId: req.user.sub, code,
+          }, (error) => {
+            if (error) reject(error);
+            else resolve();
+          });
+          created = true;
+        }
+      });
+
+      res.status(created ? 201 : 200).json({ success: true });
+    },
+
     async check(req, res) {
       const problemCategory = await Category.model
         .findOne()
