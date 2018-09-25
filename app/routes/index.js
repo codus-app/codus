@@ -22,4 +22,7 @@ module.exports = (app) => {
   app.get('/api/user/solution/:category/:problem', auth0(), routes.api.userSolution.get);
   app.put('/api/user/solution/:category/:problem', auth0(), routes.api.userSolution.put);
   app.get('/api/user/solution/check/:category/:problem', auth0(), routes.api.userSolution.check);
+
+
+  app.use(require('./authErrorHandle')); // eslint-disable-line global-require
 };

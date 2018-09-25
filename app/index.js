@@ -17,4 +17,6 @@ keystone.set('routes', require('./routes'));
 
 keystone.start();
 
+// Misc express config
+
 keystone.app.set('json spaces', 2);
