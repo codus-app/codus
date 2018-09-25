@@ -119,8 +119,9 @@ module.exports = {
         .findOne()
         .where('userId').equals(req.user.sub)
         .where('problem').equals(problem._id)
-        .select('-_id -__v');
-      if (!solution) { res.status(404).json({ error: `No solution to problem '${req.params.category}/${req.params.problem}' was found for authenticated user ${req.user.sub}` }); return; }
+        .select('-_id -__v')
+        // When there's no existing user solution, code should be null
+        || { toObject: () => ({ code: null, passed: false }) };
 
       res.json({
         ...solution.toObject(),
