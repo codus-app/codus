@@ -7,11 +7,10 @@ import mutations from './mutations';
 import actions from './actions';
 import getters from './getters';
 
+import auth from './auth';
+
 export default new Vuex.Store({
   state: {
-    user: { solutions: [] },
-    userFetched: false,
-
     categories: [],
     categoriesFetched: false,
 
@@ -21,4 +20,5 @@ export default new Vuex.Store({
   mutations,
   actions,
   getters,
+  modules: { auth },
 });
