@@ -14,14 +14,13 @@ const webAuth = new auth0.WebAuth({
 
 export default {
   state: {
-    res: null, idToken: null, accessToken: null,
+    res: null,
+    accessToken: localStorage.getItem('access_token'),
+    idToken: localStorage.getItem('id_token'),
   },
 
 
   mutations: {
-    // Artificially update state outside of any real request, simply copying ID/Access tokens
-    update(state, { accessToken, idToken }) { Object.assign(state, { accessToken, idToken }); },
-
     // Update tokens and response after a successful login
     loggedIn(state, payload) {
       const { id_token: idToken, access_token: accessToken } = payload;
@@ -78,15 +77,6 @@ export default {
         //   if (err) reject(err);
         //   else resolve();
         // });
-      });
-    },
-
-
-    // Copy localStorage to state
-    fromLocalStorage({ commit }) {
-      commit('update', {
-        accessToken: localStorage.getItem('access_token'),
-        idToken: localStorage.getItem('id_token'),
       });
     },
 
