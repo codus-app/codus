@@ -1,6 +1,6 @@
 const base = window.location.hostname === '0.0.0.0'
-  ? 'http://0.0.0.0:3000/'
-  : 'https://api.codus.arkis.io/';
+  ? 'http://0.0.0.0:3000/api'
+  : 'https://api.codus.arkis.io/api';
 
 /** Most generic function */
 function apiRequest(endpoint, method, heads, body) {
@@ -23,7 +23,8 @@ export function get(endpoint) {
 }
 
 /** Perform a PUT request with the given body */
-export function put(endpoint, body, contentType = 'text/plain') {
+export function put(endpoint, body, contentType = 'application/json') {
   const headers = { 'Content-Type': contentType };
-  return apiRequest(endpoint, 'PUT', headers, body);
+  const json = contentType === 'application/json';
+  return apiRequest(endpoint, 'PUT', headers, json ? JSON.stringify(body) : body);
 }
