@@ -9,7 +9,7 @@ import './style.sass';
 // Load components
 import './components';
 
-import auth from '../auth';
+import auth from './auth';
 window.auth = auth;
 
 window.app = new Vue({

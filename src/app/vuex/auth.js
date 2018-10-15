@@ -1,7 +1,7 @@
 import auth0 from 'auth0-js';
 import jwtDecode from 'jwt-decode';
 
-const webAuth = new auth0.WebAuth({
+export const webAuth = new auth0.WebAuth({
   domain: 'codus.auth0.com',
   clientID: 'y4m8JcL7boD2FKwH3fwTS9GusF07z4IT',
   responseType: 'token id_token',
@@ -13,6 +13,8 @@ const webAuth = new auth0.WebAuth({
 
 
 export default {
+  namespaced: true,
+
   state: {
     res: null,
     accessToken: localStorage.getItem('access_token'),
@@ -23,7 +25,8 @@ export default {
   mutations: {
     // Update tokens and response after a successful login
     loggedIn(state, payload) {
-      const { id_token: idToken, access_token: accessToken } = payload;
+      console.log(payload);
+      const { idToken, accessToken } = payload;
       Object.assign(state, { res: payload, idToken, accessToken });
     },
 

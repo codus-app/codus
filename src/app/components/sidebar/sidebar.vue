@@ -34,7 +34,7 @@
 <script>
 
 import routes from '../../pages';
-import auth from '../../../auth';
+import { mapActions } from 'vuex';
 
 export default {
   data: () => ({
@@ -44,7 +44,7 @@ export default {
     collapsed: false,
   }),
 
-  methods: { logout: auth.logout },
+  methods: { ...mapActions({ logout: 'auth/logout' }) },
 };
 
 </script>

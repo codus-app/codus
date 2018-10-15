@@ -5,7 +5,7 @@ import 'whatwg-fetch';
 
 // Vue
 import Vue from 'vue';
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapGetters, mapActions } from 'vuex';
 
 // HTML
 import './index.html';
@@ -24,10 +24,6 @@ import routes from './pages';
 import router from './router';
 import store from './vuex';
 
-import auth from '../auth';
-window.auth = auth;
-
-
 window.app = new Vue({
   router,
   store,
@@ -35,7 +31,9 @@ window.app = new Vue({
   data: {
     transitionName: 'route-slide-down',
   },
-  computed: { ...mapState(['userFetched']) },
+  computed: {
+    ...mapGetters({ authValid: 'auth/loginValid' }),
+  },
 
   watch: {
     $route(to, from) {
@@ -50,9 +48,11 @@ window.app = new Vue({
   },
 
   methods: {
-    ...mapActions(['fetchUser']),
+    ...mapActions({
+      logout: 'auth/logout',
+    }),
 
-    checkAuth() { if (auth.loginExpired()) auth.logout(); },
+    checkAuth() { if (!this.authValid) this.logout(); },
     // TODO: make this a prop
     updateSidebar() { this.$refs.sidebar.collapsed = this.$route.meta.collapseSidebar || false; },
   },
@@ -60,10 +60,11 @@ window.app = new Vue({
   mounted() { this.updateSidebar(); },
 
   created() {
+    // Log out if login expires
     window.addEventListener('visibilitychange', this.checkAuth);
-    if (!this.userFetched) {
-      if (auth.isAuthenticated()) this.fetchUser();
-      else this.$once('loggedIn', () => this.fetchUser());
+    // If we haven't fetched user data
+    if (this.user.solved === null) {
+      if (this.authValid) this.fetchSolved();
     }
   },
   destroyed() { window.removeEventListener('visibilitychange', this.checkAuth); },
