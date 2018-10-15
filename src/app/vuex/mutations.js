@@ -1,9 +1,12 @@
 export default {
-  // Update basic user info
-  userFetched(state, payload) {
-    state.user = { ...state.user, ...payload };
-    state.userFetched = true;
+
+  // Update list of user solutions
+  updateSolved(state, payload) {
+    state.user.solved = payload
+      .filter(s => s.passed)
+      .map(s => s.problem);
   },
+
   // Update the list of categories
   categoriesFetched(state, payload) {
     state.categories = payload;

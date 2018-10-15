@@ -5,7 +5,7 @@
     <div class="background" v-bind:style="positionStyles">
 
       <div class="collapsed-view" v-bind:class="{ invisible: expanded }">
-        <h1 v-on:click="expanded = true">{{ category.readableName }}</h1>
+        <h1 v-on:click="expanded = true">{{ category.displayName }}</h1>
         <progress-pie :colors="['#4deb9b', '#1db965']" background="#1e1e21" v-bind:progress="category.solved.length / category.problems.length"></progress-pie>
 
         <problem-link
@@ -21,7 +21,7 @@
       </div>
 
       <div class="expanded-view" v-bind:class="{ invisible: !expanded }">
-        <h1>{{ category.readableName }}</h1>
+        <h1>{{ category.displayName }}</h1>
         <progress-pie :colors="['#4deb9b', '#1db965']" background="#1e1e21" v-bind:progress="category.solved.length / category.problems.length"></progress-pie>
         <div class="description font-2 regular">
           {{ category.description }}

@@ -33,6 +33,7 @@ window.app = new Vue({
   },
   computed: {
     ...mapGetters({ authValid: 'auth/loginValid' }),
+    ...mapState(['user']),
   },
 
   watch: {
@@ -49,6 +50,7 @@ window.app = new Vue({
 
   methods: {
     ...mapActions({
+      fetchSolved: 'fetchSolved',
       logout: 'auth/logout',
     }),
 
