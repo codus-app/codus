@@ -1,3 +1,4 @@
+const keystone = require('keystone');
 const auth0 = require('./auth');
 
 /* eslint-disable global-require */
@@ -8,6 +9,10 @@ const routes = {
 
 module.exports = (app) => {
   app.get('/', (req, res) => res.send('ok'));
+
+  // Cors
+  app.use('/api', keystone.middleware.cors);
+  app.options('/api*', (req, res) => res.send(200));
 
   app.get('/api', routes.api.base);
 
@@ -24,5 +29,7 @@ module.exports = (app) => {
   app.get('/api/user/solution/check/:category/:problem', auth0(), routes.api.userSolution.check);
 
 
-  app.use(require('./authErrorHandle')); // eslint-disable-line global-require
+  /* eslint-disable global-require */
+  app.use(require('./authErrorHandle'));
+  /* eslint-enable global-require */
 };
