@@ -31,7 +31,7 @@ window.app = new Vue({
     transitionName: 'route-slide-down',
   },
   computed: {
-    ...mapGetters({ authValid: 'auth/loginValid' }),
+    ...mapGetters({ isAuthenticated: 'auth/isAuthenticated', authValid: 'auth/loginValid' }),
     ...mapState(['user']),
   },
 
@@ -45,7 +45,11 @@ window.app = new Vue({
       }
       this.updateSidebar();
     },
+
+    isAuthenticated(authed) {
+      if (authed) this.$emit('loggedIn');
     },
+  },
 
   methods: {
     ...mapActions({
@@ -66,6 +70,7 @@ window.app = new Vue({
     // If we haven't fetched user data
     if (this.user.solved === null) {
       if (this.authValid()) this.fetchSolved();
+      else this.$once('loggedIn', () => this.fetchSolved());
     }
   },
   destroyed() { window.removeEventListener('visibilitychange', this.checkAuth); },
