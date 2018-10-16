@@ -16,7 +16,6 @@ import './style.sass';
 // Components
 import './components';
 
-
 // Application config
 
 
@@ -46,7 +45,7 @@ window.app = new Vue({
       }
       this.updateSidebar();
     },
-  },
+    },
 
   methods: {
     ...mapActions({
@@ -54,7 +53,7 @@ window.app = new Vue({
       logout: 'auth/logout',
     }),
 
-    checkAuth() { if (!this.authValid) this.logout(); },
+    checkAuth() { if (!this.authValid()) this.logout(); },
     // TODO: make this a prop
     updateSidebar() { this.$refs.sidebar.collapsed = this.$route.meta.collapseSidebar || false; },
   },
@@ -66,10 +65,11 @@ window.app = new Vue({
     window.addEventListener('visibilitychange', this.checkAuth);
     // If we haven't fetched user data
     if (this.user.solved === null) {
-      if (this.authValid) this.fetchSolved();
+      if (this.authValid()) this.fetchSolved();
     }
   },
   destroyed() { window.removeEventListener('visibilitychange', this.checkAuth); },
 
   el: '#app',
 });
+

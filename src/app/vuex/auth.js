@@ -103,7 +103,7 @@ export default {
     isAuthenticated(state) {
       return state.idToken !== null && state.accessToken !== null;
     },
-    loginExpired: state => (Date.now() / 1000) > jwtDecode(state.accessToken).exp,
-    loginValid: (state, getters) => getters.isAuthenticated && !getters.loginExpired,
+    loginExpired: state => () => (Date.now() / 1000) > jwtDecode(state.accessToken).exp,
+    loginValid: (state, getters) => () => getters.isAuthenticated && !getters.loginExpired(),
   },
 };

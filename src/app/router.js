@@ -23,7 +23,7 @@ router.beforeEach((to, from, next) => {
       await store.dispatch('auth/loginCallback', res);
       next();
     // hash was either not present or improperly formatted, log out
-    } else if (store.getters['auth/loginExpired']) store.auth.dispatch('auth/logout');
+    } else if (store.getters['auth/loginExpired']()) store.auth.dispatch('auth/logout');
     else next();
   });
 });
