@@ -78,3 +78,6 @@ window.app = new Vue({
   el: '#app',
 });
 
+// API
+import * as api from './api'; // eslint-disable-line import/first
+window.api = api;
