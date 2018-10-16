@@ -25,7 +25,6 @@ export default {
   mutations: {
     // Update tokens and response after a successful login
     loggedIn(state, payload) {
-      console.log(payload);
       const { idToken, accessToken } = payload;
       Object.assign(state, { res: payload, idToken, accessToken });
     },
