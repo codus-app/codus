@@ -9,7 +9,26 @@ export default {
 
   // Update the list of categories
   categoriesFetched(state, payload) {
-    state.categories = payload;
+    // Is a given categoryName the name of any categories in state?
+    const categoryInState = catName => state.categories.some(({ name }) => name === catName);
+
+    // Immediately add all categories not already present in state
+    state.categories.push(...payload.filter(({ name }) => !categoryInState(name)));
+
+    // For categories we fetched that were already in state,
+    payload.filter(({ name }) => categoryInState(name))
+      .forEach((fetchedCategory) => {
+        // Find category in state
+        const category = state.categories.find(({ name }) => name === fetchedCategory.name);
+        // Update some basic info Just in Case
+        category.displayName = fetchedCategory.displayName;
+        category.description = fetchedCategory.description;
+        // Add only the problems that weren't already present in its problems array
+        const problemNotInCategory = ({ name: probName }) =>
+          category.problems.every(({ name }) => name !== probName);
+        category.problems.push(...fetchedCategory.problems.filter(problemNotInCategory));
+      });
+
     state.categoriesFetched = true;
   },
 
