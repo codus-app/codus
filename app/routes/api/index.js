@@ -17,7 +17,9 @@ module.exports = {
         Problem.model.find().select('-_id -__v'),
       ]);
       const cats = categories.map(c => Object.assign(c.toObject(), {
-        problems: problems.filter(p => p.category.toString() === c._id.toString()).map(p => p.name),
+        problems: problems
+          .filter(p => p.category.toString() === c._id.toString()) // problems matching category
+          .map(({ name }) => ({ name })), // Include just the name in the output object
         _id: undefined,
       }));
       res.json(cats);
