@@ -31,7 +31,8 @@ export default {
       // After items have rendered
       this.$nextTick(() => {
         // An array containing the Y position of each problem's link
-        const renderYs = this.category.problems.map(p => this.$refs[p][0].$el.offsetTop);
+        const renderYs = this.category.problems
+          .map(({ name }) => this.$refs[name][0].$el.offsetTop);
         // Each unique problem Y position; the Y position of each row of links
         const rowYs = renderYs.filter((y, i, arr) => arr.indexOf(y) === i);
 

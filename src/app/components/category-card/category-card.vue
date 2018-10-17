@@ -9,13 +9,13 @@
         <progress-pie :colors="['#4deb9b', '#1db965']" background="#1e1e21" v-bind:progress="category.solved.length / category.problems.length"></progress-pie>
 
         <problem-link
-          v-for="p in displayProblems"
-          v-bind:name="p"
-          v-bind:passed="category.solved.includes(p)"
+          v-for="{ name } in displayProblems"
+          v-bind:name="name"
+          v-bind:passed="category.solved.includes(name)"
           v-bind:category="categoryId"
-          v-bind:key="p"
-          v-bind:ref="p"
-        >{{p}}</problem-link>
+          v-bind:key="name"
+          v-bind:ref="name"
+        >{{name}}</problem-link>
 
         <div class="remainder" v-if="remainder" v-on:click="expanded = true">+{{remainder}}</div>
       </div>
@@ -27,12 +27,12 @@
           {{ category.description }}
         </div>
         <problem-link
-          v-for="p in category.problems"
-          v-bind:name="p"
-          v-bind:passed="category.solved.includes(p)"
+          v-for="{ name } in category.problems"
+          v-bind:name="name"
+          v-bind:passed="category.solved.includes(name)"
           v-bind:category="categoryId"
-          v-bind:key="p"
-        >{{p}}</problem-link>
+          v-bind:key="name"
+        >{{name}}</problem-link>
       </div>
 
     </div>
