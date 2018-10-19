@@ -13,6 +13,16 @@ export default {
     commit('categoriesFetched', categories);
   },
 
+
+  // Populate problem and solution info for a given problem
+  async fetchSolution({ commit }, { category, problem }) {
+    const solution = await api.get(`user/solution/${category}/${problem}`);
+    // Update problem info for the problem this solution came from
+    const { problem: problemFetched } = solution;
+    commit('problemFetched', problemFetched);
+    // TODO: Update solution to this problem
+  },
+
   // Save a solution to a problem
   async saveSolution({ commit }, { name, category, code }) {
     commit('beginSolutionSave');
