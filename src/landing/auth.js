@@ -16,56 +16,12 @@ export default {
   webAuth,
   jwtDecode,
 
-  // Return an auth0.Management instance
-  getManagement() {
-    return new auth0.Management({
-      domain: 'codus.auth0.com',
-      token: localStorage.getItem('id_token'),
-    });
-  },
-
   // Log in with a username and password
   login(username, password) {
     webAuth.login({
       username,
       password,
     });
-  },
-
-  // Once login callback happens, store encoded information in localStorage
-  loginCallback(res) {
-    return new Promise((resolve, reject) => {
-      // Store hash-encoded elements in localStorage
-      localStorage.setItem('res', JSON.stringify(res));
-      localStorage.setItem('id_token', res.idToken);
-      localStorage.setItem('access_token', res.accessToken);
-      const userId = jwtDecode(res.idToken).sub;
-      this.getManagement().getUser(userId, (e, rsp) => {
-        if (e) reject(e);
-        else localStorage.setItem('user', JSON.stringify(rsp));
-        window.location.hash = '';
-        resolve();
-      });
-    });
-  },
-
-  // Log the logged-in user out and return to home
-  logout() {
-    localStorage.removeItem('id_token');
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('user');
-
-    webAuth.logout({
-      returnTo: window.location.origin,
-      client_id: webAuth.client.baseOptions.clientID,
-    });
-  },
-
-  // See if the user is authenticated
-  isAuthenticated() {
-    return localStorage.getItem('id_token') !== null &&
-           localStorage.getItem('access_token') !== null &&
-           localStorage.getItem('user') !== null;
   },
 
   // Create a new account
@@ -84,6 +40,12 @@ export default {
         else resolve();
       });
     });
+  },
+
+  // See if the user is authenticated
+  isAuthenticated() {
+    return localStorage.getItem('id_token') !== null &&
+           localStorage.getItem('access_token') !== null;
   },
 
   // Check whether our access token is expired
