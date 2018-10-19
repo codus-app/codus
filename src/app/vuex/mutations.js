@@ -32,6 +32,24 @@ export default {
     state.categoriesFetched = true;
   },
 
+  // Update info for a problem when its detailed info is fetched
+  // This is the main way in which a problem object in state that has the default structure (from
+  // category fetch) of just { name: 'problemName' } gets expanded to include the full suite of
+  // problem info. Payload is the problem object.
+  problemFetched(state, payload) {
+    const { category: fetchedCategory } = payload;
+    // Find category in Vuex store, creating if it's absent
+    let category = state.categories.find(({ name }) => name === fetchedCategory.name); // Find
+    if (!category) {
+      category = { ...fetchedCategory, problems: [] };
+      state.categories.push(category); // Add
+    }
+    // Find problem in category and update
+    const problem = category.problems.find(({ name }) => name === payload.name);
+    if (problem) Object.assign(problem, { ...payload, category: undefined }); // Update
+    else category.problems.push({ ...payload, category: undefined }); // Add
+  },
+
   beginSolutionSave(state) { state.solutionSaveInProgress = true; },
   solutionSaved(state, { category, name, code }) {
     const solution = state.user.solutions
