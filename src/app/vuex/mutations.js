@@ -35,9 +35,9 @@ export default {
   // Update info for a problem when its detailed info is fetched
   // This is the main way in which a problem object in state that has the default structure (from
   // category fetch) of just { name: 'problemName' } gets expanded to include the full suite of
-  // problem info. Payload is the problem object.
-  problemFetched(state, payload) {
-    const { category: fetchedCategory } = payload;
+  // problem info.
+  problemFetched(state, problem) {
+    const { category: fetchedCategory } = problem;
     // Find category in Vuex store, creating if it's absent
     let category = state.categories.find(({ name }) => name === fetchedCategory.name); // Find
     if (!category) {
@@ -45,20 +45,21 @@ export default {
       state.categories.push(category); // Add
     }
     // Find problem in category and update
-    const problem = category.problems.find(({ name }) => name === payload.name);
-    if (problem) Object.assign(problem, { ...payload, category: undefined }); // Update
-    else category.problems.push({ ...payload, category: undefined }); // Add
+    const storedProblem = category.problems.find(({ name }) => name === problem.name);
+    if (storedProblem) Object.assign(storedProblem, { ...problem, category: undefined }); // Update
+    else category.problems.push({ ...problem, category: undefined }); // Add
   },
 
   beginSolutionSave(state) { state.solutionSaveInProgress = true; },
   // Add or modify existing solution to a problem in state
-  solutionUpdate(state, { category, name, code }) {
+  solutionUpdate(state, { category, problem, code }) {
     const solution = state.user.solutions
-      .find(({ category: category2, name: name2 }) => category === category2 && name === name2);
+      .find(({ category: category2, problem: problem2 }) =>
+        category === category2 && problem === problem2);
     // Mutate existing solution in vuex
     if (solution) solution.code = code;
     // Add solution
-    else state.user.solutions.push({ category, name, code });
+    else state.user.solutions.push({ category, problem, code });
   },
   endSolutionSave(state) { state.solutionSaveInProgress = false; },
 };
