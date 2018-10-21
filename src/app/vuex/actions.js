@@ -22,7 +22,7 @@ export default {
     commit('problemFetched', problemFetched);
     // Update solution for this problem
     const { code, passed } = solution;
-    commit('updateSolution', { category, name: problem, code });
+    commit('updateSolution', { category, problem, code });
     commit('updateSolved', { problem, category, passed });
   },
 
