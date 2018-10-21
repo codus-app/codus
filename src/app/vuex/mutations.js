@@ -1,7 +1,7 @@
 export default {
 
   // Update list of user solutions
-  updateSolved(state, payload) {
+  updateSolvedList(state, payload) {
     state.user.solved = payload
       .filter(s => s.passed)
       .map(s => s.problem);
@@ -52,7 +52,7 @@ export default {
 
   beginSolutionSave(state) { state.solutionSaveInProgress = true; },
   // Add or modify existing solution to a problem in state
-  solutionUpdate(state, { category, problem, code }) {
+  updateSolution(state, { category, problem, code }) {
     const solution = state.user.solutions
       .find(({ category: category2, problem: problem2 }) =>
         category === category2 && problem === problem2);
@@ -62,4 +62,17 @@ export default {
     else state.user.solutions.push({ category, problem, code });
   },
   endSolutionSave(state) { state.solutionSaveInProgress = false; },
+
+  // Update the solved array to reflect the solved state of a given problem
+  updateSolved(state, { problem, category, passed }) {
+    if (state.user.solved === null) throw new Error('Must dispatch fetchSolved action before mutating the solved state of any problem');
+
+    const probIndex = state.user.solved
+      .findIndex(({ name, category: cname }) => name === problem && cname === category);
+    // We need to take action if the problem isn't in the solved array but should be
+    if (passed) {
+      if (probIndex === -1) state.user.solved.push({ name: problem, category });
+    // ... or if the problem is in the solved array when it sholudn't be
+    } else if (probIndex !== -1) state.user.solved.splice(probIndex, 1);
+  },
 };
