@@ -36,6 +36,8 @@ export default {
       // Recompute on resize
       (() => {})(this.windowSize);
 
+      if (!this.isMounted) return {};
+
       const outerBounds = this.$el.getBoundingClientRect();
       const style = getComputedStyle(this.$el);
 
