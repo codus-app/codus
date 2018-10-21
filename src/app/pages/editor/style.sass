@@ -1,6 +1,7 @@
 @import '../../../variables'
 
 $gap: 4px
+$radius: 5px
 $bar-width: 2.5rem
 
 
@@ -16,24 +17,10 @@ $bar-width: 2.5rem
 
 
 .problem-browser
-  margin-left: $gap
+  margin: $gap 0 $gap $gap
   width: 12em
-
-  .top-bar
-    background: $dark-1
-    height: $bar-width
-    padding: 0 .75em
-
-    font-family: $font-1
-    font-size: 1.1rem
-    font-weight: 500
-    display: flex
-    align-items: center
-
-  .listing
-    background: $dark-1
-    margin-top: $gap
-    height: calc(100vh - #{$bar-width + $gap})
+  background: $dark-1
+  border-radius: $radius
 
 
 
@@ -45,7 +32,8 @@ $bar-width: 2.5rem
     background: $dark-1
     height: $bar-width
     padding: 0 1.85rem
-    margin-bottom: $gap
+    margin: $gap $gap $gap 0
+    border-radius: $radius
 
     display: flex
     flex-direction: row-reverse
