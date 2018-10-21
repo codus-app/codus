@@ -27,11 +27,11 @@ export default {
   },
 
   // Save a solution to a problem
-  async saveSolution({ commit }, { name, category, code }) {
+  async saveSolution({ commit }, { problem, category, code }) {
     commit('beginSolutionSave');
-    // TODO: get new saved status from API response
-    await api.put(`solution/${category}/${name}`, { code });
-    commit('updateSolution', { name, category, code });
+    const { passed } = await api.put(`solution/${category}/${problem}`, { code });
+    commit('updateSolution', { problem, category, code });
+    commit('updateSolved', { problem, category, passed });
     commit('endSolutionSave');
   },
 };

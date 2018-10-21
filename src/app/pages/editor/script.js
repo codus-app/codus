@@ -67,7 +67,7 @@ export default {
 
     async save() {
       await this.saveSolution({
-        name: this.problemName,
+        problem: this.problemName,
         category: this.category,
         code: this.code,
       });
