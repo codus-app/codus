@@ -10,6 +10,11 @@ export default {
       .map(c => c.name),
   }),
 
+  getProblem: state => (searchCategory, searchProblem) => state.categories
+    .find(c => c.name === searchCategory)
+    .problems
+    .find(p => p.name === searchProblem),
+
   getSolution: state => (searchCategory, searchProblem) => state.user.solutions
     .find(({ category, problem }) => category === searchCategory && problem === searchProblem),
 };
