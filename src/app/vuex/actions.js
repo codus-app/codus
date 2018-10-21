@@ -27,6 +27,7 @@ export default {
   async saveSolution({ commit }, { name, category, code }) {
     commit('beginSolutionSave');
     await api.put(`solution/${category}/${name}`, { code });
-    commit('solutionSaved', { name, category, code });
+    commit('updateSolution', { name, category, code });
+    commit('endSolutionSave');
   },
 };

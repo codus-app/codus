@@ -51,14 +51,14 @@ export default {
   },
 
   beginSolutionSave(state) { state.solutionSaveInProgress = true; },
-  solutionSaved(state, { category, name, code }) {
+  // Add or modify existing solution to a problem in state
+  solutionUpdate(state, { category, name, code }) {
     const solution = state.user.solutions
       .find(({ category: category2, name: name2 }) => category === category2 && name === name2);
     // Mutate existing solution in vuex
     if (solution) solution.code = code;
     // Add solution
     else state.user.solutions.push({ category, name, code });
-
-    state.solutionSaveInProgress = false;
   },
+  endSolutionSave(state) { state.solutionSaveInProgress = false; },
 };
