@@ -13,8 +13,9 @@
         <icon-trash class="button" v-on:click="() => { this.deletionConfirmOpen = true; }"/>
         <icon-share class="button"/>
         <icon-settings class="button"/>
-        <save-status v-if="$store.state.userFetched" v-bind:saving="saving"/>
+        <save-status v-bind:saving="saving"/>
       </div>
+
       <codemirror v-bind:value="code" v-on:input="onInput" v-bind:options="cmOptions"></codemirror>
 
       <confirm-modal v-bind:open="deletionConfirmOpen" v-bind:on-cancel="() => { this.deletionConfirmOpen = false; }">
