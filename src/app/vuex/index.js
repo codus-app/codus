@@ -11,7 +11,7 @@ import auth from './auth';
 
 export default new Vuex.Store({
   state: {
-    user: { solved: null },
+    user: { solved: null, solutions: [] },
 
     categories: [],
     categoriesFetched: false,
