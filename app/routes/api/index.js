@@ -161,13 +161,22 @@ module.exports = {
         .where('problem').equals(problem._id);
 
       const { code = '' } = req.body;
+      // If there's a previous solution saved and the code didn't change between saves, we can
+      // savfely keep the old "passed" state without checking. New solutions are never passing
+      // because they've never been checked.
+      let passed = false;
+      if (solution) { // previous solution exists
+        const { code: oldCode, passed: previouslyPassed } = solution;
+        const codeChanged = code !== oldCode;
+        passed = codeChanged ? false : previouslyPassed;
+      }
 
       let created = false;
 
       await new Promise((resolve, reject) => {
         if (solution) {
-          // Update an existing solution
-          Solution.updateItem(solution, { code, passed: undefined }, (error) => {
+          // Update an existing solution.
+          Solution.updateItem(solution, { code, passed }, (error) => {
             if (error) reject(error);
             else resolve();
           });
@@ -175,7 +184,7 @@ module.exports = {
           // Add a new solution
           const newSolution = new Solution.model(); // eslint-disable-line new-cap
           Solution.updateItem(newSolution, {
-            problem, userId: req.user.sub, code,
+            problem, userId: req.user.sub, code, passed: false,
           }, (error) => {
             if (error) reject(error);
             else resolve();
@@ -184,7 +193,7 @@ module.exports = {
         }
       }).catch(err => res.status(400).json(err));
 
-      res.status(created ? 201 : 200).json({ success: true });
+      res.status(created ? 201 : 200).json({ success: true, code, passed });
     },
 
     async check(req, res) {
