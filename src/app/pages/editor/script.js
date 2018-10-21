@@ -4,24 +4,20 @@ import { mapGetters, mapActions } from 'vuex';
 
 import cmOptions from './codemirror-config/';
 
-import * as api from '../../api';
-
-
 export default {
-  data() {
-    return {
-      cmOptions,
-      category: this.$route.params.category,
-      problemName: this.$route.params.name,
-      problem: {},
-      code: '',
-      saving: null,
-      deletionConfirmOpen: false,
-    };
-  },
+  data: () => ({
+    cmOptions,
+    code: '',
+    saving: null,
+    deletionConfirmOpen: false,
+  }),
 
   computed: {
-    ...mapGetters(['getSolution']),
+    ...mapGetters(['getSolution', 'getProblem']),
+
+    category() { return this.$route.params.category; },
+    problemName() { return this.$route.params.name; },
+    problem() { return this.getProblem(this.category, this.problemName); },
 
     // The "starting" code for the problem
     baseCode() {
@@ -37,19 +33,12 @@ export default {
     },
 
     // The version of the user's code that's on the server
-    remoteCode() {
-      return (this.getSolution(this.category, this.problemName) || {}).code;
-    },
+    remoteCode() { return (this.getSolution(this.category, this.problemName) || {}).code; },
   },
 
 
   methods: {
-    ...mapActions(['saveSolution']),
-
-    async fetchData() {
-      const problem = await api.get(`/problem/${this.category}/${this.problemName}`);
-      this.problem = problem;
-    },
+    ...mapActions(['fetchSolution', 'saveSolution']),
 
     /* eslint-disable max-len */
     onInput(e) {
@@ -74,6 +63,7 @@ export default {
       this.saving = false;
     },
 
+    execute() {},
     reset() {
       this.code = this.baseCode;
       this.deletionConfirmOpen = false;
@@ -84,15 +74,7 @@ export default {
   },
 
   async created() {
-    await Promise.all([
-      // Wait for user data so that we can display a pre-existing solution
-      new Promise((resolve) => {
-        if (this.$store.state.userFetched) resolve();
-        else this.$store.subscribe((mutation) => { if (mutation.type === 'userFetched') resolve(); });
-      }),
-      // Fetch problem info so that we can display a base solution in lieu of a user solution
-      this.fetchData(),
-    ]);
+    await this.fetchSolution({ category: this.category, problem: this.problemName });
     this.code = this.remoteCode || this.baseCode;
     // null for "unsaved" if there's no remote code, otherwise false for "saved"
     this.saving = typeof this.remoteCode === 'undefined' ? null : false;
