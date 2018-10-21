@@ -2,6 +2,7 @@
   <div class="editor-page">
     <!-- Problem browser -->
     <div class="problem-browser">
+      <div class="head font-1 medium">Problems</div>
       <problems-tree class="listing"></problems-tree>
     </div>
 
