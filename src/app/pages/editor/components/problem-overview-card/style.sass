@@ -12,6 +12,8 @@
   padding: .75rem 1rem 1rem
   border-radius: $radius
 
+  overflow: hidden
+
   h1
     font-size: 1rem
     margin: 0
@@ -28,3 +30,11 @@
       code
         font-family: $font-mono
         color: transparentize($white, .2)
+
+  .progress
+    position: absolute
+    bottom: 0
+    left: 0
+    width: 100%
+    height: $radius
+    transition: width .25s, linear-gradient .25s
