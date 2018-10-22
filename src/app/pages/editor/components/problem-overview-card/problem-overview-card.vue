@@ -1,6 +1,7 @@
 <template>
   <div class="problem-overview-card">
     <h1 class="font-1 medium">{{ problem.name }}</h1>
+    <div class="description" v-html="problem.description.html"></div>
   </div>
 </template>
 

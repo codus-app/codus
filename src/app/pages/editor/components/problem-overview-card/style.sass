@@ -15,3 +15,16 @@
   h1
     font-size: 1rem
     margin: 0
+
+  .description
+    font-size: .7rem
+    color: $light-text-hint
+
+    /deep/ // v-html doesn't get scope tags, so all styling of description elements has to be deep
+      p
+        margin-top: .45rem
+        margin-bottom: 0
+
+      code
+        font-family: $font-mono
+        color: transparentize($white, .2)
