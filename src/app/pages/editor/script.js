@@ -7,6 +7,7 @@ import cmOptions from './codemirror-config/';
 export default {
   data: () => ({
     cmOptions,
+    fetched: false,
     code: '',
     saving: null,
     deletionConfirmOpen: false,
@@ -74,8 +75,13 @@ export default {
 
   async created() {
     await this.fetchSolution({ category: this.category, problem: this.problemName });
+    this.fetched = true;
     this.code = this.remoteCode || this.baseCode;
     // null for "unsaved" if there's no remote code, otherwise false for "saved"
     this.saving = typeof this.remoteCode === 'undefined' ? null : false;
+  },
+
+  components: {
+    'problem-overview-card': require('./components/problem-overview-card/problem-overview-card.vue').default,
   },
 };

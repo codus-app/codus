@@ -18,6 +18,12 @@
 
       <codemirror v-bind:value="code" v-on:input="onInput" v-bind:options="cmOptions"></codemirror>
 
+      <problem-overview-card
+        v-if="fetched"
+        v-bind:problem="problem"
+        v-bind:progress="0.5"
+      ></problem-overview-card>
+
       <confirm-modal v-bind:open="deletionConfirmOpen" v-bind:on-cancel="() => { this.deletionConfirmOpen = false; }">
         <h1 slot="header">Delete this solution?</h1>
         Your solution to this problem will be reset. This cannot be undone.
