@@ -17,6 +17,7 @@ export default new Vuex.Store({
     categoriesFetched: false,
 
     solutionSaveInProgress: false,
+    solutionCheckInProgress: false,
   },
 
   mutations,

@@ -7,6 +7,19 @@ export default {
       .map(s => s.problem);
   },
 
+  // Update the solved array to reflect the solved state of a given problem
+  updateSolved(state, { problem, category, passed }) {
+    if (state.user.solved === null) throw new Error('Must dispatch fetchSolved action before mutating the solved state of any problem');
+
+    const probIndex = state.user.solved
+      .findIndex(({ name, category: cname }) => name === problem && cname === category);
+    // We need to take action if the problem isn't in the solved array but should be
+    if (passed) {
+      if (probIndex === -1) state.user.solved.push({ name: problem, category });
+    // ... or if the problem is in the solved array when it sholudn't be
+    } else if (probIndex !== -1) state.user.solved.splice(probIndex, 1);
+  },
+
   // Update the list of categories
   categoriesFetched(state, payload) {
     // Is a given categoryName the name of any categories in state?
@@ -50,6 +63,7 @@ export default {
     else category.problems.push({ ...problem, category: undefined }); // Add
   },
 
+
   beginSolutionSave(state) { state.solutionSaveInProgress = true; },
   // Add or modify existing solution to a problem in state
   updateSolution(state, { category, problem, code }) {
@@ -63,16 +77,10 @@ export default {
   },
   endSolutionSave(state) { state.solutionSaveInProgress = false; },
 
-  // Update the solved array to reflect the solved state of a given problem
-  updateSolved(state, { problem, category, passed }) {
-    if (state.user.solved === null) throw new Error('Must dispatch fetchSolved action before mutating the solved state of any problem');
 
-    const probIndex = state.user.solved
-      .findIndex(({ name, category: cname }) => name === problem && cname === category);
-    // We need to take action if the problem isn't in the solved array but should be
-    if (passed) {
-      if (probIndex === -1) state.user.solved.push({ name: problem, category });
-    // ... or if the problem is in the solved array when it sholudn't be
-    } else if (probIndex !== -1) state.user.solved.splice(probIndex, 1);
+  beginSolutionCheck(state) { state.solutionCheckInProgress = true; },
+  updateTestResults(state) {
+    // TODO: implement behavior here
   },
+  endSolutionCheck(state) { state.solutionCheckInProgress = false; },
 };

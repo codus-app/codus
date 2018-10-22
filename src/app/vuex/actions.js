@@ -34,4 +34,12 @@ export default {
     commit('updateSolved', { problem, category, passed });
     commit('endSolutionSave');
   },
+
+  async checkSolution({ commit }, { problem, category }) {
+    commit('beginSolutionCheck');
+    const { tests, passed } = await api.get(`user/solution/check/${category}/${problem}`);
+    commit('updateSolved', { problem, category, passed });
+    commit('updateTestResults', { problem, category, tests });
+    commit('endSolutionCheck');
+  },
 };
