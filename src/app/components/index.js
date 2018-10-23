@@ -21,6 +21,11 @@ import {
   Trash2Icon,
   SettingsIcon,
   ShareIcon,
+  // Misc
+  ChevronUpIcon,
+  ChevronRightIcon,
+  ChevronDownIcon,
+  ChevronLeftIcon,
 } from 'vue-feather-icons';
 
 // Sidebar icons
@@ -36,6 +41,11 @@ Vue.component('icon-play', PlayIcon);
 Vue.component('icon-trash', Trash2Icon);
 Vue.component('icon-settings', SettingsIcon);
 Vue.component('icon-share', ShareIcon);
+// Misc
+Vue.component('icon-chevron-up', ChevronUpIcon);
+Vue.component('icon-chevron-right', ChevronRightIcon);
+Vue.component('icon-chevron-down', ChevronDownIcon);
+Vue.component('icon-chevron-left', ChevronLeftIcon);
 
 
 // Internal components
