@@ -39,7 +39,7 @@ export default {
 
 
   methods: {
-    ...mapActions(['fetchSolution', 'saveSolution']),
+    ...mapActions(['fetchSolution', 'saveSolution', 'checkSolution']),
 
     /* eslint-disable max-len */
     onInput(e) {
@@ -71,6 +71,10 @@ export default {
 
 
     debouncedSave: debounce(function save2() { this.save(); }, 750),
+
+    solutionCheck() {
+      this.checkSolution({ problem: this.problemName, category: this.category });
+    },
   },
 
   async created() {

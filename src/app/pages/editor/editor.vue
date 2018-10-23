@@ -9,7 +9,7 @@
     <!-- Code editing -->
     <div class="editor">
       <div class="top-bar">
-        <icon-play class="button"/>
+        <icon-play class="button" v-on:click="solutionCheck"/>
         <icon-trash class="button" v-on:click="() => { this.deletionConfirmOpen = true; }"/>
         <icon-share class="button"/>
         <icon-settings class="button"/>
