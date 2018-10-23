@@ -62,3 +62,6 @@ Vue.component('confirm-modal', ConfirmModal);
 
 import Spinner from './spinner/spinner.vue';
 Vue.component('spinner', Spinner);
+
+import TestResultCard from './test-result-card/test-result-card.vue';
+Vue.component('test-result-card', TestResultCard);
