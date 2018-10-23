@@ -1,6 +1,6 @@
 import dedent from 'dedent';
 import debounce from 'debounce';
-import { mapGetters, mapActions } from 'vuex';
+import { mapState, mapGetters, mapActions } from 'vuex';
 
 import cmOptions from './codemirror-config/';
 
@@ -15,6 +15,7 @@ export default {
 
   computed: {
     ...mapGetters(['getSolution', 'getProblem']),
+    ...mapState(['solutionCheckInProgress']),
 
     category() { return this.$route.params.category; },
     problemName() { return this.$route.params.name; },

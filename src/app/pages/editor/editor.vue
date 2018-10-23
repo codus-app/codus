@@ -9,7 +9,9 @@
     <!-- Code editing -->
     <div class="editor">
       <div class="top-bar">
-        <icon-play class="button" v-on:click="solutionCheck"/>
+        <icon-play class="button" v-on:click="solutionCheck" v-if="!solutionCheckInProgress"/>
+        <spinner v-if="solutionCheckInProgress"></spinner>
+
         <icon-trash class="button" v-on:click="() => { this.deletionConfirmOpen = true; }"/>
         <icon-share class="button"/>
         <icon-settings class="button"/>
