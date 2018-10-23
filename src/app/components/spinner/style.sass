@@ -1,0 +1,18 @@
+$color: #ffffff
+$line-width: 2px
+
+.spinner
+  width: 1rem;
+  height: 1rem;
+
+  animation: spin .75s linear infinite
+
+  border-radius: 50%
+  border: $line-width solid
+  border-color: transparent $color $color
+  position: relative
+
+
+@keyframes spin
+  to
+    transform: rotate(1turn)

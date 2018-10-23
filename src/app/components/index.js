@@ -59,3 +59,6 @@ Vue.component('save-status', SaveStatus);
 
 import ConfirmModal from './confirm-modal/confirm-modal.vue';
 Vue.component('confirm-modal', ConfirmModal);
+
+import Spinner from './spinner/spinner.vue';
+Vue.component('spinner', Spinner);
