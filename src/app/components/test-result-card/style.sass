@@ -13,3 +13,18 @@ $radius: 5px
   background: $dark-3
   border-radius: $radius
   overflow: hidden
+
+  .status-indicator
+    position: absolute
+    top: 0
+    left: 0
+    width: $radius
+    height: 100%
+
+    background: $gray-solid
+
+    &.green
+      background: $green-solid
+
+    &.red
+      background: $red-solid

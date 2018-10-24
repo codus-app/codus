@@ -1,5 +1,5 @@
 <template>
-  <div class="test-result-card">
+    <div class="status-indicator" v-bind:class="{ green: passed, red: passed === false }"></div>
 
   </div>
 </template>
