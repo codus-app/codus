@@ -15,7 +15,22 @@ $radius: 5px
   overflow: hidden
 
   font-size: .65rem
+  line-height: 1.2
   user-select: none
+
+  max-height: 3.15em
+  transition: max-height .35s
+
+  &.expanded
+    max-height: 8em // TODO: make this dynamic based on actual height of expanded card
+
+    .layout.expanded
+      transition: opacity .2s .15s
+      opacity: 1
+
+    .layout.collapsed
+      transition: opacity .2s
+      opacity: 0
 
   .status-indicator
     position: absolute
@@ -43,15 +58,20 @@ $radius: 5px
     &.flipped
       transform: rotate(.5turn)
 
-  .collapsed,
-  .expanded
+  .layout.collapsed,
+  .layout.expanded
     padding: 1em 0 1em 1rem
 
-  .collapsed
+  .layout.collapsed
+    position: absolute
     color: transparentize($light-text-primary, .1)
+    opacity: 1
+    transition: opacity .2s .15s
 
-  .expanded
+  .layout.expanded
     color: transparentize($light-text-primary, .2)
+    opacity: 0
+    transition: opacity .2s
 
     span
       font-weight: 700

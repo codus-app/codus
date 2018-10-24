@@ -1,14 +1,14 @@
 <template>
-  <div class="test-result-card code light" v-on:click="expanded = !expanded">
+  <div class="test-result-card code light" v-bind:class="{ expanded }" v-on:click="expanded = !expanded">
     <div class="status-indicator" v-bind:class="{ green: passed, red: passed === false }"></div>
 
-    <div class="collapsed" v-if="!expanded">
+    <div class="layout collapsed">
       main({{ parameters.map(p => JSON.stringify(p)).join(', ') }})
       ->
       {{ JSON.stringify(expectedResult) }}
     </div>
 
-    <div class="expanded" v-if="expanded">
+    <div class="layout expanded">
       <p>
         <span>Function call:</span>
         main({{ parameters.map(p => JSON.stringify(p)).join(', ') }})
