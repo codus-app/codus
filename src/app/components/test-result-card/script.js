@@ -3,7 +3,7 @@ export default {
     parameters: Array,
     expectedResult: null, // null matches any type
     result: null,
-    passed: Boolean, // true -> green; false -> red; undefined -> gray
+    passed: null, // true -> green; false -> red; undefined -> gray
   },
 
   data: () => ({
