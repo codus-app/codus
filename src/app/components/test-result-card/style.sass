@@ -64,9 +64,29 @@ $radius: 5px
 
   .layout.collapsed
     position: absolute
+    width: 100%
     color: transparentize($light-text-primary, .1)
+    white-space: nowrap
     opacity: 1
     transition: opacity .2s .15s
+
+    &::before
+      content: ''
+      position: absolute
+      top: 0
+      right: 1.6rem
+      width: 2rem
+      height: 100%
+      background: linear-gradient(90deg, transparent, $dark-3)
+
+    &::after
+      content: ''
+      position: absolute
+      top: 0
+      right: 0
+      width: 1.6rem
+      height: 100%
+      background: $dark-3
 
   .layout.expanded
     color: transparentize($light-text-primary, .2)
