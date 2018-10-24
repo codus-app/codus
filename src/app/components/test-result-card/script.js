@@ -1,6 +1,5 @@
 export default {
   props: {
-    problem: Object, // at least parameters and resultType required
     parameters: Array,
     expectedResult: null, // null matches any type
     result: null,
