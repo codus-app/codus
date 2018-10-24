@@ -23,6 +23,11 @@ export default {
 
     testResults() { return this.getTestResults(this.category, this.problemName); },
     // Number passed divided by total number
+    progress() {
+      if (!this.testResults.length) return 0;
+      return this.testResults.filter(t => t.pass).length / this.testResults.length;
+    },
+
     // The "starting" code for the problem
     baseCode() {
       const parameters = this.problem.parameters.map(p => `${p.type} ${p.name}`);

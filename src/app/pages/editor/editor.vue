@@ -24,7 +24,7 @@
         <problem-overview-card
           v-if="fetched"
           v-bind:problem="problem"
-          v-bind:progress="0.5"
+          v-bind:progress="progress"
         ></problem-overview-card>
 
         <div class="tests">
