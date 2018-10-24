@@ -1,5 +1,5 @@
-const base = window.location.hostname === '0.0.0.0'
-  ? 'http://0.0.0.0:3000/api'
+const base = !Number.isNaN(parseInt(window.location.hostname, 10)) || window.location.hostname === 'localhost'
+  ? `http://${window.location.hostname}:3000/api`
   : 'https://api.codus.arkis.io/api';
 
 /** Most generic function */
