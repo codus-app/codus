@@ -9,4 +9,14 @@ export default {
   data: () => ({
     expanded: false,
   }),
+
+  watch: {
+    // Expand a card if it becomes failing, and collapse if it becomes passing
+    passed(passed, oldState) {
+      // Expand when we start failing
+      if (passed === false && oldState !== false) this.expanded = true;
+      // Collapse when we start passing
+      if (passed && !oldState) this.expanded = false;
+    },
+  },
 };
