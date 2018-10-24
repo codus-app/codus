@@ -36,7 +36,7 @@ export default {
       // Recompute on resize
       (() => {})(this.windowSize);
 
-      if (!this.isMounted) return {};
+      if (!this._isMounted) return {}; // eslint-disable-line no-underscore-dangle
 
       const outerBounds = this.$el.getBoundingClientRect();
       const style = getComputedStyle(this.$el);
