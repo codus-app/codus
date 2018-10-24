@@ -20,11 +20,22 @@
 
       <codemirror v-bind:value="code" v-on:input="onInput" v-bind:options="cmOptions"></codemirror>
 
-      <problem-overview-card
-        v-if="fetched"
-        v-bind:problem="problem"
-        v-bind:progress="0.5"
-      ></problem-overview-card>
+      <div class="cards">
+        <problem-overview-card
+          v-if="fetched"
+          v-bind:problem="problem"
+          v-bind:progress="0.5"
+        ></problem-overview-card>
+
+        <div class="tests">
+          <test-result-card
+            v-bind:parameters="[1, 2]"
+            v-bind:expected-result="3"
+            v-bind:result="3"
+            v-bind:passed="true"
+          ></test-result-card>
+        </div>
+      </div>
 
       <confirm-modal v-bind:open="deletionConfirmOpen" v-bind:on-cancel="() => { this.deletionConfirmOpen = false; }">
         <h1 slot="header">Delete this solution?</h1>
