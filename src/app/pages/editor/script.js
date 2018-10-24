@@ -14,13 +14,15 @@ export default {
   }),
 
   computed: {
-    ...mapGetters(['getSolution', 'getProblem']),
+    ...mapGetters(['getSolution', 'getProblem', 'getTestResults']),
     ...mapState(['solutionCheckInProgress']),
 
     category() { return this.$route.params.category; },
     problemName() { return this.$route.params.name; },
     problem() { return this.getProblem(this.category, this.problemName); },
 
+    testResults() { return this.getTestResults(this.category, this.problemName); },
+    // Number passed divided by total number
     // The "starting" code for the problem
     baseCode() {
       const parameters = this.problem.parameters.map(p => `${p.type} ${p.name}`);

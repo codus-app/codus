@@ -17,4 +17,6 @@ export default {
 
   getSolution: state => (searchCategory, searchProblem) => state.user.solutions
     .find(({ category, problem }) => category === searchCategory && problem === searchProblem),
+
+  getTestResults: state => (category, problem) => state.testResults[`${category}/${problem}`] || [],
 };
