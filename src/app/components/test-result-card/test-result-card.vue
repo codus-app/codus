@@ -1,5 +1,11 @@
 <template>
-  <div class="test-result-card code light" v-bind:class="{ expanded }" v-on:click="expanded = !expanded">
+  <div class="test-result-card code light"
+    v-bind:class="{
+      expanded,
+      disabled: passed === undefined
+    }"
+    v-on:click="expanded = (passed !== undefined && !expanded)"
+  >
     <div class="status-indicator" v-bind:class="{ green: passed, red: passed === false }"></div>
 
     <div class="layout collapsed">
@@ -26,7 +32,10 @@
       </div>
     </div>
 
-    <icon-chevron-down class="expand-arrow" v-bind:class="{ flipped: expanded }"></icon-chevron-down>
+    <icon-chevron-down
+      class="expand-arrow"
+      v-bind:class="{ flipped: expanded, invisible: passed === undefined }"
+    ></icon-chevron-down>
   </div>
 </template>
 

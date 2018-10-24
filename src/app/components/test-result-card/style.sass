@@ -22,6 +22,9 @@ $radius: 5px
   max-height: 3.15em
   transition: max-height .35s
 
+  &.disabled
+    cursor: default
+
   // Animate open
 
   &.expanded
@@ -84,12 +87,15 @@ $radius: 5px
     right: .5rem
     width: 1.1rem
     height: 1.1rem
-    transition: transform .35s
+    transition: transform .35s, opacity .35s
 
     color: transparentize($white, .6)
 
     &.flipped
       transform: rotate(.5turn)
+
+    &.invisible
+      opacity: 0
 
   // Styles for collapsed/expanded layouts
 
