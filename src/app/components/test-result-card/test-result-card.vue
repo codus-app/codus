@@ -2,13 +2,13 @@
   <div class="test-result-card code">
     <div class="status-indicator" v-bind:class="{ green: passed, red: passed === false }"></div>
 
-    <div class="collapsed">
+    <div class="collapsed" v-if="!expanded">
       main({{ parameters.map(p => JSON.stringify(p)).join(', ') }})
       ->
       {{ JSON.stringify(expectedResult) }}
     </div>
 
-    <div class="expanded">
+    <div class="expanded" v-if="expanded">
       <p>
         <span>Function call:</span>
         main({{ parameters.map(p => JSON.stringify(p)).join(', ') }})
