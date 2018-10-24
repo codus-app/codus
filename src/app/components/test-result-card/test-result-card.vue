@@ -1,5 +1,5 @@
 <template>
-  <div class="test-result-card code light">
+  <div class="test-result-card code light" v-on:click="expanded = !expanded">
     <div class="status-indicator" v-bind:class="{ green: passed, red: passed === false }"></div>
 
     <div class="collapsed" v-if="!expanded">
@@ -25,11 +25,7 @@
       </p>
     </div>
 
-    <icon-chevron-down
-      class="expand-arrow"
-      v-on:click="expanded = !expanded"
-      v-bind:class="{ flipped: expanded }"
-    ></icon-chevron-down>
+    <icon-chevron-down class="expand-arrow" v-bind:class="{ flipped: expanded }"></icon-chevron-down>
   </div>
 </template>
 
