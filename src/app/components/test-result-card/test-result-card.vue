@@ -24,6 +24,12 @@
         <span>Pass:</span> {{ passed }}
       </p>
     </div>
+
+    <icon-chevron-down
+      class="expand-arrow"
+      v-on:click="expanded = !expanded"
+      v-bind:class="{ flipped: expanded }"
+    ></icon-chevron-down>
   </div>
 </template>
 
