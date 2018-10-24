@@ -27,12 +27,11 @@
           v-bind:progress="progress"
         ></problem-overview-card>
 
-        <div class="tests">
+        <div class="tests" v-if="fetched">
           <test-result-card
-            v-bind:parameters="[1, 2]"
-            v-bind:expected-result="3"
-            v-bind:result="3"
-            v-bind:passed="true"
+            v-for="(t, i) in tests"
+            v-bind="t"
+            v-bind:key="i"
           ></test-result-card>
         </div>
       </div>
