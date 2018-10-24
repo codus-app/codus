@@ -10,18 +10,18 @@
 
     <div class="layout expanded">
       <p>
-        <span>Function call:</span>
+        <span class="bold">Function call:</span>
         main({{ parameters.map(p => JSON.stringify(p)).join(', ') }})
         <br/>
-        <span>Expected result:</span>
+        <span class="bold">Expected result:</span>
         {{ JSON.stringify(expectedResult) }}
       </p>
 
       <p>
-        <span>Your solution returned:</span>
+        <span class="bold">Your solution returned:</span>
         {{ JSON.stringify(result) }}
         <br/>
-        <span>Pass:</span> {{ passed }}
+        <span class="bold">Pass:</span> {{ passed }}
       </p>
     </div>
 
