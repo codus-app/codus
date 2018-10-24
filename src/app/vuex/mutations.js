@@ -79,8 +79,11 @@ export default {
 
 
   beginSolutionCheck(state) { state.solutionCheckInProgress = true; },
-  updateTestResults(state) {
-    // TODO: implement behavior here
+  updateTestResults(state, { category, problem, tests }) {
+    state.testResults = {
+      ...state.testResults,
+      [`${category}/${problem}`]: tests,
+    };
   },
   endSolutionCheck(state) { state.solutionCheckInProgress = false; },
 };

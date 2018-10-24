@@ -16,6 +16,8 @@ export default new Vuex.Store({
     categories: [],
     categoriesFetched: false,
 
+    testResults: {},
+
     solutionSaveInProgress: false,
     solutionCheckInProgress: false,
   },
