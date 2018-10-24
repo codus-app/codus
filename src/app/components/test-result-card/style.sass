@@ -14,6 +14,8 @@ $radius: 5px
   border-radius: $radius
   overflow: hidden
 
+  font-size: .65rem
+
   .status-indicator
     position: absolute
     top: 0
@@ -32,9 +34,31 @@ $radius: 5px
   .expand-arrow
     cursor: pointer
     position: absolute
-    top: .25rem
-    right: .25rem
+    top: .5rem
+    right: .5rem
+    width: 1.1rem
+    height: 1.1rem
     transition: transform .35s
 
     &.flipped
       transform: rotate(.5turn)
+
+  .collapsed,
+  .expanded
+    padding: 1em 0 1em 1rem
+
+  .collapsed
+    color: transparentize($light-text-primary, .1)
+
+  .expanded
+    color: transparentize($light-text-primary, .2)
+
+    span
+      font-weight: 700
+
+    p
+      line-height: 1.3em
+      margin: 0
+
+      &:not(:last-of-type)
+        margin-bottom: 1em

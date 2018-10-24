@@ -1,5 +1,5 @@
 <template>
-  <div class="test-result-card code">
+  <div class="test-result-card code light">
     <div class="status-indicator" v-bind:class="{ green: passed, red: passed === false }"></div>
 
     <div class="collapsed" v-if="!expanded">
