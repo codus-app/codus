@@ -6,9 +6,8 @@ export default {
     passed: null, // true -> green; false -> red; undefined -> gray
   },
 
-  data: () => ({
-    expanded: false,
-  }),
+  data: () => ({ expanded: false }),
+  created() { this.expanded = typeof this.passed === 'undefined' ? false : !this.passed; },
 
   watch: {
     // Expand a card if it becomes failing, and collapse if it becomes passing
