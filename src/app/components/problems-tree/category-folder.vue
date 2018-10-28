@@ -9,7 +9,7 @@
       </div>
     </div>
 
-    <ul>
+    <ul class="children">
       <slot></slot>
     </ul>
   </div>
