@@ -1,7 +1,9 @@
 <template>
   <ul class="problems-tree">
     <li v-for="cat in categories" v-bind:key="cat.name">
-      {{ cat.displayName }}
+      <category-folder>
+        <template slot="name">{{ cat.displayName }}</template>
+      </category-folder>
     </li>
   </ul>
 </template>
