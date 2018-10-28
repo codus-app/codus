@@ -1,21 +1,14 @@
-import * as api from '../../api';
+import { mapState, mapGetters, mapActions } from 'vuex';
 
 export default {
-  data: () => ({
-    problems: {},
-  }),
-
   computed: {
-    categories() {
-      return Object.keys(this.problems);
-    },
+    ...mapState(['categoriesFetched', 'categories']),
+  },
+  methods: {
+    ...mapActions(['fetchCategories']),
   },
 
   created() {
-    this.fetchData();
-  },
-
-  methods: {
-    async fetchData() { this.problems = await api.get('/solutions'); },
+    if (!this.categoriesFetched) this.fetchCategories();
   },
 };
