@@ -11,4 +11,8 @@ export default {
   created() {
     if (!this.categoriesFetched) this.fetchCategories();
   },
+
+  components: {
+    'category-folder': require('./category-folder.vue').default,
+  },
 };
