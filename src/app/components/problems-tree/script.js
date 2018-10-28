@@ -14,5 +14,6 @@ export default {
 
   components: {
     'category-folder': require('./category-folder.vue').default,
+    'problem-link': require('./problem-link.vue').default,
   },
 };
