@@ -21,6 +21,8 @@ import {
   Trash2Icon,
   SettingsIcon,
   ShareIcon,
+  FolderIcon,
+  FileIcon,
   // Misc
   ChevronUpIcon,
   ChevronRightIcon,
@@ -41,6 +43,8 @@ Vue.component('icon-play', PlayIcon);
 Vue.component('icon-trash', Trash2Icon);
 Vue.component('icon-settings', SettingsIcon);
 Vue.component('icon-share', ShareIcon);
+Vue.component('icon-folder', FolderIcon);
+Vue.component('icon-file', FileIcon);
 // Misc
 Vue.component('icon-chevron-up', ChevronUpIcon);
 Vue.component('icon-chevron-right', ChevronRightIcon);
