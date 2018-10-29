@@ -98,6 +98,7 @@ export default {
   },
 
   async created() {
+    await this.$root.fetchPromise;
     await this.fetchSolution({ category: this.category, problem: this.problemName });
     this.fetched = true;
     this.code = this.remoteCode || this.baseCode;

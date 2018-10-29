@@ -29,6 +29,7 @@ window.app = new Vue({
 
   data: {
     transitionName: 'route-slide-down',
+    fetchPromise: undefined,
   },
   computed: {
     ...mapGetters({ isAuthenticated: 'auth/isAuthenticated', authValid: 'auth/loginValid' }),
@@ -67,11 +68,18 @@ window.app = new Vue({
   created() {
     // Log out if login expires
     window.addEventListener('visibilitychange', this.checkAuth);
-    // If we haven't fetched user data
-    if (this.user.solved === null) {
-      if (this.authValid()) this.fetchSolved();
-      else this.$once('loggedIn', () => this.fetchSolved());
-    }
+    // Promise for fetching some basic user data, which components can await
+    this.fetchPromise = (async () => {
+      // If we haven't fetched user data
+      if (this.user.solved === null) {
+        // We're already logged in
+        if (this.authValid()) await this.fetchSolved();
+        // We're not logged in; wait for authentication (and *then* the request) to complete before
+        // resolving
+        // "Once logged in, fetchSolved then resolve" hooray for semantic code
+        else await new Promise(resolve => this.$once('loggedIn', () => this.fetchSolved().then(resolve)));
+      }
+    })();
   },
   destroyed() { window.removeEventListener('visibilitychange', this.checkAuth); },
 
