@@ -9,14 +9,14 @@
       </div>
     </div>
 
-    <ul class="children">
+    <div class="children-container" v-bind:style="{ height: this.childrenHeight }">
+      <ul class="children" ref="children">
       <slot></slot>
     </ul>
   </div>
+  </div>
 </template>
 
-<script>
-
-</script>
+<script src="./category-folder.js"></script>
 
 <style scoped lang="sass" src="./category-folder.sass"></style>
