@@ -14,7 +14,7 @@ export default {
   }),
 
   computed: {
-    ...mapGetters(['getSolution', 'getProblem', 'getTestResults']),
+    ...mapGetters(['getSolution', 'getProblem', 'getTestResults', 'isSolved']),
     ...mapState(['solutionCheckInProgress']),
 
     category() { return this.$route.params.category; },
@@ -22,6 +22,7 @@ export default {
     problem() { return this.getProblem(this.category, this.problemName); },
 
     testResults() { return this.getTestResults(this.category, this.problemName); },
+    solved() { return this.isSolved(this.category, this.problemName); },
     // Number passed divided by total number
     progress() {
       if (!this.testResults.length) return 0;
@@ -104,6 +105,16 @@ export default {
     this.code = this.remoteCode || this.baseCode;
     // null for "unsaved" if there's no remote code, otherwise false for "saved"
     this.saving = typeof this.remoteCode === 'undefined' ? null : false;
+    // If the problem is in the list of the users's "solved" problems we know all of the test
+    // results have passed even if the solution hasn't been checked in this session
+    if (this.solved && !this.testResults.length) {
+      this.$store.commit('updateTestResults', {
+        category: this.category,
+        problem: this.problemName,
+        tests: this.problem.testCases
+          .map(({ result }) => ({ value: result, expected: result, pass: true })),
+      });
+    }
   },
 
   components: {
