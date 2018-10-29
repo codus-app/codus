@@ -1,4 +1,5 @@
 <template>
+  <div class="category-folder" v-bind:class="{ expanded }">
     <div class="top" v-on:click="expanded = !expanded">
       <icon-chevron-right></icon-chevron-right>
       <icon-folder></icon-folder>
@@ -10,9 +11,9 @@
 
     <div class="children-container" v-bind:style="{ height: this.childrenHeight }">
       <ul class="children" ref="children">
-      <slot></slot>
-    </ul>
-  </div>
+        <slot></slot>
+      </ul>
+    </div>
   </div>
 </template>
 

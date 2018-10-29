@@ -7,11 +7,14 @@
   .top
     display: flex
     flex-wrap: nowrap
+    cursor: pointer
+    user-select: none
 
     .feather-chevron-right
       width: 1em
       height: 1em
       margin-right: .95em
+      transition: transform .35s
 
     .feather-folder
       width: 1.05em
@@ -31,3 +34,7 @@
     list-style-type: none
     overflow: hidden // Prevent margin collapsing from throwing off height calculations
 
+
+  &.expanded
+    .feather-chevron-right
+      transform: rotate(.25turn)
