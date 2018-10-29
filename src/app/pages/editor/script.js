@@ -45,6 +45,8 @@ export default {
     // The version of the user's code that's on the server
     remoteCode() { return (this.getSolution(this.category, this.problemName) || {}).code; },
 
+    testedCode() { return this.getTestResults(this.category, this.problemName).code; },
+
     tests() {
       return this.problem.testCases.map((testCase, i) => {
         const result = this.testResults[i] || {};

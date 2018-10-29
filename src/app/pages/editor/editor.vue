@@ -27,7 +27,7 @@
           v-bind:progress="progress"
         ></problem-overview-card>
 
-        <div class="tests" v-if="fetched">
+        <div class="tests" v-if="fetched" v-bind:class="{ outdated: testResults.length && code !== testedCode }">
           <test-result-card
             v-for="(t, i) in tests"
             v-bind="t"

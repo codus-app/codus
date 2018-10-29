@@ -65,3 +65,9 @@ $bar-width: 2.5rem
     z-index: 10
     top: calc(#{$bar-width} + #{$gap * 2} + .75rem)
     right: calc(#{$gap} + .75rem)
+
+    .tests
+      transition: opacity .35s
+
+      &.outdated
+        opacity: .55
