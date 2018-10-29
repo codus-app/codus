@@ -1,7 +1,7 @@
 <template>
   <ul class="problems-tree">
     <li v-for="cat in categories" v-bind:key="cat.name">
-      <category-folder>
+      <category-folder v-bind:active="cat.name === $route.params.category">
         <template slot="name">{{ cat.displayName }}</template>
 
         <li v-for="prob in cat.problems" v-bind:key="prob.name">

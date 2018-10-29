@@ -1,8 +1,11 @@
 export default {
+  props: { active: Boolean },
+
   data: () => ({
     windowSize: [window.innerWidth, window.innerHeight],
     expanded: false,
     mounted: false,
+    transitionDuration: '0.35s',
   }),
 
   computed: {
@@ -16,7 +19,15 @@ export default {
 
   methods: { onResize() { this.windowSize = [window.innerWidth, window.innerHeight]; } },
 
-  created() { window.addEventListener('resize', this.onResize); },
+  created() {
+    if (this.active) {
+      this.transitionDuration = '0s';
+      this.expanded = true;
+      setTimeout(() => { this.transitionDuration = '0.35s'; }, 500);
+    }
+    this.expanded = this.active;
+    window.addEventListener('resize', this.onResize);
+  },
   mounted() { this.mounted = true; },
   destroyed() { window.removeEventListener('resize', this.onResize); },
 };
