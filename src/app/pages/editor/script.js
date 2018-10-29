@@ -21,7 +21,7 @@ export default {
     problemName() { return this.$route.params.name; },
     problem() { return this.getProblem(this.category, this.problemName); },
 
-    testResults() { return this.getTestResults(this.category, this.problemName); },
+    testResults() { return this.getTestResults(this.category, this.problemName).tests; },
     solved() { return this.isSolved(this.category, this.problemName); },
     // Number passed divided by total number
     progress() {
@@ -113,6 +113,7 @@ export default {
         problem: this.problemName,
         tests: this.problem.testCases
           .map(({ result }) => ({ value: result, expected: result, pass: true })),
+        code: this.remoteCode,
       });
     }
   },
