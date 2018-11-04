@@ -64,6 +64,27 @@ export default {
   methods: {
     ...mapActions(['fetchSolution', 'saveSolution', 'checkSolution']),
 
+    async init() {
+      this.fetched = false;
+      await this.$root.fetchPromise;
+      await this.fetchSolution({ category: this.category, problem: this.problemName });
+      this.fetched = true;
+      this.code = this.remoteCode || this.baseCode;
+      // null for "unsaved" if there's no remote code, otherwise false for "saved"
+      this.saving = typeof this.remoteCode === 'undefined' ? null : false;
+      // If the problem is in the list of the users's "solved" problems we know all of the test
+      // results have passed even if the solution hasn't been checked in this session
+      if (this.solved && !this.testResults.length) {
+        this.$store.commit('updateTestResults', {
+          category: this.category,
+          problem: this.problemName,
+          tests: this.problem.testCases
+            .map(({ result }) => ({ value: result, expected: result, pass: true })),
+          code: this.remoteCode,
+        });
+      }
+    },
+
     /* eslint-disable max-len */
     onInput(e) {
       this.code = e;
@@ -100,24 +121,9 @@ export default {
     },
   },
 
-  async created() {
-    await this.$root.fetchPromise;
-    await this.fetchSolution({ category: this.category, problem: this.problemName });
-    this.fetched = true;
-    this.code = this.remoteCode || this.baseCode;
-    // null for "unsaved" if there's no remote code, otherwise false for "saved"
-    this.saving = typeof this.remoteCode === 'undefined' ? null : false;
-    // If the problem is in the list of the users's "solved" problems we know all of the test
-    // results have passed even if the solution hasn't been checked in this session
-    if (this.solved && !this.testResults.length) {
-      this.$store.commit('updateTestResults', {
-        category: this.category,
-        problem: this.problemName,
-        tests: this.problem.testCases
-          .map(({ result }) => ({ value: result, expected: result, pass: true })),
-        code: this.remoteCode,
-      });
-    }
+  created() {
+    this.init();
+    this.$watch(vm => `${vm.problemName}/${vm.category}`, () => this.init());
   },
 
   components: {
