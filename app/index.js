@@ -3,7 +3,7 @@ const keystone = require('keystone');
 require('dotenv').config();
 
 keystone.init({
-  name: 'codus',
+  name: 'Codus Admin',
   auth: true,
   'user model': 'AdminUser',
   'cookie secret': process.env.KEYSTONE_COOKIE_SECRET,
