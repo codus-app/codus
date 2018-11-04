@@ -79,3 +79,6 @@ Vue.component('spinner', Spinner);
 
 import TestResultCard from './test-result-card/test-result-card.vue';
 Vue.component('test-result-card', TestResultCard);
+
+import Breadcrumbs from './breadcrumbs/breadcrumbs.vue';
+Vue.component('breadcrumbs', Breadcrumbs);
