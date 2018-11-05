@@ -65,8 +65,11 @@ module.exports = {
         else {
           res.json({
             ...problem.toObject(),
-            // Replace testCases and parameters with richer forms from virtuals
-            testCases: problem.testCases2,
+            // Return richer test cases from virtual attribute. Only report non-hidden test cases
+            testCases: problem.testCases2
+              .filter(tc => !tc.hidden)
+              .map(tc => ({ ...tc, hidden: undefined })),
+            // Return richer parameters from virtual attribuet
             parameters: problem.parameters2,
             // Remove _id and __v from category
             category: {
