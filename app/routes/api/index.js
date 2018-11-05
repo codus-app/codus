@@ -2,6 +2,7 @@
 
 const keystone = require('keystone');
 const { getUser: getAuth0User } = require('../auth');
+const { publicizeProblem } = require('./util');
 
 const Category = keystone.list('Category');
 const Problem = keystone.list('Problem');
@@ -63,24 +64,7 @@ module.exports = {
 
         if (!problem) res.status(404).json({ error: `Problem '${req.params.name}' was not found` });
         else {
-          res.json({
-            ...problem.toObject(),
-            // Return richer test cases from virtual attribute. Only report non-hidden test cases
-            testCases: problem.testCases2
-              .filter(tc => !tc.hidden)
-              .map(tc => ({ ...tc, hidden: undefined })),
-            // Report only the number of test cases that are hidden, not the test cases themselves
-            numHidden: problem.testCases2
-              .filter(tc => tc.hidden).length,
-            // Return richer parameters from virtual attribuet
-            parameters: problem.parameters2,
-            // Remove _id and __v from category
-            category: {
-              ...problem.category.toObject(),
-              _id: undefined,
-              __v: undefined,
-            },
-          });
+          res.json(publicizeProblem(problem, problem.category));
         }
       }
     },
@@ -134,18 +118,7 @@ module.exports = {
       res.json({
         ...solution.toObject(),
         userId: undefined,
-        problem: {
-          ...problem.toObject(),
-          category: {
-            ...problemCategory.toObject(),
-            _id: undefined,
-            __v: undefined,
-          },
-          parameters: problem.parameters2,
-          testCases: problem.testCases2,
-          _id: undefined,
-          __v: undefined,
-        },
+        problem: publicizeProblem(problem, problemCategory),
       });
     },
 
@@ -225,13 +198,7 @@ module.exports = {
 
         solution: {
           code: solution.code,
-          problem: {
-            ...problem.toObject(),
-            parameters: problem.parameters2,
-            testCases: problem.testCases2,
-            _id: undefined,
-            __v: undefined,
-          },
+          problem: publicizeProblem(problem),
         },
       });
     },
