@@ -69,6 +69,9 @@ module.exports = {
             testCases: problem.testCases2
               .filter(tc => !tc.hidden)
               .map(tc => ({ ...tc, hidden: undefined })),
+            // Report only the number of test cases that are hidden, not the test cases themselves
+            numHidden: problem.testCases2
+              .filter(tc => tc.hidden).length,
             // Return richer parameters from virtual attribuet
             parameters: problem.parameters2,
             // Remove _id and __v from category
