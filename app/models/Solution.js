@@ -26,7 +26,8 @@ Solution.schema.methods.check = async function checkSolution() {
   }, this.code);
 
   if (results.error) throw new Error(results.error);
-  const tests = results.data;
+  const tests = results.data
+    .map((t, i) => ({ ...t, hidden: problem.testCases2[i].hidden }));
   const passed = tests.every(t => t.pass);
 
   return new Promise((resolve, reject) => {

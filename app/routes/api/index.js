@@ -193,8 +193,13 @@ module.exports = {
         .where('problem').equals(problem._id);
       if (!solution) { res.status(404).json({ error: `No solution to problem '${req.params.category}/${req.params.problem}' was found for authenticated user ${req.user.sub}` }); return; }
 
+      const results = await solution.check();
       res.json({
-        ...(await solution.check()),
+        ...results,
+        tests: results.tests.map(t => ({
+          ...t,
+          ...(t.hidden ? { expected: undefined, value: undefined } : {}),
+        })),
 
         solution: {
           code: solution.code,
