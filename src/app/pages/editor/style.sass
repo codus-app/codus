@@ -1,4 +1,4 @@
-@import '../../../variables'
+@import 'src/variables'
 
 $gap: 4px
 $radius: 5px
@@ -74,3 +74,18 @@ $bar-width: 2.5rem
 
       &.outdated
         opacity: .55
+
+      .hidden-tests
+        margin-top: .75rem
+        font-size: .75rem
+        text-align: center
+        cursor: default
+        color: transparentize($white, .2)
+        transition: color .35s
+
+        &.passed
+          color: $green-solid
+
+        &.failed
+          color: $red-solid
+

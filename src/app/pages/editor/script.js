@@ -22,6 +22,13 @@ export default {
     problem() { return this.getProblem(this.category, this.problemName); },
 
     testResults() { return this.getTestResults(this.category, this.problemName).tests; },
+    numHiddenTests() { return this.problem.numHidden; },
+    numHiddenTestsPassed() {
+      return this.solved
+        ? this.problem.numHidden
+        : this.testResults.filter(tc => tc.hidden && tc.pass).length;
+    },
+
     solved() { return this.isSolved(this.category, this.problemName); },
     // Number passed divided by total number
     progress() {

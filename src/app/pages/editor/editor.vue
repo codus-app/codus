@@ -34,6 +34,18 @@
             v-bind="t"
             v-bind:key="i"
           ></test-result-card>
+
+          <div
+            class="code hidden-tests"
+            v-bind:class="{
+              passed: testResults.length && numHiddenTestsPassed === numHiddenTests,
+              failed: testResults.length && numHiddenTestsPassed !== numHiddenTests,
+            }"
+            v-if="numHiddenTests"
+          >
+            <span v-if="testResults.length">{{ numHiddenTestsPassed }}/</span><!--
+         -->{{ numHiddenTests }} hidden test cases
+          </div>
         </div>
       </div>
 
