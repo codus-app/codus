@@ -1,3 +1,5 @@
+@import 'src/variables'
+
 .progress-pie
   position: relative
   border-radius: 50%
@@ -37,3 +39,13 @@
     right: 100%
     background-position: 0 0
     transform-origin: right center
+
+  .feather-check
+    position: absolute
+    z-index: 2
+    width: 75%
+    height: 75%
+    top: 50%
+    left: 50%
+    transform: translate(-47%, -45%)
+    color: transparentize($black, .55)

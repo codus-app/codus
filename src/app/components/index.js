@@ -16,6 +16,8 @@ import {
   UsersIcon,
   AwardIcon,
   LogOutIcon,
+  // Home icons
+  CheckIcon,
   // Editor icons
   PlayIcon,
   Trash2Icon,
@@ -38,6 +40,8 @@ Vue.component('icon-inbox', InboxIcon);
 Vue.component('icon-users', UsersIcon);
 Vue.component('icon-award', AwardIcon);
 Vue.component('icon-log-out', LogOutIcon);
+// Home icons
+Vue.component('icon-check', CheckIcon);
 // Editor icons
 Vue.component('icon-play', PlayIcon);
 Vue.component('icon-trash', Trash2Icon);

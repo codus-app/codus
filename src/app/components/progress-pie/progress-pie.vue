@@ -7,6 +7,7 @@
     <div class="right">
       <div class="fill" ref="rightFill"></div>
     </div>
+    <icon-check v-if="progress === 1"></icon-check>
   </div>
 </template>
 
