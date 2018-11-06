@@ -80,7 +80,7 @@ Problem.schema.virtual('testCases2').get(function expandedTestCases() {
     .map(([parameters, expectedResult], i) => ({
       parameters: parameters
         // Split up parameters
-        .split(',').map(param => param.trim()) // split out each parameter
+        .match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g).map(param => param.trim()) // split out each parameter. Regex from https://stackoverflow.com/a/11457952/4414003
         // Convert each parameter to the correct JS type
         .map((param, i2) => java.javaStringToJS(param, paramTypes[i2])),
 
