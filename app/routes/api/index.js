@@ -14,8 +14,14 @@ module.exports = {
   category: {
     async list(req, res) {
       const [categories, problems] = await Promise.all([
-        Category.model.find().select('-__v'),
-        Problem.model.find().select('-_id -__v'),
+        Category.model
+          .find()
+          .sort({ sortOrder: 1 })
+          .select('-__v -sortOrder'),
+        Problem.model
+          .find()
+          .sort({ sortOrder: 1 })
+          .select('-_id -__v -sortOrder'),
       ]);
       const cats = categories.map(c => Object.assign(c.toObject(), {
         problems: problems
