@@ -4,7 +4,7 @@ const java = require('../java');
 
 const { Types } = keystone.Field;
 
-const Problem = new keystone.List('Problem');
+const Problem = new keystone.List('Problem', { sortable: true });
 
 Problem.add({
   name: { type: Types.Text, initial: true, required: true },
@@ -97,4 +97,3 @@ Problem.schema.virtual('testCases2').get(function expandedTestCases() {
 Problem.register();
 
 Problem.defaultColumns = 'name, category, resultType';
-Problem.defaultSort = 'category';

@@ -2,7 +2,7 @@ const keystone = require('keystone');
 
 const { Types } = keystone.Field;
 
-const Category = new keystone.List('Category');
+const Category = new keystone.List('Category', { sortable: true });
 
 Category.add({
   name: { type: Types.Text, initial: true, required: true },
@@ -18,4 +18,4 @@ Category.relationship({
 
 Category.register();
 
-Category.defaultColumns = 'name, displayName, description';
+Category.defaultColumns = 'name|15%, displayName|20%, description';
