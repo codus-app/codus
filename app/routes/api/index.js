@@ -21,7 +21,7 @@ module.exports = {
         Problem.model
           .find()
           .sort({ sortOrder: 1 })
-          .select('-_id -__v -sortOrder'),
+          .select('-_id -__v'),
       ]);
       const cats = categories.map(c => Object.assign(c.toObject(), {
         problems: problems
@@ -42,8 +42,9 @@ module.exports = {
       else {
         const problems = (await Problem.model
           .find()
-          .where('category').equals(category._id))
-          .map(prob => prob.name);
+          .where('category').equals(category._id)
+          .sort({ sortOrder: 1 }))
+          .map(({ name }) => ({ name })); // Include just the name in the output object
 
         res.json(Object.assign(category.toObject(), { problems, _id: undefined }));
       }
