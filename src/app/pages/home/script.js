@@ -8,6 +8,7 @@ export default {
     resizeListener: undefined,
     windowSize: [null, null],
     scrollPos: 0,
+    mounted: false,
   }),
 
   created() {
@@ -16,6 +17,8 @@ export default {
 
     if (!this.categoriesFetched) this.fetchCategories();
   },
+
+  mounted() { this.mounted = true; },
 
   methods: {
     ...mapActions(['fetchCategories']),
@@ -36,7 +39,7 @@ export default {
       // Recompute on resize
       (() => {})(this.windowSize);
 
-      if (!this._isMounted) return {}; // eslint-disable-line no-underscore-dangle
+      if (!this.mounted) return {}; // eslint-disable-line no-underscore-dangle
 
       const outerBounds = this.$el.getBoundingClientRect();
       const style = getComputedStyle(this.$el);
