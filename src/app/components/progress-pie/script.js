@@ -6,6 +6,10 @@ export default {
     progress: { type: Number, default: 0 },
   },
 
+  computed: {
+    gradient() { return `linear-gradient(${this.gradientAngle}deg, ${this.colors[0]}, ${this.colors[1]})`; },
+  },
+
   methods: {
     update() {
       const progressAngle = this.progress * 360;
