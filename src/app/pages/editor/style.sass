@@ -66,8 +66,13 @@ $bar-width: 2.5rem
   .cards
     position: absolute
     z-index: 10
-    top: calc(#{$bar-width} + #{$gap * 2} + .75rem)
-    right: calc(#{$gap} + .75rem)
+    $top: calc(#{$bar-width} + #{$gap * 2})
+    top: $top
+    right: $gap
+
+    height: calc(100vh - (#{$top}) - #{$gap})
+    overflow-y: scroll
+    padding: .75rem .75rem .75rem 0
 
     .tests
       transition: opacity .35s
