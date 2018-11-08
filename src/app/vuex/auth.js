@@ -51,6 +51,7 @@ export default {
       // Store basic login info
       commit('loggedIn', res);
       dispatch('toLocalStorage');
+      window.location.hash = '';
     },
 
     logout({ commit, dispatch }) {
