@@ -200,19 +200,38 @@ module.exports = {
         .where('problem').equals(problem._id);
       if (!solution) { res.status(404).json({ error: `No solution to problem '${req.params.category}/${req.params.problem}' was found for authenticated user ${req.user.sub}` }); return; }
 
-      const results = await solution.check();
-      res.json({
-        ...results,
-        tests: results.tests.map(t => ({
-          ...t,
-          ...(t.hidden ? { expected: undefined, value: undefined } : {}),
-        })),
-
-        solution: {
-          code: solution.code,
-          problem: publicizeProblem(problem),
-        },
-      });
+      console.log(solution.code);
+      try {
+        // Check solution
+        const results = await solution.check();
+        // Return results
+        res.json({
+          passed: results.passed,
+          tests: results.tests.map(t => ({
+            ...t,
+            ...(t.hidden ? { expected: undefined, value: undefined } : {}),
+          })),
+          error: null,
+          solution: {
+            code: solution.code,
+            problem: publicizeProblem(problem),
+          },
+        });
+      } catch (e) {
+        // If check failed (due to error) return that error
+        res.json({
+          passed: false,
+          tests: problem.testCases2
+            .map(tc => (!tc.hidden
+              ? { value: null, expected: tc.result, pass: false, hidden: false } // eslint-disable-line object-curly-newline, max-len
+              : { pass: false, hidden: true })),
+          error: e.message,
+          solution: {
+            code: solution.code,
+            problem: publicizeProblem(problem),
+          },
+        });
+      }
     },
   },
 };
