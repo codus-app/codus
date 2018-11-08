@@ -12,7 +12,7 @@ module.exports = (app) => {
 
   // Cors
   app.use('/api', keystone.middleware.cors);
-  app.options('/api*', (req, res) => res.send(200));
+  app.options('/api*', (req, res) => res.sendStatus(200));
 
   app.get('/api', routes.api.base);
 
