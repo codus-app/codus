@@ -49,6 +49,13 @@
         </div>
       </div>
 
+      <window
+        class="output"
+        v-bind:collapsed="outputCollapsed"
+        v-on:expand="outputCollapsed = false"
+        v-on:collapse="outputCollapsed = true"
+      ></window>
+
       <confirm-modal v-bind:open="deletionConfirmOpen" v-bind:on-cancel="() => { this.deletionConfirmOpen = false; }">
         <h1 slot="header">Delete this solution?</h1>
         Your solution to this problem will be reset. This cannot be undone.

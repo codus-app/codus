@@ -14,7 +14,7 @@
 
 .problem-browser
   margin: $gap 0 $gap $gap
-  width: 13em
+  width: $problem-browser-width
   background: $dark-1
   border-radius: $radius
   padding: .65rem 0 0 1.05rem
@@ -28,6 +28,7 @@
 .editor
   margin-left: $gap
   flex-grow: 1
+  position: relative
 
   .top-bar
     background: $dark-1
@@ -90,3 +91,8 @@
         &.failed
           color: $red-solid
 
+  .window.output
+    position: absolute
+    bottom: calc(#{$gap} + .7rem)
+    left: .75rem
+    z-index: 15

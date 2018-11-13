@@ -11,6 +11,7 @@ export default {
     code: '',
     saving: null,
     deletionConfirmOpen: false,
+    outputCollapsed: true,
   }),
 
   computed: {
