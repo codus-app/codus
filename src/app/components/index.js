@@ -25,6 +25,8 @@ import {
   ShareIcon,
   FolderIcon,
   FileIcon,
+  Minimize2Icon,
+  Maximize2Icon,
   // Misc
   ChevronUpIcon,
   ChevronRightIcon,
@@ -49,6 +51,8 @@ Vue.component('icon-settings', SettingsIcon);
 Vue.component('icon-share', ShareIcon);
 Vue.component('icon-folder', FolderIcon);
 Vue.component('icon-file', FileIcon);
+Vue.component('icon-maximize', Maximize2Icon);
+Vue.component('icon-minimize', Minimize2Icon);
 // Misc
 Vue.component('icon-chevron-up', ChevronUpIcon);
 Vue.component('icon-chevron-right', ChevronRightIcon);
