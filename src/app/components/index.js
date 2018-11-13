@@ -90,3 +90,6 @@ Vue.component('test-result-card', TestResultCard);
 
 import Breadcrumbs from './breadcrumbs/breadcrumbs.vue';
 Vue.component('breadcrumbs', Breadcrumbs);
+
+import Window from './window/window.vue';
+Vue.component('window', Window);
