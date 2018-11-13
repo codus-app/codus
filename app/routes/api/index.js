@@ -200,7 +200,6 @@ module.exports = {
         .where('problem').equals(problem._id);
       if (!solution) { res.status(404).json({ error: `No solution to problem '${req.params.category}/${req.params.problem}' was found for authenticated user ${req.user.sub}` }); return; }
 
-      console.log(solution.code);
       try {
         // Check solution
         const results = await solution.check();
