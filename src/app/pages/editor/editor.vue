@@ -56,6 +56,7 @@
         v-on:collapse="outputCollapsed = true"
       >
         <template slot="title">Output</template>
+        <div class="error-message">{{ errorMessage }}</div>
       </window>
 
       <confirm-modal v-bind:open="deletionConfirmOpen" v-bind:on-cancel="() => { this.deletionConfirmOpen = false; }">

@@ -30,6 +30,8 @@ export default {
         : this.testResults.filter(tc => tc.hidden && tc.pass).length;
     },
 
+    errorMessage() { return this.getTestResults(this.category, this.problemName).error; },
+
     solved() { return this.isSolved(this.category, this.problemName); },
     // Number passed divided by total number
     progress() {
