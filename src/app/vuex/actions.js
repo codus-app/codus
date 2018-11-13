@@ -37,9 +37,9 @@ export default {
 
   async checkSolution({ commit }, { problem, category }) {
     commit('beginSolutionCheck');
-    const { tests, passed, solution } = await api.get(`user/solution/check/${category}/${problem}`);
+    const { tests, passed, error, solution } = await api.get(`user/solution/check/${category}/${problem}`); // eslint-disable-line object-curly-newline
     commit('updateSolved', { problem, category, passed });
-    commit('updateTestResults', { problem, category, tests, code: solution.code }); // eslint-disable-line object-curly-newline
+    commit('updateTestResults', { problem, category, tests, error, code: solution.code }); // eslint-disable-line object-curly-newline
     commit('endSolutionCheck');
   },
 };
