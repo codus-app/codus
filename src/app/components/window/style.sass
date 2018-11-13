@@ -1,0 +1,43 @@
+@import 'src/variables'
+
+$bar-background: #26262b
+
+.window
+  font-size: .75rem
+  background: $dark-3
+  display: flex
+  flex-direction: column
+  align-items: stretch
+  overflow: hidden
+  border-radius: 5px
+
+  .top-bar
+    height: 2.5em
+    padding: 0 .85em
+    display: flex
+    // flex-direction: row
+    align-items: center
+    justify-content: space-between
+    background: $bar-background
+
+    .title
+      text-transform: uppercase
+      letter-spacing: .05em
+      color: transparentize($white, .8)
+      pointer-events: none
+      user-select: none
+
+    .feather
+      color: $white
+      opacity: .85
+      cursor: pointer
+      width: 1em
+      height: 1em
+      margin-left: .5em
+
+  &.can-move .top-bar
+    cursor: move
+
+
+  .content
+    padding: .6em
