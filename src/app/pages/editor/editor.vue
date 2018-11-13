@@ -54,7 +54,9 @@
         v-bind:collapsed="outputCollapsed"
         v-on:expand="outputCollapsed = false"
         v-on:collapse="outputCollapsed = true"
-      ></window>
+      >
+        <template slot="title">Output</template>
+      </window>
 
       <confirm-modal v-bind:open="deletionConfirmOpen" v-bind:on-cancel="() => { this.deletionConfirmOpen = false; }">
         <h1 slot="header">Delete this solution?</h1>
