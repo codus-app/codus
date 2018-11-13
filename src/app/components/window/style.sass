@@ -39,5 +39,28 @@ $bar-background: #26262b
     cursor: move
 
 
+  .content-container
+    position: relative
+    width: 20rem
+    height: 9rem
+    transition: width .45s, height .45s
+    will-change: width, height
+
   .content
     padding: .6em
+    position: absolute
+    top: 0
+    left: 0
+    width: 20rem
+    height: 9rem
+    overflow: scroll
+    transition: opacity .35s
+    will-change: opacity
+
+  &.collapsed
+    .content-container
+      width: 7em // Won't need to be smaller than this
+      height: 0
+
+    .content
+      opacity: 0
