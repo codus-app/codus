@@ -12,6 +12,7 @@ export default {
     saving: null,
     deletionConfirmOpen: false,
     outputCollapsed: true,
+    outputWindowBounds: [0, 0, window.innerWidth, window.innerHeight],
   }),
 
   computed: {
@@ -129,12 +130,31 @@ export default {
     solutionCheck() {
       this.checkSolution({ problem: this.problemName, category: this.category });
     },
+
+    computeWindowBounds() {
+      const { top, right, left, bottom } = this.$refs.windowBounds.getBoundingClientRect();
+      const rem = parseFloat(getComputedStyle(document.body).fontSize, 10);
+      this.outputWindowBounds = [
+        left + (0.75 * rem), // x1
+        top + (0.7 * rem) + 4, // y1
+        right - (0.75 * rem) - 4, // x2
+        bottom - (0.7 * rem) - 4, // y2
+      ];
+    },
   },
 
   created() {
+    // Fetch info, populate code, all that
     this.init();
+    // Re-initialize when problem changes, even if editor isn't created/destroyed
     this.$watch(vm => `${vm.problemName}/${vm.category}`, () => this.init());
   },
+
+  mounted() {
+    setTimeout(this.computeWindowBounds, 500);
+    window.addEventListener('resize', this.computeWindowBounds);
+  },
+  destroyed() { window.removeEventListener('resize', this.computeWindowBounds); },
 
   components: {
     'problem-overview-card': require('./components/problem-overview-card/problem-overview-card.vue').default,

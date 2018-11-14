@@ -7,7 +7,7 @@
     </div>
 
     <!-- Code editing -->
-    <div class="editor">
+    <div class="editor" ref="windowBounds">
       <div class="top-bar">
         <icon-play class="button" v-on:click="solutionCheck" v-if="!solutionCheckInProgress"/>
         <spinner v-if="solutionCheckInProgress"></spinner>
@@ -52,6 +52,7 @@
       <window
         class="output"
         v-bind:collapsed="outputCollapsed"
+        v-bind:bounds="outputWindowBounds"
         v-on:expand="outputCollapsed = false"
         v-on:collapse="outputCollapsed = true"
       >

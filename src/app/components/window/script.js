@@ -51,13 +51,16 @@ export default {
       e.preventDefault();
       const [startX, startY] = this.mouseStart;
       const [prevX, prevY] = this.previousPos;
+      const x = prevX + (e.clientX - startX);
+      const y = prevY + (e.clientY - startY);
+
       const minX = this.bounds[0] - this.initialBounds.left;
       const maxX = this.bounds[2] - this.initialBounds.right;
       const minY = this.bounds[1] - this.initialBounds.top;
       const maxY = this.bounds[3] - this.initialBounds.bottom;
       this.pos = [
-        clip(prevX + (e.clientX - startX), minX, maxX),
-        clip(prevY + (e.clientY - startY), minY, maxY),
+        clip(x, minX, maxX),
+        clip(y, minY, maxY),
       ];
     },
 
