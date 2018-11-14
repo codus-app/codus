@@ -29,7 +29,7 @@ export default {
     collapse() { this.$emit('collapse'); },
 
     topBarClick(e) {
-      if (e.target === this.$refs['top-bar']) {
+      if (!this.collapsed && e.target === this.$refs['top-bar']) {
         this.previousPos = this.pos;
         this.mouseStart = [e.clientX, e.clientY];
         this.mouseAction = 'move';
