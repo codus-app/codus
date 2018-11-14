@@ -12,7 +12,14 @@ export default {
     mouseStart: [], // When dragging, this is where the mouse started
     pos: [0, 0],
     mouseAction: null,
+    initialBounds: {},
   }),
+
+  mounted() {
+    this.computeBounds();
+    window.addEventListener('resize', this.computeBounds);
+  },
+  destroyed() { window.removeEventListener('resize', this.computeBounds); },
 
   computed: {
     transform() {
@@ -54,5 +61,23 @@ export default {
       document.removeEventListener('mousemove', this.drag);
       document.removeEventListener('mouseup', this.titleBarRelease);
     },
+
+    // Recompute what the initial boundaries of the expanded window element are (ignoring
+    // transforms). Called IF window is expanded, on mount, resize, and change of "collapsed" state.
+    computeBounds() {
+      if (this.collapsed) return;
+
+      const { top, right, bottom, left, width, height } = this.$el.getBoundingClientRect(); // eslint-disable-line object-curly-newline, max-len
+      const [x, y] = this.pos;
+      this.initialBounds = {
+        top: top - y,
+        right: right - x,
+        bottom: bottom - y,
+        left: left - x,
+        width,
+        height,
+      };
+    },
   },
+  watch: { collapsed() { this.computeBounds(); }, },
 };
