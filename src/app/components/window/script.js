@@ -16,7 +16,7 @@ export default {
 
   computed: {
     transform() {
-      const [x, y] = this.pos;
+      const [x, y] = this.collapsed ? [0, 0] : this.pos;
       return [
         `translateX(${x}px)`,
         `translateY(${y}px)`,

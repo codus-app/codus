@@ -6,6 +6,7 @@
       'can-resize': canResize && !collapsed,
       'can-collapse': canCollapse,
       collapsed,
+      'dragging': mouseAction !== null,
     }"
     v-bind:style="{ transform }"
   >
