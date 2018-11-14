@@ -79,5 +79,5 @@ export default {
       };
     },
   },
-  watch: { collapsed() { this.computeBounds(); }, },
+  watch: { collapsed() { setTimeout(this.computeBounds, 500); } },
 };
