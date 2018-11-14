@@ -11,6 +11,10 @@ $bar-background: #26262b
   overflow: hidden
   border-radius: 5px
 
+  &:not(.dragging):not([class*='pop-up-'])
+    transition: transform .35s, opacity .35s;
+
+
   .top-bar
     height: 2.5em
     padding: 0 .85em
@@ -68,9 +72,6 @@ $bar-background: #26262b
     overflow: scroll
     transition: opacity .35s
     will-change: opacity
-
-  &:not(.dragging):not([class*='pop-up-'])
-    transition: transform .35s;
 
   &.collapsed
     .content-container
