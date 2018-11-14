@@ -26,9 +26,7 @@ export default {
     testResults() { return this.getTestResults(this.category, this.problemName).tests; },
     numHiddenTests() { return this.problem.numHidden; },
     numHiddenTestsPassed() {
-      return this.solved
-        ? this.problem.numHidden
-        : this.testResults.filter(tc => tc.hidden && tc.pass).length;
+      return this.testResults.filter(tc => tc.hidden && tc.pass).length;
     },
 
     errorMessage() { return this.getTestResults(this.category, this.problemName).error; },
@@ -91,7 +89,10 @@ export default {
           category: this.category,
           problem: this.problemName,
           tests: this.problem.testCases
-            .map(({ result }) => ({ value: result, expected: result, pass: true })),
+            .map(({ result }) => ({ value: result, expected: result, pass: true }))
+            .concat(new Array(this.numHiddenTests)
+              .fill(null)
+              .map(() => ({ hidden: true, pass: true }))),
           code: this.remoteCode,
         });
       }
