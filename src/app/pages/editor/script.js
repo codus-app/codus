@@ -132,7 +132,7 @@ export default {
     },
 
     computeWindowBounds() {
-      const { top, right, left, bottom } = this.$refs.windowBounds.getBoundingClientRect();
+      const { top, right, left, bottom } = this.$refs.windowBounds.getBoundingClientRect(); // eslint-disable-line object-curly-newline, max-len
       const rem = parseFloat(getComputedStyle(document.body).fontSize, 10);
       this.outputWindowBounds = [
         left + (0.75 * rem), // x1
@@ -140,6 +140,13 @@ export default {
         right - (0.75 * rem) - 4, // x2
         bottom - (0.7 * rem) - 4, // y2
       ];
+    },
+  },
+
+  // Collapse automatically when error message goes away so that next time it's not open
+  watch: {
+    errorMessage() {
+      if (!this.errorMessage) this.outputCollapsed = true;
     },
   },
 
