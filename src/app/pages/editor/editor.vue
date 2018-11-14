@@ -33,6 +33,7 @@
             v-for="(t, i) in tests"
             v-bind="t"
             v-bind:key="i"
+            v-bind:error="errorMessage"
           ></test-result-card>
 
           <div
