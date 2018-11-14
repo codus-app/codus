@@ -69,7 +69,7 @@ $bar-background: #26262b
     transition: opacity .35s
     will-change: opacity
 
-  &:not(.dragging)
+  &:not(.dragging):not([class*='pop-up-'])
     transition: transform .35s;
 
   &.collapsed

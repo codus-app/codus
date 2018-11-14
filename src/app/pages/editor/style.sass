@@ -103,3 +103,17 @@
     white-space: pre
     tab-size: 2
     color: $red-solid
+
+.pop-up-enter
+  transform: translateY(300%)
+  opacity: 0
+
+.pop-up-enter-active
+  transition: transform .35s cubic-bezier(.29, .99, .58, 1.28), opacity .35s
+
+.pop-up-leave-active
+  transition: transform .35s, opacity .35s
+
+.pop-up-leave-to
+  transform: translateY(300%)
+  opacity: 0

@@ -26,10 +26,12 @@ export default {
   computed: {
     transform() {
       const [x, y] = this.collapsed ? [0, 0] : this.pos;
-      return [
-        `translateX(${x}px)`,
-        `translateY(${y}px)`,
-      ].join(' ');
+      return x !== 0 && y !== 0
+        ? [
+          `translateX(${x}px)`,
+          `translateY(${y}px)`,
+        ].join(' ')
+        : undefined;
     },
   },
 

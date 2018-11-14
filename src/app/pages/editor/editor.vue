@@ -49,17 +49,19 @@
         </div>
       </div>
 
-      <window
-        class="output"
-        v-if="errorMessage"
-        v-bind:collapsed="outputCollapsed"
-        v-bind:bounds="outputWindowBounds"
-        v-on:expand="outputCollapsed = false"
-        v-on:collapse="outputCollapsed = true"
-      >
-        <template slot="title">Output</template>
-        <div class="error-message">{{ errorMessage }}</div>
-      </window>
+      <transition name="pop-up">
+        <window
+          class="output"
+          v-if="errorMessage"
+          v-bind:collapsed="outputCollapsed"
+          v-bind:bounds="outputWindowBounds"
+          v-on:expand="outputCollapsed = false"
+          v-on:collapse="outputCollapsed = true"
+        >
+          <template slot="title">Output</template>
+          <div class="error-message">{{ errorMessage }}</div>
+        </window>
+      </transition>
 
       <confirm-modal v-bind:open="deletionConfirmOpen" v-bind:on-cancel="() => { this.deletionConfirmOpen = false; }">
         <h1 slot="header">Delete this solution?</h1>
