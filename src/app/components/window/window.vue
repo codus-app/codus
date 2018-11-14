@@ -7,8 +7,12 @@
       'can-collapse': canCollapse,
       collapsed,
     }"
+    v-bind:style="{ transform }"
   >
-    <div class="top-bar">
+    <div
+      class="top-bar" ref="top-bar"
+      v-on:mousedown="topBarClick"
+    >
       <span class="title">
         <slot name="title">Title</slot>
       </span>
