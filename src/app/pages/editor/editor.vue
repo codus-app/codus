@@ -51,6 +51,7 @@
 
       <window
         class="output"
+        v-if="errorMessage"
         v-bind:collapsed="outputCollapsed"
         v-bind:bounds="outputWindowBounds"
         v-on:expand="outputCollapsed = false"
