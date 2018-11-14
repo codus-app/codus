@@ -32,6 +32,7 @@ export default {
     },
 
     errorMessage() { return this.getTestResults(this.category, this.problemName).error; },
+    hasOutput() { return !!this.errorMessage; },
 
     solved() { return this.isSolved(this.category, this.problemName); },
     // Number passed divided by total number
@@ -143,11 +144,9 @@ export default {
     },
   },
 
-  // Collapse automatically when error message goes away so that next time it's not open
+  // Collapse automatically when output goes away so that next time it's not open
   watch: {
-    errorMessage() {
-      if (!this.errorMessage) this.outputCollapsed = true;
-    },
+    hasOutput() { if (!this.hasOutput) this.outputCollapsed = true; },
   },
 
   created() {

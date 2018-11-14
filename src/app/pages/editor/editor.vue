@@ -52,7 +52,7 @@
       <transition name="pop-up">
         <window
           class="output"
-          v-if="errorMessage"
+          v-if="hasOutput"
           v-bind:collapsed="outputCollapsed"
           v-bind:bounds="outputWindowBounds"
           v-on:expand="outputCollapsed = false"
