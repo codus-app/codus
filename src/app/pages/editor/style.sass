@@ -97,6 +97,9 @@
     left: .75rem
     z-index: 15
 
+    &.has-error /deep/ .top-bar > .title
+      color: transparentize($red-solid, .35)
+
   .error-message
     font-family: $font-mono
     font-size: .65rem

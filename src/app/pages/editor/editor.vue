@@ -52,6 +52,7 @@
       <transition name="pop-up">
         <window
           class="output"
+          v-bind:class="{ 'has-error': errorMessage }"
           v-if="hasOutput"
           v-bind:collapsed="outputCollapsed"
           v-bind:bounds="outputWindowBounds"
