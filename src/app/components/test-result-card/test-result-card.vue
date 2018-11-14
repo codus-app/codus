@@ -24,8 +24,13 @@
           {{ JSON.stringify(expectedResult) }}
         </div>
         <div>
-          <span class="bold">Your solution returned:</span>
-          {{ JSON.stringify(result) }}
+          <template v-if="!error">
+            <span class="bold">Your solution returned:</span>
+            {{ JSON.stringify(result) }}
+          </template>
+          <template v-if="error">
+            <span class="bold">Your solution</span> errored
+          </template>
           <br/>
           <span class="bold">Pass:</span> {{ passed }}
         </div>
