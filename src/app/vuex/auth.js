@@ -54,6 +54,24 @@ export default {
       window.location.hash = '';
     },
 
+    renew({ commit, dispatch }) {
+      console.log('RENEW');
+      return new Promise((resolve, reject) => {
+        webAuth.checkSession({}, (err, authResult) => {
+          if (err) {
+            reject(err);
+            dispatch('logout');
+          } else {
+            commit('loggedIn', authResult);
+            dispatch('toLocalStorage');
+            window.location.hash = '';
+            console.log('RENEWED');
+            resolve();
+          }
+        });
+      });
+    },
+
     logout({ commit, dispatch }) {
       // Remove login info
       commit('logout');
