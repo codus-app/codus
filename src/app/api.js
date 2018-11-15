@@ -4,6 +4,9 @@ const base = !Number.isNaN(parseInt(window.location.hostname, 10)) || window.loc
 
 /** Most generic function */
 async function apiRequest({ endpoint, method, heads, body, store }) { // eslint-disable-line object-curly-newline, max-len
+  // Renew if necessary before making an authenticated API call
+  if (!store.getters['auth/loginValid']()) await store.dispatch('auth/renew');
+
   const headers = {
     Authorization: `Bearer ${store.state.auth.accessToken}`,
     ...heads,
