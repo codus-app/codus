@@ -58,7 +58,6 @@ window.app = new Vue({
       logout: 'auth/logout',
     }),
 
-    checkAuth() { if (!this.authValid()) this.logout(); },
     // TODO: make this a prop
     updateSidebar() { this.$refs.sidebar.collapsed = this.$route.meta.collapseSidebar || false; },
   },
@@ -66,8 +65,6 @@ window.app = new Vue({
   mounted() { this.updateSidebar(); },
 
   created() {
-    // Log out if login expires
-    window.addEventListener('visibilitychange', this.checkAuth);
     // Promise for fetching some basic user data, which components can await
     this.fetchPromise = (async () => {
       // If we haven't fetched user data
@@ -81,7 +78,6 @@ window.app = new Vue({
       }
     })();
   },
-  destroyed() { window.removeEventListener('visibilitychange', this.checkAuth); },
 
   el: '#app',
 });

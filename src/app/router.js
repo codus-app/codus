@@ -19,12 +19,8 @@ router.beforeEach((to, from, next) => {
 
   // Parse login information if necessary
   webAuth.parseHash(window.location.hash, async (err, res) => {
-    if (res) { // hash was found and parseable
-      await store.dispatch('auth/loginCallback', res);
-      next();
-    // hash was either not present or improperly formatted, log out
-    } else if (store.getters['auth/loginExpired']()) store.auth.dispatch('auth/logout');
-    else next();
+    if (res) await store.dispatch('auth/loginCallback', res); // hash was found and parseable
+    next();
   });
 });
 
