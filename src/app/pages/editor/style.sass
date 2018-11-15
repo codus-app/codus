@@ -72,14 +72,37 @@
     padding: .75rem .75rem .75rem 0
 
     .message
-      margin-top: .75rem
-      margin-bottom: -.2rem
+      position: relative
+      margin-top: .35rem
+      margin-bottom: -.25rem
       overflow: hidden
       text-align: center
       color: $light-text-hint
       cursor: default
 
+      &:not(.run)
+        .title
+          transition: opacity .25s
+          opacity: 0
+
+        .help
+          transition: opacity .25s .1s
+          opacity: 1
+
+      &.run
+        .title
+          transition: opacity .25s .1s
+          opacity: 1
+
+        .help
+          transition: opacity .25s
+          opacity: 0
+
       .title
+        position: absolute
+        bottom: .25rem
+        left: 0
+        width: 100%
         font-size: .7rem
         text-transform: uppercase
         letter-spacing: .16em

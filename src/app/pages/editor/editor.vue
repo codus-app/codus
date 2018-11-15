@@ -28,10 +28,10 @@
           v-bind:progress="progress"
         ></problem-overview-card>
 
-        <div class="message" v-if="fetched">
-          <div v-if="testResults.length" class="title font-1 light">Tests</div>
+        <div class="message" v-if="fetched" v-bind:class="{ run: testResults.length }">
+          <div class="title font-1 light">Tests</div>
 
-          <div v-if="!testResults.length" class="help font-2 regular">
+          <div class="help font-2 regular">
             <div class="line-1">It looks like you haven't tested this code yet.</div>
             <div>Press <icon-play></icon-play> to test your solution</div>
           </div>
