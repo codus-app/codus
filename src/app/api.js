@@ -3,10 +3,13 @@ const base = !Number.isNaN(parseInt(window.location.hostname, 10)) || window.loc
   : 'https://api.codus.arkis.io/api';
 
 /** Most generic function */
-function apiRequest(endpoint, method, heads, body) {
-  const headers = { Authorization: `Bearer ${localStorage.access_token}` };
-  Object.assign(headers, heads);
+async function apiRequest({ endpoint, method, heads, body }) { // eslint-disable-line object-curly-newline, max-len
+  // Renew if necessary before making an authenticated API call
 
+  const headers = {
+    Authorization: `Bearer ${localStorage.access_token}`,
+    ...heads,
+  };
   const url = [
     base.replace(/\/$/g, ''), // Strip trailing slash
     endpoint.replace(/^\//g, ''), // Strip leading slash
@@ -18,13 +21,18 @@ function apiRequest(endpoint, method, heads, body) {
 }
 
 /** Perform a GET request and return a promise */
-export function get(endpoint) {
-  return apiRequest(endpoint, 'GET');
+export function get({ endpoint }) {
+  return apiRequest({ endpoint, method: 'GET' });
 }
 
 /** Perform a PUT request with the given body */
-export function put(endpoint, body, contentType = 'application/json') {
-  const headers = { 'Content-Type': contentType };
+export function put({ endpoint, body, contentType = 'application/json' }) { // eslint-disable-line object-curly-newline, max-len
+  const heads = { 'Content-Type': contentType };
   const json = contentType === 'application/json';
-  return apiRequest(endpoint, 'PUT', headers, json ? JSON.stringify(body) : body);
+  return apiRequest({
+    endpoint,
+    method: 'PUT',
+    heads,
+    body: json ? JSON.stringify(body) : body,
+  });
 }
