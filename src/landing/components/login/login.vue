@@ -8,6 +8,7 @@
       <lock-icon></lock-icon>
       <input type="password" v-model="password" placeholder="password" ref="passwordInput">
     </div>
+    <div class="error" v-if="Object.keys(error).length && error.code === 'access_denied'">{{ error.description }}</div>
     <a v-on:click="login">Sign in</a>
   </form>
 </template>

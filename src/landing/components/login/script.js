@@ -4,11 +4,13 @@ export default {
   data: () => ({
     username: '',
     password: '',
+    error: {},
   }),
 
   methods: {
     login() {
-      auth.login(this.username, this.password);
+      auth.login(this.username, this.password)
+        .catch((err) => { this.error = err; });
     },
   },
 

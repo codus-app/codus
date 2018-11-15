@@ -18,9 +18,13 @@ export default {
 
   // Log in with a username and password
   login(username, password) {
-    webAuth.login({
-      username,
-      password,
+    return new Promise((resolve, reject) => {
+      webAuth.login({
+        username,
+        password,
+      }, (err) => {
+        reject(err);
+      });
     });
   },
 
