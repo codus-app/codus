@@ -73,20 +73,11 @@ Vue.component('category-card', CategoryCard);
 import ProgressPie from './progress-pie/progress-pie.vue';
 Vue.component('progress-pie', ProgressPie);
 
-import ProblemsTree from './problems-tree/problems-tree.vue';
-Vue.component('problems-tree', ProblemsTree);
-
-import SaveStatus from './save-status/save-status.vue';
-Vue.component('save-status', SaveStatus);
-
 import ConfirmModal from './confirm-modal/confirm-modal.vue';
 Vue.component('confirm-modal', ConfirmModal);
 
 import Spinner from './spinner/spinner.vue';
 Vue.component('spinner', Spinner);
-
-import TestResultCard from './test-result-card/test-result-card.vue';
-Vue.component('test-result-card', TestResultCard);
 
 import Breadcrumbs from './breadcrumbs/breadcrumbs.vue';
 Vue.component('breadcrumbs', Breadcrumbs);
