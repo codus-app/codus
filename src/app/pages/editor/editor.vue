@@ -38,12 +38,12 @@
         </div>
 
         <div class="tests" v-if="fetched" v-bind:class="{ outdated: testResults.length && code !== testedCode }">
-          <test-result-card
+          <test-case-card
             v-for="(t, i) in tests"
             v-bind="t"
             v-bind:key="i"
             v-bind:error="errorMessage"
-          ></test-result-card>
+          ></test-case-card>
 
           <div
             class="code hidden-tests"

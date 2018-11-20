@@ -167,6 +167,6 @@ export default {
     'problem-overview-card': require('./components/problem-overview-card/problem-overview-card.vue').default,
     'problems-tree': require('./components/problems-tree/problems-tree.vue').default,
     'save-status': require('./components/save-status/save-status.vue').default,
-    'test-result-card': require('./components/test-result-card/test-result-card.vue').default,
+    'test-case-card': require('./components/test-case-card/test-case-card.vue').default,
   },
 };

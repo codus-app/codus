@@ -1,5 +1,5 @@
 <template>
-  <div class="test-result-card code light"
+  <div class="test-case-card code light"
     v-bind:class="{
       expanded,
       disabled: passed === undefined
