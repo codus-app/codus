@@ -84,3 +84,6 @@ Vue.component('breadcrumbs', Breadcrumbs);
 
 import Window from './window/window.vue';
 Vue.component('window', Window);
+
+import UserProfileSummary from './user-profile-summary/user-profile-summary.vue';
+Vue.component('user-profile-summary', UserProfileSummary);
