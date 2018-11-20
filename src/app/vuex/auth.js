@@ -55,7 +55,6 @@ export default {
     },
 
     renew({ commit, dispatch }) {
-      console.log('RENEW');
       return new Promise((resolve, reject) => {
         webAuth.checkSession({}, (err, authResult) => {
           if (err) {
@@ -65,7 +64,6 @@ export default {
             commit('loggedIn', authResult);
             dispatch('toLocalStorage');
             window.location.hash = '';
-            console.log('RENEWED');
             resolve();
           }
         });
