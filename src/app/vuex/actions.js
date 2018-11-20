@@ -14,6 +14,10 @@ export default {
     commit('categoriesFetched', categories);
   },
 
+  async fetchUserProfile({ commit }) {
+    const profile = await api.get({ endpoint: 'user', store });
+    commit('userProfileFetched', profile);
+  },
 
   // Populate problem and solution info for a given problem
   async fetchSolution({ commit }, { category, problem }) {

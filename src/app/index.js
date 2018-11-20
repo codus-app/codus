@@ -55,6 +55,7 @@ window.app = new Vue({
   methods: {
     ...mapActions({
       fetchSolved: 'fetchSolved',
+      fetchUserProfile: 'fetchUserProfile',
       logout: 'auth/logout',
     }),
 
@@ -65,6 +66,8 @@ window.app = new Vue({
   mounted() { this.updateSidebar(); },
 
   created() {
+    this.fetchUserProfile();
+
     // Promise for fetching some basic user data, which components can await
     this.fetchPromise = (async () => {
       // If we haven't fetched user data

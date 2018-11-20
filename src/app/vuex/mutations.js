@@ -45,6 +45,11 @@ export default {
     state.categoriesFetched = true;
   },
 
+  // Update a user profile when the API response returns
+  userProfileFetched(state, payload) {
+    state.user.profile = payload;
+  },
+
   // Update info for a problem when its detailed info is fetched
   // This is the main way in which a problem object in state that has the default structure (from
   // category fetch) of just { name: 'problemName' } gets expanded to include the full suite of
