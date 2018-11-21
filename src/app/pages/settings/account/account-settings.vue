@@ -1,6 +1,6 @@
 <template>
-  <div class="profile-settings">
-    Profile settings
+  <div class="account-settings">
+    Account settings
   </div>
 </template>
 

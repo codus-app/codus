@@ -54,9 +54,9 @@ export default [
   // Settings pages
 
   {
-    path: '/settings/profile',
+    path: '/settings/account',
     name: 'profile-settings',
-    component: require('./settings/profile/profile-settings.vue').default,
+    component: require('./settings/account/account-settings.vue').default,
     meta: {},
   },
 ];
