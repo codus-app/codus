@@ -50,4 +50,13 @@ export default [
     component: require('./editor/editor.vue').default,
     meta: { collapseSidebar: true },
   },
+
+  // Settings pages
+
+  {
+    path: '/settings/profile',
+    name: 'profile-settings',
+    component: require('./settings/profile/profile-settings.vue').default,
+    meta: {},
+  },
 ];
