@@ -21,13 +21,20 @@ module.exports = {
     async patch(req, res) {
       const { username, email, name } = req.body;
 
-      const updated = await updateAuth0User(req.user.sub, { username, email, name });
-      res.send({
-        id: req.user.sub,
-        username: updated.username,
-        name: updated.user_metadata.name,
-        email: updated.email,
-      });
+      try {
+        const updated = await updateAuth0User(req.user.sub, { username, email, name });
+        res.send({
+          data: {
+            id: req.user.sub,
+            username: updated.username,
+            name: updated.user_metadata.name,
+            email: updated.email,
+          },
+        });
+      } catch (e) {
+        const status = e.message.endsWith('username already exists') ? 409 : 500;
+        res.status(status).send({ error: e.message });
+      }
     },
   },
 };
