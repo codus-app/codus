@@ -1,4 +1,9 @@
-const { getUser: getAuth0User } = require('../auth');
+const {
+  getUser: getAuth0User,
+  updateUser: updateAuth0User,
+} = require('../auth');
+
+/* eslint-disable camelcase */
 
 module.exports = {
   user: {
@@ -10,6 +15,18 @@ module.exports = {
         name: user_metadata.name,
         email,
         picture,
+      });
+    },
+
+    async patch(req, res) {
+      const { username, email, name } = req.body;
+
+      const updated = await updateAuth0User(req.user.sub, { username, email, name });
+      res.send({
+        id: req.user.sub,
+        username: updated.username,
+        name: updated.user_metadata.name,
+        email: updated.email,
       });
     },
   },

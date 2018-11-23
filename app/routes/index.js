@@ -14,6 +14,8 @@ module.exports = (app) => {
   app.use('/api', keystone.middleware.cors);
   app.options('/api*', (req, res) => res.sendStatus(200));
 
+  // Routes
+
   app.get('/api', routes.api.base);
 
   app.get('/api/categories', routes.api.category.list);
@@ -22,6 +24,7 @@ module.exports = (app) => {
   app.get('/api/problem/:category/:name', routes.api.problem.get);
 
   app.get('/api/user', auth0(), routes.api.user.get);
+  app.patch('/api/user', auth0(), routes.api.user.patch);
 
   app.get('/api/user/solutions', auth0(), routes.api.userSolution.list);
   app.get('/api/user/solution/:category/:problem', auth0(), routes.api.userSolution.get);
