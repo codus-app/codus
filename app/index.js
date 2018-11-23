@@ -20,3 +20,4 @@ keystone.start();
 // Misc express config
 keystone.app.set('json spaces', 2);
 keystone.set('cors allow origin', true);
+keystone.set('cors allow methods', 'GET,PUT,POST,PATCH,DELETE,OPTIONS');
