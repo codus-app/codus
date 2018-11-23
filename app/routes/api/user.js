@@ -7,6 +7,21 @@ const {
 
 module.exports = {
   user: {
+    get(req, res) {
+      getAuth0User.byUsername(req.params.username)
+        .then(user => user || { error: 'not found' })
+        .then(({ error, username, user_metadata, picture }) => { // eslint-disable-line object-curly-newline, max-len
+          if (error) res.status(404).json({ error: `User '${req.params.username}' was not found` });
+          res.json({
+            data: {
+              username,
+              name: user_metadata.name,
+              picture,
+            },
+          });
+        });
+    },
+
     authenticated: {
       async get(req, res) {
         const { username, user_metadata, email, picture } = await getAuth0User.byId(req.user.sub); // eslint-disable-line object-curly-newline, max-len
