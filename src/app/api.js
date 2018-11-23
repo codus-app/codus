@@ -19,7 +19,12 @@ async function apiRequest({ endpoint, method, heads, body, store }) {
 
   return fetch(url, {
     headers, method, body,
-  }).then(r => r.json());
+  })
+    .then(r => r.json())
+    .then(({ data, error }) => {
+      if (error) throw new Error(error);
+      else return data;
+    });
 }
 
 /** Perform a GET request and return a promise */
