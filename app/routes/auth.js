@@ -42,4 +42,16 @@ module.exports.getUser = {
     return management
       .getUser({ id });
   },
+
+  byUsername(username) {
+    return management
+      .getUser({ q: `username:"${username}"` })
+      .then(arr => arr[0]);
+  },
+
+  byEmail(email) {
+    return management
+      .getUsersByEmail(email)
+      .then(arr => arr[0]);
+  },
 };
