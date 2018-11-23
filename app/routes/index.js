@@ -26,6 +26,7 @@ module.exports = (app) => {
   app.get('/api/user', auth0(), routes.api.user.authenticated.get);
   app.patch('/api/user', auth0(), routes.api.user.authenticated.patch);
   app.get('/api/user/:username', routes.api.user.get);
+  app.get('/api/check-username/:username', routes.api.user.checkUsername);
 
   app.get('/api/user/solutions', auth0(), routes.api.userSolution.list);
   app.get('/api/user/solution/:category/:problem', auth0(), routes.api.userSolution.get);

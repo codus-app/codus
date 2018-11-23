@@ -1,5 +1,5 @@
 const keystone = require('keystone');
-const javaExec = require('codus-execute-java');
+const javaExec = require('../../../codus-execute-java');
 
 const { Types } = keystone.Field;
 

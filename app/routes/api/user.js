@@ -22,6 +22,11 @@ module.exports = {
         });
     },
 
+    checkUsername(req, res) {
+      getAuth0User.byUsername(req.params.username)
+        .then(user => res.json({ data: { available: !user } }));
+    },
+
     authenticated: {
       async get(req, res) {
         const { username, user_metadata, email, picture } = await getAuth0User.byId(req.user.sub); // eslint-disable-line object-curly-newline, max-len
