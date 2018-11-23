@@ -28,7 +28,7 @@ module.exports = {
           .map(({ name }) => ({ name })), // Include just the name in the output object
         _id: undefined,
       }));
-      res.json(cats);
+      res.json({ data: cats });
     },
 
     async get(req, res) {
@@ -45,7 +45,7 @@ module.exports = {
           .sort({ sortOrder: 1 }))
           .map(({ name }) => ({ name })); // Include just the name in the output object
 
-        res.json(Object.assign(category.toObject(), { problems, _id: undefined }));
+        res.json({ data: Object.assign(category.toObject(), { problems, _id: undefined }) });
       }
     },
   },
@@ -70,7 +70,7 @@ module.exports = {
 
         if (!problem) res.status(404).json({ error: `Problem '${req.params.name}' was not found` });
         else {
-          res.json(publicizeProblem(problem, problem.category));
+          res.json({ data: publicizeProblem(problem, problem.category) });
         }
       }
     },
@@ -91,7 +91,7 @@ module.exports = {
         problem: { category: s.problem.category.name, name: s.problem.name },
       }));
 
-      res.json(stripped);
+      res.json({ data: stripped });
     },
 
     async get(req, res) {
@@ -115,9 +115,11 @@ module.exports = {
         || { toObject: () => ({ code: null, passed: false }) };
 
       res.json({
-        ...solution.toObject(),
-        userId: undefined,
-        problem: publicizeProblem(problem, problemCategory),
+        data: {
+          ...solution.toObject(),
+          userId: undefined,
+          problem: publicizeProblem(problem, problemCategory),
+        },
       });
     },
 
@@ -171,7 +173,7 @@ module.exports = {
         }
       }).catch(err => res.status(400).json(err));
 
-      res.status(created ? 201 : 200).json({ success: true, code, passed });
+      res.status(created ? 201 : 200).json({ data: { code, passed } });
     },
 
     async check(req, res) {
@@ -197,29 +199,33 @@ module.exports = {
         const results = await solution.check();
         // Return results
         res.json({
-          passed: results.passed,
-          tests: results.tests.map(t => ({
-            ...t,
-            ...(t.hidden ? { expected: undefined, value: undefined } : {}),
-          })),
-          error: null,
-          solution: {
-            code: solution.code,
-            problem: publicizeProblem(problem),
+          data: {
+            passed: results.passed,
+            tests: results.tests.map(t => ({
+              ...t,
+              ...(t.hidden ? { expected: undefined, value: undefined } : {}),
+            })),
+            error: null,
+            solution: {
+              code: solution.code,
+              problem: publicizeProblem(problem),
+            },
           },
         });
       } catch (e) {
         // If check failed (due to error) return that error
         res.json({
-          passed: false,
-          tests: problem.testCases2
-            .map(tc => (!tc.hidden
-              ? { value: null, expected: tc.result, pass: false, hidden: false } // eslint-disable-line object-curly-newline, max-len
-              : { pass: false, hidden: true })),
-          error: e.message,
-          solution: {
-            code: solution.code,
-            problem: publicizeProblem(problem),
+          data: {
+            passed: false,
+            tests: problem.testCases2
+              .map(tc => (!tc.hidden
+                ? { value: null, expected: tc.result, pass: false, hidden: false } // eslint-disable-line object-curly-newline, max-len
+                : { pass: false, hidden: true })),
+            error: e.message,
+            solution: {
+              code: solution.code,
+              problem: publicizeProblem(problem),
+            },
           },
         });
       }

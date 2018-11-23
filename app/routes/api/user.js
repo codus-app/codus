@@ -9,12 +9,14 @@ module.exports = {
   user: {
     async get(req, res) {
       const { username, user_metadata, email, picture } = await getAuth0User.byId(req.user.sub); // eslint-disable-line object-curly-newline, max-len
-      res.send({
-        id: req.user.sub,
-        username,
-        name: user_metadata.name,
-        email,
-        picture,
+      res.json({
+        data: {
+          id: req.user.sub,
+          username,
+          name: user_metadata.name,
+          email,
+          picture,
+        },
       });
     },
 
@@ -23,7 +25,7 @@ module.exports = {
 
       try {
         const updated = await updateAuth0User(req.user.sub, { username, email, name });
-        res.send({
+        res.json({
           data: {
             id: req.user.sub,
             username: updated.username,
