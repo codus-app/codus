@@ -33,7 +33,7 @@ const management = new ManagementClient({
   domain: 'codus.auth0.com',
   clientId: 'JfqbfePwu53xNJ755rhcDM51G89vnjwr',
   clientSecret: process.env.AUTH0_CLIENT_SECRET,
-  scope: 'read:users',
+  scope: 'read:users update:users',
 });
 
 // Given an Auth0 user id, return full information
