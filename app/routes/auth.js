@@ -37,6 +37,9 @@ const management = new ManagementClient({
 });
 
 // Given an Auth0 user id, return full information
-module.exports.getUser = function getUser(id) {
-  return management.getUser({ id });
+module.exports.getUser = {
+  byId(id) {
+    return management
+      .getUser({ id });
+  },
 };
