@@ -24,7 +24,7 @@ module.exports = {
 
     checkUsername(req, res) {
       getAuth0User.byUsername(req.params.username)
-        .then(user => res.json({ data: { available: !user } }));
+        .then(user => res.json({ data: { available: !user || user.user_id === req.user.sub } }));
     },
 
     authenticated: {
