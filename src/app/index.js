@@ -1,6 +1,7 @@
 // Polyfills
 import 'babel-polyfill';
 import 'promise-polyfill';
+import 'abortcontroller-polyfill';
 import 'whatwg-fetch';
 
 // Vue
