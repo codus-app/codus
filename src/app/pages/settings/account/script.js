@@ -1,9 +1,15 @@
 import { mapState } from 'vuex';
+import debounce from 'debounce';
+import * as api from '../../../api';
 
 export default {
   data: () => ({
-    username: '',
-    name: '',
+    username: undefined,
+    name: undefined,
+
+    usernameRequestController: undefined,
+    usernameStatus: 'neutral',
+    usernameMessage: '',
   }),
 
   computed: {
@@ -21,5 +27,58 @@ export default {
       this.username = this.profile.username;
       this.name = this.profile.name;
     },
+
+    // Perform validation when username changes
+    username(username, old) {
+      // Don't validate the initial load (when username changes from undefined to whatever it is)
+      if (typeof old === 'undefined') return;
+
+      // Cancel any existing username check requests because the user has continued to type
+      if (this.usernameRequestController) {
+        this.usernameRequestController.abort();
+        this.usernameRequestController = undefined;
+      }
+
+      // Blank usernames should show an error
+      if (username.length === 0) {
+        this.usernameStatus = 'failure';
+        this.usernameMessage = "Username can't be blank!";
+      // If it's not blank, validate
+      } else {
+        this.usernameStatus = 'loading';
+        this.usernameMessage = '';
+        this.debouncedCheckUsername();
+      }
+    },
+  },
+
+  methods: {
+    // Make a request to check availability of a username
+    async checkUsername() {
+      // the AbortController will be used to stop the request if the user continues to type
+      this.usernameRequestController = new AbortController();
+      try {
+        // Make API request
+        const { available } = await api.get({
+          endpoint: `username-check/${this.username}`,
+          store: this.$store,
+          signal: this.usernameRequestController.signal,
+        });
+        this.usernameRequestController = undefined;
+        // Set username input's status and message based on results
+        this.usernameStatus = available ? 'success' : 'failure';
+        this.usernameMessage = available ? 'Looks good!' : 'That username is taken!';
+        if (this.username === this.profile.username) this.usernameMessage = "That's you!";
+      // Most of the time, an error means that the request was aborted, in which case the error is
+      // blank. If it's not blank, something actually went wrong and we should report it.
+      } catch (e) {
+        if (Object.keys(e).length) {
+          this.usernameStatus = 'failure';
+          this.usernameMessage = e;
+        }
+      }
+    },
+
+    debouncedCheckUsername: debounce(function check2() { this.checkUsername(); }, 500),
   },
 };

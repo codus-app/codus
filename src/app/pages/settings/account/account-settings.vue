@@ -8,6 +8,8 @@
           title="Username"
           v-model="username"
           placeholder="Username"
+          :status="usernameStatus"
+          :message="usernameMessage"
         ></text-input>
 
         <text-input
