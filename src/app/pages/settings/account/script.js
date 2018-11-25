@@ -53,7 +53,7 @@ export default {
       // If it's not blank, validate
       } else {
         this.usernameStatus = 'loading';
-        this.usernameMessage = '';
+        this.usernameMessage = this.usernameMessage ? '\xa0' : ''; // non-breaking space
         this.debouncedCheckUsername();
       }
     },
