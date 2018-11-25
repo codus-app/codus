@@ -56,6 +56,10 @@ export default {
         this.usernameMessage = 'Usernames can only contain lowercase letters, numbers, and underscores';
         debouncedCheckUsername.clear();
       // If it's not blank, validate
+      } else if (username === this.profile.username) {
+        this.usernameStatus = 'success';
+        this.usernameMessage = "That's you!";
+        debouncedCheckUsername.clear();
       } else {
         this.usernameStatus = 'loading';
         this.usernameMessage = this.usernameMessage ? '\xa0' : ''; // non-breaking space
@@ -93,7 +97,6 @@ export default {
         // Set username input's status and message based on results
         this.usernameStatus = available ? 'success' : 'failure';
         this.usernameMessage = available ? 'Looks good!' : 'That username is taken!';
-        if (this.username === this.profile.username) this.usernameMessage = "That's you!";
       // Most of the time, an error means that the request was aborted, in which case the error is
       // blank. If it's not blank, something actually went wrong and we should report it.
       } catch (e) {
