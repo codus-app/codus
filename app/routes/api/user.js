@@ -51,6 +51,8 @@ module.exports = {
         const errors = [];
         if (typeof username === 'string' && !isByteLength(username, { min: 1, max: 15 })) {
           errors.push({ key: 'username', message: 'Must be between 1 and 15 characters' });
+        } if (typeof username === 'string' && username.match(/[^a-z0-9_]/)) {
+          errors.push({ key: 'username', message: 'Must only contain lowercase letters, numbers, and underscores' });
         } if (typeof email === 'string' && !isEmail(email)) {
           errors.push({ key: 'email', message: 'Must be a valid email' });
         } if (typeof name === 'string' && !isByteLength(name, { min: 1, max: 25 })) {
