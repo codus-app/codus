@@ -10,6 +10,9 @@ export default {
     usernameRequestController: undefined,
     usernameStatus: 'neutral',
     usernameMessage: '',
+
+    nameStatus: 'neutral',
+    nameMessage: '',
   }),
 
   computed: {
@@ -48,6 +51,19 @@ export default {
         this.usernameStatus = 'loading';
         this.usernameMessage = '';
         this.debouncedCheckUsername();
+      }
+    },
+
+    name(name) {
+      if (name.length === 0) {
+        this.nameStatus = 'failure';
+        this.nameMessage = "Name can't be blank!";
+      } else if (name.length > 'this is a very long name!'.length) {
+        this.nameStatus = 'failure';
+        this.nameMessage = 'Too long!';
+      } else {
+        this.nameStatus = 'neutral';
+        this.nameMessage = '';
       }
     },
   },

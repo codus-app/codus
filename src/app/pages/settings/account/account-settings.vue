@@ -8,14 +8,16 @@
           title="Username"
           v-model="username"
           placeholder="Username"
-          :status="usernameStatus"
-          :message="usernameMessage"
+          v-bind:status="usernameStatus"
+          v-bind:message="usernameMessage"
         ></text-input>
 
         <text-input
           title="Display Name"
           v-model="name"
           placeholder="Name"
+          v-bind:status="nameStatus"
+          v-bind:message="nameMessage"
         ></text-input>
       </div>
     </div>
