@@ -19,8 +19,12 @@
     padding: .7em 0 .7em .7em
     margin-top: .3em
     width: 100%
+    transition: background .15s
 
     // Resets
     outline: none
     border: 0
     box-shadow: 0
+
+    &:focus
+      background: lighten($dark-2, 2%)
