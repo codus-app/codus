@@ -87,3 +87,6 @@ Vue.component('window', Window);
 
 import UserProfileSummary from './user-profile-summary/user-profile-summary.vue';
 Vue.component('user-profile-summary', UserProfileSummary);
+
+import TextInput from './input/input.vue';
+Vue.component('text-input', TextInput);
