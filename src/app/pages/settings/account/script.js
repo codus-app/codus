@@ -42,10 +42,14 @@ export default {
         this.usernameRequestController = undefined;
       }
 
-      // Blank usernames should show an error
-      if (username.length === 0) {
+      // Usernames must be between 1 and 15 characters
+      if (username.length === 0 || username.length > 15) {
         this.usernameStatus = 'failure';
-        this.usernameMessage = "Username can't be blank!";
+        this.usernameMessage = username.length ? 'Too long!' : "Username can't be blank!";
+      // Usernames can't have any characters besides lowercase letters, numbers, and underscores
+      } else if (username.match(/[^a-z0-9_]/)) {
+        this.usernameStatus = 'failure';
+        this.usernameMessage = 'Usernames can only contain lowercase letters, numbers, and underscores';
       // If it's not blank, validate
       } else {
         this.usernameStatus = 'loading';
