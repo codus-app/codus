@@ -21,6 +21,19 @@
         ></text-input>
       </div>
     </div>
+
+    <div class="card account">
+      <h2>Your account</h2>
+      <div class="group">
+        <text-input
+          title="Email"
+          v-model="email"
+          placeholder="Email address"
+          v-bind:status="emailStatus"
+          v-bind:message="emailMessage"
+        ></text-input>
+      </div>
+    </div>
   </div>
 </template>
 

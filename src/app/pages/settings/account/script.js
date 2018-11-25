@@ -8,14 +8,17 @@ let debouncedCheckUsername;
 export default {
   data: () => ({
     username: undefined,
-    name: undefined,
-
-    usernameRequestController: undefined,
     usernameStatus: 'neutral',
     usernameMessage: '',
+    usernameRequestController: undefined,
 
+    name: undefined,
     nameStatus: 'neutral',
     nameMessage: '',
+
+    email: undefined,
+    emailStatus: 'neutral',
+    emailMessage: '',
   }),
 
   computed: {
@@ -32,6 +35,7 @@ export default {
     profile() {
       this.username = this.profile.username;
       this.name = this.profile.name;
+      this.email = this.profile.email;
     },
 
     // Perform validation when username changes
