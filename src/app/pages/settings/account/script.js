@@ -1,6 +1,9 @@
 import { mapState } from 'vuex';
 import debounce from 'debounce';
 import * as api from '../../../api';
+window.debounce = debounce;
+
+let debouncedCheckUsername;
 
 export default {
   data: () => ({
@@ -46,15 +49,17 @@ export default {
       if (username.length === 0 || username.length > 15) {
         this.usernameStatus = 'failure';
         this.usernameMessage = username.length ? 'Too long!' : "Username can't be blank!";
+        debouncedCheckUsername.clear();
       // Usernames can't have any characters besides lowercase letters, numbers, and underscores
       } else if (username.match(/[^a-z0-9_]/)) {
         this.usernameStatus = 'failure';
         this.usernameMessage = 'Usernames can only contain lowercase letters, numbers, and underscores';
+        debouncedCheckUsername.clear();
       // If it's not blank, validate
       } else {
         this.usernameStatus = 'loading';
         this.usernameMessage = this.usernameMessage ? '\xa0' : ''; // non-breaking space
-        this.debouncedCheckUsername();
+        this.debouncedCheckUsername(this);
       }
     },
 
@@ -99,6 +104,6 @@ export default {
       }
     },
 
-    debouncedCheckUsername: debounce(function check2() { this.checkUsername(); }, 500),
+    debouncedCheckUsername: debouncedCheckUsername = debounce((t) => { t.checkUsername(); }, 500),
   },
 };
