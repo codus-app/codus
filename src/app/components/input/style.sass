@@ -37,3 +37,21 @@ $height: ($font-size * 1.25) + ($padding * 2)
 
     &:focus
       background: lighten($dark-2, 2%)
+
+  .input-container
+    position: relative
+
+  $indicator-size: .9em
+
+  .indicator
+    position: absolute
+    width: $indicator-size
+    height: $indicator-size
+    right: ($height - $indicator-size) / 2
+    top: ($height - $indicator-size) / 2
+
+  &.success,
+  &.failure,
+  &.loading
+    input[type='text']
+      padding-right: $height
