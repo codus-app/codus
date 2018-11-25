@@ -32,6 +32,7 @@ import {
   ChevronRightIcon,
   ChevronDownIcon,
   ChevronLeftIcon,
+  XIcon,
 } from 'vue-feather-icons';
 
 // Sidebar icons
@@ -58,6 +59,7 @@ Vue.component('icon-chevron-up', ChevronUpIcon);
 Vue.component('icon-chevron-right', ChevronRightIcon);
 Vue.component('icon-chevron-down', ChevronDownIcon);
 Vue.component('icon-chevron-left', ChevronLeftIcon);
+Vue.component('icon-x', XIcon);
 
 
 // Internal components
