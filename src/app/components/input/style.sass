@@ -43,12 +43,26 @@ $height: ($font-size * 1.25) + ($padding * 2)
 
   $indicator-size: .9em
 
-  .indicator
+  .indicator-wrapper
     position: absolute
     width: $indicator-size
     height: $indicator-size
     right: ($height - $indicator-size) / 2
     top: ($height - $indicator-size) / 2
+
+    .indicator
+      position: absolute
+      top: 0
+      left: 0
+      width: 100%
+      height: 100%
+
+  &.loading .indicator-wrapper
+    width: $indicator-size * 2
+    height: $indicator-size * 2
+    right: ($height - $indicator-size * 2) / 2
+    top: ($height - $indicator-size * 2) / 2
+    transform: scale(.5)
 
   &.success,
   &.failure,

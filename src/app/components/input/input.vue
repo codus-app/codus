@@ -9,12 +9,15 @@
         v-bind:value="value"
         v-on:input="onInput"
       >
-      <component class="indicator" v-bind:is="{
-        neutral: undefined,
-        success: 'icon-check',
-        failure: 'icon-x',
-        loading: 'spinner'
-      }[status]"></component>
+
+      <div class="indicator-wrapper">
+        <component class="indicator" v-bind:is="{
+          neutral: undefined,
+          success: 'icon-check',
+          failure: 'icon-x',
+          loading: 'spinner'
+        }[status]"></component>
+      </div>
     </div>
     <div class="message">{{ message }}</div>
   </div>
