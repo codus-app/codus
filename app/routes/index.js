@@ -10,31 +10,44 @@ const routes = {
 module.exports = (app) => {
   app.get('/', (req, res) => res.send('ok'));
 
-  // Cors
+
+  /* --- Middleware --- */
+
+
   app.use('/api', keystone.middleware.cors);
   app.options('/api*', (req, res) => res.sendStatus(200));
 
-  // Routes
+
+  /* --- API routes --- */
+
 
   app.get('/api', routes.api.base);
+
+  // These endpoints query the problem database and return public information
 
   app.get('/api/categories', routes.api.category.list);
   app.get('/api/category/:name', routes.api.category.get);
 
   app.get('/api/problem/:category/:name', routes.api.problem.get);
 
+  // '/user' endpoints return information about the authenticated user
+
   app.get('/api/user', auth0(), routes.api.user.authenticated.get);
   app.patch('/api/user', auth0(), routes.api.user.authenticated.patch);
-  app.get('/api/user/:username', routes.api.user.get);
-  app.get('/api/check-username/:username', routes.api.user.checkUsername);
 
   app.get('/api/user/solutions', auth0(), routes.api.userSolution.list);
   app.get('/api/user/solution/:category/:problem', auth0(), routes.api.userSolution.get);
   app.put('/api/user/solution/:category/:problem', auth0(), routes.api.userSolution.put);
   app.get('/api/user/solution/check/:category/:problem', auth0(), routes.api.userSolution.check);
 
+  // '/users' endpoints return information about other users
 
-  /* eslint-disable global-require */
-  app.use(require('./authErrorHandle'));
-  /* eslint-enable global-require */
+  app.get('/api/users/:username', routes.api.user.get);
+  app.get('/api/username-check/:username', auth0(), routes.api.user.checkUsername);
+
+
+  /* --- Post-route middleware --- */
+
+
+  app.use(require('./authErrorHandle')); // eslint-disable-line global-require
 };
