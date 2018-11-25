@@ -1,3 +1,4 @@
+const { isEmail, isByteLength } = require('validator');
 const {
   getUser: getAuth0User,
   updateUser: updateAuth0User,
@@ -43,6 +44,16 @@ module.exports = {
 
       async patch(req, res) {
         const { username, email, name } = req.body;
+
+        const errors = [];
+        if (typeof username === 'string' && !isByteLength(username, { min: 1, max: 15 })) {
+          errors.push({ key: 'username', message: 'Must be between 1 and 15 characters' });
+        } if (typeof email === 'string' && !isEmail(email)) {
+          errors.push({ key: 'email', message: 'Must be a valid email' });
+        } if (typeof name === 'string' && !isByteLength(name, { min: 1, max: 25 })) {
+          errors.push({ key: 'name', message: 'Must be between 1 and 25 characters' });
+        }
+        if (errors.length) res.status(400).json({ error: errors });
 
         try {
           const updated = await updateAuth0User(req.user.sub, { username, email, name });
