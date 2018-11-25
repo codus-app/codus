@@ -10,6 +10,8 @@ $height: ($font-size * 1.25) + ($padding * 2)
 
 .input
   font-size: .7rem
+  position: relative
+  margin-bottom: 1rem
 
   .title
     font-size: .9em
@@ -27,7 +29,7 @@ $height: ($font-size * 1.25) + ($padding * 2)
     font-size: $font-size
     border-radius: $radius
     padding: $padding 0 $padding $padding
-    margin-top: .3em
+    margin: .3em 0 .15em
     width: 100%
     transition: background .15s
 
@@ -39,10 +41,17 @@ $height: ($font-size * 1.25) + ($padding * 2)
     &:focus
       background: lighten($dark-2, 3%)
 
-  .input-container
-    position: relative
+  .message
+    position: absolute
+    width: 100%
+    margin-left: $radius
+    font-size: .9em
+    transition: color .35s
 
   $indicator-size: .9em
+
+  .input-container
+    position: relative
 
   .indicator-wrapper
     position: absolute
@@ -72,9 +81,11 @@ $height: ($font-size * 1.25) + ($padding * 2)
       padding-right: $height
 
   &.success
-    .indicator
+    .indicator,
+    .message
       color: $green-solid
 
   &.failure
-    .indicator
+    .indicator,
+    .message
       color: $red-solid
