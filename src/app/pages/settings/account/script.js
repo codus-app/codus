@@ -113,4 +113,6 @@ export default {
 
     debouncedCheckUsername: debouncedCheckUsername = debounce((t) => { t.checkUsername(); }, 500),
   },
+
+  components: { 'password-reset': require('./password-reset/password-reset.vue').default },
 };
