@@ -22,8 +22,8 @@ async function apiRequest({ endpoint, method, heads, body, signal, store }) {
   })
     .then(r => r.json())
     .then(({ data, error }) => {
-      if (error) throw new Error(error);
-      else return data;
+      if (error) return Promise.reject(error);
+      return data;
     });
 }
 
