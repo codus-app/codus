@@ -16,6 +16,7 @@ $height: ($font-size * 1.25) + ($padding * 2)
     font-family: 'Avenir Next', 'Avenir', $font-1
     font-weight: 500
     color: transparentize($white, .15)
+    transition: color .35s
     margin-left: $radius
 
   input[type='text']
@@ -36,7 +37,7 @@ $height: ($font-size * 1.25) + ($padding * 2)
     box-shadow: 0
 
     &:focus
-      background: lighten($dark-2, 2%)
+      background: lighten($dark-2, 3%)
 
   .input-container
     position: relative
@@ -69,3 +70,11 @@ $height: ($font-size * 1.25) + ($padding * 2)
   &.loading
     input[type='text']
       padding-right: $height
+
+  &.success
+    .indicator
+      color: $green-solid
+
+  &.failure
+    .indicator
+      color: $red-solid
