@@ -1,7 +1,7 @@
 <template>
   <div class="password-reset">
-    <div class="title">Password</div>
-    <button type="button" v-on:click="onClick">Reset password</button>
+    <label class="title" v-bind:for="_uid">Password</label>
+    <button type="button" v-on:click="onClick" v-bind:id="_uid">Reset password</button>
   </div>
 </template>
 
