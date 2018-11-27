@@ -31,12 +31,23 @@ export default {
     },
   },
 
-  watch: {
-    profile() {
+  created() {
+    if (Object.keys(this.profile).length) {
       this.username = this.profile.username;
       this.name = this.profile.name;
       this.email = this.profile.email;
-    },
+    } else {
+      console.log('goals!');
+      this.$once('profileChanged', () => {
+        this.username = this.profile.username;
+        this.name = this.profile.name;
+        this.email = this.profile.email;
+      });
+    }
+  },
+
+  watch: {
+    profile() { this.$emit('profileChanged'); },
 
     // Perform validation when username changes
     username(username, old) {
