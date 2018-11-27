@@ -15,31 +15,34 @@ $radius: 4px
     transition: color .35s
     margin-left: $radius
 
+  $font-size: .85
+
   button[type='button']
     display: block
-    background: $red-solid
+    background: lighten($dark-2, 3%)
     color: $white
     cursor: pointer
     font-family: $font-1
-    font-size: .9em
+    font-size: #{font-size}em
     font-weight: 500
     text-transform: uppercase
-    letter-spacing: .085em
+    letter-spacing: .095em
     border-radius: $radius
-    padding: #{.7em / .9}
+    padding: #{.7em / $font-size}
     margin: .21rem 0 0
     width: 100%
-    height: (1.25em + (.7em * 2)) / .9
+    height: (1.25 + (.7 * 2)) * .7rem
     transition: background .25s
 
     // Resets
     outline: none
     border: 0
-    box-shadow: none
+    // box-shadow: none
 
-    &:hover
+    &:hover,
+    &:focus
       background: saturate(lighten($red-solid, 5%), 20%)
 
     &:active
       transition-duration: .05s
-      background: desaturate(darken($red-solid, 3%), 10%)
+      background: $red-solid
