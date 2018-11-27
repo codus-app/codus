@@ -35,6 +35,8 @@
         <password-reset v-bind:email="email"></password-reset>
       </div>
     </div>
+
+    <save-button func="save"></save-button>
   </div>
 </template>
 
