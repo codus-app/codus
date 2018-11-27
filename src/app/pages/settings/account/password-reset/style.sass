@@ -20,7 +20,7 @@ $radius: 4px
   button[type='button']
     display: block
     background: lighten($dark-2, 3%)
-    color: $white
+    color: $light-text-secondary
     cursor: pointer
     font-family: $font-1
     font-size: #{font-size}em
@@ -29,20 +29,27 @@ $radius: 4px
     letter-spacing: .095em
     border-radius: $radius
     padding: #{.7em / $font-size}
-    margin: .21rem 0 0
+    margin: .21rem 0 .105rem
     width: 100%
     height: (1.25 + (.7 * 2)) * .7rem
-    transition: background .25s
+    transition: background .25s, color .35s
 
     // Resets
     outline: none
     border: 0
     // box-shadow: none
 
-    &:hover,
-    &:focus
+    &:not(:disabled):hover,
+    &:not(:disabled):focus
       background: saturate(lighten($red-solid, 5%), 20%)
 
-    &:active
+    &:not(:disabled):active
       transition-duration: .05s
       background: $red-solid
+
+    &:disabled
+      cursor: not-allowed
+      background: $dark-2
+      color: transparentize($light-text-secondary, .75)
+
+
