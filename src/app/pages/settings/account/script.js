@@ -37,7 +37,6 @@ export default {
       this.name = this.profile.name;
       this.email = this.profile.email;
     } else {
-      console.log('goals!');
       this.$once('profileChanged', () => {
         this.username = this.profile.username;
         this.name = this.profile.name;

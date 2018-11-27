@@ -32,7 +32,7 @@
           v-bind:status="emailStatus"
           v-bind:message="emailMessage"
         ></text-input>
-        <password-reset></password-reset>
+        <password-reset v-bind:email="email"></password-reset>
       </div>
     </div>
   </div>
