@@ -99,6 +99,18 @@ export default {
       });
     },
 
+    requestPasswordReset(_, { email }) {
+      return new Promise((resolve, reject) => {
+        webAuth.changePassword({
+          connection: 'Username-Password-Authentication',
+          email,
+        }, (err, resp) => {
+          if (err) reject(err);
+          else resolve(resp);
+        });
+      });
+    },
+
     // Copy current state to localStorage for cross-request storage
     // Includes applying a 'logged out' state to localStorage
     toLocalStorage({ state }) {
