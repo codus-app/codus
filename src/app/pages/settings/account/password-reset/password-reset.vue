@@ -6,6 +6,7 @@
       v-bind:id="_uid"
       v-bind:disabled="disabled"
     >Reset password</button>
+    <div class="message">{{ message }}</div>
   </div>
 </template>
 
