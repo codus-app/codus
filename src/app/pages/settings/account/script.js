@@ -1,4 +1,4 @@
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 import debounce from 'debounce';
 import * as api from '../../../api';
 window.debounce = debounce;
@@ -103,6 +103,8 @@ export default {
   },
 
   methods: {
+    ...mapActions(['updateUserProfile']),
+
     // Make a request to check availability of a username
     async checkUsername() {
       // the AbortController will be used to stop the request if the user continues to type
@@ -131,7 +133,17 @@ export default {
     debouncedCheckUsername: debouncedCheckUsername = debounce((t) => { t.checkUsername(); }, 500),
 
     save() {
-      return new Promise(resolve => setTimeout(resolve, 1500));
+      // 1. Make request
+      // 2. Get response
+      // 3. Update profile in vuex based on response
+      // 4. Reset messages and status on inputs
+      // - 1, 2, 3 happen in vuex
+      const patch = {};
+      if (this.username !== this.profile.username) patch.username = this.username;
+      if (this.name !== this.profile.name) patch.name = this.name;
+      if (this.email !== this.profile.email) patch.email = this.email;
+
+      return this.updateUserProfile(patch);
     },
   },
 
