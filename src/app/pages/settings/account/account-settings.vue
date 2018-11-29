@@ -36,7 +36,11 @@
       </div>
     </div>
 
-    <save-button v-bind:onClick="save" v-bind:enabled="changed"></save-button>
+    <save-button
+      v-bind:onClick="save"
+      v-bind:enabled="changed"
+      v-bind:text="changed ? 'Save' : 'Saved'"
+    ></save-button>
   </div>
 </template>
 
