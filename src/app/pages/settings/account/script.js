@@ -144,11 +144,6 @@ export default {
     debouncedCheckUsername: debouncedCheckUsername = debounce((t) => { t.checkUsername(); }, 500),
 
     save() {
-      // 1. Make request
-      // 2. Get response
-      // 3. Update profile in vuex based on response
-      // 4. Reset messages and status on inputs
-      // - 1, 2, 3 happen in vuex
       const patch = {};
       if (this.username !== this.profile.username) patch.username = this.username;
       if (this.name !== this.profile.name) patch.name = this.name;
@@ -157,7 +152,15 @@ export default {
       return this.updateUserProfile(patch);
     },
 
-    onSubmitError(errs) {
+    saved() {
+      // Reset messages and statuses after successful save
+      ['username', 'name', 'email'].forEach((c) => {
+        this[`${c}Status`] = 'neutral';
+        this[`${c}Message`] = '';
+      });
+    },
+
+    errored(errs) {
       errs.forEach(({ key, message }) => {
         this[`${key}Status`] = 'failure';
         this[`${key}Message`] = message;

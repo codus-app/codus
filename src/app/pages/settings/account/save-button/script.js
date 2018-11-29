@@ -14,7 +14,7 @@ export default {
       if (!this.loading && this.enabled) {
         this.loading = true;
         this.onClick()
-          .then(() => { this.loading = false; })
+          .then((r) => { this.loading = false; this.$emit('saved', r); })
           .catch((e) => { this.loading = false; this.$emit('error', e); });
       }
     },
