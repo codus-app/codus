@@ -19,6 +19,15 @@ export default {
     commit('userProfileFetched', profile);
   },
 
+  async updateUserProfile({ commit }, { username, name, email }) {
+    const patched = await api.patch({
+      endpoint: 'user',
+      body: { username, name, email },
+      store,
+    });
+    commit('userProfileFetched', patched);
+  },
+
   // Populate problem and solution info for a given problem
   async fetchSolution({ commit }, { category, problem }) {
     const solution = await api.get({ endpoint: `user/solution/${category}/${problem}`, store });
