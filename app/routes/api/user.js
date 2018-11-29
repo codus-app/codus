@@ -74,8 +74,13 @@ module.exports = {
               },
             });
           } catch (e) {
-            const status = e.message.endsWith('username already exists') ? 409 : 500;
-            res.status(status).send({ error: e.message });
+            if (e.message.endsWith('username already exists')) {
+              res.status(409).json({ error: [{ key: 'username', message: e.message }] });
+            } else if (e.message.endsWith('email already exists')) {
+              res.status(409).json({ error: [{ key: 'email', message: e.message }] });
+            } else {
+              res.status(500).json({ error: e.message });
+            }
           }
         }
       },
