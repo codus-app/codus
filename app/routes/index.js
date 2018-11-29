@@ -30,7 +30,7 @@ module.exports = (app) => {
 
   app.get('/api/problem/:category/:name', routes.api.problem.get);
 
-  // '/user' endpoints return information about the authenticated user
+  // '/user' endpoints work with the authenticated user
 
   app.get('/api/user', auth0(), routes.api.user.authenticated.get);
   app.patch('/api/user', auth0(), routes.api.user.authenticated.patch);
