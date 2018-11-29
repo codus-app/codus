@@ -13,9 +13,9 @@ export default {
     async click() {
       if (!this.loading && this.enabled) {
         this.loading = true;
-        const res = await this.onClick();
-        this.$emit('completed', res);
-        this.loading = false;
+        this.onClick()
+          .then(() => { this.loading = false; })
+          .catch((e) => { this.loading = false; this.$emit('error', e); });
       }
     },
   },
