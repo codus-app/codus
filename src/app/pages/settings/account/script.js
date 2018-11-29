@@ -1,5 +1,6 @@
 import { mapState, mapActions } from 'vuex';
 import debounce from 'debounce';
+import isEmail from 'validator/lib/isEmail';
 import * as api from '../../../api';
 window.debounce = debounce;
 
@@ -98,6 +99,16 @@ export default {
       } else {
         this.nameStatus = 'neutral';
         this.nameMessage = '';
+      }
+    },
+
+    email(email) {
+      if (!isEmail(email)) {
+        this.emailStatus = 'failure';
+        this.emailMessage = 'Must be a valid email';
+      } else {
+        this.emailStatus = 'neutral';
+        this.emailMessage = '';
       }
     },
   },
