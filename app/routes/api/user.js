@@ -59,20 +59,21 @@ module.exports = {
           errors.push({ key: 'name', message: 'Must be between 1 and 25 characters' });
         }
         if (errors.length) res.status(400).json({ error: errors });
-
-        try {
-          const updated = await updateAuth0User(req.user.sub, { username, email, name });
-          res.json({
-            data: {
-              id: req.user.sub,
-              username: updated.username,
-              name: updated.user_metadata.name,
-              email: updated.email,
-            },
-          });
-        } catch (e) {
-          const status = e.message.endsWith('username already exists') ? 409 : 500;
-          res.status(status).send({ error: e.message });
+        else {
+          try {
+            const updated = await updateAuth0User(req.user.sub, { username, email, name });
+            res.json({
+              data: {
+                id: req.user.sub,
+                username: updated.username,
+                name: updated.user_metadata.name,
+                email: updated.email,
+              },
+            });
+          } catch (e) {
+            const status = e.message.endsWith('username already exists') ? 409 : 500;
+            res.status(status).send({ error: e.message });
+          }
         }
       },
     },
