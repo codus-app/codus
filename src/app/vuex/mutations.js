@@ -47,7 +47,7 @@ export default {
 
   // Update a user profile when the API response returns
   userProfileFetched(state, payload) {
-    state.user.profile = payload;
+    state.user.profile = { ...state.user.profile, ...payload };
   },
 
   // Update info for a problem when its detailed info is fetched
