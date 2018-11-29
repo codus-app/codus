@@ -18,7 +18,7 @@
   background: $green-bg
   color: $light-text-primary
   cursor: pointer
-  transition: color .3s .15s, border-radius .25s .1s, width .45s
+  transition: color .3s .15s, border-radius .25s .1s, width .45s, background .35s
 
   .spinner
     position: absolute
@@ -29,12 +29,16 @@
     opacity: 0
     transition: opacity .3s
 
+
   &.loading
     color: transparent
     width: 3.5em
     border-radius: 1.75em
-    transition: color .3s, border-radius .25s, width .45s
+    transition: color .3s, border-radius .25s, width .45s, background .35s
 
     .spinner
       opacity: 1
       transition: opacity .3s .15s
+
+  &.disabled
+    background: $gray-solid

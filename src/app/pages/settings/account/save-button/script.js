@@ -5,12 +5,12 @@ export default {
 
   props: {
     onClick: Function,
-    enabled: Boolean,
+    enabled: { type: Boolean, default: true },
   },
 
   methods: {
     async click() {
-      if (!this.loading) {
+      if (!this.loading && this.enabled) {
         this.loading = true;
         const res = await this.onClick();
         this.$emit('completed', res);
