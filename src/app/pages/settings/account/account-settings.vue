@@ -38,7 +38,7 @@
 
     <save-button
       v-bind:onClick="save"
-      v-bind:enabled="changed"
+      v-bind:enabled="canSave"
       v-bind:text="changed ? 'Save' : 'Saved'"
     ></save-button>
   </div>

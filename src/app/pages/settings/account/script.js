@@ -30,6 +30,12 @@ export default {
           || this.name !== this.profile.name
           || this.email !== this.profile.email); // Info changed
     },
+
+    canSave() {
+      return this.changed
+        && [this.usernameStatus, this.nameStatus, this.emailStatus]
+          .every(st => !['loading', 'failure'].includes(st));
+    },
   },
 
   created() {
