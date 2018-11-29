@@ -40,6 +40,7 @@
       v-bind:onClick="save"
       v-bind:enabled="canSave"
       v-bind:text="changed ? 'Save' : 'Saved'"
+      v-on:error="onSubmitError"
     ></save-button>
   </div>
 </template>

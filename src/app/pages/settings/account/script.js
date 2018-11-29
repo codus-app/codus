@@ -145,6 +145,13 @@ export default {
 
       return this.updateUserProfile(patch);
     },
+
+    onSubmitError(errs) {
+      errs.forEach(({ key, message }) => {
+        this[`${key}Status`] = 'failure';
+        this[`${key}Message`] = message;
+      });
+    },
   },
 
   components: {
