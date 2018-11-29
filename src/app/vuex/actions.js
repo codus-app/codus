@@ -20,12 +20,17 @@ export default {
   },
 
   async updateUserProfile({ commit }, { username, name, email }) {
-    const patched = await api.patch({
-      endpoint: 'user',
-      body: { username, name, email },
-      store,
-    });
-    commit('userProfileFetched', patched);
+    try {
+      const patched = await api.patch({
+        endpoint: 'user',
+        body: { username, name, email },
+        store,
+      });
+      commit('userProfileFetched', patched);
+      return patched;
+    } catch (e) {
+      return Promise.reject(e);
+    }
   },
 
   // Populate problem and solution info for a given problem
