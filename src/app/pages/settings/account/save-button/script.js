@@ -6,6 +6,7 @@ export default {
   props: {
     onClick: Function,
     enabled: { type: Boolean, default: true },
+    text: { type: String, default: 'Save' },
   },
 
   methods: {
