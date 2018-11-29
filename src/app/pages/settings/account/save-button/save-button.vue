@@ -1,5 +1,5 @@
 <template>
-   <div class="save-button" v-bind:class="{ enabled, loading }">
+   <div class="save-button" v-bind:class="{ enabled, loading }" v-on:click="click">
      <div class="button">Save</div>
      <spinner></spinner>
    </div>

@@ -36,7 +36,7 @@
       </div>
     </div>
 
-    <save-button func="save"></save-button>
+    <save-button v-bind:onClick="save"></save-button>
   </div>
 </template>
 

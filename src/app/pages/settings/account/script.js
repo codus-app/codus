@@ -122,6 +122,10 @@ export default {
     },
 
     debouncedCheckUsername: debouncedCheckUsername = debounce((t) => { t.checkUsername(); }, 500),
+
+    save() {
+      return new Promise(resolve => setTimeout(resolve, 1500));
+    },
   },
 
   components: {
