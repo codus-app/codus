@@ -4,10 +4,30 @@ const {
   updateUser: updateAuth0User,
 } = require('../auth');
 
+
+function validateUser({ username, name, email }) {
+  const errors = [];
+  // Username
+  if (typeof username === 'string' && !isByteLength(username, { min: 1, max: 15 })) {
+    errors.push({ key: 'username', message: 'Must be between 1 and 15 characters' });
+  } if (typeof username === 'string' && username.match(/[^a-z0-9_]/)) {
+    errors.push({ key: 'username', message: 'Must only contain lowercase letters, numbers, and underscores' });
+  // Name
+  } if (typeof name === 'string' && !isByteLength(name, { min: 1, max: 25 })) {
+    errors.push({ key: 'name', message: 'Must be between 1 and 25 characters' });
+  // Email
+  } if (typeof email === 'string' && !isEmail(email)) {
+    errors.push({ key: 'email', message: 'Must be a valid email' });
+  }
+  return errors;
+}
+
+
 /* eslint-disable camelcase */
 
 module.exports = {
   user: {
+    // Retrieve public info about any user
     get(req, res) {
       getAuth0User.byUsername(req.params.username)
         .then(user => user || { error: 'not found' })
@@ -23,15 +43,9 @@ module.exports = {
         });
     },
 
-    checkUsername(req, res) {
-      const { username } = req.params;
-      if (!isByteLength(username, { min: 1, max: 15 }) || username.match(/[^a-z0-9_]/)) res.json({ data: { available: false } });
-
-      getAuth0User.byUsername(username)
-        .then(user => res.json({ data: { available: !user || user.user_id === req.user.sub } }));
-    },
-
+    // Operations on the authenticated user
     authenticated: {
+      // Get info
       async get(req, res) {
         const { username, user_metadata, email, picture } = await getAuth0User.byId(req.user.sub); // eslint-disable-line object-curly-newline, max-len
         res.json({
@@ -45,22 +59,11 @@ module.exports = {
         });
       },
 
+      // Update info
       async patch(req, res) {
         const { username, name, email } = req.body;
 
-        const errors = [];
-        // Username
-        if (typeof username === 'string' && !isByteLength(username, { min: 1, max: 15 })) {
-          errors.push({ key: 'username', message: 'Must be between 1 and 15 characters' });
-        } if (typeof username === 'string' && username.match(/[^a-z0-9_]/)) {
-          errors.push({ key: 'username', message: 'Must only contain lowercase letters, numbers, and underscores' });
-        // Name
-        } if (typeof name === 'string' && !isByteLength(name, { min: 1, max: 25 })) {
-          errors.push({ key: 'name', message: 'Must be between 1 and 25 characters' });
-        // Email
-        } if (typeof email === 'string' && !isEmail(email)) {
-          errors.push({ key: 'email', message: 'Must be a valid email' });
-        }
+        const errors = validateUser({ username, name, email });
         if (errors.length) res.status(400).json({ error: errors });
         else {
           try {
@@ -84,6 +87,14 @@ module.exports = {
           }
         }
       },
+    },
+
+    checkUsername(req, res) {
+      const { username } = req.params;
+      if (!isByteLength(username, { min: 1, max: 15 }) || username.match(/[^a-z0-9_]/)) res.json({ data: { available: false } });
+
+      getAuth0User.byUsername(username)
+        .then(user => res.json({ data: { available: !user || user.user_id === req.user.sub } }));
     },
   },
 };
