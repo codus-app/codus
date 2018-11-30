@@ -72,7 +72,7 @@ module.exports = {
 
     checkUsername(req, res) {
       const { username } = req.params;
-      if (!isByteLength(username, { min: 1, max: 15 }) || username.match(/[^a-z0-9_]/)) res.json({ data: { available: false } });
+      if (validateUser({ username }).length) res.json({ data: { available: false } });
 
       getAuth0User.byUsername(username)
         .then(user => res.json({ data: { available: !user || user.user_id === req.user.sub } }));
