@@ -2,9 +2,10 @@ const { validateUser } = require('./util');
 const {
   getUser: getAuth0User,
   updateUser: updateAuth0User,
+  createUser: createAuth0User,
 } = require('../auth');
 
-/* eslint-disable camelcase */
+/* eslint-disable camelcase, object-curly-newline */
 
 module.exports = {
   user: {
@@ -22,6 +23,39 @@ module.exports = {
             },
           });
         });
+    },
+
+    // Sign up
+    async post(req, res) {
+      const { username, name, email, password } = req.body;
+
+      const errors = validateUser({ username, name, email, password }, ['username', 'name', 'email', 'password']);
+      if (errors.length) res.status(400).json({ error: errors });
+
+      else {
+        try {
+          const user = await createAuth0User({ username, name, email, password });
+          res.status(201).json({
+            data: {
+              id: user.user_id,
+              username: user.username,
+              name: user.user_metadata.name,
+              email: user.email,
+            },
+            also: user,
+          });
+        } catch (e) {
+          if (e.message.endsWith('username already exists')) {
+            res.status(409).json({ error: [{ key: 'username', message: e.message }] });
+          } else if (e.message.endsWith('email already exists')) {
+            res.status(409).json({ error: [{ key: 'email', message: e.message }] });
+          } else if (e.message.endsWith('already exists.')) {
+            res.status(409).json({ error: e.message });
+          } else {
+            res.status(500).json({ error: e.message });
+          }
+        }
+      }
     },
 
     // Operations on the authenticated user
@@ -72,8 +106,9 @@ module.exports = {
 
     checkUsername(req, res) {
       const { username } = req.params;
+      // Quick client-side username validation
       if (validateUser({ username }).length) res.json({ data: { available: false } });
-
+      // Check for conflicts with other users
       getAuth0User.byUsername(username)
         .then(user => res.json({ data: { available: !user || user.user_id === req.user.sub } }));
     },
