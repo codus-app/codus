@@ -3,6 +3,11 @@ module.exports = {
   // Expands useful information, and hides secret information
   publicizeProblem: (problem, category) => ({
     ...problem.toObject(),
+    // Fix bug with quotes inside code blocks
+    description: {
+      md: problem.description.md,
+      html: problem.description.html.replace(/&amp;quot;/g, '&quot;'),
+    },
     // Return richer test cases from virtual attribute. Only report non-hidden test cases
     testCases: problem.testCases2
       .filter(tc => !tc.hidden)
