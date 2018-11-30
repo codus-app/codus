@@ -5,17 +5,23 @@ const {
 } = require('../auth');
 
 
-function validateUser({ username, name, email }) {
+function validateUser({ username, name, email }, required = []) { // eslint-disable-line object-curly-newline, max-len
   const errors = [];
   // Username
-  if (typeof username === 'string' && !isByteLength(username, { min: 1, max: 15 })) {
+  if (required.includes('username') && !username) {
+    errors.push({ key: 'username', message: 'Username is required' });
+  } if (typeof username === 'string' && !isByteLength(username, { min: 1, max: 15 })) {
     errors.push({ key: 'username', message: 'Must be between 1 and 15 characters' });
   } if (typeof username === 'string' && username.match(/[^a-z0-9_]/)) {
     errors.push({ key: 'username', message: 'Must only contain lowercase letters, numbers, and underscores' });
   // Name
+  } if (required.includes('name') && !name) {
+    errors.push({ key: 'name', message: 'Name is required' });
   } if (typeof name === 'string' && !isByteLength(name, { min: 1, max: 25 })) {
     errors.push({ key: 'name', message: 'Must be between 1 and 25 characters' });
   // Email
+  } if (required.includes('email') && !email) {
+    errors.push({ key: 'email', message: 'Email is required' });
   } if (typeof email === 'string' && !isEmail(email)) {
     errors.push({ key: 'email', message: 'Must be a valid email' });
   }
