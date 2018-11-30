@@ -45,7 +45,6 @@ window.app = new Vue({
       } else {
         this.transitionName = 'route-slide-up';
       }
-      this.updateSidebar();
     },
 
     isAuthenticated(authed) {
@@ -59,12 +58,7 @@ window.app = new Vue({
       fetchUserProfile: 'fetchUserProfile',
       logout: 'auth/logout',
     }),
-
-    // TODO: make this a prop
-    updateSidebar() { this.$refs.sidebar.collapsed = this.$route.meta.collapseSidebar || false; },
   },
-
-  mounted() { this.updateSidebar(); },
 
   created() {
     this.fetchUserProfile();

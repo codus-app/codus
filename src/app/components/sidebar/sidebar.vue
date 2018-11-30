@@ -38,11 +38,11 @@ import routes from '../../pages';
 import { mapActions } from 'vuex';
 
 export default {
+  props: { collapsed: Boolean },
+
   data: () => ({
     userRoutes: routes.filter(r => r.meta.category === 'user'),
     classRoutes: routes.filter(r => r.meta.category === 'class'),
-
-    collapsed: false,
   }),
 
   methods: { ...mapActions({ logout: 'auth/logout' }) },
