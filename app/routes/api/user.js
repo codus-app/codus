@@ -5,7 +5,7 @@ const {
 } = require('../auth');
 
 
-function validateUser({ username, name, email }, required = []) { // eslint-disable-line object-curly-newline, max-len
+function validateUser({ username, name, email, password }, required = []) { // eslint-disable-line object-curly-newline, max-len
   const errors = [];
   // Username
   if (required.includes('username') && !username) {
@@ -24,6 +24,11 @@ function validateUser({ username, name, email }, required = []) { // eslint-disa
     errors.push({ key: 'email', message: 'Email is required' });
   } if (typeof email === 'string' && !isEmail(email)) {
     errors.push({ key: 'email', message: 'Must be a valid email' });
+  // Password
+  } if (required.includes('password')) {
+    errors.push({ key: 'password', message: 'Password is required' });
+  } if (typeof password === 'string' && !isByteLength(name, { min: 8 })) {
+    errors.push({ key: 'password', message: 'Must be at least 8 characters in length' });
   }
   return errors;
 }
