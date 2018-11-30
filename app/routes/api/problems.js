@@ -85,11 +85,13 @@ module.exports = {
         .select('-_id -__v')
         .populate({ path: 'problem', populate: { path: 'category' } });
 
-      const stripped = solutions.map(s => ({
-        ...s.toObject(),
-        userId: undefined,
-        problem: { category: s.problem.category.name, name: s.problem.name },
-      }));
+      const stripped = solutions
+        .filter(s => s.problem) // Filter out solutions to deleted probelms
+        .map(s => ({
+          ...s.toObject(),
+          userId: undefined,
+          problem: { category: s.problem.category.name, name: s.problem.name },
+        }));
 
       res.json({ data: stripped });
     },
