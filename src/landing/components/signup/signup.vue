@@ -1,27 +1,27 @@
 <template>
   <form class="signup-form" v-on:keydown.enter="signup">
-    <!-- 1. First and last name -->
-    <div>
+    <!-- Display name -->
+    <div class="input">
       <user-icon></user-icon>
-      <div>
-        <input type="text" v-model="firstName" placeholder="first" ref="firstNameInput">
-        <input type="text" v-model="lastName" placeholder="last" ref="lastNameInput">
-      </div>
+      <input type="text" v-model="name" placeholder="name">
     </div>
-    <!-- 2. Email -->
-    <div>
+    <!-- Email -->
+    <div class="input">
       <mail-icon></mail-icon>
-      <input type="text" v-model="email" placeholder="email" ref="emailInput">
+      <input type="text" v-model="email" placeholder="email">
     </div>
-    <!-- 3. Username -->
-    <div>
+    <!-- Username -->
+    <div class="input">
       <at-sign-icon></at-sign-icon>
-      <input type="text" v-model="username" placeholder="username" ref="usernameInput">
+      <input type="text" v-model="username" placeholder="username">
     </div>
-    <!-- 4. Password -->
-    <div>
+    <!-- Password -->
+    <div class="input">
       <lock-icon></lock-icon>
-      <input type="password" v-model="password" placeholder="password" ref="passwordInput">
+      <input type="password" v-model="password" placeholder="password">
+    </div>
+    <div class="error" v-if="errors && errors.length">
+      <div v-for="(err, i) in errors" v-bind:key="i">{{ err.key[0].toUpperCase() + err.key.substring(1) }}: {{err.message}}</div>
     </div>
     <!-- Sign up -->
     <a v-on:click="signup">Sign up</a>
@@ -33,10 +33,8 @@
 
 @import '../login/style.sass'
 
-form > div > div input
-  width: 6.25em
-
-  &:first-child
-    margin-right: .5em
+form .error
+  margin-top: 1em
+  position: static
 
 </style>
