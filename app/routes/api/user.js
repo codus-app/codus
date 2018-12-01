@@ -45,14 +45,12 @@ module.exports = {
             also: user,
           });
         } catch (e) {
-          if (e.message.endsWith('username already exists')) {
+          if (e.message === 'The username provided is in use already.') {
             res.status(409).json({ error: [{ key: 'username', message: e.message }] });
-          } else if (e.message.endsWith('email already exists')) {
+          } else if (e.message === 'The user already exists.') {
             res.status(409).json({ error: [{ key: 'email', message: e.message }] });
-          } else if (e.message.endsWith('already exists.')) {
-            res.status(409).json({ error: e.message });
           } else {
-            res.status(500).json({ error: e.message });
+            res.status(500).json({ error: [{ message: e.message }] });
           }
         }
       }
