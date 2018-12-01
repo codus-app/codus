@@ -28,24 +28,6 @@ export default {
     });
   },
 
-  // Create a new account
-  signup(username, password, email, fullName) {
-    return new Promise((resolve, reject) => {
-      webAuth.signup({
-        // Parameters required by Auth0
-        email,
-        connection: 'Username-Password-Authentication',
-        password,
-        // Extra paramters required by Codus
-        username,
-        user_metadata: { name: fullName },
-      }, (err) => {
-        if (err) reject(err);
-        else resolve();
-      });
-    });
-  },
-
   // See if the user is authenticated
   isAuthenticated() {
     return localStorage.getItem('id_token') !== null &&
