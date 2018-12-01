@@ -62,7 +62,7 @@ module.exports = {
     // Password
     } if (required.includes('password') && !password) {
       errors.push({ key: 'password', message: 'Password is required' });
-    } if (typeof password === 'string' && !isByteLength(name, { min: 8 })) {
+    } if (typeof password === 'string' && !isByteLength(password, { min: 8 })) {
       errors.push({ key: 'password', message: 'Must be at least 8 characters in length' });
     }
 
