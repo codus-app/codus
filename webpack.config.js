@@ -69,6 +69,13 @@ module.exports = {
     },
   },
 
+  plugins: [
+    new webpack.DefinePlugin({
+      NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+      CODUS_API_BASE: JSON.stringify(process.env.CODUS_API_BASE),
+    }),
+  ],
+
 
   // --------------------------------------------------------------------------
 
