@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 
+require('dotenv').config();
 const path = require('path');
 const webpack = require('webpack');
 
@@ -80,45 +81,15 @@ module.exports = {
       ],
     },
     noInfo: true,
-    host: '0.0.0.0',
+    host: process.env.HOST || process.env.IP || '0.0.0.0',
+    port: process.env.PORT || 8080,
     disableHostCheck: true,
   },
 };
 
-// Custom settings for Cloud9
-// detected by presence of C9_HOSTNAME environment variable
-const isC9 = Boolean(process.env.C9_HOSTNAME);
-// Default to not dev server if not running from command line
-const isDevServer = process.argv[1] ? process.argv[1].indexOf('webpack-dev-server') !== -1 : false;
-
-if (isC9) {
-  console.log('Detected Cloud9');
-  if (isDevServer) console.log(`Preview at http://${process.env.C9_HOSTNAME}`);
-  module.exports.devServer.port = process.env.PORT;
-  module.exports.devServer.host = process.env.IP;
-}
-
 // Custom settings for production
-// detected when building in a path that begins with '/var/www'
-if (__dirname.startsWith('/var/www')) {
-  console.log('Production detected');
+if (process.env.NODE_ENV === 'production') {
   module.exports.plugins = (module.exports.plugins || []).concat([
-    // Minify JS
-    // new webpack.optimize.UglifyJsPlugin({
-    //   minimize: true,
-    //   compress: {
-    //     warnings: false,
-    //   },
-    // }),
-    // Tell Vue to use production mode
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: '"production"',
-      },
-    }),
-    // Let all loaders know they can minimize output
-    new webpack.LoaderOptionsPlugin({
-      minimize: true,
-    }),
+    new webpack.LoaderOptionsPlugin({ minimize: true }),
   ]);
 }
