@@ -3,8 +3,10 @@
 require('dotenv').config();
 const path = require('path');
 const webpack = require('webpack');
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
+  mode: process.env.NODE_ENV || 'development',
   entry: path.join(__dirname, 'src'),
 
   module: {
@@ -73,6 +75,7 @@ module.exports = {
       CODUS_APP_URL: JSON.stringify(process.env.CODUS_APP_URL),
       CODUS_API_BASE: JSON.stringify(process.env.CODUS_API_BASE),
     }),
+    new VueLoaderPlugin(),
   ],
 
 

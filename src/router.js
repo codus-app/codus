@@ -17,7 +17,7 @@ router.beforeEach((to, from, next) => {
   document.title = to.meta.title || 'Codus';
 
   // Parse login information if necessary
-  webAuth.parseHash(window.location.hash, async (err, res) => {
+  webAuth.parseHash(async (err, res) => {
     if (res) await store.dispatch('auth/loginCallback', res); // hash was found and parseable
     next();
   });
