@@ -81,7 +81,7 @@ export default {
       this.fetched = true;
       this.code = this.remoteCode || this.baseCode;
       // null for "unsaved" if there's no remote code, otherwise false for "saved"
-      this.saving = typeof this.remoteCode === 'undefined' ? null : false;
+      this.saving = this.remoteCode === null ? null : false;
       // If the problem is in the list of the users's "solved" problems we know all of the test
       // results have passed even if the solution hasn't been checked in this session
       if (this.solved && !this.testResults.length) {
