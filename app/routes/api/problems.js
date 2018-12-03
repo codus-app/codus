@@ -126,6 +126,9 @@ module.exports = {
     },
 
     async put(req, res) {
+      const { code = '' } = req.body;
+      if (code.length > 10000) { res.status(413).json({ error: 'Code must not be more than 10kb in size' }); return; }
+
       const problemCategory = await Category.model
         .findOne()
         .where('name').equals(req.params.category);
@@ -142,7 +145,6 @@ module.exports = {
         .where('userId').equals(req.user.sub)
         .where('problem').equals(problem._id);
 
-      const { code = '' } = req.body;
       // If there's a previous solution saved and the code didn't change between saves, we can
       // savfely keep the old "passed" state without checking. New solutions are never passing
       // because they've never been checked.
