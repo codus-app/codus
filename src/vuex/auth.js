@@ -1,3 +1,4 @@
+/* global CODUS_LANDING_URL */
 import auth0 from 'auth0-js';
 import jwtDecode from 'jwt-decode';
 
@@ -76,7 +77,7 @@ export default {
       dispatch('toLocalStorage');
 
       webAuth.logout({
-        returnTo: window.location.origin,
+        returnTo: CODUS_LANDING_URL,
         client_id: webAuth.client.baseOptions.clientID,
       });
     },
