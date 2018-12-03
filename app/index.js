@@ -7,6 +7,7 @@ keystone.init({
   auth: true,
   'user model': 'AdminUser',
   'cookie secret': process.env.KEYSTONE_COOKIE_SECRET,
+  mongo: process.env.MONGO_URI || 'mongodb://localhost/codus',
 
   port: 3000,
 });
