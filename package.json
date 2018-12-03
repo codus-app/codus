@@ -7,10 +7,10 @@
     "start:prod": "npm run build && serve -p 8080 build",
     "build": "webpack",
     "watch": "webpack --watch",
-    "lint-sass": "sass-lint 'src/app/**/*.sass' -v",
+    "lint-sass": "sass-lint 'src/**/*.sass' -v",
     "lint-js": "eslint . --ext js,vue",
     "test": "npm run -s lint-sass && npm run -s lint-js",
-    "docs": "jsdoc app/src -c jsdoc.config.json -r -d docs --verbose",
+    "docs": "jsdoc src -c jsdoc.config.json -r -d docs --verbose",
     "count": "cloc . --vcs=git --not-match-f=package-lock.json"
   },
   "repository": {

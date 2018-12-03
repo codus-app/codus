@@ -1,0 +1,45 @@
+@import 'src/styles/variables'
+@import 'src/pages/editor/style'
+
+
+.problem-overview-card
+  position: relative
+  min-width: 285px
+  width: calc(200px + 7rem)
+  max-width: 345px
+
+  background: $dark-3
+  padding: .75rem 1rem 1rem
+  border-radius: $radius
+
+  overflow: hidden
+
+  h1
+    font-size: 1rem
+    margin: 0
+
+  .description
+    font-size: .7rem
+    color: $light-text-hint
+
+    /deep/ // v-html doesn't get scope tags, so all styling of description elements has to be deep
+      p
+        margin-top: .45rem
+        margin-bottom: 0
+
+      code
+        display: inline-block
+        font-family: $font-mono
+        color: transparentize($white, .2)
+        font-size: .9em
+        background: transparentize($white, .85)
+        padding: .075em .35em
+        margin: 0 .1em .1em
+
+  .progress
+    position: absolute
+    bottom: 0
+    left: 0
+    width: 100%
+    height: $radius
+    transition: width .25s, linear-gradient .25s

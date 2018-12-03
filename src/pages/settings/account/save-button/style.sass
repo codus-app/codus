@@ -1,0 +1,49 @@
+@import 'src/styles/variables'
+
+.save-button
+  font-family: $font-1
+  font-size: .6rem
+  font-weight: 600
+  text-transform: uppercase
+  letter-spacing: .1em
+  position: relative
+
+  width: 10em
+  height: 3.5em
+  display: flex
+  align-items: center
+  justify-content: center
+  border-radius: 3px
+
+  background: $green-bg
+  color: $light-text-primary
+  cursor: pointer
+  transition: color .3s .15s, border-radius .25s .1s, width .45s, background .35s
+
+  .button
+    margin-right: -.1em
+
+  .spinner
+    position: absolute
+    top: calc(50% - .9em)
+    left: calc(50% - .9em)
+    width: 1.8em
+    height: 1.8em
+    opacity: 0
+    transition: opacity .3s
+
+
+  &.loading
+    color: transparent
+    width: 3.5em
+    border-radius: 1.75em
+    transition: color .3s, border-radius .25s, width .45s, background .35s
+
+    .spinner
+      opacity: 1
+      transition: opacity .3s .15s
+
+  &.disabled
+    background: transparentize($white, .9)
+    color: $light-text-hint
+    cursor: not-allowed

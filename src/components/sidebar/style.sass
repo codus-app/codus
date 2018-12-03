@@ -1,0 +1,101 @@
+@import 'src/styles/variables'
+
+.sidebar
+  background: $dark-1
+  position: relative
+
+  .user-profile-summary
+    margin: 2rem 25% 0
+    width: 50%
+
+  h1
+    font-size: 1.7rem
+    letter-spacing: .2em
+    text-transform: uppercase
+    margin: 2em 1.15em 0
+
+  .links
+    padding: 1rem 1.75rem
+
+  &.collapsed
+    .user-profile-summary
+      width: 80%
+      margin: .75rem 10% .5rem
+
+    .links
+      padding: .3rem .775rem 1rem
+
+    .sb-link svg
+      width: .95rem
+      height: .95rem
+      margin: 0
+      opacity: .75
+      transition: opacity .25s
+
+      &:hover
+        opacity: .95
+
+    .sb-link.router-link-exact-active svg
+      opacity: 1
+
+    .logout
+      transform: translateX(-50%)
+      opacity: .75
+
+      &:hover
+        opacity: .95
+
+  h2
+    font-size: .6rem
+    color: $light-text-hint
+    letter-spacing: .1em
+    text-transform: uppercase
+    margin: 2em 0 1em
+
+  .divider
+    margin: 2em 0
+
+  .sb-link
+    font-size: .6rem
+    display: flex
+    align-items: center
+    margin: 1.25em 0
+    position: relative
+
+    svg
+      width: .85rem
+      height: .85rem
+      margin: -.1rem .6rem 0 0
+
+    .indicator
+      position: absolute
+      top: calc(50% - .1em)
+      left: -1.75rem
+      width: 1rem
+      height: .2rem
+      background: linear-gradient(90deg, $green-1, $green-2)
+      display: none
+
+    &.router-link-exact-active .indicator
+      display: block
+
+  .logout
+    position: absolute
+    bottom: 1.75em
+    left: 50%
+    // 1.2em is half the icon's width, so that the text can be centered regardless of the icon
+    transform: translateX(-50%) translateX(-1.2em)
+    opacity: .6
+    transition: opacity .25s
+    cursor: pointer
+
+    .feather-log-out
+      transform: scaleX(-1)
+
+    span
+      text-transform: uppercase
+      letter-spacing: .15em
+      white-space: nowrap
+
+    &:hover
+      opacity: .75

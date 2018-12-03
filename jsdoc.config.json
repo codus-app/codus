@@ -1,6 +1,6 @@
 {
   "source": {
-    "include": ["app/src"]
+    "include": ["src"]
   },
   "plugins": ["node_modules/jsdoc-babel"],
   "opts": {

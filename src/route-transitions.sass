@@ -1,0 +1,22 @@
+// Entrances: slide in up/down
+@import '../node_modules/animate.css/source/sliding_entrances/slideInUp.css'
+@import '../node_modules/animate.css/source/sliding_entrances/slideInDown.css'
+// Exits: slide out up/down
+@import '../node_modules/animate.css/source/sliding_exits/slideOutUp.css'
+@import '../node_modules/animate.css/source/sliding_exits/slideOutDown.css'
+
+
+$duration: 1.25s
+$easing: cubic-bezier(.645, .045, .355, 1)
+
+.route-slide-down-enter-active
+  animation: slideInDown $duration $easing
+
+.route-slide-down-leave-active
+  animation: slideOutDown $duration $easing
+
+.route-slide-up-enter-active
+  animation: slideInUp $duration $easing
+
+.route-slide-up-leave-active
+  animation: slideOutUp $duration $easing

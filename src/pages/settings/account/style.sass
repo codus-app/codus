@@ -1,0 +1,45 @@
+@import 'src/styles/variables'
+
+.account-settings
+  display: flex
+  flex-direction: column
+  align-items: center
+  padding: 1.25rem
+
+.card
+  width: 100%
+  max-width: 25rem
+  background: $dark-1
+  padding: .35rem 1.5rem 1rem
+  border-radius: 6px
+  box-shadow: 0 10px 20px -5px transparentize($black, .75)
+  margin-bottom: 1.25rem
+
+h2
+  font-size: .9rem
+  font-family: 'Avenir Next', 'Avenir', $font-1
+  font-weight: 700
+  text-align: center
+  margin: .75em 0
+
+.group
+  display: flex
+  flex-wrap: nowrap
+  margin-top: .5rem
+
+  & > *
+    flex: 1 1 0
+
+    &:not(:last-child)
+      margin-right: 1rem
+
+.card.profile
+  .picture
+    position: relative
+    left: 50%
+    transform: translateX(-50%)
+    width: 7.5rem
+    height: 7.5rem
+    border-radius: 50%
+    background-size: cover
+    margin-bottom: 1rem

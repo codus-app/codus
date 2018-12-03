@@ -5,10 +5,7 @@ const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
-  entry: {
-    app: path.join(__dirname, 'src/app'),
-    '': path.join(__dirname, 'src/landing'), // Landing page
-  },
+  entry: path.join(__dirname, 'src'),
 
   module: {
     rules: [
@@ -60,7 +57,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'build'),
     publicPath: '/',
-    filename: '[name]/index.js',
+    filename: 'index.js',
   },
 
   resolve: {
@@ -83,9 +80,7 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'build'),
     historyApiFallback: {
-      rewrites: [
-        { from: /^\/app/, to: '/app/index.html' }, // /app routes should be rewritten
-      ],
+      rewrites: [{ from: /^\//, to: '/index.html' }], // SPA; routes should be rewritten
     },
     noInfo: true,
     host: process.env.HOST || process.env.IP || '0.0.0.0',
