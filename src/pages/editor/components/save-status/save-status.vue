@@ -10,7 +10,7 @@ export default {
   props: {
     status: {
       type: String,
-      validator: value => ['unsaved', 'saving', 'saved'].includes(value),
+      validator: value => ['unsaved', 'saving', 'saved', 'error'].includes(value),
       default: 'saved',
     },
   },

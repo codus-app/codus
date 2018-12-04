@@ -112,12 +112,17 @@ export default {
     /* eslint-enable max-len */
 
     async save() {
-      await this.saveSolution({
-        problem: this.problemName,
-        category: this.category,
-        code: this.code,
-      });
-      this.saveStatus = 'saved';
+      try {
+        await this.saveSolution({
+          problem: this.problemName,
+          category: this.category,
+          code: this.code,
+        });
+        this.saveStatus = 'saved';
+      } catch (e) {
+        this.saveStatus = 'error';
+        throw e;
+      }
     },
 
     execute() {},
