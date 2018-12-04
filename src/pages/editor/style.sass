@@ -69,10 +69,22 @@
     top: $top
     right: $gap
 
-    width: calc(200px + 7rem + 1.5rem)
-    max-height: calc(100vh - (#{$top}) - #{$gap})
+    $width: '(200px + 8.5rem)'
+    width: calc(#{$width})
+    max-height: calc(100vh - #{$top} - #{$gap})
     overflow-y: scroll
     padding: .75rem .75rem .75rem 0
+
+    &::before
+      content: ''
+      position: absolute
+      top: 0
+      right: 0
+      $scale: .9
+      width: $scale * 100%
+      height: calc(100% - (#{$width} * #{1 - $scale}))
+      background: $dark-1
+      box-shadow: 0 0 calc(#{$width} * .05) calc(#{$width} * .05) $dark-1
 
     .message
       position: relative
@@ -128,6 +140,7 @@
 
 
     .tests
+      position: relative
       transition: opacity .35s
 
       &.outdated
