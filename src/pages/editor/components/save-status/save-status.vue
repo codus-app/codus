@@ -1,17 +1,17 @@
 <template>
   <div class="save-status">
-    <div class="msg">{{ saveMsg }}</div>
-    <div class="indicator" v-bind:class="{ green: saving === false, yellow: saving, gray: saving === null }"></div>
+    <div class="msg">{{ status }}</div>
+    <div class="indicator" v-bind:class="{ [status]: true }"></div>
   </div>
 </template>
 
 <script>
 export default {
-  props: { saving: Boolean },
-  computed: {
-    saveMsg() {
-      if (this.saving === null) return 'Unsaved';
-      return this.saving ? 'Saving' : 'Saved';
+  props: {
+    status: {
+      type: String,
+      validator: value => ['unsaved', 'saving', 'saved'].includes(value),
+      default: 'saved',
     },
   },
 };

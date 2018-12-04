@@ -9,7 +9,7 @@ export default {
     cmOptions,
     fetched: false,
     code: '',
-    saving: null,
+    saveStatus: 'unsaved',
     deletionConfirmOpen: false,
     outputCollapsed: true,
     outputWindowBounds: [0, 0, window.innerWidth, window.innerHeight],
@@ -80,8 +80,8 @@ export default {
       await this.fetchSolution({ category: this.category, problem: this.problemName });
       this.fetched = true;
       this.code = this.remoteCode || this.baseCode;
-      // null for "unsaved" if there's no remote code, otherwise false for "saved"
-      this.saving = this.remoteCode === null ? null : false;
+      // "unsaved" if there's no remote code, otherwise we start out with "saved"
+      this.saveStatus = this.remoteCode === null ? 'unsaved' : 'saved';
       // If the problem is in the list of the users's "solved" problems we know all of the test
       // results have passed even if the solution hasn't been checked in this session
       if (this.solved && !this.testResults.length) {
@@ -106,7 +106,7 @@ export default {
         && !(this.code === this.baseCode && !this.remoteCode) // If no solution is saved, only create once code deviates from base
       ) {
         this.debouncedSave();
-        this.saving = true;
+        this.saveStatus = 'saving';
       }
     },
     /* eslint-enable max-len */
@@ -117,7 +117,7 @@ export default {
         category: this.category,
         code: this.code,
       });
-      this.saving = false;
+      this.saveStatus = 'saved';
     },
 
     execute() {},
