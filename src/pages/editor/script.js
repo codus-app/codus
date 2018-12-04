@@ -134,7 +134,10 @@ export default {
 
     debouncedSave: debounce(function save2() { this.save(); }, 750),
 
-    solutionCheck() {
+    async solutionCheck() {
+      // Save current code!
+      await this.save();
+      // Now check once the save completes
       this.checkSolution({ problem: this.problemName, category: this.category });
     },
 
