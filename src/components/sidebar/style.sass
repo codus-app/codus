@@ -3,6 +3,7 @@
 .sidebar
   background: $dark-1
   position: relative
+  min-width: 11rem
 
   .user-profile-summary
     margin: 2rem 25% 0
@@ -18,6 +19,8 @@
     padding: 1rem 1.75rem
 
   &.collapsed
+    min-width: 0
+
     .user-profile-summary
       width: 80%
       margin: .75rem 10% .5rem
