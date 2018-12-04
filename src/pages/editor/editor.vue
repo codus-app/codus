@@ -33,7 +33,12 @@
 
           <div class="help font-2 regular">
             <div class="line-1">It looks like you haven't tested this code yet.</div>
-            <div>Press <icon-play></icon-play> to test your solution</div>
+            <div>
+              Press <icon-play
+                v-on:click="solutionCheck"
+                v-bind:class="{ checking: solutionCheckInProgress }"
+              ></icon-play> to test your solution
+            </div>
           </div>
         </div>
 

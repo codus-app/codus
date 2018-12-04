@@ -99,6 +99,7 @@
         .title
           transition: opacity .25s
           opacity: 0
+          pointer-events: none
 
         .help
           transition: opacity .25s .1s
@@ -112,6 +113,7 @@
         .help
           transition: opacity .25s
           opacity: 0
+          pointer-events: none
 
       .title
         position: absolute
@@ -137,6 +139,13 @@
           height: 1.1em
           color: $light-text-primary
           margin: 0 .35em
+          cursor: pointer
+          transition: opacity .15s 1s
+
+          &.checking
+            transition: opacity .15s
+            opacity: .25
+            pointer-events: none
 
 
     .tests
