@@ -44,7 +44,8 @@ module.exports = (app) => {
   // '/users' endpoints return information about other users
 
   app.get('/api/users/:username', routes.api.user.get);
-  app.get('/api/username-check/:username', auth0(), routes.api.user.checkUsername);
+  app.get('/api/user-check/username/:username', auth0(), routes.api.user.checkUsername);
+  app.get('/api/user-check/email/:email', routes.api.user.checkEmail);
 
 
   /* --- Post-route middleware --- */

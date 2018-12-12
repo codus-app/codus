@@ -1,3 +1,4 @@
+const { isEmail } = require('validator');
 const { validateUser } = require('./util');
 const {
   getUser: getAuth0User,
@@ -105,10 +106,23 @@ module.exports = {
     checkUsername(req, res) {
       const { username } = req.params;
       // Quick client-side username validation
-      if (validateUser({ username }).length) res.json({ data: { available: false } });
+      if (validateUser({ username }).length) {
+        res.json({ data: { available: false, exists: false } });
+      }
       // Check for conflicts with other users
       getAuth0User.byUsername(username)
-        .then(user => res.json({ data: { available: !user || user.user_id === req.user.sub } }));
+        .then(user => res.json({ data: {
+          available: !user || user.user_id === req.user.sub,
+          exists: !!user,
+        } }));
+    },
+
+    checkEmail(req, res) {
+      const { email } = req.params;
+      if (!isEmail(email)) res.json({ data: { available: false, exists: false } });
+
+      getAuth0User.byEmail(email)
+        .then(user => res.json({ data: { available: !user, exists: !!user } }));
     },
   },
 };
