@@ -123,7 +123,7 @@ export default {
       try {
         // Make API request
         const { available } = await api.get({
-          endpoint: `username-check/${this.username}`,
+          endpoint: `user-check/username/${this.username}`,
           store: this.$store,
           signal: this.usernameRequestController.signal,
         });
