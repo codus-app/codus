@@ -108,21 +108,24 @@ module.exports = {
       // Quick client-side username validation
       if (validateUser({ username }).length) {
         res.json({ data: { available: false, exists: false } });
-      }
+
       // Check for conflicts with other users
-      getAuth0User.byUsername(username)
-        .then(user => res.json({ data: {
-          available: !user || user.user_id === req.user.sub,
-          exists: !!user,
-        } }));
+      } else {
+        getAuth0User.byUsername(username)
+          .then(user => res.json({ data: {
+            available: !user || user.user_id === req.user.sub,
+            exists: !!user,
+          } }));
+      }
     },
 
     checkEmail(req, res) {
       const { email } = req.params;
       if (!isEmail(email)) res.json({ data: { available: false, exists: false } });
-
-      getAuth0User.byEmail(email)
-        .then(user => res.json({ data: { available: !user, exists: !!user } }));
+      else {
+        getAuth0User.byEmail(email)
+          .then(user => res.json({ data: { available: !user, exists: !!user } }));
+      }
     },
   },
 };
