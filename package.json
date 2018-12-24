@@ -21,7 +21,7 @@
   "dependencies": {
     "auth0": "^2.14.0",
     "body-parser": "^1.18.3",
-    "codus-execute-java": "^1.6.0",
+    "codus-execute-java": "^1.6.1",
     "dotenv": "^6.1.0",
     "express": "^4.16.4",
     "express-jwt": "^5.3.1",
