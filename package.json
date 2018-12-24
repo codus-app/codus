@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/arkis/codus-engine.git"
+    "url": "git+https://github.com/codus-app/codus-engine.git"
   },
   "author": "Luke Deen Taylor",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/arkis/codus-engine/issues"
+    "url": "https://github.com/codus-app/codus-engine/issues"
   },
-  "homepage": "https://github.com/arkis/codus-engine#readme",
+  "homepage": "https://github.com/codus-app/codus-engine#readme",
   "dependencies": {
     "auth0": "^2.14.0",
     "body-parser": "^1.18.3",

@@ -13,7 +13,7 @@ const checkJwt = jwt({
     jwksRequestsPerMinute: 5,
     jwksUri: 'https://codus.auth0.com/.well-known/jwks.json',
   }),
-  audience: 'https://api.codus.arkis.io/',
+  audience: 'https://engine.codus.io/',
   issuer: 'https://codus.auth0.com/',
   algorithms: ['RS256'],
 });

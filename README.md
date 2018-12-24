@@ -2,9 +2,9 @@
 > The server-side engine powering Codus.
 
 The Codus Engine is responsible for making database queries and orchestrating execution containers
-in response to authenticated user requests coming from the [client](https://github.com/arkis/codus).
+in response to authenticated user requests coming from the [client](https://github.com/codus-app/codus).
 It can retrieve and modify information from the database via `mongoose` and it can execute user
-solutions via [`codus-execute-java`](https://github.com/arkis/codus-execute-java)
+solutions via [`codus-execute-java`](https://github.com/codus-app/codus-execute-java)
 
 # API documentation
 The Codus Engine exposes a web interface for reading and manipulating data.
@@ -12,7 +12,7 @@ The Codus Engine exposes a web interface for reading and manipulating data.
 ### Authentication
 Some requests require an auth0 access token to be passed with the request as an Authorization
 header. This token can be obtained by going through the login process in
-[the front-end](https://github.com/arkis/codus).
+[the front-end](https://github.com/codus-app/codus).
 
 ## Endpoints
 
@@ -23,7 +23,7 @@ header. This token can be obtained by going through the login process in
 ##### `GET /problem/[category]/[name]`
 Returns information on the problem with a given name
 ```bash
-curl https://api.codus.arkis.io/problem/warmup/Sum
+curl https://engine.codus.io/api/problem/warmup/Sum
 ```
 ```json
 {
@@ -47,7 +47,7 @@ curl https://api.codus.arkis.io/problem/warmup/Sum
 Returns basic information on each category. Includes problem names but not the full set of info on
 each problem.
 ```bash
-curl https://api.codus.arkis.io/categories
+curl https://engine.codus.io/api/categories
 ```
 ```json
 [
@@ -62,7 +62,7 @@ curl https://api.codus.arkis.io/categories
 ##### `GET /category/[name]`
 Returns information on the category with the given name
 ```bash
-curl https://api.codus.arkis.io/category/warmup
+curl https://engine.codus.io/api/category/warmup
 ```
 ```json
 {
@@ -107,7 +107,7 @@ curl https://api.codus.arkis.io/category/warmup
 ##### `GET /user` *requires Authorization*
 Dumps all information stored in the database for the authenticated user
 ```bash
-curl -H "Authorization: Bearer ACCESS_TOKEN_HERE" https://api.codus.arkis.io/user
+curl -H "Authorization: Bearer ACCESS_TOKEN_HERE" https://engine.codus.io/api/user
 ```
 ```json
 {
@@ -126,7 +126,7 @@ curl -H "Authorization: Bearer ACCESS_TOKEN_HERE" https://api.codus.arkis.io/use
 ##### `GET /userinfo` *requires Authorization*
 Queries the Auth0 Management API for the authenticated user and dumps all info
 ```bash
-curl -H "Authorization: Bearer ACCESS_TOKEN_HERE" https://api.codus.arkis.io/userinfo
+curl -H "Authorization: Bearer ACCESS_TOKEN_HERE" https://engine.codus.io/api/userinfo
 ```
 ```json
 {
@@ -159,7 +159,7 @@ curl -H "Authorization: Bearer ACCESS_TOKEN_HERE" https://api.codus.arkis.io/use
 ##### `GET /solution/[category]/[problemName]` *requires Authorization*
 Returns stored information on the user's solution to a given problem
 ```bash
-curl -H "Authorization: Bearer ACCESS_TOKEN_HERE" https://api.codus.arkis.io/solution/warmup/Sum
+curl -H "Authorization: Bearer ACCESS_TOKEN_HERE" https://engine.codus.io/api/solution/warmup/Sum
 ```
 ```json
 {
@@ -173,7 +173,7 @@ curl -H "Authorization: Bearer ACCESS_TOKEN_HERE" https://api.codus.arkis.io/sol
 ##### `PUT /solution/[category]/[problemName]` *requires Authorization*
 Store a user's solution to a given problem
 ```bash
-curl -X PUT -H "Authorization: Bearer ACCESS_TOKEN_HERE" -H "Content-Type: text/plain" -d "SOLUTION_HERE" https://api.codus.arkis.io/solution/warmup/Sum
+curl -X PUT -H "Authorization: Bearer ACCESS_TOKEN_HERE" -H "Content-Type: text/plain" -d "SOLUTION_HERE" https://engine.codus.io/api/solution/warmup/Sum
 ```
 ```json
 { "success": true }
@@ -182,7 +182,7 @@ curl -X PUT -H "Authorization: Bearer ACCESS_TOKEN_HERE" -H "Content-Type: text/
 ##### `GET /check/[category]/[problemName]` *requires Authorization*
 Executes the user's stored solution for the given problem and returns the results
 ```bash
-curl -H "Authorization: Bearer ACCESS_TOKEN_HERE" https://api.codus.arkis.io/check/warmup/Sum
+curl -H "Authorization: Bearer ACCESS_TOKEN_HERE" https://engine.codus.io/api/check/warmup/Sum
 ```
 ```json
 {
