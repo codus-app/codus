@@ -7,7 +7,7 @@ export const webAuth = new auth0.WebAuth({
   clientID: 'y4m8JcL7boD2FKwH3fwTS9GusF07z4IT',
   responseType: 'token id_token',
   realm: 'Username-Password-Authentication',
-  audience: 'https://api.codus.arkis.io/',
+  audience: 'https://engine.codus.io/',
   scope: 'openid profile email execute write:solutions read:solutions',
   redirectUri: window.location.origin,
 });
