@@ -47,12 +47,11 @@ function requestWithBody({ endpoint, body, contentType = 'application/json', met
   });
 }
 
+/** Perform a POST request with the given body */
+export function post(args) { return requestWithBody({ ...args, method: 'POST' }); }
+
 /** Perform a PUT request with the given body */
-export function put({ endpoint, body, contentType, signal, store }) {
-  return requestWithBody({ endpoint, method: 'PUT', body, contentType, signal, store });
-}
+export function put(args) { return requestWithBody({ ...args, method: 'PUT' }); }
 
 /** Perform a PATCH request with the given body */
-export function patch({ endpoint, body, contentType, signal, store }) {
-  return requestWithBody({ endpoint, method: 'PATCH', body, contentType, signal, store });
-}
+export function patch(args) { return requestWithBody({ ...args, method: 'PATCH' }); }
