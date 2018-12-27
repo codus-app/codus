@@ -50,6 +50,8 @@ module.exports = {
             res.status(409).json({ error: [{ key: 'username', message: e.message }] });
           } else if (e.message === 'The user already exists.') {
             res.status(409).json({ error: [{ key: 'email', message: e.message }] });
+          } else if (e.message === 'PasswordNoUserInfoError: Password contains user information') {
+            res.status(400).json({ error: [{ key: 'password', message: 'Password contains user information' }] });
           } else {
             res.status(500).json({ error: [{ message: e.message }] });
           }
