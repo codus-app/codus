@@ -52,6 +52,8 @@ module.exports = {
             res.status(409).json({ error: [{ key: 'email', message: e.message }] });
           } else if (e.message === 'PasswordNoUserInfoError: Password contains user information') {
             res.status(400).json({ error: [{ key: 'password', message: 'Password contains user information' }] });
+          } else if (e.message === 'PasswordDictionaryError: Password is too common') {
+            res.status(400).json({ error: [{ key: 'password', message: 'Password is too commonly used.' }] });
           } else {
             res.status(500).json({ error: [{ message: e.message }] });
           }
