@@ -113,7 +113,7 @@ module.exports = {
       } else {
         getAuth0User.byUsername(username)
           .then(user => res.json({ data: {
-            available: !user || user.user_id === req.user.sub,
+            available: !user,
             exists: !!user,
           } }));
       }
