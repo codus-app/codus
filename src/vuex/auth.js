@@ -82,24 +82,6 @@ export default {
       });
     },
 
-    signup(_, { username, password, email, fullName }) { // eslint-disable-line object-curly-newline, no-unused-vars, max-len
-      return new Promise((resolve, reject) => {
-        reject(new Error('NOT DONE YET LOL TODO LATER'));
-        // webAuth.signup({
-        //   // Parameters required by Auth0
-        //   email,
-        //   connection: 'Username-Password-Authentication',
-        //   password,
-        //   // Extra paramters required by Codus
-        //   username,
-        //   user_metadata: { name: fullName },
-        // }, (err) => {
-        //   if (err) reject(err);
-        //   else resolve();
-        // });
-      });
-    },
-
     requestPasswordReset(_, { email }) {
       return new Promise((resolve, reject) => {
         webAuth.changePassword({
