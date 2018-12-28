@@ -2,7 +2,7 @@ import dedent from 'dedent';
 import debounce from 'debounce';
 import { mapState, mapGetters, mapActions } from 'vuex';
 
-import cmOptions from './codemirror-config/';
+import cmOptions from './codemirror-config';
 
 export default {
   data: () => ({
