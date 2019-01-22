@@ -1,3 +1,5 @@
+/* global CODUS_LANDING_URL */
+
 // Polyfills
 import 'babel-polyfill';
 import 'promise-polyfill';
@@ -81,3 +83,11 @@ window.app = new Vue({
 // API
 import * as api from './api'; // eslint-disable-line import/first
 window.api = api;
+
+// Auth
+const frame = document.createElement('iframe');
+frame.src = `${CODUS_LANDING_URL}/localstorage-iframe.html`;
+frame.id = 'localstorage';
+frame.style.display = 'none';
+frame.onload = () => frame.setAttribute('loaded', '');
+document.body.appendChild(frame);
