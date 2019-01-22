@@ -97,15 +97,27 @@ export default {
     // Copy current state to localStorage for cross-request storage
     // Includes applying a 'logged out' state to localStorage
     toLocalStorage({ state }) {
-      // Entire authentication response
-      if (state.res === null) localStorage.removeItem('res');
-      else localStorage.setItem('res', JSON.stringify(state.res));
-      // ID token
-      if (state.idToken === null) localStorage.removeItem('id_token');
-      else localStorage.setItem('id_token', state.idToken);
-      // Access token
-      if (state.accessToken === null) localStorage.removeItem('access_token');
-      else localStorage.setItem('access_token', state.accessToken);
+      const payload = { set: {}, remove: [] };
+
+      function localify(stateKey, destKey = stateKey, json = false) {
+        if (state[stateKey] === null) {
+          localStorage.removeItem(destKey);
+          payload.remove.push(destKey);
+        } else {
+          localStorage.setItem(destKey, json ? JSON.stringify(state[stateKey]) : state[stateKey]);
+          payload.set[destKey] = state[stateKey];
+        }
+      }
+
+      localify('res', 'res', true); // The entire authentication response
+      localify('idToken', 'id_token');
+      localify('accessToken', 'access_token');
+
+      const frame = document.querySelector('iframe#localstorage');
+      // Already loaded!
+      if (frame.hasAttribute('loaded')) frame.contentWindow.postMessage(payload, CODUS_LANDING_URL);
+      // If not, wait
+      else frame.addEventListener('load', () => frame.contentWindow.postMessage(payload, CODUS_LANDING_URL));
     },
   },
 
