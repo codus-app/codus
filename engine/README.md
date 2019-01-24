@@ -1,10 +1,12 @@
-# codus-engine
+# `codus-engine`
 > The server-side engine powering Codus.
 
 The Codus Engine is responsible for making database queries and orchestrating execution containers
-in response to authenticated user requests coming from the [client](https://github.com/codus-app/codus).
-It can retrieve and modify information from the database via `mongoose` and it can execute user
-solutions via [`codus-execute-java`](https://github.com/codus-app/codus-execute-java)
+in response to authenticated user requests coming from the [client app](https://github.com/codus-app/codus/tree/master/app).
+
+# Development
+`codus-engine` depends on having a MongoDB server running as well as having a correctly-configured Auth0 account. In its default configuration, Codus will run pointing at the instance of `codus-engine` that's configured and running on `codus.io`.
+
 
 # API documentation
 The Codus Engine exposes a web interface for reading and manipulating data.
