@@ -1,0 +1,42 @@
+{
+  "name": "codus-engine",
+  "version": "0.0.0",
+  "description": "The server-side engine powering Codus",
+  "main": "app/index.js",
+  "scripts": {
+    "dev": "nodemon --inspect app/index.js",
+    "start": "node app",
+    "prod": "pm2 start app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codus-app/codus-engine.git"
+  },
+  "author": "Luke Deen Taylor",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/codus-app/codus-engine/issues"
+  },
+  "homepage": "https://github.com/codus-app/codus-engine#readme",
+  "dependencies": {
+    "auth0": "^2.14.0",
+    "body-parser": "^1.18.3",
+    "codus-execute-java": "^1.6.1",
+    "dotenv": "^6.1.0",
+    "express": "^4.16.4",
+    "express-jwt": "^5.3.1",
+    "express-jwt-authz": "^1.0.0",
+    "jwks-rsa": "^1.3.0",
+    "keystone": "^4.0.0",
+    "mongoose": "^5.2.17",
+    "validator": "^10.9.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.9.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-react": "^7.11.1",
+    "nodemon": "^1.18.7"
+  }
+}
