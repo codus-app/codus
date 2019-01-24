@@ -1,0 +1,38 @@
+$white: #fff
+$black: #000
+
+$light-text-primary: $white                       // For the most prominent text elements
+$light-text-secondary: transparentize($white, .1) // For relatively prominent text
+$light-text-tertiary: transparentize($white, .25)
+$light-text-hint: transparentize($white, .6)
+
+$dark-1: #131313
+$dark-2: #1b1b1d
+$dark-3: #1e1e21
+
+$background: $dark-3
+
+// Communicates success, used as an accent color throughout
+$green-1: #4deb9b
+$green-2: #1db965
+$green-gradient: linear-gradient(160deg, $green-1, $green-2)
+$green-solid: #3de589
+$green-text: #4cba7e
+$green-bg: #3bdb83
+
+// Communicates an intermediate state
+$yellow-1: #fae864
+$yellow-2: #c79518
+$yellow-gradient: linear-gradient(120deg, $yellow-1, $yellow-2)
+
+// Communicates failure
+$red-1: #fa6464
+$red-2: #c71818
+$red-gradient: linear-gradient(120deg, $red-1, $red-2)
+$red-solid: #e53d3d
+
+// Communicates null state
+$gray-1: desaturate($green-1, 100%)
+$gray-2: desaturate($green-2, 100%)
+$gray-gradient: linear-gradient(160deg, $gray-1, $gray-2)
+$gray-solid: #8e8e8e

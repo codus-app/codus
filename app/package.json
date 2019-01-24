@@ -1,0 +1,116 @@
+{
+  "name": "codus",
+  "version": "0.0.0",
+  "description": "Efficient code practice for individuals and classrooms.",
+  "scripts": {
+    "start": "webpack-dev-server --inline",
+    "start:prod": "npm run build && serve -p 8080 build",
+    "build": "webpack",
+    "watch": "webpack --watch",
+    "lint-sass": "sass-lint 'src/**/*.sass' -v",
+    "lint-js": "eslint . --ext js,vue",
+    "test": "npm run -s lint-sass && npm run -s lint-js",
+    "count": "cloc . --vcs=git --not-match-f=package-lock.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/controversial/codus.git"
+  },
+  "author": "Luke Deen Taylor",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/controversial/codus/issues"
+  },
+  "homepage": "https://github.com/controversial/codus#readme",
+  "devDependencies": {
+    "@babel/core": "^7.1.6",
+    "@babel/preset-env": "^7.1.6",
+    "autoprefixer": "^9.3.1",
+    "babel-eslint": "^10.0.1",
+    "babel-loader": "^8.0.4",
+    "cloc": "^2.3.4",
+    "css-loader": "^1.0.1",
+    "dotenv": "^6.1.0",
+    "eslint": "^5.9.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-import-resolver-webpack": "^0.10.1",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-react": "^7.11.1",
+    "eslint-plugin-vue": "^4.7.1",
+    "extract-loader": "^3.1.0",
+    "file-loader": "^2.0.0",
+    "html-loader": "^0.5.5",
+    "node-sass": "^4.11.0",
+    "postcss-loader": "^3.0.0",
+    "sass-lint": "^1.12.1",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "url-loader": "^1.1.2",
+    "vue-loader": "^15.4.2",
+    "vue-style-loader": "^4.1.2",
+    "vue-template-compiler": "^2.5.17",
+    "webpack": "^4.26.1",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10"
+  },
+  "dependencies": {
+    "abortcontroller-polyfill": "^1.2.1",
+    "animate.css": "^3.7.0",
+    "auth0-js": "^9.8.2",
+    "babel-polyfill": "^6.26.0",
+    "codemirror": "^5.42.0",
+    "debounce": "^1.2.0",
+    "dedent": "^0.7.0",
+    "jwt-decode": "^2.2.0",
+    "promise-polyfill": "^8.1.0",
+    "serve": "^10.1.1",
+    "validator": "^10.9.0",
+    "vue": "^2.5.17",
+    "vue-codemirror": "^4.0.6",
+    "vue-feather-icons": "^4.7.1",
+    "vue-router": "^3.0.2",
+    "vuex": "^3.0.1",
+    "whatwg-fetch": "^3.0.0"
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": "> 0.25%, not dead"
+        }
+      ]
+    ]
+  },
+  "eslintConfig": {
+    "extends": [
+      "airbnb",
+      "plugin:vue/essential"
+    ],
+    "env": {
+      "browser": true
+    },
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {
+      "import/no-extraneous-dependencies": [
+        "error",
+        {
+          "devDependencies": true
+        }
+      ],
+      "import/no-webpack-loader-syntax": "off",
+      "import/newline-after-import": "off",
+      "global-require": "off",
+      "no-param-reassign": "off"
+    },
+    "settings": {
+      "import/resolver": "webpack"
+    },
+    "plugins": [
+      "vue"
+    ]
+  }
+}

@@ -1,0 +1,114 @@
+// Adapted from https://github.com/dunovank/jupyter-themes/blob/master/jupyterthemes/styles/chesterish.less
+
+
+// Original theme license:
+
+// The MIT License (MIT)
+//
+// Copyright (c) 2016 Kyle Dunovan, miraculixx
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+
+
+// sass-lint:disable class-name-format
+
+
+
+$yellow: #ffec8e
+$orange: #fea47f
+$red: #e17e85
+$magenta: #e07a7a
+$violet: #be86e3
+$blue: #51c0ef
+$cyan: #4cb2ff
+$green: #61ba86
+$disabled: #546386
+
+$code-gray: #6a737d
+$code-fg: #b5c2d9
+$code-yellow: $yellow
+$code-red: $red
+$code-violet: $violet
+$code-green: $green
+$code-blue: $blue
+$code-orange: $orange
+$code-cyan: $cyan
+
+
+.cm-s-chesterish
+  &.CodeMirror
+    background: #1e1e21
+    color: $code-fg
+
+  .CodeMirror-gutters
+    border: 0
+    background: #1e1e21
+
+  .CodeMirror-linenumber
+    color: $disabled
+
+  .CodeMirror-cursor
+    border-left: 2px solid #0095ff
+
+  .CodeMirror-matchingbracket // sass-lint:disable-block no-important
+    color: $code-fg !important
+    border-bottom: 1px solid $code-fg
+
+
+  div.CodeMirror-selected
+    background: #334050
+
+  .cm-comment
+    color: #667fb1
+
+  .cm-atom
+    color: $violet
+
+  .cm-number
+    color: $blue
+
+  .cm-property
+    color: $violet
+
+  .cm-attribute
+    color: $red
+
+  .cm-keyword
+    color: $cyan
+
+  .cm-string
+    color: $green
+
+  .cm-meta
+    color: $yellow
+
+  .cm-operator
+    color: #00b4ff
+
+  .cm-builtin
+    color: $red
+
+  .cm-variable
+    color: $code-fg
+
+  .cm-variable-2
+    color: $red
+
+  .cm-variable-3
+    color: $yellow

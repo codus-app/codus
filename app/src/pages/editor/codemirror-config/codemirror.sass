@@ -1,0 +1,23 @@
+// sass-lint:disable class-name-format
+@import '../variables.sass'
+
+
+$problem-browser-width: 13rem
+$sidebar-width: 2.5rem
+
+.CodeMirror
+  height: calc(100vh - #{$bar-width} - #{$gap * 3})
+  width: calc(100vw - #{$problem-browser-width} - #{$sidebar-width} - #{$gap * 3})
+  border-radius: $radius
+
+  font-family: 'Fira Code', monospace
+  font-weight: 300
+  font-size: .7rem
+  line-height: 1.05rem
+  cursor: text
+
+  .CodeMirror-linenumbers
+    cursor: default
+
+  .CodeMirror-sizer
+    padding-right: calc(200px + 7rem + 1.5rem) !important // sass-lint:disable-line no-important

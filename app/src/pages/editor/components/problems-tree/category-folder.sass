@@ -1,0 +1,40 @@
+@import 'src/styles/variables'
+
+.category-folder
+  margin-top: .95em
+  color: transparentize($light-text-primary, .5)
+
+  .top
+    display: flex
+    flex-wrap: nowrap
+    cursor: pointer
+    user-select: none
+
+    .feather-chevron-right
+      width: 1em
+      height: 1em
+      margin-right: .95em
+      transition: transform .35s
+
+    .feather-folder
+      width: 1.05em
+      height: 1.05em
+      margin-right: .7em
+
+    .name
+      font-size: 1em
+      letter-spacing: -.015em
+
+  .children-container
+    overflow: hidden
+    transition: height .35s
+
+  .children
+    padding-left: 3.7em
+    list-style-type: none
+    overflow: hidden // Prevent margin collapsing from throwing off height calculations
+
+
+  &.expanded
+    .feather-chevron-right
+      transform: rotate(.25turn)
