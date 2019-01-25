@@ -49,7 +49,7 @@ Vue.component('icon-log-out', LogOutIcon);
 Vue.component('icon-check', CheckIcon);
 // Editor icons
 Vue.component('icon-chevrons-left', ChevronsLeftIcon);
-Vue.component('menu-icon', MenuIcon);
+Vue.component('icon-menu', MenuIcon);
 Vue.component('icon-play', PlayIcon);
 Vue.component('icon-trash', Trash2Icon);
 Vue.component('icon-settings', SettingsIcon);

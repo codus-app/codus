@@ -101,6 +101,31 @@
     .breadcrumbs
       margin-right: auto
 
+    .open-sidebar
+      overflow: hidden
+      width: 2.5rem
+      transition: width .35s
+
+      .feather-menu
+        display: block
+        width: .95rem
+        height: .95rem
+        color: $white
+        opacity: .75
+        cursor: pointer
+        transition: opacity .25s
+
+        &:hover
+          opacity: .95
+
+      &.collapsed
+        width: 0
+
+        .feather-menu,
+        .feather-menu:hover
+          transition: opacity .35s
+          opacity: 0
+
   .cards
     position: absolute
     z-index: 10

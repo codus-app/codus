@@ -18,6 +18,9 @@
         <icon-settings class="button"/>
         <save-status v-bind:status="saveStatus"/>
         <breadcrumbs v-bind:crumbs="[categoryName, problemName]"></breadcrumbs>
+        <div class="open-sidebar" v-bind:class="{ collapsed: !problemBrowserCollapsed }">
+          <icon-menu v-on:click="problemBrowserCollapsed = false"></icon-menu>
+        </div>
       </div>
 
       <codemirror
