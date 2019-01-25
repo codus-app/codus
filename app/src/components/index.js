@@ -27,6 +27,7 @@ import {
   ShareIcon,
   FolderIcon,
   FileIcon,
+  FileTextIcon,
   Minimize2Icon,
   Maximize2Icon,
   // Misc
@@ -56,6 +57,7 @@ Vue.component('icon-settings', SettingsIcon);
 Vue.component('icon-share', ShareIcon);
 Vue.component('icon-folder', FolderIcon);
 Vue.component('icon-file', FileIcon);
+Vue.component('icon-file-text', FileTextIcon);
 Vue.component('icon-maximize', Maximize2Icon);
 Vue.component('icon-minimize', Minimize2Icon);
 // Misc
