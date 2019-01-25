@@ -3,6 +3,7 @@
     <!-- Problem browser -->
     <div class="problem-browser" v-bind:class="{ collapsed: problemBrowserCollapsed }">
       <div class="head font-1 medium">Problems</div>
+      <icon-chevrons-left v-on:click="problemBrowserCollapsed = true"></icon-chevrons-left>
       <problems-tree class="listing"></problems-tree>
     </div>
 

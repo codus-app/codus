@@ -19,6 +19,8 @@ import {
   // Home icons
   CheckIcon,
   // Editor icons
+  ChevronsLeftIcon,
+  MenuIcon,
   PlayIcon,
   Trash2Icon,
   SettingsIcon,
@@ -46,6 +48,8 @@ Vue.component('icon-log-out', LogOutIcon);
 // Home icons
 Vue.component('icon-check', CheckIcon);
 // Editor icons
+Vue.component('icon-chevrons-left', ChevronsLeftIcon);
+Vue.component('menu-icon', MenuIcon);
 Vue.component('icon-play', PlayIcon);
 Vue.component('icon-trash', Trash2Icon);
 Vue.component('icon-settings', SettingsIcon);

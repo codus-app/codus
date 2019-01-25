@@ -25,6 +25,22 @@
     font-size: .9rem
     margin-bottom: 1rem
 
+  .feather-chevrons-left
+    position: absolute
+    $size: 1.05rem
+    top: ($bar-width / 2) - ($size / 2)
+    right: .85rem
+    width: $size
+    height: $size
+    color: $white
+    opacity: .25
+
+    cursor: pointer
+    transition: opacity .25s
+
+    &:hover
+      opacity: .45
+
   .problems-tree
     position: absolute
     $top: calc(#{$gap} + #{$bar-width} + #{$gap})
@@ -43,6 +59,11 @@
 
     .head
       transform: translateX($padding-horiz)
+
+    .feather-chevrons-left,
+    .feather-chevrons-left:hover
+      cursor: default
+      opacity: 0
 
 
 .editor
