@@ -28,6 +28,8 @@ export default {
     this.expanded = this.active;
     window.addEventListener('resize', this.onResize);
   },
-  mounted() { this.mounted = true; },
+  mounted() {
+    setTimeout(() => { this.mounted = true; }, window.safari ? 500 : 0);
+  },
   destroyed() { window.removeEventListener('resize', this.onResize); },
 };
