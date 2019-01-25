@@ -11,20 +11,30 @@
   display: flex
 
 
-
 .problem-browser
+  position: relative
   margin: $gap 0 $gap $gap
   width: $problem-browser-width
   background: $dark-1
   border-radius: $radius
-  padding: .65rem 0 .65rem 1.05rem
-  overflow-y: scroll
+  $padding-vert: .65rem
+  $padding-horiz: 1.05rem
+  padding: $padding-vert 0 $padding-vert $padding-horiz
   outline: none
 
   .head
     font-size: .9rem
     margin-bottom: 1rem
 
+  .problems-tree
+    position: absolute
+    $top: calc(#{$gap} + #{$bar-width} + #{$gap})
+    top: $top
+    left: $padding-horiz
+    width: $problem-browser-width - $padding-horiz
+    max-height: calc(100vh - #{$top} - #{$gap * 2})
+    overflow-y: scroll
+    padding-bottom: $padding-vert
 
 
 .editor
