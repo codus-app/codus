@@ -16,10 +16,11 @@ export default {
   }),
 
   computed: {
-    ...mapGetters(['getSolution', 'getProblem', 'getTestResults', 'isSolved']),
+    ...mapGetters(['getSolution', 'getCategory', 'getProblem', 'getTestResults', 'isSolved']),
     ...mapState(['solutionCheckInProgress']),
 
     category() { return this.$route.params.category; },
+    categoryName() { return this.getCategory(this.category).displayName; },
     problemName() { return this.$route.params.name; },
     problem() { return this.getProblem(this.category, this.problemName); },
 

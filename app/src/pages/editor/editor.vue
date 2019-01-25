@@ -16,7 +16,7 @@
         <icon-share class="button"/>
         <icon-settings class="button"/>
         <save-status v-bind:status="saveStatus"/>
-        <breadcrumbs v-bind:crumbs="[category, problemName]"></breadcrumbs>
+        <breadcrumbs v-bind:crumbs="[categoryName, problemName]"></breadcrumbs>
       </div>
 
       <codemirror v-bind:value="code" v-on:input="onInput" v-bind:options="cmOptions"></codemirror>
