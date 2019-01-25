@@ -7,6 +7,11 @@ export default {
       .map(s => s.problem);
   },
 
+  // Update list of problems for which the user has begun a solution
+  updateSolutionsBegunList(state, payload) {
+    state.user.solutionsBegun = payload.map(s => s.problem);
+  },
+
   // Update the solved array to reflect the solved state of a given problem
   updateSolved(state, { problem, category, passed }) {
     if (state.user.solved === null) throw new Error('Must dispatch fetchSolved action before mutating the solved state of any problem');
@@ -37,8 +42,8 @@ export default {
         category.displayName = fetchedCategory.displayName;
         category.description = fetchedCategory.description;
         // Add only the problems that weren't already present in its problems array
-        const problemNotInCategory = ({ name: probName }) =>
-          category.problems.every(({ name }) => name !== probName);
+        const problemNotInCategory = ({ name: probName }) => category.problems
+          .every(({ name }) => name !== probName);
         category.problems.push(...fetchedCategory.problems.filter(problemNotInCategory));
       });
 
@@ -73,8 +78,7 @@ export default {
   // Add or modify existing solution to a problem in state
   updateSolution(state, { category, problem, code }) {
     const solution = state.user.solutions
-      .find(({ category: category2, problem: problem2 }) =>
-        category === category2 && problem === problem2);
+      .find(({ category: category2, problem: problem2 }) => category === category2 && problem === problem2); // eslint-disable-line max-len
     // Mutate existing solution in vuex
     if (solution) solution.code = code;
     // Add solution

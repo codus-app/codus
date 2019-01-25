@@ -11,7 +11,12 @@ import auth from './auth';
 
 export default new Vuex.Store({
   state: {
-    user: { profile: {}, solved: null, solutions: [] },
+    user: {
+      profile: {},
+      solved: null, // null indicates that not fetched, rather than that there are none
+      solutionsBegun: null,
+      solutions: [],
+    },
 
     categories: [],
     categoriesFetched: false,

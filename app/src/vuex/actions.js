@@ -6,6 +6,7 @@ export default {
   async fetchSolved({ commit }) {
     const solutions = await api.get({ endpoint: 'user/solutions', store });
     commit('updateSolvedList', solutions);
+    commit('updateSolutionsBegunList', solutions);
   },
 
   // Update basic info about category listings

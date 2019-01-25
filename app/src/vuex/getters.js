@@ -22,5 +22,9 @@ export default {
     .findIndex(({ category, name }) => category === searchCategory && name === searchProblem)
     !== -1,
 
+  isSolutionBegun: state => (searchCategory, searchProblem) => (state.user.solutionsBegun || [])
+    .findIndex(({ category, name }) => category === searchCategory && name === searchProblem)
+    !== -1,
+
   getTestResults: state => (category, problem) => state.testResults[`${category}/${problem}`] || { tests: [], code: null, error: null },
 };
