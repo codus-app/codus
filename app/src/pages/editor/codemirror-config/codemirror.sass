@@ -5,9 +5,11 @@
 $problem-browser-width: 13rem
 $sidebar-width: 2.5rem
 
-.CodeMirror
+.editor-page .CodeMirror
   height: calc(100vh - #{$bar-width} - #{$gap * 3})
-  width: calc(100vw - #{$problem-browser-width} - #{$sidebar-width} - #{$gap * 3})
+  max-width: calc(100vw - #{$problem-browser-width} - #{$sidebar-width} - #{$gap * 3})
+  transition: max-width .35s
+  margin-right: $gap
   border-radius: $radius
 
   font-family: 'Fira Code', monospace
@@ -21,3 +23,6 @@ $sidebar-width: 2.5rem
 
   .CodeMirror-sizer
     padding-right: calc(200px + 7rem + 1.5rem) !important // sass-lint:disable-line no-important
+
+.editor-page .problem-browser-collapsed .CodeMirror
+  max-width: calc(100vw - #{$sidebar-width} - #{$gap * 2})

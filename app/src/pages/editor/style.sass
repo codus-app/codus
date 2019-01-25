@@ -4,10 +4,6 @@
 
 .editor-page
   position: absolute
-  top: 0
-  left: 0
-  width: 100%
-  height: 100%
   display: flex
 
 
@@ -15,12 +11,15 @@
   position: relative
   margin: $gap 0 $gap $gap
   width: $problem-browser-width
+  overflow: hidden
   background: $dark-1
   border-radius: $radius
   $padding-vert: .65rem
   $padding-horiz: 1.05rem
   padding: $padding-vert 0 $padding-vert $padding-horiz
   outline: none
+  transition: width .35s
+  will-change: width, margin-right
 
   .head
     font-size: .9rem
@@ -32,9 +31,18 @@
     top: $top
     left: $padding-horiz
     width: $problem-browser-width - $padding-horiz
-    max-height: calc(100vh - #{$top} - #{$gap * 2})
+    height: calc(100vh - #{$top} - #{$gap * 2})
     overflow-y: scroll
     padding-bottom: $padding-vert
+
+  &.collapsed
+    width: 0
+    margin-right: -$gap
+    padding-left: 0
+    transition: width .35s, margin-right 0s .25s
+
+    .head
+      transform: translateX($padding-horiz)
 
 
 .editor

@@ -1,7 +1,7 @@
 <template>
   <div class="editor-page">
     <!-- Problem browser -->
-    <div class="problem-browser">
+    <div class="problem-browser" v-bind:class="{ collapsed: problemBrowserCollapsed }">
       <div class="head font-1 medium">Problems</div>
       <problems-tree class="listing"></problems-tree>
     </div>
@@ -19,7 +19,12 @@
         <breadcrumbs v-bind:crumbs="[categoryName, problemName]"></breadcrumbs>
       </div>
 
-      <codemirror v-bind:value="code" v-on:input="onInput" v-bind:options="cmOptions"></codemirror>
+      <codemirror
+        v-bind:class="{ 'problem-browser-collapsed': problemBrowserCollapsed }"
+        v-bind:value="code"
+        v-on:input="onInput"
+        v-bind:options="cmOptions"
+      ></codemirror>
 
       <div class="cards">
         <problem-overview-card

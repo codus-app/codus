@@ -10,8 +10,11 @@ export default {
     fetched: false,
     code: '',
     saveStatus: 'unsaved',
+
     deletionConfirmOpen: false,
     outputCollapsed: true,
+    problemBrowserCollapsed: false,
+    // Bounds within which the output window can be dragged
     outputWindowBounds: [0, 0, window.innerWidth, window.innerHeight],
   }),
 
