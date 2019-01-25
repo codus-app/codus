@@ -8,6 +8,10 @@
     flex-wrap: nowrap
     cursor: pointer
     user-select: none
+    transition: color .15s
+
+    &.active
+      color: transparentize($light-text-primary, .25)
 
     .feather-chevron-right
       width: 1em

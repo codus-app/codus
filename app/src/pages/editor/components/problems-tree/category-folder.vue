@@ -1,6 +1,6 @@
 <template>
   <div class="category-folder" v-bind:class="{ expanded }">
-    <div class="top" v-on:click="expanded = !expanded">
+    <div class="top" v-on:click="expanded = !expanded" v-bind:class="{ active }">
       <icon-chevron-right></icon-chevron-right>
       <icon-folder></icon-folder>
 
