@@ -5,14 +5,23 @@
   flex-wrap: nowrap
   align-items: center
   margin-top: .95em
+  color: $light-text-primary
+  opacity: .5
+  transition: opacity .15s
 
   &.router-link-exact-active
-    color: $light-text-primary
+    opacity: 1
 
-  .feather-file
+  .feather
     width: 1.05em
     height: 1.05em
     margin-right: .7em
+
+  &.solved
+    color: desaturate($green-1, 20%)
+
+    .feather
+      color: $green-1
 
   span
     font-size: 1em
