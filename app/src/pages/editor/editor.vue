@@ -2,7 +2,7 @@
   <div class="editor-page">
     <!-- Problem browser -->
     <div class="problem-browser" v-bind:class="{ collapsed: problemBrowserCollapsed }">
-      <div class="head font-1 medium">Problems</div>
+      <div class="head">Problems</div>
       <icon-chevrons-left v-on:click="problemBrowserCollapsed = true"></icon-chevrons-left>
       <problems-tree class="listing"></problems-tree>
     </div>
@@ -38,9 +38,9 @@
         ></problem-overview-card>
 
         <div class="message" v-if="fetched" v-bind:class="{ run: testResults.length }">
-          <div class="title font-1 light">Tests</div>
+          <div class="title">Tests</div>
 
-          <div class="help font-2 regular">
+          <div class="help">
             <div class="line-1">It looks like you haven't tested this code yet.</div>
             <div>
               Press <icon-play
@@ -60,7 +60,7 @@
           ></test-case-card>
 
           <div
-            class="code hidden-tests"
+            class="hidden-tests"
             v-bind:class="{
               passed: testResults.length && numHiddenTestsPassed === numHiddenTests,
               failed: testResults.length && numHiddenTestsPassed !== numHiddenTests,

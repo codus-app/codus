@@ -1,5 +1,5 @@
 <template>
-  <div class="test-case-card code light"
+  <div class="test-case-card"
     v-bind:class="{
       expanded,
       disabled: passed === undefined
@@ -17,22 +17,22 @@
     <div class="layout expanded">
       <div style="display: inline-block">
         <div>
-          <span class="bold">Function call:</span>
+          <span>Function call:</span>
           main({{ parameters.map(p => JSON.stringify(p)).join(', ') }})
           <br/>
-          <span class="bold">Expected result:</span>
+          <span>Expected result:</span>
           {{ JSON.stringify(expectedResult) }}
         </div>
         <div>
           <template v-if="!error">
-            <span class="bold">Your solution returned:</span>
+            <span>Your solution returned:</span>
             {{ JSON.stringify(result) }}
           </template>
           <template v-if="error">
-            <span class="bold">Your solution</span> errored
+            <span>Your solution</span> errored
           </template>
           <br/>
-          <span class="bold">Pass:</span> {{ passed }}
+          <span>Pass:</span> {{ passed }}
         </div>
       </div>
     </div>

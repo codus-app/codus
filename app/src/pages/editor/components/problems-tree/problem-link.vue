@@ -1,6 +1,6 @@
 <template>
   <router-link
-    class="problem-link font-1 light"
+    class="problem-link"
     v-bind:class="{ solved }"
     v-bind:to="`/problem/${categoryName}/${name}`"
   >

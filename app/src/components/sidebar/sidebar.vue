@@ -10,14 +10,14 @@
       <router-link class="sb-link" v-for="r in userRoutes" v-bind:key="r.path" v-bind:to="r.path" v-bind:title="collapsed ? r.meta.label : ''">
         <div class="indicator" v-if="!collapsed"></div>
         <component v-bind:is="`icon-${r.meta.icon}`"></component>
-        <span class="font-1 regular" v-if="!collapsed">{{r.meta.label}}</span>
+        <span v-if="!collapsed">{{r.meta.label}}</span>
       </router-link>
 
-      <div class="divider" v-if="collapsed"></div> <!-- For spacing if sidebar is collapsed -->
+      <div class="divider" v-if="collapsed"></div> <!-- For spacing between sections if sidebar is collapsed -->
 
       <div class="sb-link logout" v-on:click="logout" v-bind:title="collapsed ? 'Log out' : ''">
         <icon-log-out></icon-log-out>
-        <span class="font-1 light" v-if="!collapsed">Log out</span>
+        <span v-if="!collapsed">Log out</span>
       </div>
 
     </div>

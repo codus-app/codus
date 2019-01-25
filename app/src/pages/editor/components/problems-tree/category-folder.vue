@@ -4,7 +4,7 @@
       <icon-chevron-right></icon-chevron-right>
       <icon-folder></icon-folder>
 
-      <div class="name font-1 light">
+      <div class="name">
         <slot name="name"></slot>
       </div>
     </div>

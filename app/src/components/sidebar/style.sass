@@ -60,7 +60,9 @@
     margin: 2em 0
 
   .sb-link
-    font-size: .6rem
+    font-family: $font-nunito
+    font-weight: 400
+    font-size: .65rem
     display: flex
     align-items: center
     margin: 1.25em 0
@@ -88,12 +90,22 @@
     bottom: 1.75em
     left: 50%
     // 1.2em is half the icon's width, so that the text can be centered regardless of the icon
-    transform: translateX(-50%) translateX(-1.2em)
-    opacity: .6
+    transform: translateX(-50%) translateX(-.7rem)
+
+    display: flex
+    align-items: center
+
+    font-family: $font-lato
+    font-weight: 500
+    font-size: .65rem
+    opacity: .3
     transition: opacity .25s
     cursor: pointer
 
     .feather-log-out
+      width: .75rem
+      height: .75rem
+      margin: 0 .65rem 0 0
       transform: scaleX(-1)
 
     span
