@@ -36,7 +36,7 @@ module.exports = {
       const category = await Category.model
         .findOne()
         .where('name').equals(req.params.name)
-        .select('-__v');
+        .select('-__v -sortOrder');
       if (!category) res.status(404).json({ error: `Category '${req.params.name}' was not found` });
 
       else {
