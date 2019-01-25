@@ -22,29 +22,6 @@ header. This token can be obtained by going through the login process in
 
 ### Querying info
 
-##### `GET /problem/[category]/[name]`
-Returns information on the problem with a given name
-```bash
-curl https://engine.codus.io/api/problem/warmup/Sum
-```
-```json
-{
-  "name": "Sum",
-  "category": "warmup",
-
-  "parameters": [
-    { "name": "a", "type": "Integer" },
-    { "name": "b", "type": "Integer" }
-  ],
-  "resultType": "Integer",
-
-  "testCases": [
-    { "parameters": [5, 3], "result": 8 },
-    { "parameters": [1, 2], "result": 3 }
-  ]
-}
-```
-
 ##### `GET /categories`
 Returns basic information on each category. Includes problem names but not the full set of info on
 each problem.
@@ -52,13 +29,23 @@ each problem.
 curl https://engine.codus.io/api/categories
 ```
 ```json
-[
-  {
-    "name": "warmup",
-    "description": "Some simple sample problems to get you started.",
-    "problems": [ "Sum", "Difference" ]
-  }
-]
+{
+  "data": [
+    {
+      "displayName": "Warmup Problems",
+      "name": "warmup",
+      "description": {
+        "md": "Some simple, easy warmup problems to get you started",
+        "html": "<p>Some simple, easy warmup problems to get you started</p>\n"
+      },
+      "problems": [
+        { "name": "AddOne" },
+        ...
+      ]
+    },
+    ...
+  ]
+}
 ```
 
 ##### `GET /category/[name]`
@@ -68,39 +55,62 @@ curl https://engine.codus.io/api/category/warmup
 ```
 ```json
 {
-  "name": "warmup",
-  "description": "Some simple sample problems to get you started.",
-  "problems": [
-    {
-      "category": "warmup",
-      "name": "Sum",
-      "parameters": [
-        { "name": "a", "type": "Integer" },
-        { "name": "b", "type": "Integer" }
-      ],
-      "resultType": "Integer",
-      "testCases": [
-        { "parameters": [5, 3], "result": 8 },
-        { "parameters": [1, 2], "result": 3 }
-      ]
+  "data": {
+    "displayName": "Warmup Problems",
+    "name": "warmup",
+    "description": {
+      "md": "Some simple, easy warmup problems to get you started",
+      "html": "<p>Some simple, easy warmup problems to get you started</p>\n"
     },
-
-    {
-      "category": "warmup",
-      "name": "Difference",
-      "parameters": [
-        { "name": "a", "type": "Integer" },
-        { "name": "b", "type": "Integer" }
-      ],
-      "resultType": "Integer",
-      "testCases": [
-        { "parameters": [5, 3], "result": 2 },
-        { "parameters": [2, 1], "result": 1 }
-      ]
-    }
-  ]
+    "problems": [
+      { "name": "AddOne" },
+      { "name": "Invert" },
+      ...
+    ]
+  }
 }
 ```
+
+##### `GET /problem/[category]/[name]`
+Returns information on the problem with a given name
+```bash
+curl https://engine.codus.io/api/problem/warmup/Sum
+```
+```json
+{
+  "data": {
+    "category": {
+      "displayName": "Warmup Problems",
+      "name": "warmup",
+      "description": { ... }
+    },
+    "name": "Sum",
+    "description": {
+      "md": "Given two integers, `a` and `b`, return their sum.",
+      "html": "<p>Given two integers, <code>a</code> and <code>b</code>, return their sum.</p>\n"
+    },
+    "resultType": "int",
+    "parameters": [
+      { "name": "a", "type": "int" },
+      { "name": "b", "type": "int" },
+      ...
+    ],
+    "testCases": [
+      {
+        "parameters": [1, 2],
+        "result": 3
+      },
+      {
+        "parameters": [3, 4],
+        "result": 7
+      },
+      ...
+    ],
+    "numHidden": 4
+  }
+}
+```
+
 
 
 
