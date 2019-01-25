@@ -18,7 +18,7 @@
   $padding-horiz: 1.05rem
   padding: $padding-vert 0 $padding-vert $padding-horiz
   outline: none
-  transition: width .35s
+  transition: width $sidebar-transition-time, margin-right .1s ($sidebar-transition-time * .5)
   will-change: width, margin-right
 
   .head
@@ -36,7 +36,7 @@
     opacity: .25
 
     cursor: pointer
-    transition: opacity .25s
+    transition: opacity $sidebar-transition-time * .5 $sidebar-transition-time * .5
 
     &:hover
       opacity: .45
@@ -55,13 +55,14 @@
     width: 0
     margin-right: -$gap
     padding-left: 0
-    transition: width .35s, margin-right 0s .25s
+    transition: width $sidebar-transition-time, margin-right .1ss ($sidebar-transition-time * .5)
 
     .head
       transform: translateX($padding-horiz)
 
     .feather-chevrons-left,
     .feather-chevrons-left:hover
+      transition: opacity $sidebar-transition-time * .5
       cursor: default
       opacity: 0
 
@@ -104,7 +105,7 @@
     .open-sidebar
       overflow: hidden
       width: 2.5rem
-      transition: width .35s
+      transition: width $sidebar-transition-time
 
       .feather-menu
         display: block
@@ -123,7 +124,7 @@
 
         .feather-menu,
         .feather-menu:hover
-          transition: opacity .35s
+          transition: opacity $sidebar-transition-time
           opacity: 0
 
   .cards
