@@ -7,7 +7,7 @@ const Category = new keystone.List('Category', { sortable: true });
 Category.add({
   name: { type: Types.Text, initial: true, required: true },
   displayName: { type: Types.Text, initial: true, required: true },
-  description: { type: Types.Text, initial: true, required: true },
+  description: { type: Types.Markdown, initial: true },
 });
 
 Category.relationship({

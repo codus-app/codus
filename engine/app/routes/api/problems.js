@@ -1,7 +1,7 @@
 /* eslint-disable global-require */
 
 const keystone = require('keystone');
-const { publicizeProblem } = require('./util');
+const { publicizeProblem, md } = require('./util');
 
 const Category = keystone.list('Category');
 const Problem = keystone.list('Problem');
@@ -23,6 +23,7 @@ module.exports = {
           .select('-_id -__v'),
       ]);
       const cats = categories.map(c => Object.assign(c.toObject(), {
+        description: md(c.description),
         problems: problems
           .filter(p => p.category.toString() === c._id.toString()) // problems matching category
           .map(({ name }) => ({ name })), // Include just the name in the output object
@@ -45,7 +46,13 @@ module.exports = {
           .sort({ sortOrder: 1 }))
           .map(({ name }) => ({ name })); // Include just the name in the output object
 
-        res.json({ data: Object.assign(category.toObject(), { problems, _id: undefined }) });
+        res.json({
+          data: Object.assign(category.toObject(), {
+            problems,
+            description: md(category.description),
+            _id: undefined,
+          }),
+        });
       }
     },
   },
