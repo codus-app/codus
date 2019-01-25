@@ -16,15 +16,18 @@
     opacity: 1
     font-weight: 400
 
+    .feather
+      opacity: .75
+
   .feather
     width: 1.05em
     height: 1.05em
     margin-right: .7em
+    transition: opacity .15s
 
   &.solved
-    color: desaturate($green-1, 20%)
-
     .feather
+      opacity: 1
       color: $green-1
 
   span
