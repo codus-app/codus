@@ -18,27 +18,6 @@
     font-size: 1rem
     margin: 0
 
-  .description
-    font-size: .7rem
-    font-family: $font-lato
-    font-weight: 500
-    line-height: 1.1
-    color: $light-text-hint
-
-    /deep/ // v-html doesn't get scope tags, so all styling of description elements has to be deep
-      p
-        margin-top: .35rem
-        margin-bottom: 0
-
-      code
-        display: inline-block
-        font-family: $font-mono
-        color: transparentize($white, .2)
-        font-size: .9em
-        background: transparentize($white, .85)
-        padding: .075em .35em
-        margin: 0 .1em .1em
-
   .progress
     position: absolute
     bottom: 0

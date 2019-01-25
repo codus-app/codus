@@ -23,9 +23,7 @@
       <div class="expanded-view" v-bind:class="{ invisible: !expanded }">
         <h1>{{ category.displayName }}</h1>
         <progress-pie :colors="['#4deb9b', '#1db965']" background="#1e1e21" v-bind:progress="(category.solved.length / category.problems.length) || 0"></progress-pie>
-        <div class="description">
-          {{ category.description }}
-        </div>
+        <div class="md-description" v-html="category.description.html"></div>
         <problem-link
           v-for="{ name } in category.problems"
           v-bind:name="name"
