@@ -8,6 +8,8 @@
           <problem-link
             v-bind:category-name="cat.name"
             v-bind:name="prob.name"
+            v-bind:solved="isSolved(cat.name, prob.name)"
+            v-bind:solutionBegun="isSolutionBegun(cat.name, prob.name)"
           ></problem-link>
         </li>
       </category-folder>

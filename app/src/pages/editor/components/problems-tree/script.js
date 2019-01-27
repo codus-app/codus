@@ -3,6 +3,7 @@ import { mapState, mapGetters, mapActions } from 'vuex';
 export default {
   computed: {
     ...mapState(['categoriesFetched', 'categories']),
+    ...mapGetters(['isSolved', 'isSolutionBegun']),
   },
   methods: {
     ...mapActions(['fetchCategories']),

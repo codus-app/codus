@@ -10,14 +10,8 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 export default {
-  props: ['category-name', 'name'],
-  computed: {
-    ...mapGetters(['isSolved', 'isSolutionBegun']),
-    solved() { return this.isSolved(this.categoryName, this.name); },
-    solutionBegun() { return this.isSolutionBegun(this.categoryName, this.name); },
-  },
+  props: ['category-name', 'name', 'solved', 'solutionBegun'],
 };
 </script>
 
