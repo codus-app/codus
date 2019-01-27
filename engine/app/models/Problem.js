@@ -73,6 +73,10 @@ Problem.schema.virtual('parameters2').get(function expandedParams() {
 Problem.schema.virtual('testCases2').get(function expandedTestCases() {
   const functionParams = this.parameters.map(p => p.split('|').map(s => s.trim()));
   const paramTypes = functionParams.map(p => p[1]);
+  // Matches groups of comma-separated values, counting anything between double quotes or anything
+  // in square brackets as a single group. Adapted to add support for square brackets from a regex
+  // found at https://stackoverflow.com/a/11457952/4414003
+  const splitRe = /(".*?"|\[.*?\]|[^"[\],\s]+)(?=\s*,|\s*$)/g;
 
   return this.testCases.concat(this.hiddenTestCases)
     // Split parameters out from expected result
@@ -80,7 +84,7 @@ Problem.schema.virtual('testCases2').get(function expandedTestCases() {
     .map(([parameters, expectedResult], i) => ({
       parameters: parameters
         // Split up parameters
-        .match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g).map(param => param.trim()) // split out each parameter. Regex from https://stackoverflow.com/a/11457952/4414003
+        .match(splitRe)
         // Convert each parameter to the correct JS type
         .map((param, i2) => java.javaStringToJS(param, paramTypes[i2])),
 
