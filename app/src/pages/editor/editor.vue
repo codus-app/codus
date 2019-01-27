@@ -14,7 +14,6 @@
         <spinner v-if="solutionCheckInProgress"></spinner>
 
         <icon-trash class="button" v-on:click="() => { this.deletionConfirmOpen = true; }"/>
-        <icon-share class="button"/>
         <icon-settings class="button"/>
         <save-status v-bind:status="saveStatus"/>
         <breadcrumbs v-bind:crumbs="[categoryName, problemName]"></breadcrumbs>
