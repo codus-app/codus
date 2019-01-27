@@ -26,5 +26,10 @@ export default {
     .findIndex(({ category, name }) => category === searchCategory && name === searchProblem)
     !== -1,
 
+  isCategoryComplete: (state, getters) => (searchCategory) => {
+    const cat = getters.getCategory(searchCategory);
+    return cat.solved.length === cat.problems.length;
+  },
+
   getTestResults: state => (category, problem) => state.testResults[`${category}/${problem}`] || { tests: [], code: null, error: null },
 };
