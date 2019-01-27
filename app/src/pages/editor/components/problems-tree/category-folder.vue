@@ -2,7 +2,7 @@
   <div class="category-folder" v-bind:class="{ expanded }">
     <div class="top" v-on:click="expanded = !expanded" v-bind:class="{ active }">
       <icon-chevron-right></icon-chevron-right>
-      <icon-folder></icon-folder>
+      <icon-folder v-bind:class="{ complete: allSolved }"></icon-folder>
 
       <div class="name">
         <slot name="name"></slot>

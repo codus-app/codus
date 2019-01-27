@@ -1,5 +1,5 @@
 export default {
-  props: { active: Boolean },
+  props: { active: Boolean, allSolved: Boolean },
 
   data: () => ({
     windowSize: [window.innerWidth, window.innerHeight],

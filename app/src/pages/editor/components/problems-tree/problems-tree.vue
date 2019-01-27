@@ -1,7 +1,10 @@
 <template>
   <ul class="problems-tree">
     <li v-for="cat in categories" v-bind:key="cat.name">
-      <category-folder v-bind:active="cat.name === $route.params.category">
+      <category-folder
+        v-bind:active="cat.name === $route.params.category"
+        v-bind:allSolved="isCategoryComplete(cat.name)"
+      >
         <template slot="name">{{ cat.displayName }}</template>
 
         <li v-for="prob in cat.problems" v-bind:key="prob.name">

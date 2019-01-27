@@ -17,6 +17,9 @@
       .name
         font-weight: 400
 
+      .feather-folder.complete
+        color: transparentize($green-1, .25)
+
     .feather-chevron-right
       width: 1em
       height: 1em
@@ -27,6 +30,10 @@
       width: 1.05em
       height: 1.05em
       margin-right: .7em
+
+      &.complete
+        color: transparentize($green-1, .5)
+        transition: color .15s
 
     .name
       font-family: $font-nunito
