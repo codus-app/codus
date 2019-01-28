@@ -22,7 +22,6 @@ import './components';
 // Application config
 
 
-import routes from './pages';
 import router from './router';
 import store from './vuex';
 
@@ -31,7 +30,6 @@ window.app = new Vue({
   store,
 
   data: {
-    transitionName: 'route-slide-down',
     fetchPromise: undefined,
   },
   computed: {
@@ -40,15 +38,6 @@ window.app = new Vue({
   },
 
   watch: {
-    $route(to, from) {
-      const paths = routes.map(x => x.path);
-      if (paths.indexOf(to.path) < paths.indexOf(from.path)) {
-        this.transitionName = 'route-slide-down';
-      } else {
-        this.transitionName = 'route-slide-up';
-      }
-    },
-
     isAuthenticated(authed) {
       if (authed) this.$emit('loggedIn');
     },
