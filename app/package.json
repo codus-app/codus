@@ -61,6 +61,7 @@
     "debounce": "^1.2.0",
     "dedent": "^0.7.0",
     "jwt-decode": "^2.2.0",
+    "mousetrap": "^1.6.2",
     "promise-polyfill": "^8.1.0",
     "validator": "^10.9.0",
     "vue": "^2.5.17",

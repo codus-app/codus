@@ -19,11 +19,14 @@ import './style.sass';
 // Components
 import './components';
 
+
 // Application config
 
 
 import router from './router';
 import store from './vuex';
+
+Vue.use(require('./keyboard-shortcuts').default);
 
 window.app = new Vue({
   router,
