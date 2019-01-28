@@ -1,5 +1,15 @@
 import Mousetrap from 'mousetrap';
 
+// Override default "stopCallback" checker to allow keybindings from within codemirror
+Mousetrap.prototype.stopCallback = (evt, el) => {
+  if (el.closest('.CodeMirror')) return false;
+  // The rest of this function mirrors the default implementation
+  // https://craig.is/killing/mice#api.stopCallback
+  if (el.classList.contains('mousetrap')) return false;
+  return ['INPUT', 'SELECT', 'TEXTAREA'].includes(el.tagName)
+    || (el.contentEditable === 'true');
+};
+
 export default {
   install(Vue) {
     Vue.mixin({
