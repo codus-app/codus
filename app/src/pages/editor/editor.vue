@@ -14,7 +14,13 @@
     <!-- Code editing -->
     <div class="editor" ref="windowBounds">
       <div class="top-bar">
-        <icon-play class="button" v-on:click="solutionCheck" v-if="!solutionCheckInProgress"/>
+        <icon-play
+          class="button"
+          v-on:click="solutionCheck"
+          v-if="!solutionCheckInProgress"
+          v-tippy
+          v-bind:title="`Run <kbd>${$nativizeShortcut('mod+R')}</kbd>`"
+        />
         <spinner v-if="solutionCheckInProgress"></spinner>
 
         <icon-trash class="button" v-on:click="() => { this.deletionConfirmOpen = true; }"/>
