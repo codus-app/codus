@@ -74,6 +74,9 @@ export default {
     },
   },
 
+  keyboardShortcuts: {
+    'mod+\\': function test() { this.problemBrowserCollapsed = !this.problemBrowserCollapsed; return false; },
+  },
 
   methods: {
     ...mapActions(['fetchSolution', 'saveSolution', 'checkSolution']),
