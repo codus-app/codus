@@ -12,6 +12,11 @@ Mousetrap.prototype.stopCallback = (evt, el) => {
 
 export default {
   install(Vue) {
+    // Utility for transforming 'mod+X' to '⌘+X' on Mac and 'Cmd+X' on Windows/Linux
+    const modifier = window.navigator.platform.includes('Mac') ? '\u2318' : 'Cmd';
+    Vue.prototype.$nativizeShortcut = shortcut => shortcut.replace(/mod/g, modifier);
+
+    // If the component has a keyboardShortcuts property, bind on created and unbind on destroyed
     Vue.mixin({
       created() {
         const kbs = this.$options.keyboardShortcuts;
