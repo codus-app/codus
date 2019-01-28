@@ -23,7 +23,12 @@
         />
         <spinner v-if="solutionCheckInProgress"></spinner>
 
-        <icon-trash class="button" v-on:click="() => { this.deletionConfirmOpen = true; }"/>
+        <icon-trash
+          class="button"
+          v-on:click="() => { this.deletionConfirmOpen = true; }"
+          v-tippy
+          v-bind:title="`Reset solution <kbd>${$nativizeShortcut('mod+shift+backspace')}</kbd>`"
+        />
         <icon-settings class="button"/>
         <save-status v-bind:status="saveStatus"/>
         <breadcrumbs v-bind:crumbs="[categoryName, problemName]"></breadcrumbs>
