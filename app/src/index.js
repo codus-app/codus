@@ -1,4 +1,5 @@
 /* global CODUS_LANDING_URL */
+/* eslint-disable import/first */
 
 // Polyfills
 import 'babel-polyfill';
@@ -20,13 +21,19 @@ import './style.sass';
 import './components';
 
 
-// Application config
+// Plugins
 
+import VueTippy from 'vue-tippy';
+Vue.use(VueTippy);
+
+import KeyboardShortcuts from './keyboard-shortcuts';
+Vue.use(KeyboardShortcuts);
+
+// Application config
 
 import router from './router';
 import store from './vuex';
 
-Vue.use(require('./keyboard-shortcuts').default);
 
 window.app = new Vue({
   router,
