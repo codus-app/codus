@@ -4,7 +4,6 @@
   "description": "Efficient code practice for individuals and classrooms.",
   "scripts": {
     "start": "webpack-dev-server --inline",
-    "start:prod": "npm run build && serve -p 8080 build",
     "build": "webpack",
     "watch": "webpack --watch",
     "lint-sass": "sass-lint 'src/**/*.sass' -v",
@@ -63,7 +62,6 @@
     "dedent": "^0.7.0",
     "jwt-decode": "^2.2.0",
     "promise-polyfill": "^8.1.0",
-    "serve": "^10.1.1",
     "validator": "^10.9.0",
     "vue": "^2.5.17",
     "vue-codemirror": "^4.0.6",
