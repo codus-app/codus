@@ -75,7 +75,8 @@ export default {
   },
 
   keyboardShortcuts: {
-    'mod+\\': function test() { this.problemBrowserCollapsed = !this.problemBrowserCollapsed; return false; },
+    'mod+\\': function toggleSidebar() { this.problemBrowserCollapsed = !this.problemBrowserCollapsed; return false; },
+    'mod+r': function run() { this.solutionCheck(); return false; },
   },
 
   methods: {
@@ -132,7 +133,6 @@ export default {
       }
     },
 
-    execute() {},
     reset() {
       this.code = this.baseCode;
       this.deletionConfirmOpen = false;
