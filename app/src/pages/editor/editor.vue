@@ -3,7 +3,11 @@
     <!-- Problem browser -->
     <div class="problem-browser" v-bind:class="{ collapsed: problemBrowserCollapsed }">
       <div class="head">Problems</div>
-      <icon-chevrons-left v-on:click="problemBrowserCollapsed = true"></icon-chevrons-left>
+      <icon-chevrons-left
+        v-on:click="problemBrowserCollapsed = true"
+        v-tippy
+        v-bind:title="`Close Sidebar <kbd>${$nativizeShortcut('mod+\\')}</kbd>`"
+      ></icon-chevrons-left>
       <problems-tree class="listing"></problems-tree>
     </div>
 
@@ -18,7 +22,11 @@
         <save-status v-bind:status="saveStatus"/>
         <breadcrumbs v-bind:crumbs="[categoryName, problemName]"></breadcrumbs>
         <div class="open-sidebar" v-bind:class="{ collapsed: !problemBrowserCollapsed }">
-          <icon-menu v-on:click="problemBrowserCollapsed = false"></icon-menu>
+          <icon-menu
+            v-on:click="problemBrowserCollapsed = false"
+            v-tippy
+            v-bind:title="`Open Sidebar <kbd>${$nativizeShortcut('mod+\\')}</kbd>`"
+          ></icon-menu>
         </div>
       </div>
 
