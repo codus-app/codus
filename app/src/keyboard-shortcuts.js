@@ -16,7 +16,7 @@ export default {
     const mac = window.navigator.platform.includes('Mac');
 
     Vue.prototype.$nativizeShortcut = shortcut => shortcut
-      .replace(/mod/g, mac ? '\u2318' : 'Cmd')
+      .replace(/mod/g, mac ? '\u2318' : 'Ctrl')
       .replace(/shift/ig, mac ? '\u21E7' : 'Shift')
       .replace(/backspace/g, '\u232B');
 
