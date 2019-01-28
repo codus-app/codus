@@ -24,7 +24,18 @@ import './components';
 // Plugins
 
 import VueTippy from 'vue-tippy';
-Vue.use(VueTippy);
+Vue.use(VueTippy, {
+  theme: 'codus',
+  placement: 'bottom',
+  distance: 5,
+
+  animation: 'fade',
+  duration: [200, 150],
+  delay: [200, 0],
+  // Workaround for preventing "fill" animation (animationFill: false is broken)
+  arrow: true,
+  arrowTransform: 'scale(0)',
+});
 
 import KeyboardShortcuts from './keyboard-shortcuts';
 Vue.use(KeyboardShortcuts);
