@@ -13,6 +13,8 @@
     border-radius: 50%
     background-size: cover
 
+    transition: filter .15s
+
   .name
     font-family: $font-lato
     font-weight: 500
@@ -21,3 +23,7 @@
     letter-spacing: .08em
     margin-top: .5em
     white-space: nowrap
+
+  &:hover
+    .picture
+      filter: brightness(90%)

@@ -6,7 +6,7 @@
     <div class="links">
 
       <!-- Personal user-related links -->
-      <!-- <h2 v-if="!collapsed">You</h2> -->
+      <h2 v-if="!collapsed">You</h2>
       <router-link class="sb-link" v-for="r in userRoutes" v-bind:key="r.path" v-bind:to="r.path" v-bind:title="collapsed ? r.meta.label : ''">
         <div class="indicator" v-if="!collapsed"></div>
         <component v-bind:is="`icon-${r.meta.icon}`"></component>
