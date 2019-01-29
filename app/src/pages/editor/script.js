@@ -76,7 +76,7 @@ export default {
 
   keyboardShortcuts: {
     'mod+\\': function toggleSidebar() { this.problemBrowserCollapsed = !this.problemBrowserCollapsed; return false; },
-    'mod+r': function run() { this.solutionCheck(); return false; },
+    'mod+enter': function run() { this.solutionCheck(); return false; },
     'mod+shift+backspace': function reset() { this.deletionConfirmOpen = true; return false; },
   },
 

@@ -19,7 +19,7 @@
           v-on:click="solutionCheck"
           v-if="!solutionCheckInProgress"
           v-tippy
-          v-bind:title="`Run <kbd>${$nativizeShortcut('mod+R')}</kbd>`"
+          v-bind:title="`Run <kbd>${$nativizeShortcut('mod+Enter')}</kbd>`"
         />
         <spinner v-if="solutionCheckInProgress"></spinner>
 
