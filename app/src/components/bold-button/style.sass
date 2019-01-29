@@ -1,0 +1,41 @@
+@import 'src/styles/variables'
+
+button
+  color: transparentize($white, .45)
+  background: transparent
+  border: 0
+  outline: 0
+  box-shadow: 0
+  border-radius: 3px
+
+  font-size: .675rem
+  font-family: $font-lato
+  text-transform: uppercase
+  font-weight: 700
+  letter-spacing: .08em
+
+  padding: .35rem 2.5rem .425rem
+  cursor: pointer
+  transition: color .15s
+
+  &:hover
+    color: transparentize($white, .375)
+
+  &.bg
+    color: transparentize($white, .2)
+    transition: color .1s, background .1s
+
+    &:hover
+      color: transparentize($white, .15)
+
+    &.green
+      background: $green-solid
+
+      &:hover
+        background: darken($green-solid, 2.5%)
+
+    &.red
+      background: $red-solid
+
+      &:hover
+        background: darken($red-solid, 2.5%)
