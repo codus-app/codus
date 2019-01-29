@@ -80,10 +80,11 @@
       width: 1rem
       height: .2rem
       background: linear-gradient(90deg, $green-1, $green-2)
-      display: none
+      opacity: 0
+      transition: opacity .35s
 
     &.router-link-exact-active .indicator
-      display: block
+      opacity: 1
 
   .logout
     position: absolute
