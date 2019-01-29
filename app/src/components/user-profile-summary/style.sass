@@ -9,11 +9,12 @@
   .picture
     width: 70%
     padding-bottom: 70%
+    margin-bottom: 3px
 
     border-radius: 50%
     background-size: cover
 
-    transition: filter .15s
+    transition: filter .15s, box-shadow .35s, margin-bottom .35s
 
   .name
     font-family: $font-lato
@@ -27,3 +28,8 @@
   &:hover
     .picture
       filter: brightness(90%)
+
+  &.router-link-active
+    .picture
+      box-shadow: 0 0 0 5.25px $dark-1, 0 0 0 8px $green-1
+      margin-bottom: 9px
