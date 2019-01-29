@@ -81,11 +81,11 @@ Vue.component('category-card', CategoryCard);
 import ProgressPie from './progress-pie/progress-pie.vue';
 Vue.component('progress-pie', ProgressPie);
 
-import ConfirmModal from './confirm-modal/confirm-modal.vue';
-Vue.component('confirm-modal', ConfirmModal);
-
 import BoldButton from './bold-button/bold-button.vue';
 Vue.component('bold-button', BoldButton);
+
+import Modal from './modal/modal.vue';
+Vue.component('modal', Modal);
 
 import Spinner from './spinner/spinner.vue';
 Vue.component('spinner', Spinner);

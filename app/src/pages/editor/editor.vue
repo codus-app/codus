@@ -106,11 +106,13 @@
         </window>
       </transition>
 
-      <confirm-modal v-bind:open="deletionConfirmOpen" v-bind:on-cancel="() => { this.deletionConfirmOpen = false; }">
+      <modal v-bind:open="deletionConfirmOpen" v-on:close="deletionConfirmOpen = false">
         <h1 slot="header">Delete this solution?</h1>
         Your solution to this problem will be reset. This cannot be undone.
-        <button class="button bg red" slot="button" v-on:click="reset">Delete</button>
-      </confirm-modal>
+        <template slot="buttons">
+          <bold-button type="red" v-on:click="reset">Delete</bold-button>
+        </template>
+      </modal>
     </div>
 
   </div>
