@@ -52,7 +52,7 @@ export default {
       // Store basic login info
       commit('loggedIn', res);
       dispatch('toLocalStorage');
-      window.location.hash = '';
+      setTimeout(() => { window.location.hash = ''; }, 250);
     },
 
     renew({ commit, dispatch }) {
