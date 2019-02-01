@@ -80,6 +80,7 @@ export default {
     'mod+\\': function toggleSidebar() { this.problemBrowserCollapsed = !this.problemBrowserCollapsed; return false; },
     'mod+enter': function run() { this.solutionCheck(); return false; },
     'mod+shift+backspace': function reset() { this.deletionConfirmOpen = true; return false; },
+    'mod+f': function reset() { this.findReplaceOpen = !this.findReplaceOpen; return false; },
   },
 
   methods: {

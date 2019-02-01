@@ -34,6 +34,8 @@
         <icon-search
           class="button"
           v-on:click="findReplaceOpen = !findReplaceOpen"
+          v-tippy
+          v-bind:title="`Find/replace <kbd>${$nativizeShortcut('mod+F')}</kbd>`"
         ></icon-search>
         <save-status v-bind:status="saveStatus"/>
         <breadcrumbs v-bind:crumbs="[categoryName, problemName]"></breadcrumbs>
