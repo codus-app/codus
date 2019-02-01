@@ -17,7 +17,6 @@ export default {
 
     Vue.prototype.$nativizeShortcut = shortcut => shortcut
       .replace(/mod/g, mac ? '\u2318' : 'Ctrl')
-      .replace(/shift/ig, mac ? '\u21E7' : 'Shift')
       .replace(/backspace/g, '\u232B');
 
     // If the component has a keyboardShortcuts property, bind on created and unbind on destroyed
