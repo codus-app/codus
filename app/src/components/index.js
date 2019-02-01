@@ -24,6 +24,7 @@ import {
   PlayIcon,
   Trash2Icon,
   SettingsIcon,
+  SearchIcon,
   ShareIcon,
   FolderIcon,
   FileIcon,
@@ -54,6 +55,7 @@ Vue.component('icon-menu', MenuIcon);
 Vue.component('icon-play', PlayIcon);
 Vue.component('icon-trash', Trash2Icon);
 Vue.component('icon-settings', SettingsIcon);
+Vue.component('icon-search', SearchIcon);
 Vue.component('icon-share', ShareIcon);
 Vue.component('icon-folder', FolderIcon);
 Vue.component('icon-file', FileIcon);

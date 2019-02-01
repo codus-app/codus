@@ -13,6 +13,7 @@
 
     <!-- Code editing -->
     <div class="editor" ref="windowBounds">
+      <!-- Top bar -->
       <div class="top-bar">
         <icon-play
           class="button"
@@ -30,6 +31,10 @@
           v-bind:title="`Reset solution <kbd>${$nativizeShortcut('mod+Shift+backspace')}</kbd>`"
         />
         <icon-settings class="button"/>
+        <icon-search
+          class="button"
+          v-on:click="findReplaceOpen = !findReplaceOpen"
+        ></icon-search>
         <save-status v-bind:status="saveStatus"/>
         <breadcrumbs v-bind:crumbs="[categoryName, problemName]"></breadcrumbs>
         <div class="open-sidebar" v-bind:class="{ collapsed: !problemBrowserCollapsed }">
@@ -42,13 +47,16 @@
       </div>
 
       <codemirror
+        ref="codemirror"
         v-bind:class="{ 'problem-browser-collapsed': problemBrowserCollapsed }"
         v-bind:value="code"
         v-on:input="onInput"
         v-bind:options="cmOptions"
       ></codemirror>
 
+      <!-- List on the right side of the editor -->
       <div class="cards">
+        <find-replace-card v-if="mounted && findReplaceOpen" v-bind:cm="$refs.codemirror"></find-replace-card> <!-- Wait for mount so that $refs.codemirror is defined -->
         <problem-overview-card
           v-if="fetched"
           v-bind:problem="problem"

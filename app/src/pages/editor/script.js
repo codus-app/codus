@@ -7,10 +7,12 @@ import cmOptions from './codemirror-config';
 export default {
   data: () => ({
     cmOptions,
+    mounted: false,
     fetched: false,
     code: '',
     saveStatus: 'unsaved',
 
+    findReplaceOpen: false,
     deletionConfirmOpen: false,
     outputCollapsed: true,
     problemBrowserCollapsed: false,
@@ -174,15 +176,17 @@ export default {
   },
 
   mounted() {
+    this.mounted = true;
     setTimeout(this.computeWindowBounds, 500);
     window.addEventListener('resize', this.computeWindowBounds);
   },
   destroyed() { window.removeEventListener('resize', this.computeWindowBounds); },
 
   components: {
-    'problem-overview-card': require('./components/problem-overview-card/problem-overview-card.vue').default,
     'problems-tree': require('./components/problems-tree/problems-tree.vue').default,
     'save-status': require('./components/save-status/save-status.vue').default,
+    'problem-overview-card': require('./components/problem-overview-card/problem-overview-card.vue').default,
     'test-case-card': require('./components/test-case-card/test-case-card.vue').default,
+    'find-replace-card': require('./components/find-replace-card/find-replace-card.vue').default,
   },
 };
