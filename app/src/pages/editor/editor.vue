@@ -29,7 +29,7 @@
           class="button"
           v-on:click="findReplaceOpen = !findReplaceOpen"
           v-tippy
-          v-bind:title="`Find/replace <kbd>${$nativizeShortcut('mod+F')}</kbd>`"
+          v-bind:title="`Find / Replace <kbd>${$nativizeShortcut('mod+F')}</kbd>`"
         ></icon-search>
         <!-- Discard/reset button -->
         <icon-trash
