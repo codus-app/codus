@@ -15,6 +15,7 @@
     <div class="editor" ref="windowBounds">
       <!-- Top bar -->
       <div class="top-bar">
+        <!-- Run button -->
         <icon-play
           class="button"
           v-on:click="solutionCheck"
@@ -23,22 +24,27 @@
           v-bind:title="`Run <kbd>${$nativizeShortcut('mod+Enter')}</kbd>`"
         />
         <spinner v-if="solutionCheckInProgress"></spinner>
-
-        <icon-trash
-          class="button"
-          v-on:click="() => { this.deletionConfirmOpen = true; }"
-          v-tippy
-          v-bind:title="`Reset solution <kbd>${$nativizeShortcut('mod+Shift+backspace')}</kbd>`"
-        />
-        <icon-settings class="button"/>
+        <!-- Find/replace button -->
         <icon-search
           class="button"
           v-on:click="findReplaceOpen = !findReplaceOpen"
           v-tippy
           v-bind:title="`Find/replace <kbd>${$nativizeShortcut('mod+F')}</kbd>`"
         ></icon-search>
+        <!-- Discard/reset button -->
+        <icon-trash
+          class="button"
+          v-on:click="() => { this.deletionConfirmOpen = true; }"
+          v-tippy
+          v-bind:title="`Reset solution <kbd>${$nativizeShortcut('mod+Shift+backspace')}</kbd>`"
+        />
+        <!-- Settings button -->
+        <icon-settings class="button"/>
+        <!-- Save status indicator -->
         <save-status v-bind:status="saveStatus"/>
+        <!-- Problem label (warmup > AddOne) -->
         <breadcrumbs v-bind:crumbs="[categoryName, problemName]"></breadcrumbs>
+        <!-- "Open sidebar" button -->
         <div class="open-sidebar" v-bind:class="{ collapsed: !problemBrowserCollapsed }">
           <icon-menu
             v-on:click="problemBrowserCollapsed = false"
