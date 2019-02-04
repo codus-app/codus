@@ -61,7 +61,7 @@
 
       transition: color .2s, background .2s, box-shadow .1s
 
-      &:focus
+      &:focus:not(:active) // Show during tab selection but not while clicking
         box-shadow: 0 0 1px 1px transparentize($green-solid, .2)
 
       &:hover
