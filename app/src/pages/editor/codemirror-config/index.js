@@ -6,6 +6,7 @@ import 'codemirror/theme/material.css';
 import 'codemirror/addon/edit/matchbrackets';
 import 'codemirror/addon/edit/closebrackets';
 import 'codemirror/addon/selection/active-line';
+import 'codemirror/addon/search/searchcursor';
 // Additional styles
 import './codemirror.sass';
 // Custom themes
@@ -22,4 +23,5 @@ export default {
   autoCloseBrackets: true,
   styleActiveLine: true,
   scrollbarStyle: 'null',
+  autofocus: true,
 };

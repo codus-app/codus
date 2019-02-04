@@ -5,13 +5,15 @@
       <input
         type="text"
         placeholder="Find text"
+        v-model="query"
       >
-      <button>Find</button>
+      <button v-on:click="find">Find</button>
     </div>
     <div class="group">
       <input
         type="text"
         placeholder="Replace text"
+        v-model="replace"
       >
       <button>Replace</button>
     </div>
