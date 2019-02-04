@@ -16,6 +16,8 @@ export default {
     codemirror() { return this.cm.codemirror; },
   },
 
+  mounted() { this.$refs.find.focus(); },
+
   methods: {
     setSearch() {
       // Set up search cursor

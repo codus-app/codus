@@ -3,6 +3,7 @@
     <div class="title">Find + Replace</div>
     <div class="group">
       <input
+        ref="find"
         type="text"
         placeholder="Find text"
         v-model="query"
