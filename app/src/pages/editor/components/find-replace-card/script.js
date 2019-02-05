@@ -56,6 +56,7 @@ export default {
         this.cursor.findNext();
       }
       this.codemirror.setSelection(this.cursor.from(), this.cursor.to());
+      this.codemirror.scrollIntoView({ from: this.cursor.from(), to: this.cursor.to() }, 50);
     },
 
     deselect() { this.codemirror.setCursor(this.codemirror.getCursor()); },
