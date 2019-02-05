@@ -31,7 +31,7 @@ Vue.use(VueTippy, {
 
   animation: 'fade',
   duration: [200, 150],
-  delay: [200, 0],
+  delay: [400, 0],
   // Workaround for preventing "fill" animation (animationFill: false is broken)
   arrow: true,
   arrowTransform: 'scale(0)',
