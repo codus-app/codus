@@ -9,11 +9,14 @@ export default {
     cursor: null,
     activeSearch: '',
     overlay: null,
+
+    currMatch: 0,
   }),
 
   computed: {
     codemirror() { return this.cm.codemirror; },
-    hasMatches() { return !!this.query.length && this.code.includes(this.query); },
+    numMatches() { return this.query.length && this.code.split(this.query).length - 1; },
+    hasMatches() { return this.numMatches > 0; },
   },
 
   mounted() { this.$refs.find.focus(); },
@@ -23,6 +26,7 @@ export default {
       // Set up search cursor
       this.cursor = this.codemirror.getSearchCursor(this.query);
       this.activeSearch = this.query;
+      this.currMatch = 0;
       // Now stop if query is empty
       if (!this.query.length) return;
       // Check whether the search appears in the code
@@ -49,10 +53,12 @@ export default {
 
     selectNext() {
       this.cursor.findNext();
+      this.currMatch += 1;
       if (!this.cursor.atOccurrence) {
         // back before the start, then forward one place to the start
         this.cursor.findPrevious(); while (this.cursor.atOccurrence) this.cursor.findPrevious();
         this.cursor.findNext();
+        this.currMatch = 0;
         if (!this.cursor.atOccurrence) { return false; } // no matches
       }
       this.codemirror.setSelection(this.cursor.from(), this.cursor.to());

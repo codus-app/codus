@@ -11,6 +11,9 @@
           v-model="query"
           v-on:keydown.enter="find(false)"
         >
+        <div class="counter" v-if="query.length">
+          <span>{{ currMatch }}</span>/<span>{{ numMatches }}</span>
+        </div>
         <button v-on:click="find">Find</button>
       </div>
       <div class="group">

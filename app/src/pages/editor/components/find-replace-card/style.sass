@@ -21,6 +21,9 @@
     letter-spacing: .055em
 
   .group
+    $horiz-gap: .25rem
+    $vert-gap: .35rem
+
     display: flex
     align-items: stretch
     margin-top: .35rem
@@ -34,7 +37,7 @@
       color: transparentize($white, .2)
 
       padding: .4rem .5rem
-      margin-right: .25rem
+      margin-right: $horiz-gap
       background: transparentize($dark-1, .2)
       border: 0
       outline: 0
@@ -77,3 +80,29 @@
         color: transparentize($white, .8)
         background: lighten(transparentize($dark-1, .2), 2%)
         cursor: not-allowed
+
+    .counter
+      width: 0
+      overflow: visible
+      white-space: nowrap
+      display: flex
+      align-items: center
+      justify-content: flex-end
+      transform: translateX(-$horiz-gap - .35rem)
+      animation: fade-in .15s
+
+      font-size: .55rem
+      color: transparentize($white, .7)
+      font-family: $font-nunito
+      font-weight: 600
+
+      span:first-child
+        margin-right: .125em
+
+      span:last-child
+        margin-left: .125em
+
+
+@keyframes fade-in
+  from
+    opacity: 0
