@@ -1,6 +1,6 @@
 
 export default {
-  props: ['cm'],
+  props: ['cm', 'code'],
 
   data: () => ({
     query: '',
@@ -8,12 +8,12 @@ export default {
 
     cursor: null,
     activeSearch: '',
-    hasMatches: false,
     overlay: null,
   }),
 
   computed: {
     codemirror() { return this.cm.codemirror; },
+    hasMatches() { return !!this.query.length && this.code.includes(this.query); },
   },
 
   mounted() { this.$refs.find.focus(); },
@@ -23,11 +23,10 @@ export default {
       // Set up search cursor
       this.cursor = this.codemirror.getSearchCursor(this.query);
       this.activeSearch = this.query;
-      // Now stop if there are no results
-      if (!this.query.length) { this.hasMatches = false; return; }
+      // Now stop if query is empty
+      if (!this.query.length) return;
       // Check whether the search appears in the code
       this.cursor.findNext();
-      this.hasMatches = this.cursor.atOccurrence;
       this.cursor.findPrevious();
     },
 
@@ -54,7 +53,7 @@ export default {
         // back before the start, then forward one place to the start
         this.cursor.findPrevious(); while (this.cursor.atOccurrence) this.cursor.findPrevious();
         this.cursor.findNext();
-        if (!this.cursor.atOccurrence) { return false; } // there are no matches
+        if (!this.cursor.atOccurrence) { return false; } // no matches
       }
       this.codemirror.setSelection(this.cursor.from(), this.cursor.to());
       this.codemirror.scrollIntoView({ from: this.cursor.from(), to: this.cursor.to() }, 50);

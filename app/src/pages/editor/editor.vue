@@ -65,7 +65,7 @@
       <!-- List on the right side of the editor -->
       <div class="cards">
         <transition v-on:enter="findReplaceEnter" v-on:leave="findReplaceLeave">
-          <find-replace-card v-if="mounted && findReplaceOpen" v-bind:cm="$refs.codemirror"></find-replace-card> <!-- Wait for mount so that $refs.codemirror is defined -->
+          <find-replace-card v-if="mounted && findReplaceOpen" v-bind:cm="$refs.codemirror" v-bind:code="code"></find-replace-card> <!-- Wait for mount so that $refs.codemirror is defined -->
         </transition>
         <problem-overview-card
           v-if="fetched"

@@ -6,7 +6,7 @@
         <input
           type="text"
           ref="find"
-          class="mousetrap"
+          v-bind:class="{ mousetrap: true, 'no-matches': query.length && !hasMatches }"
           placeholder="Find text"
           v-model="query"
           v-on:keydown.enter="find(false)"
