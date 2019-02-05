@@ -18,6 +18,7 @@
         class="mousetrap"
         placeholder="Replace text"
         v-model="replaceText"
+        v-on:keydown.enter="handleReplace($event, false)"
       >
       <button
         v-on:click="handleReplace"

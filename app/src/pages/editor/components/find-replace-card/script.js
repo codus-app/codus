@@ -73,16 +73,16 @@ export default {
       }
     },
 
-    replace() {
-      if (this.query !== this.activeSearch) this.find();
+    replace(focus = true) {
+      if (this.query !== this.activeSearch) this.find(focus);
       this.cursor.replace(this.replaceText);
       this.selectNext();
     },
-    replaceAll() {
-      if (this.query !== this.activeSearch) this.find();
+    replaceAll(focus = true) {
+      if (this.query !== this.activeSearch) this.find(focus);
       while (this.selectNext()) this.cursor.replace(this.replaceText);
     },
-    handleReplace(e) { (e.shiftKey ? this.replaceAll : this.replace)(); },
+    handleReplace(e, focus = true) { (e.shiftKey ? this.replaceAll : this.replace)(focus); },
   },
 
   watch: {
