@@ -3,6 +3,7 @@ import debounce from 'debounce';
 import { mapState, mapGetters, mapActions } from 'vuex';
 
 import cmOptions from './codemirror-config';
+import findReplaceTransition from './components/find-replace-card/transition';
 
 export default {
   data: () => ({
@@ -165,6 +166,8 @@ export default {
         bottom - (0.7 * rem) - 4, // y2
       ];
     },
+
+    ...findReplaceTransition,
   },
 
   // Collapse automatically when output goes away so that next time it's not open
