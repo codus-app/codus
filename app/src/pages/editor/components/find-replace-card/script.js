@@ -7,7 +7,7 @@ export default {
     replaceText: '',
 
     cursor: null,
-    activeSearch: '',
+    stale: false,
     overlay: null,
 
     currMatch: 0,
@@ -25,8 +25,7 @@ export default {
     setSearch() {
       // Set up search cursor
       this.cursor = this.codemirror.getSearchCursor(this.query);
-      this.activeSearch = this.query;
-      this.currMatch = 0;
+      this.stale = false;
       // Now stop if query is empty
       if (!this.query.length) return;
       // Check whether the search appears in the code
@@ -58,7 +57,7 @@ export default {
         // back before the start, then forward one place to the start
         this.cursor.findPrevious(); while (this.cursor.atOccurrence) this.cursor.findPrevious();
         this.cursor.findNext();
-        this.currMatch = 0;
+        this.currMatch = 1;
         if (!this.cursor.atOccurrence) { return false; } // no matches
       }
       this.codemirror.setSelection(this.cursor.from(), this.cursor.to());
@@ -70,7 +69,7 @@ export default {
 
     find(focus = true) {
       // If new query, set new cursor
-      if (this.query !== this.activeSearch) this.setSearch();
+      if (this.stale) this.setSearch();
       // If there is a query and it has matches, select the next one
       if (this.query.length && this.hasMatches) {
         this.selectNext();
@@ -79,12 +78,12 @@ export default {
     },
 
     replace(focus = true) {
-      if (this.query !== this.activeSearch) this.find(focus);
+      if (this.stale) this.find(focus);
       this.cursor.replace(this.replaceText);
       this.selectNext();
     },
     replaceAll(focus = true) {
-      if (this.query !== this.activeSearch) this.find(focus);
+      if (this.stale) this.find(focus);
       while (this.selectNext()) this.cursor.replace(this.replaceText);
     },
     handleReplace(e, focus = true) { (e.shiftKey ? this.replaceAll : this.replace)(focus); },
@@ -92,6 +91,8 @@ export default {
 
   watch: {
     query(q) {
+      this.currMatch = 0;
+      this.stale = true;
       this.removeOverlay();
       if (q) this.setOverlay();
     },
