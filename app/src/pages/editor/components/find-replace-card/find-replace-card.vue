@@ -14,9 +14,9 @@
       <input
         type="text"
         placeholder="Replace text"
-        v-model="replace"
+        v-model="replaceText"
       >
-      <button>Replace</button>
+      <button v-on:click="replace">Replace</button>
     </div>
   </div>
 </template>

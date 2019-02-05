@@ -4,7 +4,7 @@ export default {
 
   data: () => ({
     query: '',
-    replace: '',
+    replaceText: '',
 
     cursor: null,
     activeSearch: '',
@@ -69,6 +69,12 @@ export default {
         this.selectNext();
         this.codemirror.focus();
       }
+    },
+
+    replace() {
+      if (this.query !== this.activeSearch) this.find();
+      this.cursor.replace(this.replaceText);
+      this.selectNext();
     },
   },
 
