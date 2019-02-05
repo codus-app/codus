@@ -16,7 +16,7 @@
         placeholder="Replace text"
         v-model="replaceText"
       >
-      <button v-on:click="replace">Replace</button>
+      <button v-on:click="handleReplace">Replace</button>
     </div>
   </div>
 </template>
