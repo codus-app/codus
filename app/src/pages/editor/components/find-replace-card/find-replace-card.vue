@@ -3,8 +3,9 @@
     <div class="title">Find + Replace</div>
     <div class="group">
       <input
-        ref="find"
         type="text"
+        ref="find"
+        class="mousetrap"
         placeholder="Find text"
         v-model="query"
       >
@@ -13,6 +14,7 @@
     <div class="group">
       <input
         type="text"
+        class="mousetrap"
         placeholder="Replace text"
         v-model="replaceText"
       >
