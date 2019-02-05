@@ -8,6 +8,7 @@
         class="mousetrap"
         placeholder="Find text"
         v-model="query"
+        v-on:keydown.enter="find(false)"
       >
       <button v-on:click="find">Find</button>
     </div>

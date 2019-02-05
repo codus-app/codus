@@ -63,13 +63,13 @@ export default {
 
     deselect() { this.codemirror.setCursor(this.codemirror.getCursor()); },
 
-    find() {
+    find(focus = true) {
       // If new query, set new cursor
       if (this.query !== this.activeSearch) this.setSearch();
       // If there is a query and it has matches, select the next one
       if (this.query.length && this.hasMatches) {
         this.selectNext();
-        this.codemirror.focus();
+        if (focus) this.codemirror.focus();
       }
     },
 
