@@ -11,7 +11,7 @@ export default {
     (() => {})(el.offsetHeight);
     // Hey!
     Object.assign(el.style, {
-      transition: 'height .35s, opacity .3s',
+      transition: 'height .3s, opacity .25s',
       height: `${el.firstElementChild.getBoundingClientRect().height + parseFloat(getComputedStyle(el.firstElementChild).marginBottom)}px`,
       opacity: 1,
     });
@@ -30,7 +30,7 @@ export default {
     (() => {})(el.offsetHeight);
     // Bye
     Object.assign(el.style, {
-      transition: 'height .35s, opacity .25s',
+      transition: 'height .25s, opacity .15s',
       height: 0,
       opacity: 0,
     });
