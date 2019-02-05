@@ -16,7 +16,11 @@
         placeholder="Replace text"
         v-model="replaceText"
       >
-      <button v-on:click="handleReplace">Replace</button>
+      <button
+        v-on:click="handleReplace"
+        v-tippy="{ delay: [1500, 0], arrowTransform: 'scale(0.55)' }"
+        title="<span style=&quot;color: rgba(0, 0, 0, 0.65)&quot;>Hold <span style=&quot;color: rgb(0, 0, 0); font-weight: 600;&quot;>Shift</span> to <br/>Replace All</span>"
+      >Replace</button>
     </div>
   </div>
 </template>

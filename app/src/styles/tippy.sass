@@ -1,9 +1,10 @@
 // Tippy theme
 @import variables
 
+$bg: transparentize(#bdbfc2, .025)
 
 .tippy-tooltip.codus-theme
-  background: transparentize(#bdbfc2, .025)
+  background: $bg
 
   font-family: $font-nunito
   font-weight: 600
@@ -20,3 +21,15 @@
     font-family: system-ui, $font-nunito
     font-weight: 400
     opacity: .5
+
+.tippy-popper[x-placement^='top'] .tippy-arrow
+  border-top-color: $bg
+
+.tippy-popper[x-placement^='right'] .tippy-arrow
+  border-right-color: $bg
+
+.tippy-popper[x-placement^='bottom'] .tippy-arrow
+  border-bottom-color: $bg
+
+.tippy-popper[x-placement^='left'] .tippy-arrow
+  border-left-color: $bg
