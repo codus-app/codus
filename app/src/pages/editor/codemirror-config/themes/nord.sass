@@ -112,6 +112,13 @@ $editor-matcher-color: $nord8
     background-color: transparent !important
     border-bottom: 1px solid $editor-matcher-color
 
+  .cm-searching
+    background: rgba($editor-selection-color, .65)
+    border-radius: 2px
+
+    &.CodeMirror-selectedtext
+      background: lighten(rgba($editor-selection-color, 1), 10%)
+
 
   .cm-atom
     color: $editor-syntax-color-keyword

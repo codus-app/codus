@@ -6,6 +6,7 @@ import 'codemirror/theme/material.css';
 import 'codemirror/addon/edit/matchbrackets';
 import 'codemirror/addon/edit/closebrackets';
 import 'codemirror/addon/selection/active-line';
+import 'codemirror/addon/selection/mark-selection';
 import 'codemirror/addon/search/searchcursor';
 // Additional styles
 import './codemirror.sass';
@@ -22,6 +23,7 @@ export default {
   matchBrackets: true,
   autoCloseBrackets: true,
   styleActiveLine: true,
+  styleSelectedText: true,
   scrollbarStyle: 'null',
   autofocus: true,
 };
