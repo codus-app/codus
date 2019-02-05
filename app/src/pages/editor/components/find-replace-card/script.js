@@ -96,6 +96,10 @@ export default {
       this.removeOverlay();
       if (q) this.setOverlay();
     },
+    // Set current match to 0 if number of matches in the code changes
+    code(newCode, oldCode) {
+      if (newCode.split(this.query).length !== oldCode.split(this.query).length) this.currMatch = 0;
+    },
   },
 
   destroyed() { this.removeOverlay(); },
