@@ -26,7 +26,7 @@
         >
         <button
           v-on:click="handleReplace"
-          v-tippy="{ delay: [1500, 0], arrowTransform: 'scale(0.55)' }"
+          v-tippy="{ delay: [800, 0], arrowTransform: 'scale(0.55)' }"
           title="<span style=&quot;color: rgba(0, 0, 0, 0.65)&quot;>Hold <span style=&quot;color: rgb(0, 0, 0); font-weight: 600;&quot;>Shift</span> to <br/>Replace All</span>"
         >Replace</button>
       </div>
