@@ -34,6 +34,7 @@ const management = new ManagementClient({
   clientId: 'JfqbfePwu53xNJ755rhcDM51G89vnjwr',
   clientSecret: process.env.AUTH0_CLIENT_SECRET,
 });
+module.exports.management = management;
 
 // Given an Auth0 user id, return full information
 module.exports.getUser = {

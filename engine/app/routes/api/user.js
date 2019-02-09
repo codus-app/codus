@@ -4,7 +4,7 @@ const {
   getUser: getAuth0User,
   updateUser: updateAuth0User,
   createUser: createAuth0User,
-} = require('../auth');
+} = require('../../auth');
 
 /* eslint-disable camelcase, object-curly-newline */
 
