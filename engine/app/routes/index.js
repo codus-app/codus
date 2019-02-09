@@ -1,5 +1,5 @@
 const keystone = require('keystone');
-const auth0 = require('./auth');
+const auth0 = require('../auth');
 
 /* eslint-disable global-require */
 const routes = {
