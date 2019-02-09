@@ -4,7 +4,7 @@ module.exports = {
 
   md: obj => ({
     md: obj.md,
-    html: obj.html.replace(/&amp;quot;/g, '&quot;'),
+    html: (obj.html || '').replace(/&amp;quot;/g, '&quot;'),
   }),
 
   // Prepare a problem from mongoose to be exposed to the public.
