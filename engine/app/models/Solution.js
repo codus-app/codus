@@ -7,7 +7,6 @@ const Solution = new keystone.List('Solution');
 
 Solution.add({
   /* eslint-disable object-curly-newline */
-  userId: { type: Types.Text, note: 'From auth0', initial: true, required: true },
   user: { type: Types.Relationship, ref: 'User', initial: true, required: true },
   problem: { type: Types.Relationship, ref: 'Problem', initial: true, required: true },
   code: { type: Types.Code, language: 'java', initial: true },
@@ -41,4 +40,4 @@ Solution.schema.methods.check = async function checkSolution() {
 
 Solution.register();
 
-Solution.defaultColumns = 'userId, problem, passed';
+Solution.defaultColumns = 'user, problem, passed';
