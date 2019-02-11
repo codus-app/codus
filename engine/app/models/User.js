@@ -13,6 +13,12 @@ User.add({
   /* eslint-enable */
 });
 
+User.relationship({
+  path: 'solutions',
+  ref: 'Solution',
+  refPath: 'user',
+});
+
 User.schema.methods.fetch = async function fetchAuth0User() {
   return getUser.byId(this.id);
 };
