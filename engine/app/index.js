@@ -4,6 +4,7 @@ require('dotenv').config();
 
 keystone.init({
   name: 'codus',
+  brand: 'Codus',
   auth: true,
   'user model': 'AdminUser',
   'cookie secret': process.env.KEYSTONE_COOKIE_SECRET,
