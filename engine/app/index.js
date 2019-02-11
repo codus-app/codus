@@ -19,6 +19,11 @@ keystone.import('models');
 
 keystone.set('routes', require('./routes'));
 
+keystone.set('nav', {
+  content: ['problems', 'categories'],
+  users: ['users', 'solutions'],
+});
+
 keystone.start();
 
 // Misc express config
