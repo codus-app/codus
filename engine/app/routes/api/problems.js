@@ -5,6 +5,7 @@ const { publicizeProblem, md } = require('./util');
 
 const Category = keystone.list('Category');
 const Problem = keystone.list('Problem');
+const User = keystone.list('User');
 const Solution = keystone.list('Solution');
 
 module.exports = {
@@ -86,9 +87,13 @@ module.exports = {
 
   userSolution: {
     async list(req, res) {
+      const user = await User.model
+        .findOne()
+        .where('userId').equals(req.user.sub);
+
       const solutions = await Solution.model
         .find()
-        .where('userId').equals(req.user.sub)
+        .where('user').equals(user._id)
         .select('-_id -__v')
         .populate({ path: 'problem', populate: { path: 'category' } });
 
@@ -96,6 +101,7 @@ module.exports = {
         .filter(s => s.problem) // Filter out solutions to deleted probelms
         .map(s => ({
           ...s.toObject(),
+          user: undefined,
           userId: undefined,
           problem: { category: s.problem.category.name, name: s.problem.name },
         }));
@@ -115,9 +121,13 @@ module.exports = {
         .where('name').equals(req.params.problem);
       if (!problem) { res.status(404).json({ error: `Problem '${req.params.category}/${req.params.problem}' was not found` }); return; }
 
+      const user = await User.model
+        .findOne()
+        .where('userId').equals(req.user.sub);
+
       const solution = await Solution.model
         .findOne()
-        .where('userId').equals(req.user.sub)
+        .where('user').equals(user._id)
         .where('problem').equals(problem._id)
         .select('-_id -__v')
         // When there's no existing user solution, code should be null
@@ -126,6 +136,7 @@ module.exports = {
       res.json({
         data: {
           ...solution.toObject(),
+          user: undefined,
           userId: undefined,
           problem: publicizeProblem(problem, problemCategory),
         },
@@ -147,9 +158,13 @@ module.exports = {
         .where('name').equals(req.params.problem);
       if (!problem) { res.status(404).json({ error: `Problem '${req.params.category}/${req.params.problem}' was not found` }); return; }
 
+      const user = await User.model
+        .findOne()
+        .where('userId').equals(req.user.sub);
+
       const solution = await Solution.model
         .findOne()
-        .where('userId').equals(req.user.sub)
+        .where('user').equals(user._id)
         .where('problem').equals(problem._id);
 
       // If there's a previous solution saved and the code didn't change between saves, we can
@@ -175,7 +190,7 @@ module.exports = {
           // Add a new solution
           const newSolution = new Solution.model(); // eslint-disable-line new-cap
           Solution.updateItem(newSolution, {
-            problem, userId: req.user.sub, code, passed: false,
+            problem, user: user._id, code, passed: false,
           }, (error) => {
             if (error) reject(error);
             else resolve();
@@ -199,9 +214,13 @@ module.exports = {
         .where('name').equals(req.params.problem);
       if (!problem) { res.status(404).json({ error: `Problem '${req.params.category}/${req.params.problem}' was not found` }); return; }
 
+      const user = await User.model
+        .findOne()
+        .where('userId').equals(req.user.sub);
+
       const solution = await Solution.model
         .findOne()
-        .where('userId').equals(req.user.sub)
+        .where('user').equals(user._id)
         .where('problem').equals(problem._id);
       if (!solution) { res.status(404).json({ error: `No solution to problem '${req.params.category}/${req.params.problem}' was found for authenticated user ${req.user.sub}` }); return; }
 
