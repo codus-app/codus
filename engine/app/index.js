@@ -9,6 +9,8 @@ keystone.init({
   'cookie secret': process.env.KEYSTONE_COOKIE_SECRET,
   mongo: process.env.MONGO_URI || 'mongodb://localhost/codus',
 
+  'auto update': true,
+
   port: 3000,
 });
 
