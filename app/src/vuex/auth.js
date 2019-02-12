@@ -20,6 +20,9 @@ export default {
     res: null,
     accessToken: localStorage.getItem('access_token'),
     idToken: localStorage.getItem('id_token'),
+    profile: localStorage.getItem('id_token')
+      ? jwtDecode(localStorage.getItem('id_token'))
+      : {},
   },
 
 
@@ -27,7 +30,7 @@ export default {
     // Update tokens and response after a successful login
     loggedIn(state, payload) {
       const { idToken, accessToken } = payload;
-      Object.assign(state, { res: payload, idToken, accessToken });
+      Object.assign(state, { res: payload, idToken, accessToken, profile: jwtDecode(idToken) }); // eslint-disable-line object-curly-newline, max-len
     },
 
     // Log out by deleting tokens
