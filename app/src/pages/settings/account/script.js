@@ -1,4 +1,4 @@
-import { mapState, mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import debounce from 'debounce';
 import isEmail from 'validator/lib/isEmail';
 import * as api from '../../../api';
@@ -23,11 +23,11 @@ export default {
   }),
 
   computed: {
-    ...mapState({ profile: state => state.user.profile }),
+    ...mapGetters(['profile']),
 
     changed() {
       return Object.keys(this.profile).length // Profile loaded
-        && (this.username !== this.profile.username
+        && (this.username !== (this.profile.username || this.profile.nickname)
           || this.name !== this.profile.name
           || this.email !== this.profile.email); // Info changed
     },
@@ -41,7 +41,7 @@ export default {
 
   created() {
     if (Object.keys(this.profile).length) {
-      this.username = this.profile.username;
+      this.username = this.profile.username || this.profile.nickname;
       this.name = this.profile.name;
       this.email = this.profile.email;
     } else {

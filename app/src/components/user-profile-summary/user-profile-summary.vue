@@ -6,12 +6,12 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
   props: { compact: Boolean },
   computed: {
-    ...mapState({ profile: state => state.user.profile }),
+    ...mapGetters(['profile']),
   },
 };
 </script>

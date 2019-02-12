@@ -1,4 +1,6 @@
 export default {
+  // Return id token information, adding fetched profile information when it becomes available
+  profile: state => Object.assign({}, state.auth.profile, state.user.profile),
   // Get the IDs of all categories
   categoryIds: state => state.categories.map(c => c.name),
   // Get a category by its ID. If the user has been fetched, include information about which
