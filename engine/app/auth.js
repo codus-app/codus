@@ -81,7 +81,10 @@ module.exports.createUser = async function createUser({ username, email, name, p
     email,
     username,
     password,
-    user_metadata: { name },
+    user_metadata: {
+      name,
+      picture: 'https://app.codus.io/static/avatar.svg',
+    },
   }, (err, data) => {
     if (err) reject(err);
     else resolve(data);
