@@ -65,14 +65,14 @@ module.exports = {
     authenticated: {
       // Get info
       async get(req, res) {
-        const { username, user_metadata, email, picture } = await getAuth0User.byId(req.user.sub); // eslint-disable-line object-curly-newline, max-len
+        const { username, user_metadata, email } = await getAuth0User.byId(req.user.sub); // eslint-disable-line object-curly-newline, max-len
         res.json({
           data: {
             id: req.user.sub,
             username,
             name: user_metadata.name,
             email,
-            picture,
+            picture: user_metadata.picture,
           },
         });
       },
