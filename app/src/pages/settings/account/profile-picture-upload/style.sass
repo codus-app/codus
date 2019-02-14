@@ -59,6 +59,21 @@
     background: $dark-1
     box-shadow: 0 10px 20px -5px transparentize($black, .75)
 
+
+
+// Simplified from https://gist.github.com/ryanjafari/bf752b6ef52726352239
+@function sqrt($square, $estimate: $square / 2)
+  @if abs($square - $estimate * $estimate) < .001
+    @return $estimate
+  @return sqrt($square, ($estimate + $square / $estimate) / 2)
+
+// Simplified from https://github.com/danro/jquery-easing/blob/master/jquery.easing.js#L25-L27
+@function ease-out-quad($progress)
+  $progress: min(max($progress, 0), 1) // Clamp
+  @return -1 * $progress * ($progress - 2)
+
+
+
 $num-rings: 5
 
 
@@ -101,3 +116,28 @@ $num-rings: 5
           width: 35px + 145px * $i
           height: 35px + 145px * $i
           opacity: 1 - ($i / ($num-rings + .75))
+
+
+    // File is hovering over upload window
+  &.drag-over
+    svg
+      color: $green-solid
+      opacity: .9
+
+    .rings
+      animation: pulse 1.25s .25s infinite alternate ease-in-out
+
+      .ring
+        box-shadow: 0 0 0 2px transparentize($green-solid, .15)
+
+        @for $i from 1 through $num-rings
+          &:nth-child(#{$i})
+            width: 55px + 150px * $i
+            height: 55px + 150px * $i
+            transition-delay: ease-out-quad($i / ($num-rings + 1)) * .25s
+            transition-duration: .075s + sqrt($i * .75 + 1) * .15s
+
+
+@keyframes pulse
+  to
+    transform: scale(1.025)

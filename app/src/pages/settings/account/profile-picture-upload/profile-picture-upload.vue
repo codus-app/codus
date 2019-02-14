@@ -10,7 +10,7 @@
     <modal v-bind:wide="true" v-bind:open="modalOpen" v-on:close="modalOpen = false" fade-color="#1e1e21">
       <div
         class="upload-window"
-        v-bind:class="{ [`drop-${dropState}`]: dropState.length }"
+        v-bind:class="{ [`drag-${dropState}`]: dropState.length }"
         v-on:dragenter="dropState = 'over'"
         v-on:dragleave="dropState = ''"
         v-on:drop="dropState='dropped'"
