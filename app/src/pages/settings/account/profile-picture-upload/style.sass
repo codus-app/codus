@@ -150,10 +150,8 @@ $circle-size: 35px + 145px * ($num-rings + .75)
     top: 50%
     left: 50%
     transform: translate(-50%, -50%)
-    transition: color .35s, opacity .35s
+    transition: color .35s, opacity .35s, transform .25s
     pointer-events: none
-
-    animation: center-scale .25s cubic-bezier(.175, .885, .32, 1.275)
 
     @keyframes center-scale
       from
@@ -165,7 +163,9 @@ $circle-size: 35px + 145px * ($num-rings + .75)
     opacity: 0
 
     .feather-upload-cloud
-      animation: none
+      transition: opacity .35s, transform .25s
+      opacity: 0
+      transform: translate(-50%, -50%) scale(.8)
 
     .rings .ring:nth-child(n)
       opacity: 0
@@ -215,9 +215,10 @@ $circle-size: 35px + 145px * ($num-rings + .75)
 
   // File is hovering over upload window
   &.drop-over:not(.dropped)
-    svg
+    .feather-upload-cloud
       color: $green-solid
       opacity: .9
+      transform: translate(-50%, -50%) scale(1.075)
 
     .rings
       animation: pulse 1.25s .25s infinite alternate ease-in-out
@@ -235,7 +236,7 @@ $circle-size: 35px + 145px * ($num-rings + .75)
 
   // File has been dropped onto upload window
   &.dropped
-    svg
+    .feather-upload-cloud
       color: $green-solid
       opacity: 0
       transition-delay: 0
