@@ -8,6 +8,13 @@
     </div>
 
     <modal v-bind:wide="true" v-bind:open="modalOpen" v-on:close="modalOpen = false" fade-color="#1e1e21">
+      <div class="upload-window" ref="upload-window">
+        <!-- Rings -->
+        <div class="rings">
+          <div class="ring" v-for="i in 5" v-bind:key="i"></div>
+        </div>
+
+        <icon-upload-cloud></icon-upload-cloud>
     </modal>
   </div>
 </template>
