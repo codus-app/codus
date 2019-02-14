@@ -10,7 +10,7 @@
         class="upload-window"
         v-bind:class="{ open: modalOpen, 'drop-over': dropOver, dropped }"
         v-on:dragenter="dropOver = true"
-        v-on:dragleave="dropOver = false"
+        v-on:dragleave="dropOver = false; modalOpen = !modalOpenedFromDrag"
         v-on:drop="dropped = true"
       >
         <div class="rings">
@@ -21,7 +21,11 @@
       </div>
     </div>
 
-    <div class="picture" v-on:click="modalOpen = true" v-bind:style="{ backgroundImage: `url(${url})` }">
+    <div class="picture"
+      v-on:click="modalOpen = true; modalOpenedFromDrag = false;"
+      v-on:dragenter="modalOpen = true; modalOpenedFromDrag = true; dropOver = true;"
+      v-bind:style="{ backgroundImage: `url(${url})` }"
+    >
       <div class="center">
         <icon-camera></icon-camera>
         <div class="label">{{ hasDefaultPicture ? 'Upload' : 'Change'}}</div>
