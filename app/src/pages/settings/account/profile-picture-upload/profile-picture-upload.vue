@@ -8,7 +8,13 @@
     </div>
 
     <modal v-bind:wide="true" v-bind:open="modalOpen" v-on:close="modalOpen = false" fade-color="#1e1e21">
-      <div class="upload-window" ref="upload-window">
+      <div
+        class="upload-window"
+        v-bind:class="{ [`drop-${dropState}`]: dropState.length }"
+        v-on:dragenter="dropState = 'over'"
+        v-on:dragleave="dropState = ''"
+        v-on:drop="dropState='dropped'"
+      >
         <!-- Rings -->
         <div class="rings">
           <div class="ring" v-for="i in 5" v-bind:key="i"></div>

@@ -85,6 +85,8 @@ window.app = new Vue({
         else await new Promise(resolve => this.$once('loggedIn', () => Promise.all([this.fetchUserProfile(), this.fetchSolved()]).then(resolve)));
       }
     })();
+
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(name => document.addEventListener(name, e => e.preventDefault()));
   },
 
   el: '#app',
