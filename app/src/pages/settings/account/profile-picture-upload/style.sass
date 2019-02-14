@@ -195,10 +195,10 @@ $circle-size: 35px + 145px * ($num-rings + .75)
           opacity: 1 - ($i / ($num-rings + .75))
 
 
-  &:not(.drop-over)
+  &:not(.has-dragged)
     @for $i from 1 through $num-rings
       .ring:nth-child(#{$i})
-        $delay: (.05s + $i * .055s)
+        $delay: (.05s + $i * .065s)
 
         animation: scale-#{$i} .55s $delay cubic-bezier(.19, 1, .22, 1)
 

@@ -2,15 +2,15 @@
   <div class="profile-picture-upload">
     <div class="circle-modal" v-bind:class="{ open: modalOpen }">
       <div class="circle"></div>
-      <div class="scrim" v-on:click="modalOpen = false; dropOver = false; dropped = false;"></div>
+      <div class="scrim" v-on:click="modalOpen = false; dropOver = false; dropped = false; hasDragged = false;"></div>
     </div>
 
     <div class="upload">
       <div
         class="upload-window"
-        v-bind:class="{ open: modalOpen, 'drop-over': dropOver, dropped }"
-        v-on:dragenter="dropOver = true"
-        v-on:dragleave="dropOver = false; modalOpen = !modalOpenedFromDrag"
+        v-bind:class="{ open: modalOpen, 'drop-over': dropOver, 'has-dragged': hasDragged, dropped }"
+        v-on:dragenter="dropOver = true; hasDragged = true;"
+        v-on:dragleave="dropOver = false; modalOpen = !modalOpenedFromDrag; hasDragged = !modalOpenedFromDrag"
         v-on:drop="dropped = true"
       >
         <div class="rings">
@@ -23,7 +23,7 @@
 
     <div class="picture"
       v-on:click="modalOpen = true; modalOpenedFromDrag = false;"
-      v-on:dragenter="modalOpen = true; modalOpenedFromDrag = true; dropOver = true;"
+      v-on:dragenter="modalOpen = true; modalOpenedFromDrag = true; dropOver = true; hasDragged = true;"
       v-bind:style="{ backgroundImage: `url(${url})` }"
     >
       <div class="center">
