@@ -141,11 +141,10 @@ $num-rings: 4
   border-radius: 50%
   overflow: hidden
   transform: translate(-50%, -50%)
-  transition: opacity .2s .05s
 
   .feather-upload-cloud
-    width: 1.8rem
-    height: 1.8rem
+    width: 1.6rem
+    height: 1.6rem
     color: $white
     opacity: .35
     position: absolute
@@ -155,6 +154,23 @@ $num-rings: 4
     transition: color .35s, opacity .35s
     pointer-events: none
 
+    animation: center-scale .25s cubic-bezier(.175, .885, .32, 1.275)
+
+    @keyframes center-scale
+      from
+        transform: translate(-50%, -50%) scale(.5)
+
+
+  &:not(.open)
+    pointer-events: none
+    opacity: 0
+
+    .feather-upload-cloud
+      animation: none
+
+    .rings .ring:nth-child(n)
+      opacity: 0
+      animation: none
 
   .rings
     width: 100%
@@ -168,19 +184,35 @@ $num-rings: 4
       transform: translate(-50%, -50%)
       border-radius: 50%
       box-shadow: 0 0 0 2px transparentize($white, .85)
-      transition: box-shadow .4s, width .375s, height .375s
 
       @for $i from 1 through $num-rings
         &:nth-child(#{$i})
           width: 35px + 145px * $i
           height: 35px + 145px * $i
+
+          $duration: .25s
+          $delay: (.05s + $i * .055s)
+          transition: box-shadow .3s, width .375s, height .375s, opacity $duration $delay
           opacity: 1 - ($i / ($num-rings + .75))
 
 
-  &:not(.open)
-    pointer-events: none
-    opacity: 0
-    transition: opacity .1s
+  &:not(.drop-over)
+    @for $i from 1 through $num-rings
+      .ring:nth-child(#{$i})
+        $delay: (.05s + $i * .055s)
+
+        animation: scale-#{$i} .55s $delay cubic-bezier(.19, 1, .22, 1)
+
+        @keyframes scale-#{$i}
+          from
+            width: 145px * $i - 20px
+            height: 145px * $i - 20px
+
+          to
+            width: 35px + 145px * $i
+            height: 35px + 145px * $i
+
+
 
   // File is hovering over upload window
   &.drop-over:not(.dropped)
@@ -221,6 +253,7 @@ $num-rings: 4
           animation-delay: .05s + ease-out-quad($i / ($num-rings + 1)) * .25
           animation-duration: .5s
           animation-fill-mode: forwards
+
 
 @keyframes pulse
   to
