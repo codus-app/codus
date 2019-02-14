@@ -2,7 +2,7 @@
   <div class="modal-wrapper" v-bind:class="{ open }">
     <div class="scrim" v-bind:style="{ backgroundColor: fadeColor }"></div>
 
-    <div class="modal">
+    <div class="modal" v-bind:class="{ wide }">
       <icon-x v-on:click="$emit('close')"></icon-x>
 
       <!-- Header -->
