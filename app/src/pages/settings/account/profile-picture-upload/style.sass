@@ -2,8 +2,8 @@
 
 .picture
   position: relative
-  left: 50%
-  transform: translateX(-50%)
+  display: inline-block
+  z-index: 20
   width: 7.5rem
   height: 7.5rem
   border-radius: 50%
@@ -12,8 +12,8 @@
   background-size: cover
   margin-bottom: 1rem
   box-shadow: inset 0 0 0 500px transparentize($dark-1, .55)
-  transition: box-shadow .2s
-  cursor: pointer
+  transition: box-shadow .2s, opacity .15s, transform .2s
+  will-change: transform
 
   .center
     position: absolute
@@ -49,15 +49,61 @@
       opacity: .75
 
 
-.modal-wrapper /deep/
-  &.open div.scrim
-    opacity: .6
+.circle-modal
+  cursor: default
+  position: relative
+  z-index: 19
+  top: (7.5rem / 2) // Half picture height
 
-  div.modal
-    width: 35rem
-    height: 25rem
+  .scrim
+    position: fixed
+    top: 0
+    left: 0
+    z-index: 50
+    width: 100%
+    height: 100%
+    background: $dark-3
+
+    pointer-events: none
+    opacity: 0
+    transition: opacity .15s .1s ease-out
+
+  .circle
+    position: absolute
+    top: 50%
+    left: 50%
+    z-index: 51
+    width: 100vh
+    height: 100vh
+
     background: $dark-1
-    box-shadow: 0 10px 20px -5px transparentize($black, .75)
+    border-radius: 50%
+
+    transform: translate(-50%, -50%) scale(0)
+    will-change: transform
+    opacity: .5
+    transition: transform .25s ease-in, opacity .25s .1s
+
+  &.open
+    .scrim
+      opacity: .75
+      pointer-events: all
+      transition: opacity .15s
+
+    .circle
+      opacity: 1
+      transform: translate(-50%, -50%) scale(1)
+      transition: transform .4s cubic-bezier(.19, 1, .22, 1), opacity .1s
+
+    & + .picture,
+    & + .picture:hover
+      opacity: .2
+      box-shadow: none
+      transform: scale(.6)
+      transition: box-shadow .2s, opacity .15s, transform .4s cubic-bezier(.19, 1, .22, 1)
+
+      .center
+        opacity: 0
 
 
 
