@@ -8,6 +8,7 @@ keystone.init({
   auth: true,
   'user model': 'AdminUser',
   'cookie secret': process.env.KEYSTONE_COOKIE_SECRET,
+
   mongo: process.env.MONGO_URI || 'mongodb://localhost/codus',
 
   'auto update': true,
@@ -23,6 +24,7 @@ keystone.set('nav', {
   content: ['problems', 'categories'],
   users: ['users', 'solutions'],
 });
+keystone.set('back url', process.env.HOMEPAGE || 'https://codus.io/');
 
 keystone.start();
 
