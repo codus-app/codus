@@ -2,7 +2,9 @@
   <div class="account-settings" v-if="Object.keys(profile).length">
     <div class="card profile">
       <h2>Your profile</h2>
-      <div class="picture" v-bind:style="{ backgroundImage: `url(${profile.picture})` }"></div>
+
+      <profile-picture-upload v-bind:url="profile.picture"></profile-picture-upload>
+
       <div class="group">
         <text-input
           title="Username"

@@ -31,6 +31,8 @@ import {
   FileTextIcon,
   Minimize2Icon,
   Maximize2Icon,
+  // Settings pages icons
+  CameraIcon,
   // Misc
   ChevronUpIcon,
   ChevronRightIcon,
@@ -62,6 +64,8 @@ Vue.component('icon-file', FileIcon);
 Vue.component('icon-file-text', FileTextIcon);
 Vue.component('icon-maximize', Maximize2Icon);
 Vue.component('icon-minimize', Minimize2Icon);
+// Settings pages icons
+Vue.component('icon-camera', CameraIcon)
 // Misc
 Vue.component('icon-chevron-up', ChevronUpIcon);
 Vue.component('icon-chevron-right', ChevronRightIcon);
