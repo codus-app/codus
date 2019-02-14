@@ -7,7 +7,7 @@
       </div>
     </div>
 
-    <modal v-bind:wide="true" v-bind:open="modalOpen" v-on:close="modalOpen = false" fade-color="#1e1e21">
+    <modal v-bind:wide="true" v-bind:open="modalOpen" v-on:close="modalOpen = false; dropOver = false; dropped = false;" fade-color="#1e1e21">
       <div
         class="upload-window"
         v-bind:class="{ 'drop-over': dropOver, dropped }"
