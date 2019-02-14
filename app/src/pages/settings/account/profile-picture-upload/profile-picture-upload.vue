@@ -10,10 +10,10 @@
     <modal v-bind:wide="true" v-bind:open="modalOpen" v-on:close="modalOpen = false" fade-color="#1e1e21">
       <div
         class="upload-window"
-        v-bind:class="{ [`drag-${dropState}`]: dropState.length }"
-        v-on:dragenter="dropState = 'over'"
-        v-on:dragleave="dropState = ''"
-        v-on:drop="dropState='dropped'"
+        v-bind:class="{ 'drop-over': dropOver, dropped }"
+        v-on:dragenter="dropOver = true"
+        v-on:dragleave="dropOver = false"
+        v-on:drop="dropped = true"
       >
         <!-- Rings -->
         <div class="rings">

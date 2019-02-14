@@ -3,7 +3,8 @@ export default {
 
   data: () => ({
     modalOpen: false,
-    dropState: '',
+    dropOver: false,
+    dropped: false,
   }),
 
   computed: {

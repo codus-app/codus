@@ -118,8 +118,8 @@ $num-rings: 5
           opacity: 1 - ($i / ($num-rings + .75))
 
 
-    // File is hovering over upload window
-  &.drag-over
+  // File is hovering over upload window
+  &.drop-over:not(.dropped)
     svg
       color: $green-solid
       opacity: .9
@@ -138,6 +138,33 @@ $num-rings: 5
             transition-duration: .075s + sqrt($i * .75 + 1) * .15s
 
 
+  // File has been dropped onto upload window
+  &.dropped
+    svg
+      color: $green-solid
+      opacity: 0
+      transition-delay: 0
+      transition-duration: .35s
+
+    .rings .ring
+      @for $i from 1 through $num-rings
+        &:nth-child(#{$i})
+          width: 55px + 150px * $i
+          height: 55px + 150px * $i
+          box-shadow: 0 0 0 2px transparentize($green-solid, .5)
+
+          animation-name: boom
+          animation-delay: .05s + ease-out-quad($i / ($num-rings + 1)) * .25
+          animation-duration: .5s
+          animation-fill-mode: forwards
+
 @keyframes pulse
   to
     transform: scale(1.025)
+
+@keyframes boom
+  from
+    box-shadow: 0 0 0 12px transparent
+
+  to
+    box-shadow: 0 0 0 2px transparentize($green-solid, .6)
