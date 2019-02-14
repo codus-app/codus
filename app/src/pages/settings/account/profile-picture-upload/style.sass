@@ -47,3 +47,14 @@
 
     .center
       opacity: .75
+
+
+.modal-wrapper /deep/
+  &.open div.scrim
+    opacity: .6
+
+  div.modal
+    width: 35rem
+    height: 25rem
+    background: $dark-1
+    box-shadow: 0 10px 20px -5px transparentize($black, .75)
