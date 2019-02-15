@@ -1,18 +1,20 @@
 @import 'src/styles/variables'
 
-.picture
-  position: relative
+.picture,
+.new-picture
   display: inline-block
-  z-index: 20
   width: 7.5rem
   height: 7.5rem
   border-radius: 50%
+
+.picture
+  position: relative
+  z-index: 20
   cursor: pointer
   background-color: $dark-3
   background-size: cover
-  margin-bottom: 1rem
+  margin-bottom: -.5rem
   box-shadow: inset 0 0 0 500px transparentize($dark-1, .55)
-  transform: scale(.999)
   transition: box-shadow .2s, opacity .15s, transform .2s
   will-change: transform
 
@@ -69,6 +71,7 @@ $circle-size: 35px + 145px * ($num-rings + .75)
 
     pointer-events: none
     opacity: 0
+    will-change: opacity
     transition: opacity .15s .1s ease-out
 
   .circle
@@ -129,7 +132,7 @@ $circle-size: 35px + 145px * ($num-rings + .75)
 .upload
   position: relative
   top: (7.5rem / 2)
-  z-index: 52
+  z-index: 21
   height: 0
 
 .upload-window
@@ -158,14 +161,34 @@ $circle-size: 35px + 145px * ($num-rings + .75)
         transform: translate(-50%, -50%) scale(.5)
 
 
+  .new-picture
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%) scale(.7)
+    pointer-events: none
+    background-size: cover
+    transition: opacity .2s, transform .2s
+
+    &.empty
+      opacity: 0
+      transform: translate(-50%, -50%) scale(.5)
+
+
+
   &:not(.open)
     pointer-events: none
     opacity: 0
+    transition: opacity .1s
 
     .feather-upload-cloud
       transition: opacity .35s, transform .25s
       opacity: 0
       transform: translate(-50%, -50%) scale(.8)
+
+    .new-picture
+      transition: transform .25s
+      transform: translate(-50%, -50%) scale(.85)
 
     .rings .ring:nth-child(n)
       opacity: 0
@@ -175,6 +198,7 @@ $circle-size: 35px + 145px * ($num-rings + .75)
     width: 100%
     height: 100%
     pointer-events: none
+    will-change: transform
 
     .ring
       position: absolute

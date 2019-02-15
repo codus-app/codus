@@ -2,7 +2,7 @@
   <div class="profile-picture-upload">
     <div class="circle-modal" v-bind:class="{ open: modalOpen }">
       <div class="circle"></div>
-      <div class="scrim" v-on:click="modalOpen = false; dropOver = false; dropped = false; hasDragged = false;"></div>
+      <div class="scrim" v-on:click="reset"></div>
     </div>
 
     <div class="upload">
@@ -10,14 +10,20 @@
         class="upload-window"
         v-bind:class="{ open: modalOpen, 'drop-over': dropOver, 'has-dragged': hasDragged, dropped }"
         v-on:dragenter="dropOver = true; hasDragged = true;"
-        v-on:dragleave="dropOver = false; modalOpen = !modalOpenedFromDrag; hasDragged = !modalOpenedFromDrag"
-        v-on:drop="dropped = true"
+        v-on:dragleave="handleDragLeave"
+        v-on:drop="handleDrop"
       >
         <div class="rings">
           <div class="ring" v-for="i in 4" v-bind:key="i"></div>
         </div>
 
         <icon-upload-cloud></icon-upload-cloud>
+
+        <div
+          class="new-picture"
+          v-bind:class="{ empty: !imageDataURL.length }"
+          v-bind:style="{ backgroundImage: imageDataURL ? `url(${imageDataURL})` : '' }"
+        ></div>
       </div>
     </div>
 
