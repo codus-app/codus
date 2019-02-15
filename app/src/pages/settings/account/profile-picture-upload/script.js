@@ -21,8 +21,8 @@ export default {
 
   methods: {
     handleDragLeave() {
+      if (this.modalOpenedFromDrag) return this.close();
       this.dropOver = false;
-      if (this.modalOpenedFromDrag) return this.reset();
       return undefined;
     },
 
@@ -37,10 +37,9 @@ export default {
       reader.readAsDataURL(file);
     },
 
-    reset() {
+    close() {
       Object.assign(this, {
         modalOpen: false,
-        dropOver: false,
         dropped: false,
         hasDragged: false,
       });
@@ -51,7 +50,7 @@ export default {
           delay(500),
           new Promise((resolve) => { this.$once('modalOpen', resolve); }),
         ])
-          .then(() => { this.imageDataURL = ''; });
+          .then(() => { this.imageDataURL = ''; this.dropOver = false; });
       });
     },
   },

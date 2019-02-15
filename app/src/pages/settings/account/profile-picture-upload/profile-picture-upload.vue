@@ -2,7 +2,7 @@
   <div class="profile-picture-upload">
     <div class="circle-modal" v-bind:class="{ open: modalOpen }">
       <div class="circle"></div>
-      <div class="scrim" v-on:click="reset"></div>
+      <div class="scrim" v-on:click="close"></div>
     </div>
 
     <div class="upload">
