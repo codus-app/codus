@@ -14,7 +14,7 @@
         v-on:drop="handleDrop"
       >
         <div class="rings">
-          <div class="ring" v-for="i in 4" v-bind:key="i"></div>
+          <div class="ring" v-for="i in 3" v-bind:key="i"></div>
         </div>
 
         <icon-upload-cloud></icon-upload-cloud>

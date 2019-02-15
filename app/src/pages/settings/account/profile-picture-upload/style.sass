@@ -51,7 +51,7 @@
     .center
       opacity: .75
 
-$num-rings: 4
+$num-rings: 3
 $circle-size: 35px + 145px * ($num-rings + .75)
 
 .circle-modal
@@ -107,7 +107,7 @@ $circle-size: 35px + 145px * ($num-rings + .75)
       opacity: .4
       pointer-events: none
       box-shadow: none
-      transform: scale(.7)
+      transform: scale(.85)
       transition: box-shadow .2s, opacity .15s, transform .4s cubic-bezier(.19, 1, .22, 1)
 
       .center
@@ -145,8 +145,8 @@ $circle-size: 35px + 145px * ($num-rings + .75)
   transform: translate(-50%, -50%)
 
   .feather-upload-cloud
-    width: 1.6rem
-    height: 1.6rem
+    width: 2rem
+    height: 2rem
     color: $white
     opacity: .35
     position: absolute
@@ -165,7 +165,7 @@ $circle-size: 35px + 145px * ($num-rings + .75)
     position: absolute
     top: 50%
     left: 50%
-    transform: translate(-50%, -50%) scale(.7)
+    transform: translate(-50%, -50%) scale(.85)
     pointer-events: none
     background-size: cover
     transition: opacity .2s, transform .2s
