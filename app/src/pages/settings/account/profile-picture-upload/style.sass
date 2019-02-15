@@ -1,5 +1,7 @@
 @import 'src/styles/variables'
 
+$active-color: $green-solid
+
 .picture,
 .new-picture
   display: inline-block
@@ -240,7 +242,7 @@ $circle-size: 35px + 145px * ($num-rings + .75)
   // File is hovering over upload window
   &.drop-over:not(.dropped)
     .feather-upload-cloud
-      color: $green-solid
+      color: $active-color
       opacity: .9
       transform: translate(-50%, -50%) scale(1.075)
 
@@ -248,7 +250,7 @@ $circle-size: 35px + 145px * ($num-rings + .75)
       animation: pulse 1.25s .25s infinite alternate ease-in-out
 
       .ring
-        box-shadow: 0 0 0 2px transparentize($green-solid, .15)
+        box-shadow: 0 0 0 2px transparentize($active-color, .15)
 
         @for $i from 1 through $num-rings
           &:nth-child(#{$i})
@@ -261,7 +263,7 @@ $circle-size: 35px + 145px * ($num-rings + .75)
   // File has been dropped onto upload window
   &.dropped
     .feather-upload-cloud
-      color: $green-solid
+      color: $active-color
       opacity: 0
       transition-delay: 0
       transition-duration: .35s
@@ -271,7 +273,6 @@ $circle-size: 35px + 145px * ($num-rings + .75)
         &:nth-child(#{$i})
           width: 55px + 150px * $i
           height: 55px + 150px * $i
-          box-shadow: 0 0 0 2px transparentize($green-solid, .5)
 
           animation-name: boom
           animation-delay: .05s + ease-out-quad($i / ($num-rings + 1)) * .25
@@ -288,4 +289,4 @@ $circle-size: 35px + 145px * ($num-rings + .75)
     box-shadow: 0 0 0 12px transparent
 
   to
-    box-shadow: 0 0 0 2px transparentize($green-solid, .6)
+    box-shadow: 0 0 0 2px transparentize($active-color, .5)
