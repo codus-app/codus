@@ -146,6 +146,9 @@ $circle-size: 35px + 145px * ($num-rings + .75)
   overflow: hidden
   transform: translate(-50%, -50%)
 
+  &:not(.dropped)
+    cursor: pointer
+
   .feather-upload-cloud
     width: 2rem
     height: 2rem
@@ -161,6 +164,11 @@ $circle-size: 35px + 145px * ($num-rings + .75)
     @keyframes center-scale
       from
         transform: translate(-50%, -50%) scale(.5)
+
+
+  input[type='file']
+    opacity: 0
+    pointer-events: none
 
 
   .new-picture

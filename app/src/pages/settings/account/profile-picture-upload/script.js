@@ -26,16 +26,21 @@ export default {
       return undefined;
     },
 
-    handleDrop(e) {
-      if (this.dropped) return;
+    browse() {
+      if (!this.dropped) this.$refs.fileInput.click();
+    },
+
+    handleFile(e) {
+      if (this.dropped) return; // Don't allow replacing dropped file with a second one
 
       this.dropped = true;
 
-      const file = e.dataTransfer.files[0];
+      const file = (e.dataTransfer || e.target).files[0];
       const reader = new FileReader();
       reader.addEventListener('load', (e2) => { this.imageDataURL = e2.target.result; });
       reader.readAsDataURL(file);
     },
+
 
     close() {
       Object.assign(this, {

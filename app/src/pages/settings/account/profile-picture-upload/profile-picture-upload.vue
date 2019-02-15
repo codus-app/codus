@@ -11,13 +11,21 @@
         v-bind:class="{ open: modalOpen, 'drop-over': dropOver, 'has-dragged': hasDragged, dropped }"
         v-on:dragenter="dropOver = true; hasDragged = true;"
         v-on:dragleave="handleDragLeave"
-        v-on:drop="handleDrop"
+        v-on:drop="handleFile"
+        v-on:click="browse"
       >
         <div class="rings">
           <div class="ring" v-for="i in 3" v-bind:key="i"></div>
         </div>
 
         <icon-upload-cloud></icon-upload-cloud>
+
+        <input
+          ref="fileInput"
+          type="file"
+          accept="image/png, image/jpeg, image/gif"
+          v-on:change="handleFile"
+        >
 
         <div
           class="new-picture"
