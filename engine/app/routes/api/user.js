@@ -1,3 +1,4 @@
+const keystone = require('keystone');
 const { isEmail } = require('validator');
 const { validateUser } = require('./util');
 const {
@@ -5,6 +6,8 @@ const {
   updateUser: updateAuth0User,
   createUser: createAuth0User,
 } = require('../../auth');
+
+const User = keystone.list('User');
 
 /* eslint-disable camelcase, object-curly-newline */
 
@@ -35,7 +38,14 @@ module.exports = {
 
       else {
         try {
+          // Create Auth0 user
           const user = await createAuth0User({ username, name, email, password });
+          // Create Keystone user
+          await new Promise((resolve) => {
+            // eslint-disable-next-line new-cap
+            new User.model({ userId: user.user_id }).save(resolve);
+          });
+
           res.status(201).json({
             data: {
               id: user.user_id,
