@@ -18,7 +18,8 @@ keystone.init({
 
 keystone.import('models');
 
-keystone.set('routes', require('./routes'));
+keystone.set('routes', require('./routes')); // eslint-disable-line import/newline-after-import
+keystone.set('handle uploads', false);
 
 keystone.set('nav', {
   content: ['problems', 'categories'],

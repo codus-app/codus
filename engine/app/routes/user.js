@@ -1,6 +1,8 @@
 const keystone = require('keystone');
 const { isEmail } = require('validator');
 const { validateUser } = require('./util');
+const upload = require('./util/profile-image-upload');
+
 const {
   getUser: getAuth0User,
   updateUser: updateAuth0User,
@@ -120,10 +122,14 @@ module.exports = {
         }
       }
     },
-  },
 
-  async putProfileImage(req, res) {
-
+    putProfileImage(req, res) {
+      // Accepts multipart form data with the new image under the "picture" key
+      upload.single('picture')(req, res, (err) => {
+        if (err) res.status(500).json({ error: err.message });
+        else res.json({ data: { url: req.file.location } });
+      });
+    },
   },
 
   // Operations checking the availability of certain user data with enforced uniqueness

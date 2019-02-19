@@ -42,6 +42,7 @@ module.exports = (app) => {
 
   app.get('/api/user', auth0(), routes.api.user.authenticated.get);
   app.patch('/api/user', auth0(), routes.api.user.authenticated.patch);
+  app.put('/api/user/profile-image', auth0(), routes.api.user.authenticated.putProfileImage);
   app.post('/api/user', routes.api.user.post);
 
   app.get('/api/user/solutions', auth0(), routes.api.userSolution.list);
