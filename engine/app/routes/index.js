@@ -3,8 +3,12 @@ const auth0 = require('../auth');
 
 /* eslint-disable global-require */
 const routes = {
-  api: require('./api'),
+  api: {
+    ...require('./problems'),
+    ...require('./user'),
+  },
 };
+
 /* eslint-enable global-require */
 
 module.exports = (app) => {
@@ -21,7 +25,7 @@ module.exports = (app) => {
   /* --- API routes --- */
 
 
-  app.get('/api', routes.api.base);
+  app.get('/api', (req, res) => res.json({ status: 'ok' }));
 
   // These endpoints query the problem database and return public information
 

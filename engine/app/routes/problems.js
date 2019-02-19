@@ -1,7 +1,7 @@
 /* eslint-disable global-require */
 
 const keystone = require('keystone');
-const { publicizeProblem, md } = require('../util');
+const { publicizeProblem, md } = require('./util');
 
 const Category = keystone.list('Category');
 const Problem = keystone.list('Problem');
@@ -9,7 +9,8 @@ const User = keystone.list('User');
 const Solution = keystone.list('Solution');
 
 module.exports = {
-  base(req, res) { res.json({ status: 'ok' }); },
+
+  // Routes for retrieving public information about categories
 
   category: {
     async list(req, res) {
@@ -58,6 +59,7 @@ module.exports = {
     },
   },
 
+  // Routes for retrieving public information about problems
 
   problem: {
     async get(req, res) {
@@ -84,6 +86,7 @@ module.exports = {
     },
   },
 
+  // Routes for retrieving and manipulating users' solutions to problems
 
   userSolution: {
     async list(req, res) {
@@ -261,4 +264,6 @@ module.exports = {
       }
     },
   },
+
+
 };

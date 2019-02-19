@@ -1,11 +1,11 @@
 const keystone = require('keystone');
 const { isEmail } = require('validator');
-const { validateUser } = require('../util');
+const { validateUser } = require('./util');
 const {
   getUser: getAuth0User,
   updateUser: updateAuth0User,
   createUser: createAuth0User,
-} = require('../../auth');
+} = require('../auth');
 
 const User = keystone.list('User');
 
@@ -13,7 +13,9 @@ const User = keystone.list('User');
 
 module.exports = {
   user: {
-    // Retrieve public info about any user
+
+    // Operations to retrieve public info about any user
+
     get(req, res) {
       getAuth0User.byUsername(req.params.username)
         .then(user => user || { error: 'not found' })
@@ -28,6 +30,8 @@ module.exports = {
           });
         });
     },
+
+    // Operations to create new users
 
     // Sign up
     async post(req, res) {
@@ -72,6 +76,7 @@ module.exports = {
     },
 
     // Operations on the authenticated user
+
     authenticated: {
       // Get info
       async get(req, res) {
@@ -117,12 +122,17 @@ module.exports = {
       },
     },
 
+    async putProfileImage(req, res) {
+
+    },
+
+    // Operations checking the availability of certain user data with enforced uniqueness
+
     checkUsername(req, res) {
       const { username } = req.params;
       // Quick client-side username validation
       if (validateUser({ username }).length) {
         res.json({ data: { available: false, exists: false } });
-
       // Check for conflicts with other users
       } else {
         getAuth0User.byUsername(username)
@@ -141,5 +151,6 @@ module.exports = {
           .then(user => res.json({ data: { available: !user, exists: !!user } }));
       }
     },
+
   },
 };
