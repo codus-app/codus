@@ -59,5 +59,5 @@ module.exports = (app) => {
   /* --- Post-route middleware --- */
 
 
-  app.use(require('./util/authErrorHandle')); // eslint-disable-line global-require
+  app.use(require('./util/auth-error-handle')); // eslint-disable-line global-require
 };
