@@ -1,11 +1,15 @@
 const keystone = require('keystone');
 const auth0 = require('../auth');
 
-/* eslint-disable global-require */
+const { category, problem, userSolution } = require('./problems');
+const user = require('./user');
+
 const routes = {
   api: {
-    ...require('./problems'),
-    ...require('./user'),
+    category,
+    problem,
+    user,
+    userSolution,
   },
 };
 
