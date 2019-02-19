@@ -1,7 +1,7 @@
 /* eslint-disable global-require */
 
 const keystone = require('keystone');
-const { publicizeProblem, md } = require('./util');
+const { publicizeProblem, md } = require('../util');
 
 const Category = keystone.list('Category');
 const Problem = keystone.list('Problem');

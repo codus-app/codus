@@ -1,6 +1,6 @@
 const keystone = require('keystone');
 const { isEmail } = require('validator');
-const { validateUser } = require('./util');
+const { validateUser } = require('../util');
 const {
   getUser: getAuth0User,
   updateUser: updateAuth0User,
