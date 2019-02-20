@@ -138,7 +138,7 @@ module.exports = {
             picture: updated.user_metadata.picture,
           },
         }))
-        .catch(err => res.status(err.statusCode || 500).json({ error: err.message }));
+        .catch(err => res.status(err.statusCode || 422).json({ error: err.message }));
     },
   },
 
