@@ -8,7 +8,7 @@ export const webAuth = new auth0.WebAuth({
   responseType: 'token id_token',
   realm: 'Username-Password-Authentication',
   audience: 'https://engine.codus.io/',
-  scope: 'openid profile email execute write:solutions read:solutions',
+  scope: 'openid profile email',
   redirectUri: window.location.origin,
 });
 
