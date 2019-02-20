@@ -13,8 +13,8 @@ module.exports = multer({
     s3,
     bucket: 'codus-profile-images',
     acl: 'public-read',
-    // Set filename to current time
-    key: (req, file, cb) => cb(null, Date.now().toString()),
+    // Set filename to user ID slug
+    key: (req, file, cb) => cb(null, req.user.sub.replace('|', '-')),
   }),
 
   fileFilter(req, file, cb) {

@@ -123,14 +123,16 @@ module.exports = {
       }
     },
 
+    // Accepts multipart form data with the new image under the "picture" key
     putProfileImage(req, res) {
-      // Accepts multipart form data with the new image under the "picture" key
+      // Upload new profile image
       new Promise((resolve, reject) => {
         upload.single('picture')(req, res, (err) => {
           if (err) reject(err);
           else resolve(req.file.location);
         });
       })
+        // Save new image URL to Auth0 API
         .then(imageUrl => updateAuth0User(req.user.sub, { picture: imageUrl }))
         .then(updated => res.json({
           data: {
@@ -138,6 +140,7 @@ module.exports = {
             picture: updated.user_metadata.picture,
           },
         }))
+        // Handle errors
         .catch(err => res.status(err.statusCode || 422).json({ error: err.message }));
     },
   },
