@@ -125,10 +125,20 @@ module.exports = {
 
     putProfileImage(req, res) {
       // Accepts multipart form data with the new image under the "picture" key
-      upload.single('picture')(req, res, (err) => {
-        if (err) res.status(500).json({ error: err.message });
-        else res.json({ data: { url: req.file.location } });
-      });
+      new Promise((resolve, reject) => {
+        upload.single('picture')(req, res, (err) => {
+          if (err) reject(err);
+          else resolve(req.file.location);
+        });
+      })
+        .then(imageUrl => updateAuth0User(req.user.sub, { picture: imageUrl }))
+        .then(updated => res.json({
+          data: {
+            id: req.user.sub,
+            picture: updated.user_metadata.picture,
+          },
+        }))
+        .catch(err => res.status(500).json({ error: err.message }));
     },
   },
 

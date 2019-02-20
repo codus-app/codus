@@ -56,10 +56,16 @@ module.exports.getUser = {
   },
 };
 
-module.exports.updateUser = async function updateUser(id, { username, email, name }) {
+module.exports.updateUser = async function updateUser(id, { username, email, name, picture }) { // eslint-disable-line object-curly-newline, max-len
+  // eslint-disable-next-line camelcase
+  const user_metadata = {
+    // Only include keys if they're defined, avoid setting name or picture to undefined
+    ...(name ? { name } : {}),
+    ...(picture ? { picture } : {}),
+  };
+
   // Can't update email and username in the same request so send SEPARATE requests if those both
   // need to be updated
-  const user_metadata = name ? { name } : undefined; // eslint-disable-line camelcase
 
   // Email doesn't need to be updated, so everything (username and name) can happen in one request
   if (!email) {
