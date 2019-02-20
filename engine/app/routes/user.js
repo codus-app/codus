@@ -133,7 +133,7 @@ module.exports = {
         });
       })
         // Save new image URL to Auth0 API
-        .then(imageUrl => updateAuth0User(req.user.sub, { picture: imageUrl }))
+        .then(imageUrl => updateAuth0User(req.user.sub, { picture: `${imageUrl}?mtime=${Math.floor(Date.now() / 1000)}` }))
         .then(updated => res.json({
           data: {
             id: req.user.sub,
