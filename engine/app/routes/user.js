@@ -125,10 +125,18 @@ module.exports = {
 
     // Accepts multipart form data with the new image under the "picture" key
     putProfileImage(req, res) {
+      if (!req.is('multipart/form-data')) {
+        res.status(400).send({ error: 'Content-Type must be multipart/form-data' });
+        return;
+      }
       // Upload new profile image
       new Promise((resolve, reject) => {
         upload.single('picture')(req, res, (err) => {
+          // Error
           if (err) reject(err);
+          // File missing
+          else if (!req.file) reject(Object.assign(new Error("'picture' field is required"), { statusCode: 400 }));
+          // Success
           else resolve(req.file.location);
         });
       })
