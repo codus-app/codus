@@ -16,4 +16,12 @@ module.exports = multer({
     // Set filename to current time
     key: (req, file, cb) => cb(null, Date.now().toString()),
   }),
+
+  fileFilter(req, file, cb) {
+    const supportedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+    const mimeSupported = supportedTypes.includes(file.mimetype);
+    const err = mimeSupported ? null : new Error(`MIME type ${file.mimetype} is not one of ${supportedTypes.join(', ')}`);
+    if (err) err.statusCode = 415;
+    cb(err, mimeSupported);
+  },
 });
