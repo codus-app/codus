@@ -2,22 +2,26 @@
 
 $active-color: $green-solid
 
+.profile-picture-upload
+  position: relative
+  margin-bottom: 1.25rem
+
 .picture,
 .new-picture
-  display: inline-block
+  display: block
   width: 7.5rem
   height: 7.5rem
   border-radius: 50%
 
 .picture
   position: relative
+  left: calc(50% - (7.5rem / 2))
   z-index: 20
   cursor: pointer
   background-color: $dark-3
   background-size: cover
   background-position: center center
-  margin-bottom: .5rem
-  box-shadow: inset 0 0 0 500px transparentize($dark-1, .55)
+  box-shadow: inset 0 0 0 5rem transparentize($dark-1, .55)
   transition: box-shadow .2s, opacity .15s, filter .15s, transform .2s
   will-change: transform
 
@@ -35,332 +39,94 @@ $active-color: $green-solid
     opacity: .65
     transition: opacity .2s
 
-  .feather-camera
-    width: 1.5rem
-    height: 1.5rem
-
-  .label
-    font-family: $font-lato
-    font-weight: 700
-    font-size: .5rem
-    text-transform: uppercase
-    letter-spacing: .085em
-
-    margin-top: .15em
-
-  &:hover
-    box-shadow: inset 0 0 0 500px transparentize($dark-1, .45)
-
-    .center
-      opacity: .75
-
-$num-rings: 3
-$circle-size: 35px + 145px * ($num-rings + .75)
-
-.circle-modal
-  cursor: default
-  position: relative
-  z-index: 19
-  top: (7.5rem / 2) // Half picture height
-
-  .scrim
-    position: fixed
-    top: 0
-    left: 0
-    z-index: 50
-    width: 100%
-    height: 100%
-    background: $dark-3
-
-    pointer-events: none
-    opacity: 0
-    will-change: opacity
-    transition: opacity .15s .1s ease-out
-
-  .circle
-    position: absolute
-    top: 50%
-    left: 50%
-    z-index: 51
-    width: $circle-size
-    height: $circle-size
-
-    background: $dark-1
-    border-radius: 50%
-    box-shadow: 0 0 30px -5px rgba(0, 0, 0, .25)
-
-    transform: translate(-50%, -50%) scale(0)
-    will-change: transform
-    opacity: .5
-    transition: transform .25s ease-in, opacity .25s .1s
-
-  &.open
-    .scrim
-      opacity: .75
-      pointer-events: all
-      transition: opacity .15s
-
-    .circle
-      opacity: 1
-      transform: translate(-50%, -50%) scale(1)
-      transition: transform .4s cubic-bezier(.19, 1, .22, 1), opacity .1s
-
-    & ~ .picture,
-    & ~ .picture:hover
-      opacity: .2
-      filter: saturate(150%)
-      pointer-events: none
-      box-shadow: none
-      transform: scale(.85)
-      transition: box-shadow .2s, opacity .15s, filter .15s, transform .4s cubic-bezier(.19, 1, .22, 1)
-
-      .center
-        opacity: 0
-
-
-
-// Simplified from https://gist.github.com/ryanjafari/bf752b6ef52726352239
-@function sqrt($square, $estimate: $square / 2)
-  @if abs($square - $estimate * $estimate) < .001
-    @return $estimate
-  @return sqrt($square, ($estimate + $square / $estimate) / 2)
-
-// Simplified from https://github.com/danro/jquery-easing/blob/master/jquery.easing.js#L25-L27
-@function ease-out-quad($progress)
-  $progress: min(max($progress, 0), 1) // Clamp
-  @return -1 * $progress * ($progress - 2)
-
-
-
-
-.upload
-  position: relative
-  top: (7.5rem / 2)
-  z-index: 21
-  height: 0
-
-.upload-window
-  position: absolute
-  left: 50%
-  width: $circle-size
-  height: $circle-size
-  border-radius: 50%
-  overflow: hidden
-  transform: translate(-50%, -50%)
-
-  &:not(.dropped)
-    cursor: pointer
-
-  .feather-upload-cloud
-    position: absolute
-    top: 50%
-    left: 50%
-    z-index: 1
-    width: 2rem
-    height: 2rem
-    color: $white
-    opacity: .35
-    transform: translate(-50%, -50%)
-    transition: color .35s, opacity .35s, transform .25s
-    pointer-events: none
-
-    @keyframes center-scale
-      from
-        transform: translate(-50%, -50%) scale(.5)
-
-
-  input[type='file']
-    opacity: 0
-    pointer-events: none
-
-
-  .new-picture
-    position: absolute
-    z-index: 3
-    top: 50%
-    left: 50%
-    transform: translate(-50%, -50%) scale(.85)
-    pointer-events: none
-    background-size: cover
-    background-position: center center
-    transition: opacity .2s, transform .2s
-
-    &.empty
-      opacity: 0
-      transform: translate(-50%, -50%) scale(.5)
-
-  .confirmation-buttons
-    button
-      position: absolute
-      z-index: 2
-      top: 50%
-      left: 50%
-      cursor: pointer
-      pointer-events: none
-      opacity: 0
-      transition: opacity .1s, transform .35s
-      transition-delay: .075s
-      transition-timing-function: cubic-bezier(.25, .8, .5, 1.7)
-
-      color: $white
-      border-radius: 50%
-      width: 36px
-      height: 36px
-      border: 0
-      outline: 0
-      box-shadow: 0 0 15px -3px $dark-1
-
-      $i: 1
-      $first-ring-radius: .5 * (55px + 150px * $i)
-
-      &.reject
-        transform: translate(-50%, -50%) translate(-$first-ring-radius * .75) scale(.35)
-        background: $dark-3
-
-      &.accept
-        transform: translate(-50%, -50%) translate($first-ring-radius * .75) scale(.35)
-        background: $green-bg
-
-      .feather
-        position: absolute
-        top: 50%
-        left: 50%
-        transform: translate(-50%, -50%)
-
-        &.feather-x
-          $size: 20px
-          width: $size
-          height: $size
-
-        &.feather-check
-          $size: 21px
-          width: $size
-          height: $size
-          transform: translate(-50%, -47.5%)
-
-
-
-  &:not(.open)
-    pointer-events: none
-    opacity: 0
-    transition: opacity .1s
-
-    .feather-upload-cloud
+    .main,
+    .alt
       transition: opacity .35s, transform .25s
-      opacity: 0
-      transform: translate(-50%, -50%) scale(.8)
 
-    .rings .ring:nth-child(n)
-      opacity: 0
-      animation: none
+    .main
+      opacity: 1
 
-  .rings
-    width: 100%
-    height: 100%
-    pointer-events: none
-    will-change: transform
+      .feather-camera
+        width: 1.5rem
+        height: 1.5rem
 
-    .ring
+      .label
+        font-family: $font-lato
+        font-weight: 700
+        font-size: .5rem
+        text-transform: uppercase
+        letter-spacing: .085em
+
+        margin-top: .15em
+
+    .alt.feather-upload-cloud
       position: absolute
       top: 50%
       left: 50%
       transform: translate(-50%, -50%)
-      border-radius: 50%
-      box-shadow: 0 0 0 2px transparentize($white, .85)
-
-      @for $i from 1 through $num-rings
-        &:nth-child(#{$i})
-          width: 35px + 145px * $i
-          height: 35px + 145px * $i
-
-          $duration: .25s
-          $delay: (.05s + $i * .055s)
-          transition: box-shadow .3s, width .375s, height .375s, opacity $duration $delay
-          opacity: 1 - ($i / ($num-rings + .75))
-
-
-  &:not(.has-dragged)
-    @for $i from 1 through $num-rings
-      .ring:nth-child(#{$i})
-        $delay: (.05s + $i * .065s)
-
-        animation: scale-#{$i} .55s $delay cubic-bezier(.19, 1, .22, 1)
-
-        @keyframes scale-#{$i}
-          from
-            width: 145px * $i - 20px
-            height: 145px * $i - 20px
-
-          to
-            width: 35px + 145px * $i
-            height: 35px + 145px * $i
-
-
-
-  // File is hovering over upload window
-  &.drop-over:not(.dropped)
-    .feather-upload-cloud
-      color: $active-color
-      opacity: .9
-      transform: translate(-50%, -50%) scale(1.075)
-
-    .rings
-      animation: pulse 1.25s .25s infinite alternate ease-in-out
-
-      .ring
-        box-shadow: 0 0 0 2px transparentize($active-color, .15)
-
-        @for $i from 1 through $num-rings
-          &:nth-child(#{$i})
-            width: 55px + 150px * $i
-            height: 55px + 150px * $i
-            transition-delay: ease-out-quad($i / ($num-rings + 1)) * .25s
-            transition-duration: .075s + sqrt($i * .75 + 1) * .15s
-
-
-  // File has been dropped onto upload window
-  &.dropped
-    .feather-upload-cloud
-      color: $active-color
+      width: 1.5rem
+      height: 1.5rem
+      color: $white
       opacity: 0
-      transition-delay: 0
-      transition-duration: .35s
 
+  &:hover
+    box-shadow: inset 0 0 0 5rem transparentize($dark-1, .45)
 
-    .confirmation-buttons
-      button
+    .center
+      opacity: .75
+
+  &.dragging
+    transform: scale(.85)
+    box-shadow: inset 0 0 0 5rem transparentize($dark-1, .25)
+
+    .center
+      .main
+        opacity: 0
+
+      .alt
         opacity: 1
-        pointer-events: all
+        transform: translate(-50%, -50%) scale(1.5)
 
-        $i: 1
-        $first-ring-radius: .5 * (55px + 150px * $i)
+  &.dropped
+    transform: scale(1)
 
-        &.reject
-          transform: translate(-50%, -50%) translate(-$first-ring-radius) scale(1)
-
-        &.accept
-          transform: translate(-50%, -50%) translate($first-ring-radius) scale(1)
-
-
-    .rings .ring
-      @for $i from 1 through $num-rings
-        &:nth-child(#{$i})
-          width: 55px + 150px * $i
-          height: 55px + 150px * $i
-
-          animation-name: boom
-          animation-delay: .05s + ease-out-quad($i / ($num-rings + 1)) * .25
-          animation-duration: .5s
-          animation-fill-mode: forwards
+    .center,
+    .center .main,
+    .center .alt
+      opacity: 0
 
 
-@keyframes pulse
-  to
-    transform: scale(1.025)
+.new-picture
+  position: absolute
+  z-index: 21
+  top: calc(50% - (7.5rem / 2))
+  left: calc(50% - (7.5rem / 2))
+  pointer-events: all
+  background-size: cover
+  background-position: center center
+  transition: opacity .15s, transform .2s
 
-@keyframes boom
-  from
-    box-shadow: 0 0 0 12px transparent
+  &.empty
+    opacity: 0
+    transform: scale(.85)
+    pointer-events: none
 
-  to
-    box-shadow: 0 0 0 2px transparentize($active-color, .5)
+
+.circle-modal.open
+  & ~ .picture,
+  & ~ .picture:hover
+    opacity: .2
+    filter: saturate(150%)
+    pointer-events: none
+    box-shadow: none
+    transform: scale(.85)
+    transition: box-shadow .2s, opacity .15s, filter .15s, transform .4s cubic-bezier(.19, 1, .22, 1)
+
+    .center
+      opacity: 0
+      transition: opacity .2s
+
+input[type='file']
+  position: absolute
+  opacity: 0
+  pointer-events: none
