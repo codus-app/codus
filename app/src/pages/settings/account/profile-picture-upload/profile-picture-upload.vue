@@ -10,14 +10,15 @@
       v-on:drop="handleFile"
       v-bind:style="{ backgroundImage: `url(${url})` }"
     >
-      <div class="center">
-        <!-- Default display: "change" CTA with camera icon -->
-        <div class="main">
-          <icon-camera></icon-camera>
-          <div class="label">{{ hasDefaultPicture ? 'Upload' : 'Change'}}</div>
-        </div>
-        <!-- When dragging, display a "cloud upload" icon -->
-        <icon-upload-cloud class="alt"></icon-upload-cloud>
+      <div class="scrim"></div>
+      <!-- Default display: "change" CTA with camera icon -->
+      <div class="overlay cta">
+        <icon-camera></icon-camera>
+        <div class="label">{{ hasDefaultPicture ? 'Upload' : 'Change'}}</div>
+      </div>
+      <!-- When dragging, display a "cloud upload" icon -->
+      <div class="overlay dragging">
+        <icon-upload-cloud></icon-upload-cloud>
       </div>
     </div>
 

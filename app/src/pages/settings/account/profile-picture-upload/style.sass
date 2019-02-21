@@ -21,78 +21,76 @@ $active-color: $green-solid
   background-color: $dark-3
   background-size: cover
   background-position: center center
-  box-shadow: inset 0 0 0 5rem transparentize($dark-1, .55)
-  transition: box-shadow .2s, opacity .15s, filter .15s, transform .2s
+  transition: filter .15s, transform .2s
   will-change: transform
 
-  .center
+  .scrim
+    width: 100%
+    height: 100%
+    background: $dark-1
+    opacity: .45
+    transition: opacity .2s
+
+  .overlay
     position: absolute
     top: 50%
     left: 50%
     transform: translate(-50%, -50%)
-
-    display: flex
-    flex-direction: column
-    align-items: center
-
+    color: $light-text-primary
     pointer-events: none
     opacity: .65
-    transition: opacity .2s
+    transition: opacity .35s, color .35s
 
-    .main,
-    .alt
-      transition: opacity .35s, transform .25s
+  .overlay.cta
+    .feather-camera
+      width: 1.5rem
+      height: 1.5rem
 
-    .main
-      opacity: 1
+    .label
+      font-family: $font-lato
+      font-weight: 700
+      font-size: .5rem
+      text-transform: uppercase
+      letter-spacing: .085em
 
-      .feather-camera
-        width: 1.5rem
-        height: 1.5rem
+      margin-top: .15em
 
-      .label
-        font-family: $font-lato
-        font-weight: 700
-        font-size: .5rem
-        text-transform: uppercase
-        letter-spacing: .085em
+  .overlay.dragging
+    opacity: 0
 
-        margin-top: .15em
-
-    .alt.feather-upload-cloud
-      position: absolute
-      top: 50%
-      left: 50%
-      transform: translate(-50%, -50%)
+    .feather-upload-cloud
+      transition: transform .25s
       width: 1.4rem
       height: 1.4rem
-      color: $white
-      opacity: 0
+
+
 
   &:hover
-    box-shadow: inset 0 0 0 5rem transparentize($dark-1, .45)
+    .scrim
+      opacity: .55
 
-    .center
-      opacity: .75
+    .overlay.cta
+      opacity: .6
 
   &.dragging
     transform: scale(.9)
-    box-shadow: inset 0 0 0 5rem transparentize($dark-1, .25)
 
-    .center
-      .main
-        opacity: 0
+    .scrim
+      opacity: .75
 
-      .alt
-        opacity: 1
-        transform: translate(-50%, -50%) scale(1.5)
+    .overlay.cta
+      opacity: 0
+
+    .overlay.dragging
+      opacity: .65
+
+      .feather-upload-cloud
+        transform: scale(1.5)
 
   &.dropped
     transform: scale(1)
 
-    .center,
-    .center .main,
-    .center .alt
+    .overlay
       opacity: 0
 
 
@@ -111,20 +109,6 @@ $active-color: $green-solid
     transform: scale(.85)
     pointer-events: none
 
-
-.circle-modal.open
-  & ~ .picture,
-  & ~ .picture:hover
-    opacity: .2
-    filter: saturate(150%)
-    pointer-events: none
-    box-shadow: none
-    transform: scale(.85)
-    transition: box-shadow .2s, opacity .15s, filter .15s, transform .4s cubic-bezier(.19, 1, .22, 1)
-
-    .center
-      opacity: 0
-      transition: opacity .2s
 
 input[type='file']
   position: absolute
