@@ -10,6 +10,11 @@ async function apiRequest({ endpoint, method, heads, body, signal, store }) {
     Authorization: `Bearer ${store.state.auth.accessToken}`,
     ...heads,
   };
+
+  // We must remove Content-Type header when sending form data so that fetch can send boundary with
+  // the automatically-set Content-Type
+  if (body instanceof FormData) delete headers['Content-Type'];
+
   const url = [
     CODUS_API_BASE.replace(/\/$/g, ''), // Strip trailing slash
     endpoint.replace(/^\//g, ''), // Strip leading slash
