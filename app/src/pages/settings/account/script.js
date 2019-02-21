@@ -8,6 +8,8 @@ let debouncedCheckUsername;
 
 export default {
   data: () => ({
+    newImage: undefined,
+
     username: undefined,
     usernameStatus: 'neutral',
     usernameMessage: '',
@@ -29,7 +31,8 @@ export default {
       return Object.keys(this.profile).length // Profile loaded
         && (this.username !== (this.profile.username || this.profile.nickname)
           || this.name !== this.profile.name
-          || this.email !== this.profile.email); // Info changed
+          || this.email !== this.profile.email // Info changed
+          || !!this.newImage);
     },
 
     canSave() {
@@ -114,7 +117,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['updateUserProfile']),
+    ...mapActions(['updateUserProfile', 'updateUserProfileImage']),
 
     // Make a request to check availability of a username
     async checkUsername() {
@@ -149,7 +152,16 @@ export default {
       if (this.name !== this.profile.name) patch.name = this.name;
       if (this.email !== this.profile.email) patch.email = this.email;
 
-      return this.updateUserProfile(patch);
+      // Make requests
+
+      const reqs = [];
+      // Update basic profile information
+      if (Object.keys(patch).length) reqs.push(this.updateUserProfile(patch));
+      // Update profile image (takes separate request)
+      if (this.newImage) reqs.push(this.updateUserProfileImage(this.newImage));
+      // Wait for all requests to complete
+      return Promise.all(reqs)
+        .then((responses) => { this.newImage = undefined; return responses; });
     },
 
     saved() {

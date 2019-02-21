@@ -3,7 +3,10 @@
     <div class="card profile">
       <h2>Your profile</h2>
 
-      <profile-picture-upload v-bind:url="profile.picture"></profile-picture-upload>
+      <profile-picture-upload
+        v-bind:url="profile.picture"
+        v-on:file="newImage = $event"
+      ></profile-picture-upload>
 
       <div class="group">
         <text-input

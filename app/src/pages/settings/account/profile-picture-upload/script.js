@@ -29,11 +29,21 @@ export default {
 
     handleFile(e) {
       const file = (e.dataTransfer || e.target).files[0];
+
+      this.$emit('file', file);
+
+      // Read file to data URL for display pre-upload
       const reader = new FileReader();
       reader.addEventListener('load', (e2) => { this.imageDataURL = e2.target.result; });
       reader.readAsDataURL(file);
 
       this.dropOver = false;
     },
+  },
+
+  watch: {
+    // A change in passed URL signifies a successful image upload. Remove the image displayed from
+    // the data URL once the upload has finished.
+    url() { this.imageDataURL = ''; },
   },
 };
