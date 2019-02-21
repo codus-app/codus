@@ -34,6 +34,24 @@ export default {
     }
   },
 
+  async updateUserProfileImage({ commit }, file) {
+    const formData = new FormData();
+    formData.append('picture', file);
+
+    try {
+      const patched = await api.put({
+        endpoint: 'user/profile-image',
+        contentType: 'multipart/form-data',
+        body: formData,
+        store,
+      });
+      commit('userProfileFetched', patched);
+      return patched;
+    } catch (e) {
+      return Promise.reject(e);
+    }
+  },
+
   // Populate problem and solution info for a given problem
   async fetchSolution({ commit }, { category, problem }) {
     const solution = await api.get({ endpoint: `user/solution/${category}/${problem}`, store });
