@@ -149,7 +149,7 @@ module.exports = {
           },
         }))
         // Handle errors
-        .catch(err => res.status(err.statusCode || 422).json({ error: err.message }));
+        .catch(e => res.status(e.statusCode || 422).json({ error: [{ key: 'picture', message: e.message }] }));
     },
   },
 
