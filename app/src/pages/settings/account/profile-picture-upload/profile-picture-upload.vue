@@ -32,6 +32,11 @@
           v-bind:class="{ empty: !imageDataURL.length }"
           v-bind:style="{ backgroundImage: imageDataURL ? `url(${imageDataURL})` : '' }"
         ></div>
+
+        <div class="confirmation-buttons">
+          <button class="reject" v-on:click="$event.stopPropagation(); close();"><icon-x></icon-x></button>
+          <button class="accept" v-on:click="$event.stopPropagation()"><icon-check></icon-check></button>
+        </div>
       </div>
     </div>
 

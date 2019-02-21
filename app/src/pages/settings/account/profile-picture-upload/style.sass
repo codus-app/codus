@@ -152,13 +152,14 @@ $circle-size: 35px + 145px * ($num-rings + .75)
     cursor: pointer
 
   .feather-upload-cloud
+    position: absolute
+    top: 50%
+    left: 50%
+    z-index: 1
     width: 2rem
     height: 2rem
     color: $white
     opacity: .35
-    position: absolute
-    top: 50%
-    left: 50%
     transform: translate(-50%, -50%)
     transition: color .35s, opacity .35s, transform .25s
     pointer-events: none
@@ -175,6 +176,7 @@ $circle-size: 35px + 145px * ($num-rings + .75)
 
   .new-picture
     position: absolute
+    z-index: 3
     top: 50%
     left: 50%
     transform: translate(-50%, -50%) scale(.85)
@@ -187,6 +189,55 @@ $circle-size: 35px + 145px * ($num-rings + .75)
       opacity: 0
       transform: translate(-50%, -50%) scale(.5)
 
+  .confirmation-buttons
+    button
+      position: absolute
+      z-index: 2
+      top: 50%
+      left: 50%
+      cursor: pointer
+      pointer-events: none
+      opacity: 0
+      transition: opacity .1s, transform .35s
+      transition-delay: .075s
+      transition-timing-function: cubic-bezier(.25, .8, .5, 1.7)
+
+      color: $white
+      border-radius: 50%
+      width: 36px
+      height: 36px
+      border: 0
+      outline: 0
+      box-shadow: 0 0 15px -3px $dark-1
+
+      $i: 1
+      $first-ring-radius: .5 * (55px + 150px * $i)
+
+      &.reject
+        transform: translate(-50%, -50%) translate(-$first-ring-radius * .75) scale(.35)
+        background: $dark-3
+
+      &.accept
+        transform: translate(-50%, -50%) translate($first-ring-radius * .75) scale(.35)
+        background: $green-bg
+
+      .feather
+        position: absolute
+        top: 50%
+        left: 50%
+        transform: translate(-50%, -50%)
+
+        &.feather-x
+          $size: 20px
+          width: $size
+          height: $size
+
+        &.feather-check
+          $size: 21px
+          width: $size
+          height: $size
+          transform: translate(-50%, -47.5%)
+
 
 
   &:not(.open)
@@ -198,10 +249,6 @@ $circle-size: 35px + 145px * ($num-rings + .75)
       transition: opacity .35s, transform .25s
       opacity: 0
       transform: translate(-50%, -50%) scale(.8)
-
-    .new-picture
-      transition: transform .25s
-      transform: translate(-50%, -50%) scale(.85)
 
     .rings .ring:nth-child(n)
       opacity: 0
@@ -278,6 +325,22 @@ $circle-size: 35px + 145px * ($num-rings + .75)
       opacity: 0
       transition-delay: 0
       transition-duration: .35s
+
+
+    .confirmation-buttons
+      button
+        opacity: 1
+        pointer-events: all
+
+        $i: 1
+        $first-ring-radius: .5 * (55px + 150px * $i)
+
+        &.reject
+          transform: translate(-50%, -50%) translate(-$first-ring-radius) scale(1)
+
+        &.accept
+          transform: translate(-50%, -50%) translate($first-ring-radius) scale(1)
+
 
     .rings .ring
       @for $i from 1 through $num-rings
