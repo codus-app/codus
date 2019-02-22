@@ -6,7 +6,7 @@
       <profile-picture-upload
         v-bind:url="profile.picture"
         v-on:file="newImage = $event"
-        v-bind:errorMessage="pictureStatus === 'failure' ? pictureMessage : null"
+        v-bind:serverError="pictureStatus === 'failure' ? pictureMessage : null"
         v-on:clearError="pictureStatus = 'neutral'; pictureMessage = '';"
       ></profile-picture-upload>
 

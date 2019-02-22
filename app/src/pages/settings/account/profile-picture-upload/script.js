@@ -1,10 +1,11 @@
 export default {
-  props: { url: String, errorMessage: String },
+  props: { url: String, serverError: String },
 
   data: () => ({
     dropOver: false, // Is the user dragging a file over the upload area?
 
     imageDataURL: '',
+    clientError: '',
   }),
 
   computed: {
@@ -17,6 +18,10 @@ export default {
       if (this.dropOver) return 'dragging';
       if (this.imageDataURL.length) return 'dropped';
       return '';
+    },
+
+    errorMessage() {
+      return this.clientError || this.serverError;
     },
   },
 
@@ -37,14 +42,26 @@ export default {
     handleFile(e) {
       const file = (e.dataTransfer || e.target).files[0];
 
-      this.$emit('file', file);
+      const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+      const maxSize = 5 * 1000 * 1000; // 5MB
+      const typeValid = allowedTypes.includes(file.type);
+      const sizeValid = file.size < maxSize;
 
-      // Read file to data URL for display pre-upload
-      const reader = new FileReader();
-      reader.addEventListener('load', (e2) => { this.imageDataURL = e2.target.result; });
-      reader.readAsDataURL(file);
+      if (!typeValid) {
+        this.clientError = 'Image must be a JPEG, PNG, or GIF';
+      } else if (!sizeValid) {
+        this.clientError = 'Image size must be less than 5MB';
+      } else {
+        // Pass file to parent
+        this.$emit('file', file);
 
-      this.dropOver = false;
+        // Read file to data URL for display pre-upload
+        const reader = new FileReader();
+        reader.addEventListener('load', (e2) => { this.imageDataURL = e2.target.result; });
+        reader.readAsDataURL(file);
+
+        this.dropOver = false;
+      }
     },
   },
 
@@ -55,5 +72,9 @@ export default {
     url() { this.imageDataURL = ''; },
     // An error message indicates an error has occurred. Clear displayed new image
     errorMessage() { this.imageDataURL = ''; },
+  },
+
+  created() {
+    this.$on('clearError', () => { this.clientError = ''; });
   },
 };
