@@ -44,6 +44,10 @@ $active-color: $green-solid
     transition: opacity .35s, color .35s
 
   .overlay.cta
+    display: flex
+    flex-direction: column
+    align-items: center
+
     .feather-camera
       width: 1.5rem
       height: 1.5rem
@@ -71,6 +75,9 @@ $active-color: $green-solid
 
     .contents
       transition: transform .25s
+      display: flex
+      flex-direction: column
+      align-items: center
 
       .feather-x-circle
         width: 1.4rem
@@ -79,8 +86,9 @@ $active-color: $green-solid
       .message
         font-family: $font-lato
         font-weight: 700
-        font-size: .525rem
-        max-width: .45 * 7.5rem
+        font-size: .5rem
+        line-height: 1.25em
+        width: 7.5rem
 
 
 

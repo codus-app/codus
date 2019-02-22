@@ -23,7 +23,7 @@
       <div class="overlay error">
         <div class="contents">
           <icon-x-circle></icon-x-circle>
-          <div class="message">{{ errorMessage }}</div>
+          <div class="message" v-html="errorMessage"></div>
         </div>
       </div>
     </div>

@@ -48,9 +48,9 @@ export default {
       const sizeValid = file.size < maxSize;
 
       if (!typeValid) {
-        this.clientError = 'Image must be a JPEG, PNG, or GIF';
+        this.clientError = 'Image must be a<br>JPEG, PNG, or<br>GIF file';
       } else if (!sizeValid) {
-        this.clientError = 'Image size must be less than 5MB';
+        this.clientError = 'Image size must be<br>less than 5MB';
       } else {
         // Pass file to parent
         this.$emit('file', file);
