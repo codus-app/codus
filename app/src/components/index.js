@@ -40,6 +40,7 @@ import {
   ChevronDownIcon,
   ChevronLeftIcon,
   XIcon,
+  XCircleIcon,
 } from 'vue-feather-icons';
 
 // Sidebar icons
@@ -74,6 +75,7 @@ Vue.component('icon-chevron-right', ChevronRightIcon);
 Vue.component('icon-chevron-down', ChevronDownIcon);
 Vue.component('icon-chevron-left', ChevronLeftIcon);
 Vue.component('icon-x', XIcon);
+Vue.component('icon-x-circle', XCircleIcon);
 
 
 // Internal components

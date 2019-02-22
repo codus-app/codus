@@ -1,5 +1,5 @@
 export default {
-  props: { url: String },
+  props: { url: String, errorMessage: String },
 
   data: () => ({
     dropOver: false, // Is the user dragging a file over the upload area?
@@ -10,6 +10,13 @@ export default {
   computed: {
     hasDefaultPicture() {
       return this.url.startsWith('https://app.codus.io/static');
+    },
+
+    pictureClass() {
+      if (this.errorMessage) return 'error';
+      if (this.dropOver) return 'dragging';
+      if (this.imageDataURL.length) return 'dropped';
+      return '';
     },
   },
 
@@ -43,7 +50,10 @@ export default {
 
   watch: {
     // A change in passed URL signifies a successful image upload. Remove the image displayed from
-    // the data URL once the upload has finished.
+    // the data URL once the upload has finished, allowing the uploaded copy of the image to display
+    // instead.
     url() { this.imageDataURL = ''; },
+    // An error message indicates an error has occurred. Clear displayed new image
+    errorMessage() { this.imageDataURL = ''; },
   },
 };

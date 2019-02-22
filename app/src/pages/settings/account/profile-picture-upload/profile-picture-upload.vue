@@ -2,10 +2,9 @@
   <div class="profile-picture-upload">
     <!-- Old picture (displayed with overlay) -->
 
-    <div class="picture"
-      v-bind:class="{ dragging: dropOver, dropped: !!imageDataURL.length }"
+    <div class="picture" v-bind:class="{ [pictureClass]: true }"
       v-on:click="browse"
-      v-on:dragenter="dropOver = true;"
+      v-on:dragenter="$emit('clearError'); dropOver = true;"
       v-on:dragleave="dropOver = false;"
       v-on:drop="handleFile"
       v-bind:style="{ backgroundImage: `url(${url})` }"
@@ -14,11 +13,18 @@
       <!-- Default display: "change" CTA with camera icon -->
       <div class="overlay cta">
         <icon-camera></icon-camera>
-        <div class="label">{{ hasDefaultPicture ? 'Upload' : 'Change'}}</div>
+        <div class="message">{{ hasDefaultPicture ? 'Upload' : 'Change'}}</div>
       </div>
       <!-- When dragging, display a "cloud upload" icon -->
       <div class="overlay dragging">
         <icon-upload-cloud></icon-upload-cloud>
+      </div>
+      <!-- When something goes wrong, display the "error" overlay -->
+      <div class="overlay error">
+        <div class="contents">
+          <icon-x-circle></icon-x-circle>
+          <div class="message">{{ errorMessage }}</div>
+        </div>
       </div>
     </div>
 

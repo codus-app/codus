@@ -21,7 +21,8 @@ $active-color: $green-solid
   background-color: $dark-3
   background-size: cover
   background-position: center center
-  transition: filter .15s, transform .2s
+  overflow: hidden
+  transition: filter .15s, transform .2s, box-shadow .2s
   will-change: transform
 
   .scrim
@@ -29,6 +30,7 @@ $active-color: $green-solid
     height: 100%
     background: $dark-1
     opacity: .45
+    pointer-events: none
     transition: opacity .2s
 
   .overlay
@@ -46,7 +48,7 @@ $active-color: $green-solid
       width: 1.5rem
       height: 1.5rem
 
-    .label
+    .message
       font-family: $font-lato
       font-weight: 700
       font-size: .5rem
@@ -63,6 +65,23 @@ $active-color: $green-solid
       width: 1.4rem
       height: 1.4rem
 
+  .overlay.error
+    opacity: 0
+    color: $red-solid
+
+    .contents
+      transition: transform .25s
+
+      .feather-x-circle
+        width: 1.4rem
+        height: 1.4rem
+
+      .message
+        font-family: $font-lato
+        font-weight: 700
+        font-size: .525rem
+        max-width: .45 * 7.5rem
+
 
 
   &:hover
@@ -78,7 +97,8 @@ $active-color: $green-solid
     .scrim
       opacity: .75
 
-    .overlay.cta
+    .overlay.cta,
+    .overlay.error
       opacity: 0
 
     .overlay.dragging
@@ -92,6 +112,26 @@ $active-color: $green-solid
 
     .overlay
       opacity: 0
+
+  &.error
+    $scale: .85
+    transform: scale($scale)
+    $radius-delta: (7.5rem - (.9 * 7.5rem)) / 2
+    box-shadow: 0 0 0 $radius-delta * .66 $dark-1, 0 0 0 $radius-delta * 1.25 $red-solid
+
+    .scrim
+      opacity: .8
+
+    .overlay.cta,
+    .overlay.dragging
+      opacity: 0
+
+    .overlay.error
+      opacity: 1
+
+      .contents
+        transform: scale(1.5)
+
 
 
 .new-picture

@@ -9,6 +9,8 @@ let debouncedCheckUsername;
 export default {
   data: () => ({
     newImage: undefined,
+    pictureStatus: undefined,
+    pictureMessage: '',
 
     username: undefined,
     usernameStatus: 'neutral',
@@ -114,6 +116,8 @@ export default {
         this.emailMessage = '';
       }
     },
+
+    pictureStatus(status) { if (status === 'failure') this.newImage = undefined; },
   },
 
   methods: {
