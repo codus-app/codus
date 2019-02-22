@@ -127,6 +127,24 @@ $size: 7.5rem
     transform: scale($scale)
     $radius-delta: ($size - (.9 * $size)) / 2
     box-shadow: 0 0 0 $radius-delta * .66 $dark-1, 0 0 0 $radius-delta * 1.25 $red-solid
+    animation: shake .5s
+
+    @keyframes shake
+      16%
+        transform: scale(#{$scale}) translate(-5%)
+
+      33%
+        transform: scale(#{$scale}) translate(4%)
+
+      50%
+        transform: scale(#{$scale}) translate(-3%)
+
+      66%
+        transform: scale(#{$scale}) translate(2%)
+
+      83%
+        transform: scale(#{$scale}) translate(-1%)
+
 
     .scrim
       opacity: .8
