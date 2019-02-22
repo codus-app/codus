@@ -1,6 +1,7 @@
 @import 'src/styles/variables'
 
 $active-color: $green-solid
+$size: 7.5rem
 
 .profile-picture-upload
   position: relative
@@ -9,13 +10,13 @@ $active-color: $green-solid
 .picture,
 .new-picture
   display: block
-  width: 7.5rem
-  height: 7.5rem
+  width: $size
+  height: $size
   border-radius: 50%
 
 .picture
   position: relative
-  left: calc(50% - (7.5rem / 2))
+  left: calc(50% - (#{$size} / 2))
   z-index: 20
   cursor: pointer
   background-color: $dark-3
@@ -88,7 +89,7 @@ $active-color: $green-solid
         font-weight: 700
         font-size: .5rem
         line-height: 1.25em
-        width: 7.5rem
+        width: $size
 
 
 
@@ -124,7 +125,7 @@ $active-color: $green-solid
   &.error
     $scale: .85
     transform: scale($scale)
-    $radius-delta: (7.5rem - (.9 * 7.5rem)) / 2
+    $radius-delta: ($size - (.9 * $size)) / 2
     box-shadow: 0 0 0 $radius-delta * .66 $dark-1, 0 0 0 $radius-delta * 1.25 $red-solid
 
     .scrim
@@ -145,8 +146,8 @@ $active-color: $green-solid
 .new-picture
   position: absolute
   z-index: 21
-  top: calc(50% - (7.5rem / 2))
-  left: calc(50% - (7.5rem / 2))
+  top: calc(50% - (#{$size} / 2))
+  left: calc(50% - (#{$size} / 2))
   pointer-events: all
   background-size: cover
   background-position: center center
