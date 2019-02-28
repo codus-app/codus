@@ -10,6 +10,7 @@ Vue.component('codemirror', codemirror);
 import {
   // Sidebar icons
   HomeIcon,
+  UserIcon,
   LogOutIcon,
   // Home icons
   CheckIcon,
@@ -40,6 +41,7 @@ import {
 
 // Sidebar icons
 Vue.component('icon-home', HomeIcon);
+Vue.component('icon-user', UserIcon);
 Vue.component('icon-log-out', LogOutIcon);
 // Home icons
 Vue.component('icon-check', CheckIcon);

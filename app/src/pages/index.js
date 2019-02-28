@@ -7,6 +7,12 @@ export default [
     component: require('./home/home.vue').default,
     meta: { icon: 'home', label: 'Home', category: 'user' },
   },
+  {
+    path: '/user/:username',
+    name: 'profile',
+    component: require('./profile/profile.vue').default,
+    meta: { icon: 'user', label: 'Profile', category: 'user' },
+  },
 
 
   // Editor

@@ -7,7 +7,7 @@
 
       <!-- Personal user-related links -->
       <h2 v-if="!collapsed">You</h2>
-      <router-link class="sb-link" v-for="r in userRoutes" v-bind:key="r.path" v-bind:to="r.path" v-bind:title="collapsed ? r.meta.label : ''">
+      <router-link class="sb-link" v-for="r in userRoutes" v-bind:key="r.path" v-bind:to="replaceParams(r.path)" v-bind:title="collapsed ? r.meta.label : ''">
         <div class="indicator" v-if="!collapsed"></div>
         <component v-bind:is="`icon-${r.meta.icon}`"></component>
         <span v-if="!collapsed">{{r.meta.label}}</span>
@@ -27,7 +27,7 @@
 <script>
 
 import routes from '../../pages';
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   props: { collapsed: Boolean },
@@ -36,7 +36,16 @@ export default {
     userRoutes: routes.filter(r => r.meta.category === 'user'),
   }),
 
-  methods: { ...mapActions({ logout: 'auth/logout' }) },
+  computed: { ...mapGetters(['profile']) },
+
+  methods: {
+    ...mapActions({ logout: 'auth/logout' }),
+
+    replaceParams(path) {
+      // Replace '/:username' with the user's username
+      return path.replace(/\/:username(?=$|\/)/g, `/${this.profile.username || this.profile.nickname}`);
+    },
+  },
 };
 
 </script>
