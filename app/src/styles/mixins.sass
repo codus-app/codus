@@ -1,0 +1,7 @@
+@import variables
+
+@mixin dark-card($shadow: true, $radius: 4px)
+  background: $dark-1
+  border-radius: $radius
+  @if $shadow
+    box-shadow: 0 10px 20px -5px transparentize($black, .75)

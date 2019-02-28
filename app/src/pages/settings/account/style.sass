@@ -1,4 +1,6 @@
 @import 'src/styles/variables'
+@import 'src/styles/mixins'
+
 
 .account-settings
   display: flex
@@ -7,13 +9,11 @@
   padding: 2.5rem 1.25rem
 
 .card
+  @include dark-card(true, 6px)
   width: 100%
   max-width: 25rem
   text-align: center
-  background: $dark-1
   padding: .35rem 1.5rem 1rem
-  border-radius: 6px
-  box-shadow: 0 10px 20px -5px transparentize($black, .75)
   margin-bottom: 1.25rem
 
 h2
