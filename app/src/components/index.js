@@ -10,11 +10,6 @@ Vue.component('codemirror', codemirror);
 import {
   // Sidebar icons
   HomeIcon,
-  BarChart2Icon,
-  ClockIcon,
-  InboxIcon,
-  UsersIcon,
-  AwardIcon,
   LogOutIcon,
   // Home icons
   CheckIcon,
@@ -45,11 +40,6 @@ import {
 
 // Sidebar icons
 Vue.component('icon-home', HomeIcon);
-Vue.component('icon-bar-chart', BarChart2Icon);
-Vue.component('icon-clock', ClockIcon);
-Vue.component('icon-inbox', InboxIcon);
-Vue.component('icon-users', UsersIcon);
-Vue.component('icon-award', AwardIcon);
 Vue.component('icon-log-out', LogOutIcon);
 // Home icons
 Vue.component('icon-check', CheckIcon);
