@@ -15,26 +15,26 @@ export default {
     commit('contentFetched', categories);
   },
 
-  async fetchUserProfile({ commit }) {
+  async fetchPrimaryUserProfile({ commit }) {
     const profile = await api.get({ endpoint: 'user', store });
-    commit('userProfileFetched', profile);
+    commit('primaryUserFetched', profile);
   },
 
-  async updateUserProfile({ commit }, { username, name, email }) {
+  async updatePrimaryUserProfile({ commit }, { username, name, email }) {
     try {
       const patched = await api.patch({
         endpoint: 'user',
         body: { username, name, email },
         store,
       });
-      commit('userProfileFetched', patched);
+      commit('primaryUserFetched', patched);
       return patched;
     } catch (e) {
       return Promise.reject(e);
     }
   },
 
-  async updateUserProfileImage({ commit }, file) {
+  async uploadProfileImage({ commit }, file) {
     const formData = new FormData();
     formData.append('picture', file);
 
@@ -45,7 +45,7 @@ export default {
         body: formData,
         store,
       });
-      commit('userProfileFetched', patched);
+      commit('primaryUserFetched', patched);
       return patched;
     } catch (e) {
       return Promise.reject(e);

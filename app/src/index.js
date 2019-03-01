@@ -67,7 +67,7 @@ window.app = new Vue({
   methods: {
     ...mapActions({
       fetchSolved: 'fetchSolved',
-      fetchUserProfile: 'fetchUserProfile',
+      fetchPrimaryUserProfile: 'fetchPrimaryUserProfile',
       logout: 'auth/logout',
     }),
   },
@@ -78,11 +78,11 @@ window.app = new Vue({
       // If we haven't fetched user data
       if (this.user.solved === null) {
         // We're already logged in
-        if (this.authValid()) await Promise.all([this.fetchUserProfile(), this.fetchSolved()]);
+        if (this.authValid()) await Promise.all([this.fetchPrimaryUserProfile(), this.fetchSolved()]);
         // We're not logged in; wait for authentication (and *then* the request) to complete before
         // resolving
-        // "Once logged in, fetchUserProfile, fetchSolved then resolve" hooray for semantic code
-        else await new Promise(resolve => this.$once('loggedIn', () => Promise.all([this.fetchUserProfile(), this.fetchSolved()]).then(resolve)));
+        // "Once logged in, fetchPrimaryUserProfile, fetchSolved then resolve" hooray for semantic code
+        else await new Promise(resolve => this.$once('loggedIn', () => Promise.all([this.fetchPrimaryUserProfile(), this.fetchSolved()]).then(resolve)));
       }
     })();
 

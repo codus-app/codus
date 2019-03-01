@@ -121,7 +121,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['updateUserProfile', 'updateUserProfileImage']),
+    ...mapActions(['updatePrimaryUserProfile', 'uploadProfileImage']),
 
     // Make a request to check availability of a username
     async checkUsername() {
@@ -160,9 +160,9 @@ export default {
 
       const reqs = [];
       // Update basic profile information
-      if (Object.keys(patch).length) reqs.push(this.updateUserProfile(patch));
+      if (Object.keys(patch).length) reqs.push(this.updatePrimaryUserProfile(patch));
       // Update profile image (takes separate request)
-      if (this.newImage) reqs.push(this.updateUserProfileImage(this.newImage));
+      if (this.newImage) reqs.push(this.uploadProfileImage(this.newImage));
       // Wait for all requests to complete
       return Promise.all(reqs)
         .then((responses) => { this.newImage = undefined; return responses; });
