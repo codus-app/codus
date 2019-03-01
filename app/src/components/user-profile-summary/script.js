@@ -11,6 +11,7 @@ export default {
     layout() {
       const { height } = this.$refs.picture.getBoundingClientRect();
       this.$refs.picture.style.width = `${height}px`;
+      this.$refs.picture.style.opacity = 1;
     },
   },
 };
