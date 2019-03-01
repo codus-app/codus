@@ -30,6 +30,8 @@ import {
   // Settings pages icons
   CameraIcon,
   UploadCloudIcon,
+  // Social icons
+  AtSignIcon,
   // Misc
   ChevronUpIcon,
   ChevronRightIcon,
@@ -61,6 +63,8 @@ Vue.component('icon-minimize', Minimize2Icon);
 // Settings pages icons
 Vue.component('icon-camera', CameraIcon);
 Vue.component('icon-upload-cloud', UploadCloudIcon);
+// Social icons
+Vue.component('icon-at-sign', AtSignIcon);
 // Misc
 Vue.component('icon-chevron-up', ChevronUpIcon);
 Vue.component('icon-chevron-right', ChevronRightIcon);
@@ -103,3 +107,6 @@ Vue.component('window', Window);
 
 import TextInput from './input/input.vue';
 Vue.component('text-input', TextInput);
+
+import UserProfileSummary from './user-profile-summary/user-profile-summary.vue';
+Vue.component('user-profile-summary', UserProfileSummary);
