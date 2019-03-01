@@ -1,7 +1,7 @@
 <template>
   <div class="sidebar" v-bind:class="{ collapsed }">
     <!-- <h1 v-if="!collapsed">Codus</h1> -->
-    <user-profile-summary v-bind:compact="collapsed"></user-profile-summary>
+    <sidebar-user-profile v-bind:compact="collapsed"></sidebar-user-profile>
 
     <div class="links">
 
