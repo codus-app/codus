@@ -29,6 +29,9 @@ export default new Vuex.Store({
     testResults: {},
     solutionCheckInProgress: false, // Is the solution currently being checked?
 
+    // Stores profile information fetched for other users
+    // Keys are users' usernames
+    users: {},
   },
 
   mutations,

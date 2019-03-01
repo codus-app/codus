@@ -34,4 +34,6 @@ export default {
   },
 
   getTestResults: state => (category, problem) => state.testResults[`${category}/${problem}`] || { tests: [], code: null, error: null },
+
+  getUser: state => username => state.users[username] || {},
 };

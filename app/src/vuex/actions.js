@@ -89,4 +89,12 @@ export default {
     commit('updateTestResults', { problem, category, tests, error, code: solution.code }); // eslint-disable-line object-curly-newline
     commit('endSolutionCheck');
   },
+
+  async fetchUser({ commit }, { username }) {
+    const { name, picture } = await api.get({
+      endpoint: `users/${username}`,
+      store,
+    });
+    commit('userFetched', { username, name, picture });
+  },
 };

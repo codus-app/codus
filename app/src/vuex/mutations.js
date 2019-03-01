@@ -1,3 +1,5 @@
+import Vue from "vue";
+
 export default {
 
   // Update list of user solutions
@@ -95,4 +97,8 @@ export default {
     };
   },
   endSolutionCheck(state) { state.solutionCheckInProgress = false; },
+
+  userFetched(state, payload) {
+    Vue.set(state.users, payload.username, { ...state.users[payload.username], ...payload });
+  },
 };
