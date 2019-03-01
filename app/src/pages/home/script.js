@@ -15,13 +15,13 @@ export default {
     this.onResize = this.onResize.bind(this);
     window.addEventListener('resize', this.onResize);
 
-    if (!this.categoriesFetched) this.fetchCategories();
+    if (!this.contentFetched) this.fetchContent();
   },
 
   mounted() { this.mounted = true; },
 
   methods: {
-    ...mapActions(['fetchCategories']),
+    ...mapActions(['fetchContent']),
 
     closeAll() {
       this.$children.forEach((c) => { c.expanded = false; });
@@ -32,7 +32,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['categoriesFetched']),
+    ...mapState(['contentFetched']),
     ...mapGetters(['categoryIds']),
 
     cardBounds() {

@@ -2,15 +2,15 @@ import { mapState, mapGetters, mapActions } from 'vuex';
 
 export default {
   computed: {
-    ...mapState(['categoriesFetched', 'categories']),
+    ...mapState(['contentFetched', 'categories']),
     ...mapGetters(['isSolved', 'isSolutionBegun', 'isCategoryComplete']),
   },
   methods: {
-    ...mapActions(['fetchCategories']),
+    ...mapActions(['fetchContent']),
   },
 
   created() {
-    if (!this.categoriesFetched) this.fetchCategories();
+    if (!this.contentFetched) this.fetchContent();
   },
 
   components: {

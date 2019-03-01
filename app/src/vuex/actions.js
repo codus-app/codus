@@ -10,9 +10,9 @@ export default {
   },
 
   // Update basic info about category listings
-  async fetchCategories({ commit }) {
+  async fetchContent({ commit }) {
     const categories = await api.get({ endpoint: 'categories', store });
-    commit('categoriesFetched', categories);
+    commit('contentFetched', categories);
   },
 
   async fetchUserProfile({ commit }) {

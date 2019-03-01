@@ -26,7 +26,7 @@ export default {
   },
 
   // Update the list of categories
-  categoriesFetched(state, payload) {
+  contentFetched(state, payload) {
     // Is a given categoryName the name of any categories in state?
     const categoryInState = catName => state.categories.some(({ name }) => name === catName);
 
@@ -47,7 +47,7 @@ export default {
         category.problems.push(...fetchedCategory.problems.filter(problemNotInCategory));
       });
 
-    state.categoriesFetched = true;
+    state.contentFetched = true;
   },
 
   // Update a user profile when the API response returns
@@ -74,7 +74,7 @@ export default {
   },
 
 
-  beginSolutionSave(state) { state.solutionSaveInProgress = true; },
+  beginSolutionSave(state) { state.user.solutionSaveInProgress = true; },
   // Add or modify existing solution to a problem in state
   updateSolution(state, { category, problem, code }) {
     const solution = state.user.solutions
@@ -84,7 +84,7 @@ export default {
     // Add solution
     else state.user.solutions.push({ category, problem, code });
   },
-  endSolutionSave(state) { state.solutionSaveInProgress = false; },
+  endSolutionSave(state) { state.user.solutionSaveInProgress = false; },
 
 
   beginSolutionCheck(state) { state.solutionCheckInProgress = true; },
