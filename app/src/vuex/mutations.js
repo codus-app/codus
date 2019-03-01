@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue from 'vue';
 
 export default {
 
@@ -55,6 +55,9 @@ export default {
   // Update a user profile when the API response returns
   primaryUserFetched(state, payload) {
     state.user.profile = { ...state.user.profile, ...payload };
+    // Also update the copy of the object that's stored in the cache of user profiles
+    const { username } = state.user.profile;
+    Vue.set(state.users, username, { ...state.users[username], ...payload });
   },
 
   // Update info for a problem when its detailed info is fetched
