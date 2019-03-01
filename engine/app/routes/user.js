@@ -21,13 +21,13 @@ module.exports = {
   get(req, res) {
     getAuth0User.byUsername(req.params.username)
       .then(user => user || { error: 'not found' })
-      .then(({ error, username, user_metadata, picture }) => { // eslint-disable-line object-curly-newline, max-len
+      .then(({ error, username, user_metadata }) => { // eslint-disable-line object-curly-newline, max-len
         if (error) res.status(404).json({ error: `User '${req.params.username}' was not found` });
         res.json({
           data: {
             username,
             name: user_metadata.name,
-            picture,
+            picture: user_metadata.picture,
           },
         });
       });
