@@ -91,10 +91,10 @@ export default {
   },
 
   async fetchUser({ commit }, { username }) {
-    const { name, picture } = await api.get({
+    const { name, picture, solutionProgress } = await api.get({
       endpoint: `users/${username}`,
       store,
     });
-    commit('userFetched', { username, name, picture });
+    commit('userFetched', { username, name, picture, solutionProgress }); // eslint-disable-line object-curly-newline
   },
 };
