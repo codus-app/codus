@@ -1,12 +1,12 @@
 <template>
   <div class="page">
     <div class="top">
-      <div class="summary card">
+      <div class="summary card" v-bind:class="{ empty: !profileLoaded }">
         <user-profile-summary v-bind:profile="profile"></user-profile-summary>
       </div>
-      <div class="detail card c1">
+      <div class="detail card c1" v-bind:class="{ empty: !profileLoaded }">
         <div class="left"></div>
-        <div class="right" v-if="typeof percentSolved !== 'undefined'">
+        <div class="right">
           <div class="large">{{percentSolved}}%</div>
           <div class="small">Problems solved</div>
         </div>
