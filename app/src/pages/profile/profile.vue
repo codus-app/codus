@@ -6,7 +6,7 @@
       </div>
       <div class="detail card c1">
         <div class="left"></div>
-        <div class="right">
+        <div class="right" v-if="typeof percentSolved !== 'undefined'">
           <div class="large">{{percentSolved}}%</div>
           <div class="small">Problems solved</div>
         </div>

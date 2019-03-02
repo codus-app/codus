@@ -7,7 +7,9 @@ export default {
     username() { return this.$route.params.username; },
     profile() { return this.getUser(this.username); },
     percentSolved() {
-      const proportionSolved = this.profile.solutionProgress[0] / this.profile.solutionProgress[1];
+      const progressFraction = this.profile.solutionProgress;
+      if (!progressFraction) return undefined;
+      const proportionSolved = progressFraction[0] / progressFraction[1];
       return Math.floor(proportionSolved * 100);
     },
   },
