@@ -1,12 +1,17 @@
 const d3 = {
   ...require('d3-selection'),
   ...require('d3-shape'),
+  ...require('d3-transition'),
+  ...require('d3-ease'),
 };
+
 const size = 200;
 
 export default {
   props: {
     progress: { type: Number, default: 0 },
+    transitionDuration: { type: Number, default: 450 },
+    transitionDelay: { type: Number, default: 0 },
   },
 
   computed: {
@@ -51,15 +56,15 @@ export default {
       .attr('transform', `translate(${size / 2 + 0}, ${size / 2 + 0})`);
   },
 
-  methods: {
-    update() {
-      this.fillArc.endAngle(this.fillAngle);
-      this.fill.attr('d', this.fillArc);
-    },
-  },
-
   watch: {
-    fillAngle() { this.update(); },
+    fillAngle(angle, oldAngle) {
+      this.fill
+        .transition()
+        .delay(this.transitionDelay)
+        .ease(d3.easeCubicOut)
+        .duration(this.transitionDuration)
+        .attrTween('d', () => t => this.fillArc.endAngle(oldAngle + (angle - oldAngle) * t)());
+    },
   },
 
 };
