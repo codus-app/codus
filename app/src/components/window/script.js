@@ -1,4 +1,4 @@
-import { clip } from '../../helpers';
+import { clamp } from '../../helpers';
 
 export default {
   props: {
@@ -61,8 +61,8 @@ export default {
       const minY = this.bounds[1] - this.initialBounds.top;
       const maxY = this.bounds[3] - this.initialBounds.bottom;
       this.pos = [
-        clip(x, minX, maxX),
-        clip(y, minY, maxY),
+        clamp(x, minX, maxX),
+        clamp(y, minY, maxY),
       ];
     },
 
