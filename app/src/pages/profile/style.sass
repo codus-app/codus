@@ -45,9 +45,10 @@
     height: 2.3rem * 2
     margin-right: -2.3rem
     transform: scale(.5) translate(-50%)
-
-    background: $green-gradient
     border-radius: 50%
+
+    &.gradient
+      background: $green-gradient
 
   .right
     flex: 1 0 auto
@@ -66,3 +67,8 @@
       font-size: .6rem
       text-transform: uppercase
       letter-spacing: .066em
+
+
+.card.detail.c1
+  .left
+    transform: translate(-25%) scale(.55)

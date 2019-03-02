@@ -1,4 +1,5 @@
 import { mapGetters, mapActions } from 'vuex';
+import { clamp } from '../../helpers';
 
 export default {
   computed: {
@@ -9,11 +10,10 @@ export default {
     profile() { return this.getUser(this.username); },
     profileLoaded() { return Object.keys(this.profile).length; },
 
-    percentSolved() {
+    proportionSolved() {
       const progressFraction = this.profile.solutionProgress;
       if (!progressFraction) return undefined;
-      const proportionSolved = progressFraction[0] / progressFraction[1];
-      return Math.floor(proportionSolved * 100);
+      return clamp(progressFraction[0] / progressFraction[1], 0, 1);
     },
   },
 

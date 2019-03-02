@@ -5,9 +5,11 @@
         <user-profile-summary v-bind:profile="profile"></user-profile-summary>
       </div>
       <div class="detail card c1" v-bind:class="{ empty: !profileLoaded }">
-        <div class="left"></div>
+        <div class="left">
+          <progress-ring v-bind:progress="proportionSolved || 0"></progress-ring>
+        </div>
         <div class="right">
-          <div class="large">{{percentSolved}}%</div>
+          <div class="large">{{ Math.floor(proportionSolved * 100)}}%</div>
           <div class="small">Problems solved</div>
         </div>
       </div>
