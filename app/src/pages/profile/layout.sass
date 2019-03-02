@@ -33,7 +33,7 @@
 @media (min-width: 1000px)
   .top
     grid-template-columns: minmax(0, 6.5fr) minmax(0, 5fr) minmax(0, 5fr)
-    grid-template-rows: auto auto
+    grid-template-rows: minmax(0, 1fr) minmax(0, 1fr)
 
   .card.summary
     grid-area: 1 / 1 / 3 / 2
@@ -108,7 +108,7 @@
 @media (max-width: 699px)
   .top
     height: 40rem
-    grid-template-columns: auto
+    grid-template-columns: minmax(0, 1fr)
     grid-template-rows: 3fr 1fr 1fr 1fr 1fr
 
   .card.summary
