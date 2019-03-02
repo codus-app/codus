@@ -57,7 +57,9 @@ export default {
     state.user.profile = { ...state.user.profile, ...payload };
     // Also update the copy of the object that's stored in the cache of user profiles
     const { username } = state.user.profile;
-    Vue.set(state.users, username, { ...state.users[username], ...payload });
+    if (state.users[username]) {
+      Vue.set(state.users, username, { ...state.users[username], ...payload });
+    }
   },
 
   // Update info for a problem when its detailed info is fetched
