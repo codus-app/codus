@@ -90,14 +90,17 @@ Vue.component('category-card', CategoryCard);
 import ProgressPie from './progress-pie/progress-pie.vue';
 Vue.component('progress-pie', ProgressPie);
 
+import ProgressRing from './progress-ring/progress-ring.vue';
+Vue.component('progress-ring', ProgressRing);
+
+import Spinner from './spinner/spinner.vue';
+Vue.component('spinner', Spinner);
+
 import BoldButton from './bold-button/bold-button.vue';
 Vue.component('bold-button', BoldButton);
 
 import Modal from './modal/modal.vue';
 Vue.component('modal', Modal);
-
-import Spinner from './spinner/spinner.vue';
-Vue.component('spinner', Spinner);
 
 import Breadcrumbs from './breadcrumbs/breadcrumbs.vue';
 Vue.component('breadcrumbs', Breadcrumbs);
