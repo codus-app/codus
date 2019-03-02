@@ -1,4 +1,6 @@
+@import 'src/styles/variables'
 @import layout
+
 
 .card
   @include dark-card
@@ -12,3 +14,39 @@
 
   .user-profile-summary
     height: 100%
+
+.card.detail // Height is ~5.5rem
+  padding: 0 24px
+
+  display: flex
+  align-items: center
+  justify-content: flex-start
+
+  .left
+    flex: 0 0 auto
+    // Double size and scaled down to resolve rounding errors
+    width: 2.3rem * 2
+    height: 2.3rem * 2
+    margin-right: -2.3rem
+    transform: scale(.5) translate(-50%)
+
+    background: $green-gradient
+    border-radius: 50%
+
+  .right
+    flex: 1 0 auto
+    margin-left: .75rem
+
+    .large
+      font-family: $font-nunito
+      font-weight: 700
+      color: $light-text-primary
+      font-size: 1.1rem
+
+    .small
+      font-family: $font-lato
+      font-weight: 500
+      color: transparentize($light-text-primary, .7)
+      font-size: .6rem
+      text-transform: uppercase
+      letter-spacing: .066em
