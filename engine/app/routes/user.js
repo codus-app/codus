@@ -2,6 +2,7 @@ const keystone = require('keystone');
 const { isEmail } = require('validator');
 const { validateUser } = require('./util');
 const upload = require('./util/profile-image-upload');
+const getUserSolvedProgress = require('./util/user-solution-progress.js');
 
 const {
   getUser: getAuth0User,
@@ -21,15 +22,20 @@ module.exports = {
   get(req, res) {
     getAuth0User.byUsername(req.params.username)
       .then(user => user || { error: 'not found' })
-      .then(({ error, username, user_metadata }) => { // eslint-disable-line object-curly-newline, max-len
-        if (error) res.status(404).json({ error: `User '${req.params.username}' was not found` });
+      .then(async ({ error, username, user_id, user_metadata }) => {
+        if (error) return res.status(404).json({ error: `User '${req.params.username}' was not found` });
+
+        const solutionProgress = await getUserSolvedProgress(user_id);
+
         res.json({
           data: {
             username,
             name: user_metadata.name,
             picture: user_metadata.picture,
+            solutionProgress,
           },
         });
+        return undefined;
       });
   },
 
