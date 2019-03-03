@@ -19,15 +19,15 @@ import {
   MenuIcon,
   PlayIcon,
   Trash2Icon,
-  SettingsIcon,
   SearchIcon,
-  ShareIcon,
   FolderIcon,
   FileIcon,
   FileTextIcon,
   Minimize2Icon,
   Maximize2Icon,
   // Settings pages icons
+  SettingsIcon,
+  SlidersIcon,
   CameraIcon,
   UploadCloudIcon,
   // Social icons
@@ -53,15 +53,15 @@ Vue.component('icon-chevrons-left', ChevronsLeftIcon);
 Vue.component('icon-menu', MenuIcon);
 Vue.component('icon-play', PlayIcon);
 Vue.component('icon-trash', Trash2Icon);
-Vue.component('icon-settings', SettingsIcon);
 Vue.component('icon-search', SearchIcon);
-Vue.component('icon-share', ShareIcon);
 Vue.component('icon-folder', FolderIcon);
 Vue.component('icon-file', FileIcon);
 Vue.component('icon-file-text', FileTextIcon);
 Vue.component('icon-maximize', Maximize2Icon);
 Vue.component('icon-minimize', Minimize2Icon);
 // Settings pages icons
+Vue.component('icon-settings', SettingsIcon);
+Vue.component('icon-sliders', SlidersIcon);
 Vue.component('icon-camera', CameraIcon);
 Vue.component('icon-upload-cloud', UploadCloudIcon);
 // Social icons
