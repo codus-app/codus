@@ -31,6 +31,6 @@ export default [
     path: '/settings/account',
     name: 'profile-settings',
     component: require('./settings/account/account-settings.vue').default,
-    meta: { icon: 'sliders', label: 'Account', category: 'user' },
+    meta: { icon: 'sliders', iconTransform: 'rotate(90deg)', label: 'Account', category: 'user' }, // eslint-disable-line object-curly-newline
   },
 ];
