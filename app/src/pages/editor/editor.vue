@@ -5,7 +5,7 @@
       <div class="head">Problems</div>
       <icon-chevrons-left
         v-on:click="problemBrowserCollapsed = true"
-        v-tippy
+        v-tippy="{ delay: [400, 0] }"
         v-bind:title="`Close Sidebar <kbd>${$nativizeShortcut('mod+\\')}</kbd>`"
       ></icon-chevrons-left>
       <problems-tree class="listing"></problems-tree>
@@ -20,7 +20,7 @@
           class="button"
           v-on:click="solutionCheck"
           v-if="!solutionCheckInProgress"
-          v-tippy
+          v-tippy="{ delay: [400, 0] }"
           v-bind:title="`Run <kbd>${$nativizeShortcut('mod+Enter')}</kbd>`"
         />
         <spinner v-if="solutionCheckInProgress"></spinner>
@@ -28,14 +28,14 @@
         <icon-search
           class="button"
           v-on:click="findReplaceOpen = !findReplaceOpen"
-          v-tippy
+          v-tippy="{ delay: [400, 0] }"
           v-bind:title="`Find / Replace <kbd>${$nativizeShortcut('mod+F')}</kbd>`"
         ></icon-search>
         <!-- Discard/reset button -->
         <icon-trash
           class="button"
           v-on:click="() => { this.deletionConfirmOpen = true; }"
-          v-tippy
+          v-tippy="{ delay: [400, 0] }"
           v-bind:title="`Reset solution <kbd>${$nativizeShortcut('mod+Shift+backspace')}</kbd>`"
         />
         <!-- Settings button -->
@@ -48,7 +48,7 @@
         <div class="open-sidebar" v-bind:class="{ collapsed: !problemBrowserCollapsed }">
           <icon-menu
             v-on:click="problemBrowserCollapsed = false"
-            v-tippy
+            v-tippy="{ delay: [400, 0] }"
             v-bind:title="`Open Sidebar <kbd>${$nativizeShortcut('mod+\\')}</kbd>`"
           ></icon-menu>
         </div>

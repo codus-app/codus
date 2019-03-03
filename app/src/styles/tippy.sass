@@ -1,10 +1,10 @@
 // Tippy theme
 @import variables
 
-$bg: transparentize(#bdbfc2, .025)
+$light-bg: transparentize(#bdbfc2, .025)
 
-.tippy-tooltip.codus-theme
-  background: $bg
+.tippy-tooltip.codus-light-theme
+  background: $light-bg
 
   font-family: $font-nunito
   font-weight: 600
@@ -22,14 +22,14 @@ $bg: transparentize(#bdbfc2, .025)
     font-weight: 400
     opacity: .5
 
-.tippy-popper[x-placement^='top'] .tippy-arrow
-  border-top-color: $bg
+.tippy-popper[x-placement^='top'] .codus-light-theme .tippy-arrow
+  border-top-color: $light-bg
 
-.tippy-popper[x-placement^='right'] .tippy-arrow
-  border-right-color: $bg
+.tippy-popper[x-placement^='right'] .codus-light-theme .tippy-arrow
+  border-right-color: $light-bg
 
-.tippy-popper[x-placement^='bottom'] .tippy-arrow
-  border-bottom-color: $bg
+.tippy-popper[x-placement^='bottom'] .codus-light-theme .tippy-arrow
+  border-bottom-color: $light-bg
 
-.tippy-popper[x-placement^='left'] .tippy-arrow
-  border-left-color: $bg
+.tippy-popper[x-placement^='left'] .codus-light-theme .tippy-arrow
+  border-left-color: $light-bg

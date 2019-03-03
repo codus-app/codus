@@ -33,3 +33,6 @@ Vue.component('window', Window);
 
 import TextInput from './input/input.vue';
 Vue.component('text-input', TextInput);
+
+import ContextMenu from './context-menu/context-menu.vue';
+Vue.component('context-menu', ContextMenu);

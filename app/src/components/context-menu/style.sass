@@ -1,0 +1,27 @@
+@import 'src/styles/variables'
+
+.item
+  padding: 9px
+  display: flex
+  align-items: center
+  justify-content: flex-start
+
+  border-radius: 4px
+  cursor: pointer
+  background: transparent
+  color: transparentize($light-text-primary, .4)
+  transition: background .15s, color .15s
+
+  &:hover
+    background: #24242b
+    color: transparentize($light-text-primary, .3)
+
+  .feather
+    width: 16px
+    height: 16px
+    margin-right: 9px
+
+  .label
+    font-family: $font-lato
+    font-size: 15px
+    font-weight: 500

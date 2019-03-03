@@ -25,13 +25,13 @@ import './components';
 
 import VueTippy from 'vue-tippy';
 Vue.use(VueTippy, {
-  theme: 'codus',
+  theme: 'codus-light',
   placement: 'bottom',
   distance: 5,
 
   animation: 'fade',
   duration: [200, 150],
-  delay: [400, 0],
+  delay: 0,
   // Workaround for preventing "fill" animation (animationFill: false is broken)
   arrow: true,
   arrowTransform: 'scale(0)',
