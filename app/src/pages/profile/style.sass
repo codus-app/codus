@@ -26,10 +26,30 @@
 
 
 .card.summary
+  position: relative
   padding: 1.4rem .5rem 1.2rem
 
   .user-profile-summary
     height: 100%
+
+  a.edit
+    position: absolute
+    display: block
+    top: .6rem
+    right: 1.25rem
+    width: .9rem
+    height: .9rem
+    color: $white
+    opacity: .2
+    transition: opacity .25s
+
+    &:hover
+      opacity: .3
+
+    .feather
+      width: 100%
+      height: 100%
+
 
 .card.detail // Height is ~5.5rem
   padding: 0 24px

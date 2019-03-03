@@ -3,6 +3,9 @@
     <div class="top">
       <div class="summary card" v-bind:class="{ empty: !profileLoaded }">
         <user-profile-summary v-bind:profile="profile"></user-profile-summary>
+        <router-link class="edit" to="/settings/account">
+          <icon-more></icon-more>
+        </router-link>
       </div>
       <div class="detail card c1" v-bind:class="{ empty: !profileLoaded }">
         <div class="left">
