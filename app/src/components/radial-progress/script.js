@@ -36,7 +36,7 @@ export default {
         : 0)
       .outerRadius(radius);
 
-    this.track = svg.append('path')
+    this.track = svg.insert('path', '.feather-check')
       .attr('class', 'track')
       .attr('d', this.trackArc)
       .attr('transform', `translate(${size / 2}, ${size / 2})`); // center
@@ -59,10 +59,17 @@ export default {
         ? ringProgressThickness / 2 // Round caps in ring mode
         : 0); // Don't round the edges of a pie
 
-    this.fill = svg.append('path')
+    this.fill = svg.insert('path', '.feather-check')
       .attr('class', 'fill')
       .attr('d', this.fillArc)
       .attr('transform', `translate(${size / 2 + 0}, ${size / 2 + 0})`);
+
+    // Checkmark for completed pies
+
+    const check = d3.select(this.$refs.check);
+    const checkSize = 130;
+    check.attr('width', checkSize).attr('height', checkSize);
+    check.attr('x', 38.9).attr('y', 41.5);
   },
 
   watch: {

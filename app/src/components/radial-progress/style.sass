@@ -1,8 +1,15 @@
 @import 'src/styles/variables'
 
+svg
+  position: relative
+
 svg /deep/
   .track
     fill: $dark-2
 
   .fill
     fill: url('#fillGradient')
+
+  .feather-check
+    transition: opacity .4s .5s
+    color: transparentize($black, .55)

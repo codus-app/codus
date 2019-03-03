@@ -6,6 +6,11 @@
         <stop offset="95%" stop-color="#1db965"></stop>
       </linearGradient>
     </defs>
+
+    <icon-check
+      ref="check"
+      v-bind:style="{ opacity: progress === 1 && type === 'pie' ? 1 : 0 }"
+    ></icon-check>
   </svg>
 </template>
 
