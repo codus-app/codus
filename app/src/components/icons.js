@@ -1,62 +1,55 @@
 import Vue from 'vue';
 
-import {
-  AtSignIcon,
-  CameraIcon,
-  CheckIcon,
-  ChevronDownIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  ChevronsLeftIcon,
-  ChevronUpIcon,
-  CopyIcon,
-  EditIcon,
-  FileIcon,
-  FileTextIcon,
-  FolderIcon,
-  HomeIcon,
-  LogOutIcon,
-  Maximize2Icon,
-  MenuIcon,
-  Minimize2Icon,
-  MoreHorizontalIcon,
-  PlayIcon,
-  SearchIcon,
-  SettingsIcon,
-  SlidersIcon,
-  Trash2Icon,
-  UploadCloudIcon,
-  UserIcon,
-  XCircleIcon,
-  XIcon,
-} from 'vue-feather-icons';
+import * as icons from 'vue-feather-icons';
 
+const iconNames = [
+  'AtSignIcon',
+  'CameraIcon',
+  'CheckIcon',
+  'ChevronUpIcon',
+  'ChevronRightIcon',
+  'ChevronDownIcon',
+  'ChevronLeftIcon',
+  'ChevronsLeftIcon',
+  'CopyIcon',
+  'EditIcon',
+  'FileIcon',
+  'FileTextIcon',
+  'FolderIcon',
+  'HomeIcon',
+  'LogOutIcon',
+  { name: 'Maximize2Icon', as: 'icon-maximize' },
+  { name: 'Minimize2Icon', as: 'icon-minimize' },
+  { name: 'MenuIcon', as: 'icon-menu' },
+  { name: 'MoreHorizontalIcon', as: 'icon-more' },
+  'PlayIcon',
+  'SearchIcon',
+  'SettingsIcon',
+  'SlidersIcon',
+  { name: 'Trash2Icon', as: 'icon-trash' },
+  'UploadCloudIcon',
+  'UserIcon',
+  'XCircleIcon',
+  'XIcon',
+];
 
-Vue.component('icon-at-sign', AtSignIcon);
-Vue.component('icon-camera', CameraIcon);
-Vue.component('icon-check', CheckIcon);
-Vue.component('icon-chevron-down', ChevronDownIcon);
-Vue.component('icon-chevron-left', ChevronLeftIcon);
-Vue.component('icon-chevron-right', ChevronRightIcon);
-Vue.component('icon-chevron-up', ChevronUpIcon);
-Vue.component('icon-chevrons-left', ChevronsLeftIcon);
-Vue.component('icon-copy', CopyIcon);
-Vue.component('icon-edit', EditIcon);
-Vue.component('icon-file-text', FileTextIcon);
-Vue.component('icon-file', FileIcon);
-Vue.component('icon-folder', FolderIcon);
-Vue.component('icon-home', HomeIcon);
-Vue.component('icon-log-out', LogOutIcon);
-Vue.component('icon-maximize', Maximize2Icon);
-Vue.component('icon-menu', MenuIcon);
-Vue.component('icon-minimize', Minimize2Icon);
-Vue.component('icon-more', MoreHorizontalIcon);
-Vue.component('icon-play', PlayIcon);
-Vue.component('icon-search', SearchIcon);
-Vue.component('icon-settings', SettingsIcon);
-Vue.component('icon-sliders', SlidersIcon);
-Vue.component('icon-trash', Trash2Icon);
-Vue.component('icon-upload-cloud', UploadCloudIcon);
-Vue.component('icon-user', UserIcon);
-Vue.component('icon-x-circle', XCircleIcon);
-Vue.component('icon-x', XIcon);
+// Register all icons as Vue components
+iconNames.forEach((icon) => {
+  let importName;
+  let componentName;
+
+  // Object
+  if (icon instanceof Object) {
+    importName = icon.name;
+    componentName = icon.as;
+  // String
+  } else {
+    importName = icon;
+    // Convert pascal case to kebab case
+    componentName = icon[0].toLowerCase() + icon.substring(1).replace(/[A-Z0-9]/g, x => `-${x.toLowerCase()}`);
+    // Change -icon suffix into an icon- prefix
+    if (componentName.endsWith('-icon')) componentName = `icon-${componentName.slice(0, -5)}`;
+  }
+
+  Vue.component(componentName, icons[importName]);
+});
