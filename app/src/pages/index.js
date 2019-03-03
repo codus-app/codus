@@ -11,7 +11,7 @@ export default [
     path: '/user/:username',
     name: 'profile',
     component: require('./profile/profile.vue').default,
-    meta: { icon: 'user', label: 'Profile', category: 'user' },
+    meta: {},
   },
 
 
@@ -31,6 +31,6 @@ export default [
     path: '/settings/account',
     name: 'profile-settings',
     component: require('./settings/account/account-settings.vue').default,
-    meta: { icon: 'sliders', iconTransform: 'rotate(90deg)', label: 'Settings', category: 'user' }, // eslint-disable-line object-curly-newline
+    meta: {},
   },
 ];
