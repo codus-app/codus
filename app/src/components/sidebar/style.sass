@@ -29,18 +29,21 @@
     .links
       padding: .3rem .775rem 1rem
 
-    .sb-link svg
-      width: .95rem
-      height: .95rem
-      margin: 0
-      opacity: .75
-      transition: opacity .25s
+    .sb-link
+      margin: 1.6em 0 0
 
-      &:hover
-        opacity: .95
+      svg
+        width: .95rem
+        height: .95rem
+        margin: 0
+        opacity: .75
+        transition: opacity .25s
 
-    .sb-link.router-link-exact-active svg
-      opacity: 1
+        &:hover
+          opacity: .95
+
+      &.router-link-exact-active svg
+        opacity: 1
 
     .logout
       transform: translateX(-50%)
@@ -65,7 +68,7 @@
     font-size: .65rem
     display: flex
     align-items: center
-    margin: 1.6em 0 0
+    margin: 1.25em 0 0
     position: relative
 
     svg
