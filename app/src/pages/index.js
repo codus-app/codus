@@ -31,6 +31,6 @@ export default [
     path: '/settings/account',
     name: 'profile-settings',
     component: require('./settings/account/account-settings.vue').default,
-    meta: {},
+    meta: { icon: 'settings', label: 'Account', category: 'user' },
   },
 ];
