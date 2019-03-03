@@ -1,3 +1,5 @@
+/* global CODUS_APP_URL */
+
 import { mapGetters, mapActions } from 'vuex';
 import { clamp } from '../../helpers';
 
@@ -25,6 +27,15 @@ export default {
     fetch() {
       const { username } = this;
       if (username && !Object.keys(this.profile).length) this.fetchUser({ username });
+    },
+
+    copyLink() {
+      navigator.permissions.query({ name: 'clipboard-write' })
+        .then(({ state }) => {
+          if (state === 'granted') {
+            navigator.clipboard.writeText(`${CODUS_APP_URL}/user/${this.username}`);
+          }
+        });
     },
   },
 

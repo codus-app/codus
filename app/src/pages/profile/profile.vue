@@ -9,6 +9,7 @@
           placement="bottom-end"
           v-bind:items="[
             { icon: 'edit', label: 'Edit profile', onclick: () => $router.push('/settings/account') },
+            { icon: 'copy', label: 'Copy link', onclick: copyLink },
           ]"
         ></context-menu>
       </div>

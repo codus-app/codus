@@ -18,6 +18,7 @@ import {
   FileTextIcon,
   Minimize2Icon,
   Maximize2Icon,
+  CopyIcon,
   // Settings pages icons
   SettingsIcon,
   SlidersIcon,
@@ -53,6 +54,7 @@ Vue.component('icon-file', FileIcon);
 Vue.component('icon-file-text', FileTextIcon);
 Vue.component('icon-maximize', Maximize2Icon);
 Vue.component('icon-minimize', Minimize2Icon);
+Vue.component('icon-copy', CopyIcon);
 // Settings pages icons
 Vue.component('icon-settings', SettingsIcon);
 Vue.component('icon-sliders', SlidersIcon);
