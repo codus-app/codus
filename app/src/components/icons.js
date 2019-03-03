@@ -21,6 +21,7 @@ import {
   // Settings pages icons
   SettingsIcon,
   SlidersIcon,
+  EditIcon,
   CameraIcon,
   UploadCloudIcon,
   // Social icons
@@ -55,6 +56,7 @@ Vue.component('icon-minimize', Minimize2Icon);
 // Settings pages icons
 Vue.component('icon-settings', SettingsIcon);
 Vue.component('icon-sliders', SlidersIcon);
+Vue.component('icon-edit', EditIcon);
 Vue.component('icon-camera', CameraIcon);
 Vue.component('icon-upload-cloud', UploadCloudIcon);
 // Social icons

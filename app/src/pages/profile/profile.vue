@@ -3,9 +3,14 @@
     <div class="top">
       <div class="summary card" v-bind:class="{ empty: !profileLoaded }">
         <user-profile-summary v-bind:profile="profile"></user-profile-summary>
-        <router-link class="edit" to="/settings/account" v-if="isAuthenticatedUser">
-          <icon-more></icon-more>
-        </router-link>
+        <icon-more name="profile-summary-more"></icon-more>
+        <context-menu
+          target-name="profile-summary-more"
+          placement="bottom-end"
+          v-bind:items="[
+            { icon: 'edit', label: 'Edit profile', onclick: () => $router.push('/settings/account') },
+          ]"
+        ></context-menu>
       </div>
       <div class="detail card c1" v-bind:class="{ empty: !profileLoaded }">
         <div class="left">
