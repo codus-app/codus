@@ -33,4 +33,8 @@ export default {
   },
 
   created() { this.fetch(); },
+
+  components: {
+    'user-profile-summary': require('./components/user-profile-summary/user-profile-summary.vue').default,
+  },
 };

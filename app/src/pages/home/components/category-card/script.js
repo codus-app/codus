@@ -95,4 +95,8 @@ export default {
   },
 
   destroyed() { window.removeEventListener('resize', this.layout); },
+
+  components: {
+    'problem-link': require('./problem-link').default,
+  },
 };

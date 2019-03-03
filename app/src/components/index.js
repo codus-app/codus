@@ -80,15 +80,6 @@ Vue.component('icon-more', MoreHorizontalIcon);
 import Sidebar from './sidebar/sidebar.vue';
 Vue.component('sidebar', Sidebar);
 
-import SidebarUserProfile from './sidebar-user-profile/sidebar-user-profile.vue';
-Vue.component('sidebar-user-profile', SidebarUserProfile);
-
-import ProblemLink from './category-card/problem-link';
-Vue.component('problem-link', ProblemLink);
-
-import CategoryCard from './category-card/category-card.vue';
-Vue.component('category-card', CategoryCard);
-
 import RadialProgress from './radial-progress/radial-progress.vue';
 Vue.component('radial-progress', RadialProgress);
 
@@ -109,6 +100,3 @@ Vue.component('window', Window);
 
 import TextInput from './input/input.vue';
 Vue.component('text-input', TextInput);
-
-import UserProfileSummary from './user-profile-summary/user-profile-summary.vue';
-Vue.component('user-profile-summary', UserProfileSummary);

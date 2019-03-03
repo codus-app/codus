@@ -54,4 +54,8 @@ export default {
   },
 
   destroyed() { window.removeEventListener('resize', this.onResize); },
+
+  components: {
+    'category-card': require('./components/category-card/category-card.vue').default,
+  },
 };
