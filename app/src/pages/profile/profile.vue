@@ -6,11 +6,12 @@
       </div>
       <div class="detail card c1" v-bind:class="{ empty: !profileLoaded }">
         <div class="left">
-          <progress-ring
+          <radial-progress
+            type="ring"
             v-bind:progress="proportionSolved || 0"
             v-bind:transition-delay="150"
             v-bind:transition-duration="550"
-          ></progress-ring>
+          ></radial-progress>
         </div>
         <div class="right">
           <div class="large">{{ Math.floor(proportionSolved * 100)}}%</div>

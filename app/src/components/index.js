@@ -87,11 +87,8 @@ Vue.component('problem-link', ProblemLink);
 import CategoryCard from './category-card/category-card.vue';
 Vue.component('category-card', CategoryCard);
 
-import ProgressPie from './progress-pie/progress-pie.vue';
-Vue.component('progress-pie', ProgressPie);
-
-import ProgressRing from './progress-ring/progress-ring.vue';
-Vue.component('progress-ring', ProgressRing);
+import RadialProgress from './radial-progress/radial-progress.vue';
+Vue.component('radial-progress', RadialProgress);
 
 import Spinner from './spinner/spinner.vue';
 Vue.component('spinner', Spinner);

@@ -6,7 +6,10 @@
 
       <div class="collapsed-view" v-bind:class="{ invisible: expanded }">
         <h1 v-on:click="expanded = true">{{ category.displayName }}</h1>
-        <progress-pie :colors="['#4deb9b', '#1db965']" background="#1e1e21" v-bind:progress="(category.solved.length / category.problems.length) || 0"></progress-pie>
+        <radial-progress
+          type="pie"
+          v-bind:progress="(category.solved.length / category.problems.length) || 0"
+        ></radial-progress>
 
         <problem-link
           v-for="{ name } in displayProblems"
@@ -22,7 +25,10 @@
 
       <div class="expanded-view" v-bind:class="{ invisible: !expanded }">
         <h1>{{ category.displayName }}</h1>
-        <progress-pie :colors="['#4deb9b', '#1db965']" background="#1e1e21" v-bind:progress="(category.solved.length / category.problems.length) || 0"></progress-pie>
+        <radial-progress
+          type="pie"
+          v-bind:progress="(category.solved.length / category.problems.length) || 0"
+        ></radial-progress>
         <div class="md-description" v-html="category.description.html"></div>
         <problem-link
           v-for="{ name } in category.problems"

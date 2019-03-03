@@ -9,6 +9,7 @@ const size = 200;
 
 export default {
   props: {
+    type: { type: String, required: true, validator: value => ['ring', 'pie'].includes(value) },
     progress: { type: Number, default: 0 },
     transitionDuration: { type: Number, default: 450 },
     transitionDelay: { type: Number, default: 0 },
@@ -25,12 +26,14 @@ export default {
 
     // Track
 
-    const trackThickness = size * 0.13;
+    const ringTrackThickness = size * 0.13;
 
     this.trackArc = d3.arc()
       .startAngle(0)
       .endAngle(Math.PI * 2)
-      .innerRadius(radius - trackThickness)
+      .innerRadius(this.type === 'ring'
+        ? radius - ringTrackThickness
+        : 0)
       .outerRadius(radius);
 
     this.track = svg.append('path')
@@ -40,15 +43,21 @@ export default {
 
     // Progress arc inside track
 
-    const progressThickness = trackThickness * 0.75;
-    const gapBetween = (trackThickness - progressThickness) / 2;
+    const ringProgressThickness = ringTrackThickness * 0.75;
+    const ringGapBetween = (ringTrackThickness - ringProgressThickness) / 2;
 
     this.fillArc = d3.arc()
       .startAngle(0)
       .endAngle(this.fillAngle)
-      .innerRadius(radius - gapBetween - progressThickness)
-      .outerRadius(radius - gapBetween)
-      .cornerRadius(progressThickness / 2);
+      .innerRadius(this.type === 'ring'
+        ? radius - ringGapBetween - ringProgressThickness // Inner radius in ring mode
+        : 0) // No inner radius in pie mode
+      .outerRadius(this.type === 'ring'
+        ? radius - ringGapBetween // Gap in ring mode
+        : radius) // Goes to edge in pie mode
+      .cornerRadius(this.type === 'ring'
+        ? ringProgressThickness / 2 // Round caps in ring mode
+        : 0); // Don't round the edges of a pie
 
     this.fill = svg.append('path')
       .attr('class', 'fill')
