@@ -3,7 +3,7 @@ import { clamp } from '../../helpers';
 
 export default {
   computed: {
-    ...mapGetters(['getUser']),
+    ...mapGetters({ getUser: 'getUser', authenticatedUserProfile: 'profile' }),
 
     username() { return this.$route.params.username; },
 
@@ -15,6 +15,8 @@ export default {
       if (!progressFraction) return undefined;
       return clamp(progressFraction[0] / progressFraction[1], 0, 1);
     },
+
+    isAuthenticatedUser() { return this.authenticatedUserProfile.username === this.username; },
   },
 
   methods: {
