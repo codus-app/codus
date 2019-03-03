@@ -13,7 +13,8 @@
       class="item"
       v-for="(item, i) in items"
       v-bind:key="i"
-      v-on:click="items[i].onclick"
+      v-bind:ref="`item-${i}`"
+      v-on:click="items[i].onclick(); close();"
     >
       <component v-bind:is="`icon-${item.icon}`"></component>
       <span class="label" v-html="item.label"></span>

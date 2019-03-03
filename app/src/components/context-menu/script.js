@@ -10,4 +10,14 @@ export default {
       validator: val => val.every(n => n instanceof Object && ['icon', 'label', 'onclick'].every(key => Object.keys(n).includes(key))),
     },
   },
+
+  methods: {
+    close() {
+      document.querySelectorAll(`[name=${this.targetName}]`)
+        .forEach((el) => {
+          // eslint-disable-next-line no-underscore-dangle
+          if (el._tippy && el._tippy.state.visible) el._tippy.hide();
+        });
+    },
+  },
 };
