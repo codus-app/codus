@@ -1,5 +1,7 @@
 <template>
   <div class="account-settings" v-if="Object.keys(profile).length">
+    <h1>Account Settings</h1>
+
     <div class="card profile">
       <h2>Your profile</h2>
 
