@@ -14,19 +14,24 @@ const router = new VueRouter({
 });
 
 // Set page title based on page metadata and check login on each navigation
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   document.title = to.meta.title || 'Codus';
+
+  // Parse login information if necessary
+  if (window.location.hash) {
+    await new Promise((resolve) => {
+      webAuth.parseHash((err, res) => {
+        if (res) store.dispatch('auth/loginCallback', res).then(resolve); // hash was found and parseable
+      });
+    });
+  }
 
   // Reject unauthenticated users from protected routes
   if (to.meta.protected && !router.app.$store.getters['auth/isAuthenticated']) {
     window.location.replace(`${CODUS_LANDING_URL}/login?backto=${encodeURIComponent(to.fullPath)}`);
   }
 
-  // Parse login information if necessary
-  webAuth.parseHash(async (err, res) => {
-    if (res) await store.dispatch('auth/loginCallback', res); // hash was found and parseable
-    next();
-  });
+  next();
 });
 
 export default router;
