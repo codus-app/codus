@@ -70,22 +70,28 @@ window.app = new Vue({
       fetchPrimaryUserProfile: 'fetchPrimaryUserProfile',
       logout: 'auth/logout',
     }),
+
+    initialFetch() {
+      return Promise.all([
+        this.fetchPrimaryUserProfile(),
+        this.fetchSolved(),
+      ]);
+    },
   },
 
   created() {
     // Promise for fetching some basic user data, which components can await
     this.fetchPromise = (async () => {
-      // The user isn't trying to be authenticated; no login has occurred
-      if (!this.isAuthenticated) return;
-      // User data has already been fetched! We're done!
+      // Stop if:
+      // 1. The user isn't trying to be authenticated; no login has occurred
+      if (!this.isAuthenticated && !window.location.hash.startsWith('#access_token')) return;
+      // 2. User data has already been fetched! We're done!
       if (this.user.solved !== null) return;
 
-      // We're already logged in! Just fetch the primary user's profile, and fetch the list of the
-      // user's solved problems
-      if (this.authValid()) await Promise.all([this.fetchPrimaryUserProfile(), this.fetchSolved()]);
-      // We're not logged in; wait for authentication, then fetch that stuff
-      // "Once loggedIn, fetchPrimaryUserProfile, fetchSolved then resolve" hooray for semantic code
-      else await new Promise(resolve => this.$once('loggedIn', () => Promise.all([this.fetchPrimaryUserProfile(), this.fetchSolved()]).then(resolve)));
+      // We're already logged in! Just fetch and go
+      if (this.authValid()) this.initialFetch();
+      // We're not logged in; wait for authentication, then fetch
+      else this.$once('loggedIn', this.initialFetch);
     })();
 
     ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(name => document.addEventListener(name, e => e.preventDefault()));
