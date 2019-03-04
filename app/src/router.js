@@ -1,3 +1,4 @@
+/* global CODUS_LANDING_URL */
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
@@ -15,6 +16,11 @@ const router = new VueRouter({
 // Set page title based on page metadata and check login on each navigation
 router.beforeEach((to, from, next) => {
   document.title = to.meta.title || 'Codus';
+
+  // Reject unauthenticated users from protected routes
+  if (to.meta.protected && !router.app.$store.getters['auth/isAuthenticated']) {
+    window.location.replace(`${CODUS_LANDING_URL}/login?backto=${encodeURIComponent(to.fullPath)}`);
+  }
 
   // Parse login information if necessary
   webAuth.parseHash(async (err, res) => {

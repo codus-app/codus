@@ -1,3 +1,5 @@
+/* eslint-disable object-curly-newline */
+
 export default [
   // User
 
@@ -5,7 +7,7 @@ export default [
     path: '/',
     name: 'home',
     component: require('./home/home.vue').default,
-    meta: { icon: 'home', label: 'Home', category: 'user' },
+    meta: { icon: 'home', label: 'Home', category: 'user', protected: true },
   },
   {
     path: '/user/:username',
@@ -22,7 +24,7 @@ export default [
     path: '/problem/:category/:name',
     name: 'problem',
     component: require('./editor/editor.vue').default,
-    meta: { collapseSidebar: true },
+    meta: { collapseSidebar: true, protected: true },
   },
 
   // Settings pages
@@ -31,6 +33,6 @@ export default [
     path: '/settings/account',
     name: 'profile-settings',
     component: require('./settings/account/account-settings.vue').default,
-    meta: {},
+    meta: { protected: true },
   },
 ];
