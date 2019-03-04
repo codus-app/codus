@@ -10,6 +10,7 @@
     "no-console": "off",
     "no-multi-assign": "off",
     "no-prototype-builtins": "off",
-    "newline-per-chained-call": "off"
+    "newline-per-chained-call": "off",
+    "object-curly-newline": ["error", { "consistent": true }]
   }
 }

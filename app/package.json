@@ -105,10 +105,12 @@
           "devDependencies": true
         }
       ],
-      "import/no-webpack-loader-syntax": "off",
-      "import/newline-after-import": "off",
+      "no-param-reassign": ["error", { "props": false }],
+      "no-underscore-dangle": "off",
       "global-require": "off",
-      "no-param-reassign": "off"
+      "object-curly-newline": ["error", { "consistent": true }],
+      "import/no-webpack-loader-syntax": "off",
+      "import/newline-after-import": "off"
     },
     "settings": {
       "import/resolver": "webpack"

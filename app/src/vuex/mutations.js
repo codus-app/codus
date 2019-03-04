@@ -95,7 +95,7 @@ export default {
 
 
   beginSolutionCheck(state) { state.solutionCheckInProgress = true; },
-  updateTestResults(state, { category, problem, tests, error = null, code }) { // eslint-disable-line object-curly-newline, max-len
+  updateTestResults(state, { category, problem, tests, error = null, code }) {
     state.testResults = {
       ...state.testResults,
       [`${category}/${problem}`]: { tests, code, error },

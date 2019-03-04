@@ -1,9 +1,8 @@
 /* global CODUS_API_BASE */
-/* eslint-disable object-curly-newline */
 
 /** Most generic function */
 async function apiRequest({ endpoint, method, heads, body, signal, store }) {
-  const authed = store.getters['auth/isAuthenticated']
+  const authed = store.getters['auth/isAuthenticated'];
   // If the user was previously logged in but that login expired, renew before making an
   // authenticated API call
   if (authed && store.getters['auth/loginExpired']()) await store.dispatch('auth/renew');

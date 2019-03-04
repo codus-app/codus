@@ -46,7 +46,7 @@ module.exports = {
    *  • Password
    * for length and other requirements.
    */
-  validateUser({ username, name, email, password }, required = []) { // eslint-disable-line object-curly-newline, max-len
+  validateUser({ username, name, email, password }, required = []) {
     const errors = [];
 
     // Username

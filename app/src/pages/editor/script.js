@@ -157,7 +157,7 @@ export default {
     },
 
     computeWindowBounds() {
-      const { top, right, left, bottom } = this.$refs.windowBounds.getBoundingClientRect(); // eslint-disable-line object-curly-newline, max-len
+      const { top, right, left, bottom } = this.$refs.windowBounds.getBoundingClientRect();
       const rem = parseFloat(getComputedStyle(document.body).fontSize, 10);
       this.outputWindowBounds = [
         left + (0.75 * rem), // x1

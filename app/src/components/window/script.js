@@ -78,7 +78,7 @@ export default {
     computeBounds() {
       if (this.collapsed) return;
 
-      const { top, right, bottom, left, width, height } = this.$el.getBoundingClientRect(); // eslint-disable-line object-curly-newline, max-len
+      const { top, right, bottom, left, width, height } = this.$el.getBoundingClientRect();
       const [x, y] = this.pos;
       this.initialBounds = {
         top: top - y,

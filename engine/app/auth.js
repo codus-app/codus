@@ -56,7 +56,7 @@ module.exports.getUser = {
   },
 };
 
-module.exports.updateUser = async function updateUser(id, { username, email, name, picture }) { // eslint-disable-line object-curly-newline, max-len
+module.exports.updateUser = async function updateUser(id, { username, email, name, picture }) {
   // eslint-disable-next-line camelcase
   const user_metadata = {
     // Only include keys if they're defined, avoid setting name or picture to undefined
@@ -81,7 +81,7 @@ module.exports.updateUser = async function updateUser(id, { username, email, nam
   return management.updateUser({ id }, { email, user_metadata });
 };
 
-module.exports.createUser = async function createUser({ username, email, name, password }) { // eslint-disable-line object-curly-newline, max-len
+module.exports.createUser = async function createUser({ username, email, name, password }) {
   return new Promise((resolve, reject) => management.createUser({
     connection: 'Username-Password-Authentication',
     email,

@@ -86,7 +86,7 @@ export default {
       store,
     });
     commit('updateSolved', { problem, category, passed });
-    commit('updateTestResults', { problem, category, tests, error, code: solution.code }); // eslint-disable-line object-curly-newline
+    commit('updateTestResults', { problem, category, tests, error, code: solution.code });
     commit('endSolutionCheck');
   },
 
@@ -95,6 +95,6 @@ export default {
       endpoint: `users/${username}`,
       store,
     });
-    commit('userFetched', { username, name, picture, solutionProgress }); // eslint-disable-line object-curly-newline
+    commit('userFetched', { username, name, picture, solutionProgress });
   },
 };

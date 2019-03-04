@@ -30,7 +30,7 @@ export default {
     // Update tokens and response after a successful login
     loggedIn(state, payload) {
       const { idToken, accessToken } = payload;
-      Object.assign(state, { res: payload, idToken, accessToken, profile: jwtDecode(idToken) }); // eslint-disable-line object-curly-newline, max-len
+      Object.assign(state, { res: payload, idToken, accessToken, profile: jwtDecode(idToken) });
     },
 
     // Log out by deleting tokens

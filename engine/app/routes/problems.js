@@ -256,7 +256,7 @@ module.exports.userSolution = {
           passed: false,
           tests: problem.testCases2
             .map(tc => (!tc.hidden
-              ? { value: null, expected: tc.result, pass: false, hidden: false } // eslint-disable-line object-curly-newline, max-len
+              ? { value: null, expected: tc.result, pass: false, hidden: false }
               : { pass: false, hidden: true })),
           error: e.message,
           solution: {
