@@ -1,5 +1,5 @@
 <template>
-  <router-link v-bind:to="`/user/${this.profile.username || this.profile.nickname}`" class="sidebar-user-profile" v-bind:class="compact">
+  <router-link v-bind:to="`/user/${this.profile.username || this.profile.nickname}`" class="sidebar-user-profile" v-bind:class="{ compact }">
     <div class="picture" v-bind:style="{ backgroundImage: `url(${profile.picture})` }"></div>
     <div class="name" v-if="!compact">{{ profile.name }}</div>
   </router-link>

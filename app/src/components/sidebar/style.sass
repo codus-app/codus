@@ -7,8 +7,26 @@
   min-width: 11rem
 
   .sidebar-user-profile
+    position: relative
+    z-index: 3
     margin: 2rem 25% 0
     width: 50%
+
+  .feather-more-horizontal
+    position: absolute
+    z-index: 4
+    display: block
+    top: 1rem
+    right: 1.25rem
+    width: .9rem
+    height: .9rem
+    color: $white
+    cursor: pointer
+    opacity: .2
+    transition: opacity .25s
+
+    &:hover
+      opacity: .3
 
   h1
     font-size: 1.7rem
@@ -25,6 +43,15 @@
     .sidebar-user-profile
       width: 80%
       margin: .75rem 10% .5rem
+
+    // In collapsed mode, position the context menu trigger to exactly cover the area of the sidebar
+    // profile picture, and make it invisible
+    .feather-more-horizontal
+      width: 80%
+      padding-bottom: 56%
+      top: .75rem
+      left: 10%
+      color: transparent
 
     .links
       padding: .3rem .775rem 1rem

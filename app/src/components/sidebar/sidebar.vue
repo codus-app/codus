@@ -3,6 +3,17 @@
     <!-- <h1 v-if="!collapsed">Codus</h1> -->
     <sidebar-user-profile v-bind:compact="collapsed"></sidebar-user-profile>
 
+    <icon-more name="sidebar-more"></icon-more>
+    <context-menu
+      target-name="sidebar-more"
+      v-bind:placement="collapsed ? 'bottom-start' : 'bottom-end'"
+      v-bind:items="[
+        { icon: 'user', label: 'View profile', onclick: () => $router.push(replaceParams('/user/:username')) },
+        { icon: 'settings', label: 'Settings', onclick: () => $router.push('/settings/account') },
+        { icon: 'log-out', label: 'Log out', onclick: logout },
+      ]"
+    ></context-menu>
+
     <div class="links">
 
       <!-- Personal user-related links -->
