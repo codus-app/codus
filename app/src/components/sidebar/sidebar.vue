@@ -1,9 +1,12 @@
 <template>
   <div class="sidebar" v-bind:class="{ collapsed }">
     <!-- <h1 v-if="!collapsed">Codus</h1> -->
-    <sidebar-user-profile v-bind:compact="collapsed"></sidebar-user-profile>
+    <sidebar-user-profile
+      v-bind:compact="collapsed"
+      v-on:contextmenu.native="$event.preventDefault(); openContextMenu();"
+    ></sidebar-user-profile>
 
-    <icon-more name="sidebar-more"></icon-more>
+    <icon-more name="sidebar-more" ref="contextmenuTrigger"></icon-more>
     <context-menu
       target-name="sidebar-more"
       v-bind:placement="collapsed ? 'bottom-start' : 'bottom-end'"
