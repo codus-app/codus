@@ -13,6 +13,7 @@ import { mapState, mapGetters, mapActions } from 'vuex';
 
 // HTML
 import './index.html';
+import './localstorage-iframe.html';
 
 // Styles
 import './style.sass';

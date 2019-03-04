@@ -20,8 +20,13 @@ router.beforeEach(async (to, from, next) => {
   // Parse login information if necessary
   if (window.location.hash) {
     await new Promise((resolve) => {
-      webAuth.parseHash((err, res) => {
-        if (res) store.dispatch('auth/loginCallback', res).then(resolve); // hash was found and parseable
+      webAuth.parseHash({
+        hash: window.location.hash,
+        state: localStorage.state, // localstorage-iframe receives and stores these values
+        nonce: localStorage.nonce,
+      }, (err, res) => {
+        if (res) store.dispatch('auth/loginCallback', res); // hash was found and parseable
+        resolve();
       });
     });
   }

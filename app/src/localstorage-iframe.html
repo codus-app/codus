@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+</head>
+<body>
+  <script>
+    // Recieve arbitrary localStorage entries from the landing page via postMessage
+    // Used to transmit `state` and `nonce` keys before login, in order to check against to prevent
+    // CSRF attacks
+
+    window.addEventListener('message', (e) => {
+      if (!['http://0.0.0.0:5000', 'http://localhost:5000', 'https://codus.io'].includes(e.origin)) return;
+      const { data } = e;
+
+      // Set localStorage items
+      Object.entries(data || {}).forEach(([key, value]) => localStorage.setItem(key, value));
+    });
+
+  </script>
+</body>
+</html>
