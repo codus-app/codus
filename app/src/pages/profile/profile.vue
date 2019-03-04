@@ -3,12 +3,17 @@
     <div class="top">
       <div class="summary card" v-bind:class="{ empty: !profileLoaded }">
         <user-profile-summary v-bind:profile="profile"></user-profile-summary>
-        <icon-more name="profile-summary-more"></icon-more>
+        <component
+          name="profile-summary-more"
+          v-bind:is="isAuthenticatedUser ? 'icon-settings' : 'icon-more'"
+        ></component>
         <context-menu
           target-name="profile-summary-more"
           placement="bottom-end"
           v-bind:items="[
-            { icon: 'edit', label: 'Edit profile', onclick: () => $router.push('/settings/account') },
+            ...(isAuthenticatedUser
+              ? [{ icon: 'edit', label: 'Edit profile', onclick: () => $router.push('/settings/account') }]
+              : []),
             { icon: 'copy', label: 'Copy link', onclick: copyLink },
           ]"
         ></context-menu>
