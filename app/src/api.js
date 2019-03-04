@@ -3,11 +3,13 @@
 
 /** Most generic function */
 async function apiRequest({ endpoint, method, heads, body, signal, store }) {
-  // Renew if necessary before making an authenticated API call
-  if (!store.getters['auth/loginValid']()) await store.dispatch('auth/renew');
+  const authed = store.getters['auth/isAuthenticated']
+  // If the user was previously logged in but that login expired, renew before making an
+  // authenticated API call
+  if (authed && store.getters['auth/loginExpired']()) await store.dispatch('auth/renew');
 
   const headers = {
-    Authorization: `Bearer ${store.state.auth.accessToken}`,
+    ...authed ? { Authorization: `Bearer ${store.state.auth.accessToken}` } : {},
     ...heads,
   };
 

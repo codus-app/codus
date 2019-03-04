@@ -75,15 +75,17 @@ window.app = new Vue({
   created() {
     // Promise for fetching some basic user data, which components can await
     this.fetchPromise = (async () => {
-      // If we haven't fetched user data
-      if (this.user.solved === null) {
-        // We're already logged in
-        if (this.authValid()) await Promise.all([this.fetchPrimaryUserProfile(), this.fetchSolved()]);
-        // We're not logged in; wait for authentication (and *then* the request) to complete before
-        // resolving
-        // "Once logged in, fetchPrimaryUserProfile, fetchSolved then resolve" hooray for semantic code
-        else await new Promise(resolve => this.$once('loggedIn', () => Promise.all([this.fetchPrimaryUserProfile(), this.fetchSolved()]).then(resolve)));
-      }
+      // The user isn't trying to be authenticated; no login has occurred
+      if (!this.isAuthenticated) return;
+      // User data has already been fetched! We're done!
+      if (this.user.solved !== null) return;
+
+      // We're already logged in! Just fetch the primary user's profile, and fetch the list of the
+      // user's solved problems
+      if (this.authValid()) await Promise.all([this.fetchPrimaryUserProfile(), this.fetchSolved()]);
+      // We're not logged in; wait for authentication, then fetch that stuff
+      // "Once loggedIn, fetchPrimaryUserProfile, fetchSolved then resolve" hooray for semantic code
+      else await new Promise(resolve => this.$once('loggedIn', () => Promise.all([this.fetchPrimaryUserProfile(), this.fetchSolved()]).then(resolve)));
     })();
 
     ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(name => document.addEventListener(name, e => e.preventDefault()));
