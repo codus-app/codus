@@ -1,16 +1,20 @@
 <template>
   <tippy
     v-bind:to="targetName"
+
+    trigger="click"
     v-bind:placement="placement"
     theme="codus-context"
-    trigger="click"
     interactive="true"
+
+    @show="show"
+    @hide="hide"
+
     arrow="true"
     arrowTransform="scale(0)"
     :distance="15"
     animation="none"
-    @show="show"
-    @hide="hide"
+    :watchProps="true"
   >
     <div
       class="item"
