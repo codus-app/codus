@@ -8,3 +8,32 @@
 
   padding: 5px
   min-width: 150px
+
+  animation: context-menu-fade-out .1s forwards
+
+  &.shown
+    animation: context-menu-scale .2s
+
+
+.tippy-popper
+  // Custom transform origins (too lazy to implement all)
+
+  &[x-placement='bottom-start']
+    .codus-context-theme
+      transform-origin: top left
+
+  &[x-placement='bottom-end']
+    .codus-context-theme
+      transform-origin: top right
+
+
+@keyframes context-menu-scale
+  from
+    transform: scale(.7)
+    opacity: 0
+
+@keyframes context-menu-fade-out
+  to
+    opacity: 0
+    pointer-events: none
+    transform: scale(.85)

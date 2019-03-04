@@ -12,6 +12,11 @@ export default {
   },
 
   methods: {
+    /* eslint-disable no-underscore-dangle */
+    show(i) { i._tippy.popper.firstElementChild.classList.add('shown'); },
+    hide(i) { i._tippy.popper.firstElementChild.classList.remove('shown'); },
+    /* eslint-enable */
+
     close() {
       document.querySelectorAll(`[name=${this.targetName}]`)
         .forEach((el) => {

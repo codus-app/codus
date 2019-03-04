@@ -7,7 +7,10 @@
     interactive="true"
     arrow="true"
     arrowTransform="scale(0)"
-    animation="fade"
+    :distance="15"
+    animation="none"
+    @show="show"
+    @hide="hide"
   >
     <div
       class="item"
