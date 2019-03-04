@@ -17,7 +17,7 @@
 
 
       <div class="component-root">
-        <sidebar v-bind:collapsed="$route.meta.collapseSidebar"></sidebar>
+        <sidebar v-if="isAuthenticated" v-bind:collapsed="$route.meta.collapseSidebar"></sidebar>
         <div class="route-container">
           <router-view class="router-view"><!-- router-view class is for CSS selection --></router-view>
         </div>
