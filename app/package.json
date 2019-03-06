@@ -24,14 +24,14 @@
   "devDependencies": {
     "@babel/core": "^7.3.4",
     "@babel/preset-env": "^7.3.4",
-    "autoprefixer": "^9.4.9",
+    "autoprefixer": "^9.4.10",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.5",
     "cloc": "^2.4.0",
     "copy-webpack-plugin": "^5.0.0",
     "css-loader": "^2.1.0",
     "dotenv": "^6.2.0",
-    "eslint": "^5.15.0",
+    "eslint": "^5.15.1",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-import-resolver-webpack": "^0.11.0",
     "eslint-plugin-import": "^2.16.0",
@@ -66,14 +66,14 @@
     "debounce": "^1.2.0",
     "dedent": "^0.7.0",
     "jwt-decode": "^2.2.0",
-    "mousetrap": "^1.6.2",
+    "mousetrap": "^1.6.3",
     "promise-polyfill": "^8.1.0",
     "validator": "^10.11.0",
     "vue": "^2.6.8",
     "vue-codemirror": "^4.0.6",
     "vue-feather-icons": "^4.10.0",
     "vue-router": "^3.0.2",
-    "vue-tippy": "^2.1.0",
+    "vue-tippy": "^2.1.2",
     "vuex": "^3.1.0",
     "whatwg-fetch": "^3.0.0"
   },
@@ -105,10 +105,20 @@
           "devDependencies": true
         }
       ],
-      "no-param-reassign": ["error", { "props": false }],
+      "no-param-reassign": [
+        "error",
+        {
+          "props": false
+        }
+      ],
       "no-underscore-dangle": "off",
       "global-require": "off",
-      "object-curly-newline": ["error", { "consistent": true }],
+      "object-curly-newline": [
+        "error",
+        {
+          "consistent": true
+        }
+      ],
       "import/no-webpack-loader-syntax": "off",
       "import/newline-after-import": "off"
     },
