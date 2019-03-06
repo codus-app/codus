@@ -9,7 +9,7 @@
     <icon-more name="sidebar-more" ref="contextmenuTrigger"></icon-more>
     <context-menu
       target-name="sidebar-more"
-      v-bind:placement="collapsed ? 'bottom-start' : 'bottom-end'"
+      v-bind:placement="collapsed ? 'right-start' : 'bottom-end'"
       v-bind:items="[
         { icon: 'user', label: 'View profile', onclick: () => $router.push(replaceParams('/user/:username')) },
         { icon: 'settings', label: 'Settings', onclick: () => $router.push('/settings/account') },
