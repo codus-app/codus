@@ -16,14 +16,14 @@
       <!-- Top bar -->
       <div class="top-bar">
         <!-- Run button -->
+        <spinner v-if="solutionCheckInProgress"></spinner>
         <icon-play
+          v-else
           class="button"
           v-on:click="solutionCheck"
-          v-if="!solutionCheckInProgress"
           v-tippy="{ delay: [400, 0] }"
           v-bind:title="`Run <kbd>${$nativizeShortcut('mod+Enter')}</kbd>`"
         />
-        <spinner v-if="solutionCheckInProgress"></spinner>
         <!-- Find/replace button -->
         <icon-search
           class="button"

@@ -1,6 +1,5 @@
 <template>
   <div class="sidebar" v-bind:class="{ collapsed }">
-    <!-- <h1 v-if="!collapsed">Codus</h1> -->
     <sidebar-user-profile
       v-bind:compact="collapsed"
       v-on:contextmenu.native="$event.preventDefault(); openContextMenu();"

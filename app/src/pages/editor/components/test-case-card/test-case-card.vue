@@ -28,7 +28,7 @@
             <span>Your solution returned:</span>
             {{ JSON.stringify(result) }}
           </template>
-          <template v-if="error">
+          <template v-else>
             <span>Your solution</span> errored
           </template>
           <br/>
