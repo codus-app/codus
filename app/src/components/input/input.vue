@@ -1,5 +1,5 @@
 <template>
-  <div class="input" v-bind:class="{ [status]: true }">
+  <div class="input" v-bind:class="status">
     <label v-bind:for="_uid" class="title">{{ title }}</label>
     <div class="input-container">
       <input

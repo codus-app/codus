@@ -2,7 +2,7 @@
   <div class="profile-picture-upload">
     <!-- Old picture (displayed with overlay) -->
 
-    <div class="picture" v-bind:class="{ [pictureClass]: true }"
+    <div class="picture" v-bind:class="pictureClass"
       v-on:click="browse"
       v-on:dragenter="$emit('clearError'); dropOver = true;"
       v-on:dragleave="dropOver = false;"

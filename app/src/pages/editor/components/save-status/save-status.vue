@@ -1,7 +1,7 @@
 <template>
   <div class="save-status">
     <div class="msg">{{ status }}</div>
-    <div class="indicator" v-bind:class="{ [status]: true }"></div>
+    <div class="indicator" v-bind:class="status"></div>
   </div>
 </template>
 
