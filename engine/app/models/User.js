@@ -9,7 +9,7 @@ const User = new keystone.List('User');
 User.add({
   // Links user to Auth0
   userId: { type: Types.Text, note: 'From auth0', initial: true, required: true, index: true },
-  /* eslint-enable */
+  role: { type: Types.Select, options: 'student, instructor', initial: true, required: true },
 });
 
 User.relationship({
@@ -24,4 +24,4 @@ User.schema.methods.fetch = async function fetchAuth0User() {
 
 User.register();
 
-User.defaultColumns = 'userId';
+User.defaultColumns = 'role, userId';
