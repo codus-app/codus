@@ -14,6 +14,8 @@ export default new Vuex.Store({
     // Caches information about the currently authenticated user
     user: {
       profile: {},
+      role: null,
+
       solved: null, // null indicates that not fetched, rather than that there are none
       solutionsBegun: null,
       // Caches solutions to problems

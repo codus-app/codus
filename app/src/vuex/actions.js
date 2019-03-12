@@ -91,10 +91,10 @@ export default {
   },
 
   async fetchUser({ commit }, { username }) {
-    const { name, picture, solutionProgress } = await api.get({
+    const { name, role, picture, solutionProgress } = await api.get({
       endpoint: `users/${username}`,
       store,
     });
-    commit('userFetched', { username, name, picture, solutionProgress });
+    commit('userFetched', { username, name, role, picture, solutionProgress });
   },
 };
