@@ -57,22 +57,6 @@
     .links
       padding: .3rem .775rem 1rem
 
-    .sb-link
-      margin: 1.6em 0 0
-
-      svg
-        width: .95rem
-        height: .95rem
-        margin: 0
-        opacity: .75
-        transition: opacity .25s
-
-        &:hover
-          opacity: .95
-
-      &.router-link-exact-active svg
-        opacity: 1
-
     .logout
       transform: translateX(-50%)
       opacity: .75
@@ -89,33 +73,6 @@
 
   .divider
     margin: 2em 0
-
-  .sb-link
-    font-family: $font-nunito
-    font-weight: 400
-    font-size: .65rem
-    display: flex
-    align-items: center
-    margin: 1.25em 0 0
-    position: relative
-
-    svg
-      width: .85rem
-      height: .85rem
-      margin: -.1rem .6rem 0 0
-
-    .indicator
-      position: absolute
-      top: calc(50% - .1em)
-      left: -1.75rem
-      width: 1rem
-      height: .2rem
-      background: linear-gradient(90deg, $green-1, $green-2)
-      opacity: 0
-      transition: opacity .35s
-
-    &.router-link-exact-active .indicator
-      opacity: 1
 
   .logout
     position: absolute

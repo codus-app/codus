@@ -20,11 +20,7 @@
 
       <!-- Personal user-related links -->
       <h2 v-if="!collapsed">You</h2>
-      <router-link class="sb-link" v-for="r in userRoutes" v-bind:key="r.path" v-bind:to="replaceParams(r.path)" v-bind:title="collapsed ? r.meta.label : ''">
-        <div class="indicator" v-if="!collapsed"></div>
-        <component v-bind:is="`icon-${r.meta.icon}`" v-bind:style="{ transform: r.meta.iconTransform }"></component>
-        <span v-if="!collapsed">{{r.meta.label}}</span>
-      </router-link>
+      <sidebar-link v-for="r in userRoutes" v-bind:key="r.path" v-bind="{ ...r, collapsed }"></sidebar-link>
 
       <div class="divider" v-if="collapsed"></div> <!-- For spacing between sections if sidebar is collapsed -->
 
