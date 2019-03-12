@@ -43,9 +43,9 @@ module.exports = {
 
   // Sign up
   async post(req, res) {
-    const { username, name, email, password } = req.body;
+    const { username, name, email, password, role = 'student' } = req.body;
 
-    const errors = validateUser({ username, name, email, password }, ['username', 'name', 'email', 'password']);
+    const errors = validateUser({ username, name, email, password, role }, ['username', 'name', 'email', 'password']);
     if (errors.length) res.status(400).json({ error: errors });
 
     else {
@@ -55,7 +55,7 @@ module.exports = {
         // Create Keystone user
         await new Promise((resolve) => {
           // eslint-disable-next-line new-cap
-          new User.model({ userId: user.user_id }).save(resolve);
+          new User.model({ userId: user.user_id, role }).save(resolve);
         });
 
         res.status(201).json({

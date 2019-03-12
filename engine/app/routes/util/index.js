@@ -1,4 +1,4 @@
-const { isEmail, isByteLength } = require('validator');
+const { isEmail, isByteLength, isIn } = require('validator');
 
 module.exports = {
 
@@ -46,7 +46,7 @@ module.exports = {
    *  • Password
    * for length and other requirements.
    */
-  validateUser({ username, name, email, password }, required = []) {
+  validateUser({ username, name, email, password, role }, required = []) {
     const errors = [];
 
     // Username
@@ -74,6 +74,11 @@ module.exports = {
       errors.push({ key: 'password', message: 'Password is required' });
     } if (typeof password === 'string' && !isByteLength(password, { min: 8 })) {
       errors.push({ key: 'password', message: 'Must be at least 8 characters in length' });
+    }
+
+    // Role
+    if (typeof role === 'string' && !isIn(role, ['student', 'instructor'])) {
+      errors.push({ key: 'role', message: "Role must be either 'student' or 'instructor'" });
     }
 
     return errors;
