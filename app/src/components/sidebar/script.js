@@ -4,19 +4,18 @@ import routes from '../../pages';
 export default {
   props: { collapsed: Boolean },
 
-  data: () => ({
-    userRoutes: routes.filter(r => r.meta.category === 'user'),
-  }),
+  computed: {
+    ...mapGetters(['profile', 'role']),
 
-  computed: { ...mapGetters(['profile']) },
+    routes() { return routes[this.role] || []; },
+
+    username() { return this.profile.username || this.profile.nickname; },
+  },
 
   methods: {
     ...mapActions({ logout: 'auth/logout' }),
 
-    replaceParams(path) {
-      // Replace '/:username' with the user's username
-      return path.replace(/\/:username(?=$|\/)/g, `/${this.profile.username || this.profile.nickname}`);
-    },
+    getRoutes(category) { return this.routes.filter(r => r.meta.category === category); },
 
     openContextMenu() {
       this.$refs.contextmenuTrigger._tippy.show(); // eslint-disable-line no-underscore-dangle

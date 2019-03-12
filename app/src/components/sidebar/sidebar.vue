@@ -18,9 +18,17 @@
 
     <div class="links">
 
-      <!-- Personal user-related links -->
-      <h2 v-if="!collapsed">You</h2>
-      <sidebar-link v-for="r in userRoutes" v-bind:key="r.path" v-bind="{ ...r, collapsed }"></sidebar-link>
+      <!-- Links for student accounts -->
+      <template v-if="role === 'student'">
+        <h2 v-if="!collapsed">You</h2>
+        <sidebar-link v-for="r in getRoutes('student/personal')" v-bind:key="r.path" v-bind="{ ...r, collapsed, username }"></sidebar-link>
+      </template>
+
+      <!-- Links for instructor accounts -->
+      <template v-if="role === 'instructor'">
+        <h2 v-if="!collapsed">Personal</h2>
+        <sidebar-link v-for="r in getRoutes('instructor/personal')" v-bind:key="r.path" v-bind="{ ...r, collapsed, username }"></sidebar-link>
+      </template>
 
       <div class="divider" v-if="collapsed"></div> <!-- For spacing between sections if sidebar is collapsed -->
 

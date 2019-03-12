@@ -6,6 +6,7 @@ const iconNames = [
   'AtSignIcon',
   'CameraIcon',
   'CheckIcon',
+  'CheckCircleIcon',
   'ChevronUpIcon',
   'ChevronRightIcon',
   'ChevronDownIcon',
