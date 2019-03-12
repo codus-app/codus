@@ -25,7 +25,11 @@ module.exports = {
       .then(async ({ error, username, user_id, user_metadata }) => {
         if (error) return res.status(404).json({ error: `User '${req.params.username}' was not found` });
 
-        const solutionProgress = await getUserSolvedProgress(user_id);
+        const user = await User.model
+          .findOne()
+          .where('userId').equals(user_id);
+
+        const solutionProgress = await getUserSolvedProgress(user);
 
         res.json({
           data: {
@@ -33,6 +37,7 @@ module.exports = {
             name: user_metadata.name,
             picture: user_metadata.picture,
             solutionProgress,
+            role: user.role,
           },
         });
         return undefined;
