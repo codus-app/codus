@@ -88,7 +88,16 @@ module.exports = {
   authenticated: {
     // Get info
     async get(req, res) {
-      const { username, user_metadata, email } = await getAuth0User.byId(req.user.sub);
+      const [auth0Info, mongoInfo] = await Promise.all([
+        // Information from Auth0
+        getAuth0User.byId(req.user.sub),
+        // Information from Keystone
+        User.model.findOne().where('userId').equals(req.user.sub) || {},
+      ]);
+
+      const { username, user_metadata, email } = auth0Info;
+      const { role } = mongoInfo;
+
       res.json({
         data: {
           id: req.user.sub,
@@ -96,6 +105,7 @@ module.exports = {
           name: user_metadata.name,
           email,
           picture: user_metadata.picture,
+          role,
         },
       });
     },
