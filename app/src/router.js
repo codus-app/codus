@@ -8,13 +8,14 @@ import routes from './pages';
 
 Vue.use(VueRouter);
 
-const router = new VueRouter({
+const mainRouter = new VueRouter({
   mode: 'history',
-  routes,
+  routes: routes.student,
 });
 
+
 // Set page title based on page metadata and check login on each navigation
-router.beforeEach(async (to, from, next) => {
+mainRouter.beforeEach(async (to, from, next) => {
   document.title = to.meta.title || 'Codus';
 
   // Parse login information if necessary
@@ -32,11 +33,24 @@ router.beforeEach(async (to, from, next) => {
   }
 
   // Reject unauthenticated users from protected routes
-  if (to.meta.protected && !router.app.$store.getters['auth/isAuthenticated']) {
+  if (to.meta.protected && !mainRouter.app.$store.getters['auth/isAuthenticated']) {
     window.location.replace(`${CODUS_LANDING_URL}/login?backto=${encodeURIComponent(to.fullPath)}`);
   }
 
   next();
 });
 
-export default router;
+export default mainRouter;
+
+
+export const routers = {
+  student: new VueRouter({
+    mode: 'history',
+    routes: routes.student,
+  }),
+
+  instructor: new VueRouter({
+    mode: 'history',
+    routes: routes.instructor,
+  }),
+};

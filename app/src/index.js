@@ -43,7 +43,7 @@ Vue.use(KeyboardShortcuts);
 
 // Application config
 
-import router from './router';
+import router, { routers } from './router';
 import store from './vuex';
 
 
@@ -56,6 +56,7 @@ window.app = new Vue({
   },
   computed: {
     ...mapGetters({ isAuthenticated: 'auth/isAuthenticated', authValid: 'auth/loginValid' }),
+    ...mapGetters(['role']),
     ...mapState(['user']),
   },
 
@@ -78,22 +79,29 @@ window.app = new Vue({
         this.fetchSolved(),
       ]);
     },
+
+    switchRoutes(role) {
+      router.matcher = routers[role].matcher;
+      router.replace(this.$route.fullPath);
+    },
   },
 
   created() {
     // Promise for fetching some basic user data, which components can await
-    this.fetchPromise = (async () => {
+    this.fetchPromise = new Promise((resolve) => {
       // Stop if:
       // 1. The user isn't trying to be authenticated; no login has occurred
-      if (!this.isAuthenticated && !window.location.hash.startsWith('#access_token')) return;
+      if (!this.isAuthenticated && !window.location.hash.startsWith('#access_token')) return resolve();
       // 2. User data has already been fetched! We're done!
-      if (this.user.solved !== null) return;
+      if (this.user.solved !== null) return resolve();
 
       // We're already logged in! Just fetch and go
-      if (this.authValid()) this.initialFetch();
+      if (this.authValid()) this.initialFetch().then(resolve);
       // We're not logged in; wait for authentication, then fetch
-      else this.$once('loggedIn', this.initialFetch);
-    })();
+      else this.$once('loggedIn', () => this.initialFetch().then(resolve));
+      return undefined;
+    })
+      .then(() => this.switchRoutes(this.role));
 
     ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(name => document.addEventListener(name, e => e.preventDefault()));
   },
