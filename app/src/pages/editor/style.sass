@@ -44,15 +44,16 @@
     &:hover
       opacity: .45
 
-  .problems-tree
+  .problems-scroll
     position: absolute
     $top: calc(#{$gap} + #{$bar-width} + #{$gap})
     top: $top
     left: $padding-horiz
-    width: $problem-browser-width - $padding-horiz
     height: calc(100vh - #{$top} - #{$gap * 2})
-    overflow-y: scroll
-    padding-bottom: $padding-vert
+    width: $problem-browser-width - $padding-horiz
+
+    .problems-tree
+      padding-bottom: $padding-vert
 
   &.collapsed
     width: 0

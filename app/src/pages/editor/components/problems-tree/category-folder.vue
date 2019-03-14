@@ -9,7 +9,7 @@
       </div>
     </div>
 
-    <div class="children-container" v-bind:style="{ height: this.childrenHeight, transitionDuration }">
+    <div class="children-container" v-bind:style="{ height: this.childrenHeight, transitionDuration: `${this.transitionDuration / 1000}s` }">
       <ul class="children" ref="children">
         <slot></slot>
       </ul>

@@ -5,7 +5,7 @@ export default {
     windowSize: [window.innerWidth, window.innerHeight],
     expanded: false,
     mounted: false,
-    transitionDuration: '0.35s',
+    transitionDuration: 350,
   }),
 
   computed: {
@@ -19,11 +19,17 @@ export default {
 
   methods: { onResize() { this.windowSize = [window.innerWidth, window.innerHeight]; } },
 
+  watch: {
+    expanded() {
+      setTimeout(() => this.$emit('change'), this.transitionDuration);
+    },
+  },
+
   created() {
     if (this.active) {
-      this.transitionDuration = '0s';
+      this.transitionDuration = 0;
       this.expanded = true;
-      setTimeout(() => { this.transitionDuration = '0.35s'; }, 500);
+      setTimeout(() => { this.transitionDuration = 350; }, 500);
     }
     this.expanded = this.active;
     window.addEventListener('resize', this.onResize);

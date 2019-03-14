@@ -4,6 +4,7 @@
       <category-folder
         v-bind:active="cat.name === $route.params.category"
         v-bind:allSolved="isCategoryComplete(cat.name)"
+        v-on:change="$emit('change')"
       >
         <template slot="name">{{ cat.displayName }}</template>
 

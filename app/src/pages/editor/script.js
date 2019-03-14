@@ -168,6 +168,10 @@ export default {
     },
 
     ...findReplaceTransition,
+
+    recalculateProblemsScroll() {
+      this.$refs['problems-scroll'].$el.SimpleBar.recalculate();
+    },
   },
 
   // Collapse automatically when output goes away so that next time it's not open
