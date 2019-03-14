@@ -8,7 +8,7 @@
         v-tippy="{ delay: [400, 0] }"
         v-bind:title="`Close Sidebar <kbd>${$nativizeShortcut('mod+\\')}</kbd>`"
       ></icon-chevrons-left>
-      <simplebar class="problems-scroll" data-simplebar-auto-hide="false" ref="problems-scroll">
+      <simplebar class="problems-scroll" ref="problems-scroll">
         <problems-tree v-on:change="recalculateProblemsScroll"></problems-tree>
       </simplebar>
     </div>
