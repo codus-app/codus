@@ -6,6 +6,9 @@ import { codemirror } from 'vue-codemirror';
 import 'codemirror/lib/codemirror.css';
 Vue.component('codemirror', codemirror);
 
+import simplebar from 'simplebar-vue';
+Vue.component('simplebar', simplebar);
+
 // Icons
 import './icons';
 

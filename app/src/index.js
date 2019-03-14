@@ -17,6 +17,7 @@ import './localstorage-iframe.html';
 
 // Styles
 import './style.sass';
+import 'simplebar/dist/simplebar.min.css';
 
 // Components
 import './components';
@@ -101,7 +102,7 @@ window.app = new Vue({
       else this.$once('loggedIn', () => this.initialFetch().then(resolve));
       return undefined;
     })
-      .then(() => this.switchRoutes(this.role));
+      .then(() => { if (this.role) this.switchRoutes(this.role); });
 
     ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(name => document.addEventListener(name, e => e.preventDefault()));
   },
