@@ -18,5 +18,7 @@ export default {
       // Collapse when we start passing
       if (passed && !oldState) this.expanded = false;
     },
+
+    expanded() { setTimeout(() => this.$emit('change'), 350); },
   },
 };

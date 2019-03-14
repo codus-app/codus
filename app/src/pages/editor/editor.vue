@@ -65,51 +65,54 @@
       ></codemirror>
 
       <!-- List on the right side of the editor -->
-      <div class="cards">
-        <transition v-on:enter="findReplaceEnter" v-on:leave="findReplaceLeave">
-          <find-replace-card v-if="mounted && findReplaceOpen" v-bind:cm="$refs.codemirror" v-bind:code="code"></find-replace-card> <!-- Wait for mount so that $refs.codemirror is defined -->
-        </transition>
-        <problem-overview-card
-          v-if="fetched"
-          v-bind:problem="problem"
-          v-bind:progress="progress"
-        ></problem-overview-card>
+      <simplebar class="cards-scroll" ref="cards-scroll">
+        <div class="cards">
+          <transition v-on:enter="findReplaceEnter" v-on:leave="findReplaceLeave">
+            <find-replace-card v-if="mounted && findReplaceOpen" v-bind:cm="$refs.codemirror" v-bind:code="code"></find-replace-card> <!-- Wait for mount so that $refs.codemirror is defined -->
+          </transition>
+          <problem-overview-card
+            v-if="fetched"
+            v-bind:problem="problem"
+            v-bind:progress="progress"
+          ></problem-overview-card>
 
-        <div class="message" v-if="fetched" v-bind:class="{ run: testResults.length }">
-          <div class="title">Tests</div>
+          <div class="message" v-if="fetched" v-bind:class="{ run: testResults.length }">
+            <div class="title">Tests</div>
 
-          <div class="help">
-            <div class="line-1">It looks like you haven't tested this code yet.</div>
-            <div>
-              Press <icon-play
-                v-on:click="solutionCheck"
-                v-bind:class="{ checking: solutionCheckInProgress }"
-              ></icon-play> to test your solution
+            <div class="help">
+              <div class="line-1">It looks like you haven't tested this code yet.</div>
+              <div>
+                Press <icon-play
+                  v-on:click="solutionCheck"
+                  v-bind:class="{ checking: solutionCheckInProgress }"
+                ></icon-play> to test your solution
+              </div>
+            </div>
+          </div>
+
+          <div class="tests" v-if="fetched" v-bind:class="{ outdated: testResults.length && code !== testedCode }">
+            <test-case-card
+              v-for="(t, i) in tests"
+              v-bind="t"
+              v-bind:key="i"
+              v-bind:error="errorMessage"
+              v-on:change="recalculateCardsScroll"
+            ></test-case-card>
+
+            <div
+              class="hidden-tests"
+              v-bind:class="{
+                passed: testResults.length && numHiddenTestsPassed === numHiddenTests,
+                failed: testResults.length && numHiddenTestsPassed !== numHiddenTests,
+              }"
+              v-if="numHiddenTests"
+            >
+              <span v-if="testResults.length">{{ numHiddenTestsPassed }}/</span><!--
+           -->{{ numHiddenTests }} hidden test cases
             </div>
           </div>
         </div>
-
-        <div class="tests" v-if="fetched" v-bind:class="{ outdated: testResults.length && code !== testedCode }">
-          <test-case-card
-            v-for="(t, i) in tests"
-            v-bind="t"
-            v-bind:key="i"
-            v-bind:error="errorMessage"
-          ></test-case-card>
-
-          <div
-            class="hidden-tests"
-            v-bind:class="{
-              passed: testResults.length && numHiddenTestsPassed === numHiddenTests,
-              failed: testResults.length && numHiddenTestsPassed !== numHiddenTests,
-            }"
-            v-if="numHiddenTests"
-          >
-            <span v-if="testResults.length">{{ numHiddenTestsPassed }}/</span><!--
-         -->{{ numHiddenTests }} hidden test cases
-          </div>
-        </div>
-      </div>
+      </simplebar>
 
       <transition name="pop-up">
         <window
