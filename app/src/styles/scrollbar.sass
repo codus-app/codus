@@ -1,0 +1,15 @@
+@import 'src/styles/variables'
+
+[data-simplebar]
+  .simplebar-track
+    &.simplebar-vertical,
+    &.simplebar-horizontal
+      .simplebar-scrollbar::before
+        border-radius: 4px
+        background: transparentize($white, .75) // Opacity is .5, so this transparency is increased by a factor of 2
+
+    &.simplebar-vertical
+      width: 7px
+
+    &.simplebar-horizontal
+      height: 7px
