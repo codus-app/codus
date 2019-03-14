@@ -17,9 +17,15 @@ export default {
 
     getRoutes(category) { return this.routes.filter(r => r.meta.category === category); },
 
+    replaceParams(path) {
+      // Replace '/:username' with the user's username
+      return path.replace(/\/:username(?=$|\/)/g, `/${this.username}`);
+    },
+
     openContextMenu() {
       this.$refs.contextmenuTrigger._tippy.show(); // eslint-disable-line no-underscore-dangle
     },
+
   },
 
   components: {

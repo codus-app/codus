@@ -16,14 +16,7 @@
 <script>
 export default {
 
-  props: ['path', 'meta', 'collapsed', 'username'],
-
-  methods: {
-    replaceParams(path) {
-      // Replace '/:username' with the user's username
-      return path.replace(/\/:username(?=$|\/)/g, `/${this.username}`);
-    },
-  },
+  props: ['path', 'meta', 'collapsed', 'replaceParams'],
 
 };
 </script>
