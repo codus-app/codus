@@ -1,5 +1,6 @@
 import debounce from 'debounce';
 import { mapState, mapGetters, mapActions } from 'vuex';
+import { delay } from '../../helpers';
 
 export default {
   data: () => ({
@@ -18,17 +19,22 @@ export default {
     if (!this.contentFetched) this.fetchContent();
   },
 
-  mounted() { this.mounted = true; },
+  async mounted() {
+    this.mounted = true;
+    while (!this.$refs['cards-scroll'].$el.SimpleBar) { await delay(100); } // eslint-disable-line no-await-in-loop
+    this.$refs['cards-scroll'].$el.SimpleBar.getScrollElement().addEventListener('scroll', debounce((e) => {
+      this.scrollPos = e.target.scrollTop;
+    }, 100));
+  },
 
   methods: {
     ...mapActions(['fetchContent']),
 
     closeAll() {
-      this.$children.forEach((c) => { c.expanded = false; });
+      this.$refs.cards.forEach((c) => { c.expanded = false; });
     },
 
     onResize() { this.windowSize = [window.innerWidth, window.innerHeight]; },
-    onScroll: debounce(function onScroll(e) { this.scrollPos = e.target.scrollTop; }, 100),
   },
 
   computed: {
@@ -39,10 +45,11 @@ export default {
       // Recompute on resize
       (() => {})(this.windowSize);
 
-      if (!this.mounted) return {}; // eslint-disable-line no-underscore-dangle
+      if (!this.mounted) return {};
 
+      const paddingEl = this.$refs['cards-container'];
       const outerBounds = this.$el.getBoundingClientRect();
-      const style = getComputedStyle(this.$el);
+      const style = getComputedStyle(paddingEl);
 
       return {
         top: outerBounds.top + parseFloat(style.paddingTop),
