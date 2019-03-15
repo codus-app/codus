@@ -90,5 +90,12 @@ export default {
       };
     },
   },
-  watch: { collapsed() { setTimeout(this.computeBounds, 500); } },
+  watch: {
+    collapsed() {
+      setTimeout(() => {
+        this.computeBounds();
+        this.$refs['content-scroll'].SimpleBar.recalculate();
+      }, 500);
+    },
+  },
 };

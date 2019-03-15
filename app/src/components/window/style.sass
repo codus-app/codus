@@ -50,7 +50,17 @@ $bar-background: #26262b
     transition: width .45s, height .45s
     will-change: width, height
 
-    &::after
+  .content-scroll
+    position: absolute
+    z-index: 1
+    top: 0
+    left: 0
+    width: 20rem
+    height: 9rem
+    transition: opacity .35s
+    will-change: opacity
+
+    & /deep/ .simplebar-mask::after
       content: ''
       position: absolute
       z-index: 2
@@ -59,24 +69,23 @@ $bar-background: #26262b
       top: 0
       left: 0
       pointer-events: none
-      box-shadow: inset 0 0 1em .5em $dark-3
+      box-shadow: inset -.35em -.35em 1.25em .85em $dark-3
 
   .content
-    padding: .6em 1em 1em .6em
-    position: absolute
-    z-index: 1
+    position: relative
     top: 0
     left: 0
-    width: 20rem
-    height: 9rem
-    overflow: scroll
-    transition: opacity .35s
-    will-change: opacity
+    width: 100%
+    height: 100%
+
+    & /deep/
+      & > *
+        margin: .75rem 1rem 1rem .75rem
 
   &.collapsed
     .content-container
       width: 7em // Won't need to be smaller than this
       height: 0
 
-    .content
+    .content-scroll
       opacity: 0

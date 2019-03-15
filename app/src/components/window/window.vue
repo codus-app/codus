@@ -25,9 +25,11 @@
     </div>
 
     <div class="content-container">
-      <div class="content">
-        <slot></slot>
-      </div>
+      <simplebar class="content-scroll" ref="content-scroll">
+        <div class="content">
+          <slot></slot>
+        </div>
+      </simplebar>
     </div>
   </div>
 </template>
