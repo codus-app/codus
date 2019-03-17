@@ -57,6 +57,10 @@ module.exports = (app) => {
   app.get('/api/user-check/username/:username', routes.api.user.checkUsername);
   app.get('/api/user-check/email/:email', routes.api.user.checkEmail);
 
+  // '/classroom' endpoints work with classrooms
+
+  app.get('/api/classroom/classrooms', auth0(), checkInstructor, routes.api.classroom.instructor.classrooms.list);
+
 
   /* --- Post-route middleware --- */
 
