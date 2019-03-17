@@ -10,8 +10,23 @@ User.add({
   // Links user to Auth0
   userId: { type: Types.Text, note: 'From auth0', initial: true, required: true, index: true },
   role: { type: Types.Select, options: 'student, instructor', initial: true, required: true },
+  classroom: {
+    type: Types.Relationship,
+    ref: 'Classroom',
+    initial: true,
+    required: false,
+    dependsOn: { role: 'student' },
+  },
 });
 
+// Show classrooms for which this user is the instructor
+User.relationship({
+  path: 'classrooms',
+  ref: 'Classroom',
+  refPath: 'instructor',
+});
+
+// Show solutions whose user is set to this one
 User.relationship({
   path: 'solutions',
   ref: 'Solution',

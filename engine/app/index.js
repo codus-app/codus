@@ -24,6 +24,7 @@ keystone.set('handle uploads', false);
 keystone.set('nav', {
   content: ['problems', 'categories'],
   users: ['users', 'solutions'],
+  classes: ['classrooms'],
 });
 keystone.set('back url', process.env.HOMEPAGE || 'https://codus.io/');
 
