@@ -39,4 +39,4 @@ User.schema.methods.fetch = async function fetchAuth0User() {
 
 User.register();
 
-User.defaultColumns = 'role, userId';
+User.defaultColumns = 'role|10%, classroom|20%, userId|50%';

@@ -3,6 +3,7 @@ const auth0 = require('../auth');
 
 const { category, problem, userSolution } = require('./problems');
 const user = require('./user');
+const { checkInstructor, instructor, student } = require('./classroom');
 
 const routes = {
   api: {
@@ -10,10 +11,10 @@ const routes = {
     problem,
     user,
     userSolution,
+    classroom: { instructor, student },
   },
 };
 
-/* eslint-enable global-require */
 
 module.exports = (app) => {
   app.get('/', (req, res) => res.send('ok'));
