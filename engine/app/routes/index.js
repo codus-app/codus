@@ -60,6 +60,7 @@ module.exports = (app) => {
   // '/classroom' endpoints work with classrooms
 
   app.get('/api/classroom/classrooms', auth0(), checkInstructor, routes.api.classroom.instructor.classrooms.list);
+  app.post('/api/classroom/classrooms', auth0(), checkInstructor, routes.api.classroom.instructor.classrooms.post);
 
 
   /* --- Post-route middleware --- */

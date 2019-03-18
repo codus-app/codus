@@ -14,11 +14,25 @@ module.exports.checkInstructor = async (req, res, next) => {
 
 
 module.exports.classrooms = {
+  /** List classrooms that this teacher owns */
   async list(req, res) {
     const classrooms = await Classroom.model
       .find()
       .where('instructor').equals(req.user2._id);
-    console.log(classrooms);
     res.json({ data: classrooms.map(c => c.toObject()) });
+  },
+
+  /** Create new classroom */
+  async post(req, res) {
+    const { name } = req.body;
+    // eslint-disable-next-line new-cap
+    const classroom = new Classroom.model();
+    Classroom.updateItem(classroom, {
+      name,
+      instructor: req.user2._id,
+    }, (error) => {
+      if (error) res.status(500).json({ error });
+      else res.json({ data: { name } });
+    });
   },
 };
