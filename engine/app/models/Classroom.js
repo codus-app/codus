@@ -6,6 +6,7 @@ const Classroom = new keystone.List('Classroom');
 
 Classroom.add({
   name: { type: Types.Text, initial: true, required: true },
+  code: { type: Types.Text, initial: true, required: true, index: true, unique: true },
   instructor: {
     type: Types.Relationship,
     ref: 'User',
@@ -22,3 +23,5 @@ Classroom.relationship({
 });
 
 Classroom.register();
+
+Classroom.defaultColumns = 'name, code, instructor';

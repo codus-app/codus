@@ -3,6 +3,8 @@ const keystone = require('keystone');
 const User = keystone.list('User');
 const Classroom = keystone.list('Classroom');
 
+const { generateInviteCode } = require('../util/classroom');
+
 module.exports.checkInstructor = async (req, res, next) => {
   req.user2 = await User.model
     .findOne()
@@ -25,14 +27,16 @@ module.exports.classrooms = {
   /** Create new classroom */
   async post(req, res) {
     const { name } = req.body;
-    // eslint-disable-next-line new-cap
-    const classroom = new Classroom.model();
+    const code = await generateInviteCode();
+
+    const classroom = new Classroom.model(); // eslint-disable-line new-cap
     Classroom.updateItem(classroom, {
       name,
       instructor: req.user2._id,
+      code,
     }, (error) => {
       if (error) res.status(500).json({ error });
-      else res.json({ data: { name } });
+      else res.json({ data: { name, code } });
     });
   },
 };
