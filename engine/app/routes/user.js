@@ -58,9 +58,16 @@ module.exports = {
         // Create Auth0 user
         const user = await createAuth0User({ username, name, email, password });
         // Create Keystone user
-        await new Promise((resolve) => {
+        await new Promise((resolve, reject) => {
           // eslint-disable-next-line new-cap
-          new User.model({ userId: user.user_id, role }).save(resolve);
+          const newUser = new User.model();
+          User.updateItem(newUser, {
+            userId: user.user_id,
+            role,
+          }, (error) => {
+            if (error) reject(error);
+            else resolve();
+          });
         });
 
         res.status(201).json({
