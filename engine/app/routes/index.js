@@ -62,6 +62,8 @@ module.exports = (app) => {
   app.get('/api/classroom/classrooms', auth0(), enforceRole('instructor'), routes.api.classroom.instructor.classrooms.list);
   app.post('/api/classroom/classrooms', auth0(), enforceRole('instructor'), routes.api.classroom.instructor.classrooms.post);
 
+  app.get('/api/classroom/join/:code', auth0(), enforceRole('student'), routes.api.classroom.student.joinClassroom);
+
 
   /* --- Post-route middleware --- */
 
