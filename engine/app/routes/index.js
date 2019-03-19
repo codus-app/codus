@@ -3,7 +3,7 @@ const auth0 = require('../auth');
 
 const { category, problem, userSolution } = require('./problems');
 const user = require('./user');
-const { checkInstructor, instructor, student } = require('./classroom');
+const { enforceRole, instructor, student } = require('./classroom');
 
 const routes = {
   api: {
@@ -59,8 +59,8 @@ module.exports = (app) => {
 
   // '/classroom' endpoints work with classrooms
 
-  app.get('/api/classroom/classrooms', auth0(), checkInstructor, routes.api.classroom.instructor.classrooms.list);
-  app.post('/api/classroom/classrooms', auth0(), checkInstructor, routes.api.classroom.instructor.classrooms.post);
+  app.get('/api/classroom/classrooms', auth0(), enforceRole('instructor'), routes.api.classroom.instructor.classrooms.list);
+  app.post('/api/classroom/classrooms', auth0(), enforceRole('instructor'), routes.api.classroom.instructor.classrooms.post);
 
 
   /* --- Post-route middleware --- */
