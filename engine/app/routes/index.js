@@ -64,6 +64,7 @@ module.exports = (app) => {
   app.delete('/api/classroom/:code', auth0(), enforceRole('instructor'), routes.api.classroom.instructor.classrooms.delete);
 
   app.get('/api/classroom/join/:code', auth0(), enforceRole('student'), routes.api.classroom.student.joinClassroom);
+  app.get('/api/classroom/leave', auth0(), enforceRole('student'), routes.api.classroom.student.leaveClassroom);
 
 
   /* --- Post-route middleware --- */

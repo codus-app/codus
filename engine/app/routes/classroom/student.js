@@ -20,4 +20,11 @@ module.exports = {
 
     return undefined;
   },
+
+  async leaveClassroom(req, res) {
+    User.updateItem(req.user2, { classroom: null }, (error) => {
+      if (error) req.status(500).json({ error });
+      else res.json({});
+    });
+  },
 };
