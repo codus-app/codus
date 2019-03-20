@@ -36,6 +36,12 @@ export function get({ endpoint, signal, store }) {
   return apiRequest({ endpoint, method: 'GET', signal, store });
 }
 
+/** Perform a DELETE request and return a promise */
+function del({ endpoint, signal, store }) {
+  return apiRequest({ endpoint, method: 'DELETE', signal, store });
+}
+export { del as delete };
+
 /**
  * Perform an HTTP request for a method that requires a body like GET or POST, implementing easy
  * JSON support etc
