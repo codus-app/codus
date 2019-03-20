@@ -3,8 +3,8 @@ const keystone = require('keystone');
 const User = keystone.list('User');
 const Classroom = keystone.list('Classroom');
 
-module.exports = {
-  async joinClassroom(req, res) {
+module.exports.classroom = {
+  async join(req, res) {
     const { code } = req.params;
     const classroom = await Classroom.model
       .findOne()
@@ -21,7 +21,7 @@ module.exports = {
     return undefined;
   },
 
-  async leaveClassroom(req, res) {
+  async leave(req, res) {
     User.updateItem(req.user2, { classroom: null }, (error) => {
       if (error) req.status(500).json({ error });
       else res.json({});
