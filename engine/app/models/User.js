@@ -1,6 +1,7 @@
 const keystone = require('keystone');
 
-const { getUser } = require('../auth');
+const { getUser: getAuth0User } = require('../auth');
+const { publicizeUser } = require('../routes/util/user');
 
 const { Types } = keystone.Field;
 
@@ -34,7 +35,8 @@ User.relationship({
 });
 
 User.schema.methods.fetch = async function fetchAuth0User() {
-  return getUser.byId(this.id);
+  const auth0Info = await getAuth0User.byId(this.userId);
+  return publicizeUser(this, auth0Info);
 };
 
 User.register();
