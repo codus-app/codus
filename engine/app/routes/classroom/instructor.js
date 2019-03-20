@@ -30,10 +30,7 @@ module.exports.classrooms = {
       data: {
         ...classroom.toObject(),
         _id: undefined,
-        instructor: await User.model
-          .findById(classroom.instructor.toString())
-          .select('-_id -__v')
-          .then(instructor => instructor.fetch()),
+        instructor: await req.user2.fetch(),
       },
     });
   },
