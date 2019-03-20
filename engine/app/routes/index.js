@@ -60,6 +60,7 @@ module.exports = (app) => {
   // '/classroom' endpoints work with classrooms
 
   app.get('/api/classroom/classrooms', auth0(), enforceRole('instructor'), routes.api.classroom.instructor.classrooms.list);
+  app.get('/api/classroom/:code', auth0(), enforceRole('instructor'), routes.api.classroom.instructor.classrooms.get);
   app.post('/api/classroom/classrooms', auth0(), enforceRole('instructor'), routes.api.classroom.instructor.classrooms.post);
   app.delete('/api/classroom/:code', auth0(), enforceRole('instructor'), routes.api.classroom.instructor.classrooms.delete);
 
