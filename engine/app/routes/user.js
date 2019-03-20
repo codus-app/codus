@@ -1,6 +1,6 @@
 const keystone = require('keystone');
 const { isEmail } = require('validator');
-const { validateUser } = require('./util');
+const { validateUser, publicizeUser } = require('./util/user');
 const upload = require('./util/profile-image-upload');
 const getUserSolvedProgress = require('./util/user-solution-progress.js');
 
@@ -12,7 +12,7 @@ const {
 
 const User = keystone.list('User');
 
-/* eslint-disable camelcase, object-curly-newline */
+/* eslint-disable camelcase */
 
 
 module.exports = {
@@ -32,13 +32,7 @@ module.exports = {
         const solutionProgress = await getUserSolvedProgress(user);
 
         res.json({
-          data: {
-            username,
-            name: user_metadata.name,
-            picture: user_metadata.picture,
-            solutionProgress,
-            role: user.role,
-          },
+          data: publicizeUser(user, { username, user_metadata }, solutionProgress),
         });
         return undefined;
       });
