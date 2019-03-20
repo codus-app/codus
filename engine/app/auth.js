@@ -56,6 +56,15 @@ module.exports.getUser = {
   },
 };
 
+
+module.exports.getUsers = {
+  byIds(ids) {
+    return management
+      .getUsers({ q: `user_id:("${ids.join('" OR "')}")` });
+  },
+};
+
+
 module.exports.updateUser = async function updateUser(id, { username, email, name, picture }) {
   // eslint-disable-next-line camelcase
   const user_metadata = {
@@ -80,6 +89,7 @@ module.exports.updateUser = async function updateUser(id, { username, email, nam
   await management.updateUser({ id }, { username });
   return management.updateUser({ id }, { email, user_metadata });
 };
+
 
 module.exports.createUser = async function createUser({ username, email, name, password }) {
   return new Promise((resolve, reject) => management.createUser({
