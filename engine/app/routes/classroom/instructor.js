@@ -4,6 +4,8 @@ const User = keystone.list('User');
 const Classroom = keystone.list('Classroom');
 
 const { generateInviteCode } = require('../util/classroom');
+const { publicizeUser } = require('../util/user');
+const { getUsers } = require('../../auth');
 
 
 module.exports.classrooms = {
@@ -26,11 +28,17 @@ module.exports.classrooms = {
     if (!classroom) return res.status(404).json({ error: `Classroom '${code}' was not found` });
     if (!classroom.instructor.equals(req.user2._id)) return res.status(403).json({ error: `You don't own classroom ${code}` });
 
+    const mongoStudents = await User.model.find().where('classroom').equals(classroom._id);
+    const auth0Students = await getUsers.byIds(mongoStudents.map(s => s.userId));
+    const students = mongoStudents
+      .map(s => publicizeUser(s, auth0Students.find(s2 => s2.user_id === s.userId)));
+
     return res.json({
       data: {
         ...classroom.toObject(),
         _id: undefined,
         instructor: await req.user2.fetch(),
+        students,
       },
     });
   },
