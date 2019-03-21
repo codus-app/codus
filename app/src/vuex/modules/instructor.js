@@ -28,6 +28,11 @@ export default {
       if (index < 0) state.classrooms = [...state.classrooms, payload];
       else Vue.set(state.classrooms, index, { ...state.classrooms[index], ...payload });
     },
+
+    removeClassroom(state, payload) {
+      const index = state.classrooms.findIndex(c => c.code === payload);
+      Vue.delete(state.classrooms, index);
+    },
   },
 
   /** Fetch a list of all managed classrooms from the API */
@@ -45,9 +50,16 @@ export default {
       commit('mutateClassroom', classroom);
     },
 
+    /** Create a classroom */
     async createClassroom({ commit }, { name }) {
       const classroom = await api.post({ endpoint: '/classroom/classrooms', body: { name }, store });
       commit('mutateClassroom', classroom);
+    },
+
+    /** Delete a classroom */
+    async deleteClassroom({ commit }, code) {
+      await api.delete({ endpoint: `/classroom/${code}`, store });
+      commit('removeClassroom', code);
     },
   },
 };
