@@ -55,7 +55,7 @@ export default {
   // Update a user profile when the API response returns
   primaryUserFetched(state, payload) {
     state.user.profile = { ...state.user.profile, ...payload };
-    state.user.role = payload.role;
+    state.user.role = payload.role || state.user.role;
     // Also update the copy of the object that's stored in the cache of user profiles
     const { username } = state.user.profile;
     if (state.users[username]) {
