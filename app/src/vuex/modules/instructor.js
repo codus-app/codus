@@ -1,3 +1,4 @@
+import Vue from 'vue';
 import * as api from '../../api';
 import store from '..';
 
@@ -21,12 +22,27 @@ export default {
         ...fresh,
       ];
     },
+
+    mutateClass(state, payload) {
+      const index = state.classes.findIndex(c => c.code === payload.code);
+      if (index < 0) state.classes = [...state.classes, payload];
+      else Vue.set(state.classes, index, { ...state.classes[index], ...payload });
+    },
   },
 
+  /** Fetch a list of all managed classes from the API */
   actions: {
     async fetchClasses({ commit }) {
       const classes = await api.get({ endpoint: '/classroom/classrooms', store });
       commit('classesFetched', classes);
+    },
+
+    /** Hydrate a stored class with additional info (i.e. students) that is only exposed when
+      * querying that class directly
+      */
+    async fetchClass({ commit }, code) {
+      const classroom = await api.get({ endpoint: `/classroom/${code}`, store });
+      commit('mutateClass', classroom);
     },
   },
 };
