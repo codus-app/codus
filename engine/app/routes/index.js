@@ -3,7 +3,7 @@ const auth0 = require('../auth');
 
 const { category, problem, userSolution } = require('./problems');
 const user = require('./user');
-const { enforceRole, instructor, student } = require('./classroom');
+const { enforceRole, roleSwitch, instructor, student } = require('./classroom');
 
 const routes = {
   api: {
@@ -60,12 +60,17 @@ module.exports = (app) => {
   // '/classroom' endpoints work with classrooms
 
   app.get('/api/classroom/classrooms', auth0(), enforceRole('instructor'), routes.api.classroom.instructor.classrooms.list);
-  app.get('/api/classroom/:code', auth0(), enforceRole('instructor'), routes.api.classroom.instructor.classrooms.get);
   app.post('/api/classroom/classrooms', auth0(), enforceRole('instructor'), routes.api.classroom.instructor.classrooms.post);
   app.delete('/api/classroom/:code', auth0(), enforceRole('instructor'), routes.api.classroom.instructor.classrooms.delete);
 
   app.get('/api/classroom/join/:code', auth0(), enforceRole('student'), routes.api.classroom.student.classroom.join);
+  app.get('/api/classroom', auth0(), enforceRole('student'), routes.api.classroom.student.classroom.get);
   app.get('/api/classroom/leave', auth0(), enforceRole('student'), routes.api.classroom.student.classroom.leave);
+
+  app.get('/api/classroom/:code', auth0(), roleSwitch({
+    student: routes.api.classroom.student.classroom.get,
+    instructor: routes.api.classroom.instructor.classrooms.get,
+  }));
 
 
   /* --- Post-route middleware --- */

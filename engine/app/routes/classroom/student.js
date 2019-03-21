@@ -21,6 +21,45 @@ module.exports.classroom = {
     return undefined;
   },
 
+  async get(req, res) {
+    const { code } = req.params;
+
+    let classroom;
+    // A code was passed; find the classroom with that code
+    if (code) classroom = await Classroom.model.findOne().where('code').equals(code);
+    // No code was passed; find the classroom to which the authenticated user belongs
+    else if (req.user2.classroom) classroom = await Classroom.model.findById(req.user2.classroom.toString()); // eslint-disable-line max-len
+    // No code was passed, but the user is not a member of any classes to use as the default
+    else res.status(400).json({ error: 'code parameter is required when no classroom joined' });
+
+    const instructor = await User.model
+      .findById(classroom.instructor.toString())
+      .select('-_id -__v')
+      .then(user => user.fetch());
+
+    // Viewing an external classroom
+    if (!(req.user2.classroom && req.user2.classroom.equals(classroom._id))) {
+      res.json({
+        data: {
+          ...classroom.toObject(),
+          instructor,
+          joined: false,
+          _id: undefined,
+        },
+      });
+    // Viewing the classroom the user is currently in (user gets more info)
+    } else {
+      res.json({
+        data: {
+          ...classroom.toObject(),
+          instructor,
+          joined: true,
+          _id: undefined,
+        },
+      });
+    }
+  },
+
   async leave(req, res) {
     User.updateItem(req.user2, { classroom: null }, (error) => {
       if (error) req.status(500).json({ error });
