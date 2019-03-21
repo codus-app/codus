@@ -3,7 +3,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 import store from './vuex';
-import { webAuth } from './vuex/auth';
+import { webAuth } from './vuex/modules/auth';
 import routes from './pages';
 
 Vue.use(VueRouter);

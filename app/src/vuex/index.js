@@ -7,7 +7,8 @@ import mutations from './mutations';
 import actions from './actions';
 import getters from './getters';
 
-import auth from './auth';
+import auth from './modules/auth';
+import classroom from './modules/classroom';
 
 export default new Vuex.Store({
   state: {
@@ -39,5 +40,5 @@ export default new Vuex.Store({
   mutations,
   actions,
   getters,
-  modules: { auth },
+  modules: { auth, classroom },
 });
