@@ -8,14 +8,27 @@ module.exports.classroom = {
     const { code } = req.params;
     const classroom = await Classroom.model
       .findOne()
-      .where('code').equals(code);
+      .where('code').equals(code)
+      .select('-__v');
 
     console.log(classroom);
     if (!classroom) return res.status(404).send({ error: `Could not find classroom ${code}` });
 
-    User.updateItem(req.user2, { classroom: classroom._id }, (error) => {
+    User.updateItem(req.user2, { classroom: classroom._id }, async (error) => {
       if (error) res.status(500).json({ error });
-      else res.json({ data: classroom.toObject() });
+      else {
+        res.json({
+          data: {
+            ...classroom.toObject(),
+            instructor: await User.model
+              .findById(classroom.instructor.toString())
+              .select('-_id -__v')
+              .then(user => user.fetch()),
+            joined: true,
+            _id: undefined,
+          },
+        });
+      }
     });
 
     return undefined;
