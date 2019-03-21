@@ -13,7 +13,8 @@ module.exports.classrooms = {
   async list(req, res) {
     const classrooms = await Classroom.model
       .find()
-      .where('instructor').equals(req.user2._id);
+      .where('instructor').equals(req.user2._id)
+      .select('-instructor -_id -__v');
     res.json({ data: classrooms.map(c => c.toObject()) });
   },
 
@@ -23,7 +24,7 @@ module.exports.classrooms = {
     const classroom = await Classroom.model
       .findOne()
       .where('code').equals(code)
-      .select('-__v');
+      .select('-instructor -__v');
 
     if (!classroom) return res.status(404).json({ error: `Classroom '${code}' was not found` });
     if (!classroom.instructor.equals(req.user2._id)) return res.status(403).json({ error: `You don't own classroom ${code}` });
@@ -37,7 +38,6 @@ module.exports.classrooms = {
       data: {
         ...classroom.toObject(),
         _id: undefined,
-        instructor: await req.user2.fetch(),
         students,
       },
     });
