@@ -51,22 +51,41 @@ ul.dropdown.list
   box-shadow: 0 10px 20px -5px transparentize($black, .75)
   padding: 5px
 
-  li.item
+  li
+    position: relative
+
+    &.selected ~ :not(.action) .item
+      opacity: .6
+
+    &.selected .item
+      color: transparentize($light-text-primary, .3)
+
+    &.action:hover
+      background: none
+
+  .item
     // Gets styles from imported contextmenu stylesheet
     padding: 7px 9px
 
     .label
       font-size: .7rem
 
-    &.selected ~ :not(.action)
-      opacity: .6
-
-    &.selected
-      color: transparentize($light-text-primary, .3)
-
-    &.action:hover
-      background: none
-
   &:not(.transition)
-    li.item
+    .item
       transition-duration: 0s
+
+  .remove
+    color: $red-solid
+    position: absolute
+    right: 5px
+    padding: 4px
+    top: 50%
+    transform: translateY(-50%)
+    width: 25px
+    height: 25px
+
+    cursor: pointer
+    border-radius: 3px
+
+    &:hover
+      background: lighten(#24242b, 2%)

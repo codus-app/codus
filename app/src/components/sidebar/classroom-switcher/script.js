@@ -40,6 +40,10 @@ export default {
       this.$emit('createClassroom');
     },
 
+    deleteClassroom(code) {
+      this.$emit('deleteClassroom', code);
+    },
+
     closeOnClick(e) {
       if (!this.$el.contains(e.target)) this.open = false;
     },

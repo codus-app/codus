@@ -6,20 +6,22 @@
 
     <ul class="dropdown list" v-if="open" v-bind:class="{ 'transition': shouldTransition }">
       <li
-        class="item"
         v-for="classroom in sortedClassrooms"
-        v-on:click="switchClassroom(classroom.code); open = false;"
         v-bind:class="{ selected: classroom.code === (selectedClassroom || {}).code }"
         v-bind:key="classroom.code"
       >
-        <span class="label">{{ classroom.name }}</span>
+        <span
+          class="item label"
+          v-on:click="switchClassroom(classroom.code); open = false;"
+        ><span class="label">{{ classroom.name }}</span></span>
+        <icon-x class="remove" v-if="managing" v-on:click="deleteClassroom(classroom.code)"></icon-x>
       </li>
+
 
       <li class="item action" v-if="managing" v-on:click="createClassroom">
         <icon-plus></icon-plus>
         <div class="label">Create classroom</div>
       </li>
-
       <li class="item action" v-on:click="managing = !managing">
         <component
           v-bind:is="managing ? 'icon-x' : 'icon-list'"
