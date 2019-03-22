@@ -39,7 +39,7 @@ export default {
     },
 
     switchClassroom(state, index) {
-      if (index >= state.classrooms.length) state.selectedIndex = null;
+      if (index < 0 || index >= state.classrooms.length) state.selectedIndex = null;
       else state.selectedIndex = index;
     },
   },
@@ -69,6 +69,11 @@ export default {
     async deleteClassroom({ commit }, code) {
       await api.delete({ endpoint: `/classroom/${code}`, store });
       commit('removeClassroom', code);
+    },
+
+    /** Switch classroom to a given class code */
+    async switchClassroomByCode({ commit, state }, code) {
+      commit('switchClassroom', state.classrooms.findIndex(c => c.code === code));
     },
   },
 

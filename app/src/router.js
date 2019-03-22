@@ -16,7 +16,17 @@ const mainRouter = new VueRouter({
 
 // Set page title based on page metadata and check login on each navigation
 mainRouter.beforeEach(async (to, from, next) => {
+
+  // Set page title
   document.title = to.meta.title || 'Codus';
+
+  // For instructors, switch classroom context if necessary
+  if (store.state.user.role === 'instructor') {
+    const selectedCode = (store.getters['classroom/instructor/selectedClassroom'] || {}).code;
+    if (to.params.classroomCode && to.params.classroomCode !== selectedCode) {
+      store.dispatch('classroom/instructor/switchClassroomByCode', to.params.classroomCode);
+    }
+  }
 
   // Parse login information if necessary
   if (window.location.hash) {
@@ -33,7 +43,7 @@ mainRouter.beforeEach(async (to, from, next) => {
   }
 
   // Reject unauthenticated users from protected routes
-  if (to.meta.protected && !mainRouter.app.$store.getters['auth/isAuthenticated']) {
+  if (to.meta.protected && !store.getters['auth/isAuthenticated']) {
     window.location.replace(`${CODUS_LANDING_URL}/login?backto=${encodeURIComponent(to.fullPath)}`);
   }
 
