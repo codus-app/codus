@@ -21,6 +21,7 @@ const iconNames = [
   'HomeIcon',
   'InboxIcon',
   'LogOutIcon',
+  'ListIcon',
   { name: 'Maximize2Icon', as: 'icon-maximize' },
   { name: 'Minimize2Icon', as: 'icon-minimize' },
   { name: 'MenuIcon', as: 'icon-menu' },

@@ -6,6 +6,7 @@ export default {
   data: () => ({
     open: false,
     shouldTransition: false,
+    managing: false,
   }),
 
   computed: {
@@ -28,6 +29,7 @@ export default {
   watch: {
     open(open) {
       setTimeout(() => { this.shouldTransition = open; }, open ? 150 : 0);
+      if (!open) this.managing = false;
     },
   },
 

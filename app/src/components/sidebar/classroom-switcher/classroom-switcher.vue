@@ -14,6 +14,14 @@
       >
         <span class="label">{{ classroom.name }}</span>
       </li>
+
+      <li class="item action" v-on:click="managing = !managing">
+        <component
+          v-bind:is="managing ? 'icon-x' : 'icon-list'"
+          style="transform: scaleX(-1)"
+        ></component>
+        <span class="label"> {{ managing ? 'Cancel' : 'Manage classes' }} </span>
+      </li>
     </ul>
   </div>
 </template>
