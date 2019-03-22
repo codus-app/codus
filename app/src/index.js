@@ -74,11 +74,18 @@ window.app = new Vue({
       logout: 'auth/logout',
     }),
 
-    initialFetch() {
-      return Promise.all([
+    ...mapActions('classroom/instructor', {
+      fetchInstructorClassrooms: 'fetchClassrooms',
+    }),
+
+
+    async initialFetch() {
+      await Promise.all([
         this.fetchPrimaryUserProfile(),
         this.fetchSolved(),
       ]);
+
+      if (this.role === 'instructor') await this.fetchInstructorClassrooms();
     },
 
     switchRoutes(role) {
