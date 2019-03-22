@@ -1,8 +1,14 @@
 <template>
   <div class="classroom-switcher">
-    <h2 class="trigger" v-bind:class="{ 'beg-for-attention': begForAttention }">
+    <h2 class="trigger" v-on:click="open = true" v-bind:class="{ 'beg-for-attention': begForAttention }">
       {{ (selectedClassroom || { name: 'Select classroom' }).name }}
     </h2>
+
+    <ul class="dropdown list" v-if="open">
+      <li class="classroom" v-for="classroom in sortedClassrooms" v-on:click="switchClassroom(classroom.code); open = false;" v-bind:key="classroom.code">
+        <span>{{ classroom.name }}</span>
+      </li>
+    </ul>
   </div>
 </template>
 
