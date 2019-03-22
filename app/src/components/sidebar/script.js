@@ -6,6 +6,7 @@ export default {
 
   computed: {
     ...mapGetters(['profile', 'role']),
+    ...mapGetters('classroom/instructor', ['selectedClassroom']),
 
     routes() { return routes[this.role] || []; },
 
@@ -18,8 +19,16 @@ export default {
     getRoutes(category) { return this.routes.filter(r => r.meta.category === category); },
 
     replaceParams(path) {
-      // Replace '/:username' with the user's username
-      return path.replace(/\/:username(?=$|\/)/g, `/${this.username}`);
+      const currentClassCode = ({
+        instructor: (this.selectedClassroom || {}).code,
+        student: null, // TODO
+      })[this.role];
+
+      return path
+        // Replace '/:username' with the user's username
+        .replace(/\/:username(?=$|\/)/g, `/${this.username}`)
+        // Replace '/:classroomCode' with the current classroom's code
+        .replace(/\/:classroomCode(?=$|\/)/g, `/${currentClassCode}`);
     },
 
     openContextMenu() {
