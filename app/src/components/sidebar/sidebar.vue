@@ -26,8 +26,7 @@
 
       <!-- Links for instructor accounts -->
       <template v-if="role === 'instructor'">
-        <h2>Classrooms</h2>
-        <sidebar-link v-for="r in getRoutes('instructor/classroom')" v-bind:key="r.path" v-bind="{ ...r, collapsed, replaceParams }"></sidebar-link>
+        <sidebar-link v-for="r in getRoutes('instructor/classroom')" v-bind:key="r.path" v-bind="{ ...r, collapsed, disabled: selectedClassroom === null, replaceParams }"></sidebar-link>
         <h2 v-if="!collapsed">Personal</h2>
         <sidebar-link v-for="r in getRoutes('instructor/personal')" v-bind:key="r.path" v-bind="{ ...r, collapsed, replaceParams }"></sidebar-link>
       </template>

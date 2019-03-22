@@ -11,7 +11,7 @@ export default [
   {
     path: '/classroom/:classroomCode/overview',
     name: 'classroom-overview',
-    meta: { icon: 'book-open', label: 'Practice', category: `${namespace}/classroom`, protected: true },
+    meta: { icon: 'book-open', label: 'Overview', category: `${namespace}/classroom`, protected: true },
   },
   {
     path: '/classroom/:classroomCode/students',
