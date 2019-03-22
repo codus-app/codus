@@ -40,5 +40,6 @@ export default {
   components: {
     'sidebar-link': require('./sidebar-link.vue').default,
     'sidebar-user-profile': require('./sidebar-user-profile/sidebar-user-profile.vue').default,
+    'classroom-switcher': require('./classroom-switcher/classroom-switcher.vue').default,
   },
 };
