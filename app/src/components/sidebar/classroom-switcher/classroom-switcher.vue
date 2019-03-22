@@ -4,8 +4,14 @@
       {{ (selectedClassroom || { name: 'Select classroom' }).name }}
     </h2>
 
-    <ul class="dropdown list" v-if="open">
-      <li class="item" v-for="classroom in sortedClassrooms" v-on:click="switchClassroom(classroom.code); open = false;" v-bind:key="classroom.code">
+    <ul class="dropdown list" v-if="open" v-bind:class="{ 'transition': shouldTransition }">
+      <li
+        class="item"
+        v-for="classroom in sortedClassrooms"
+        v-on:click="switchClassroom(classroom.code); open = false;"
+        v-bind:class="{ selected: classroom.code === (selectedClassroom || {}).code }"
+        v-bind:key="classroom.code"
+      >
         <span class="label">{{ classroom.name }}</span>
       </li>
     </ul>

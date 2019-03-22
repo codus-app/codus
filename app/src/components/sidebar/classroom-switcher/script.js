@@ -5,6 +5,7 @@ const { mapState, mapGetters, mapMutations } = createNamespacedHelpers('classroo
 export default {
   data: () => ({
     open: false,
+    shouldTransition: false,
   }),
 
   computed: {
@@ -21,6 +22,12 @@ export default {
           .filter(({ code }) => code !== (this.selectedClassroom || {}).code)
           .sort(({ name: name1 }, { name: name2 }) => name1.localeCompare(name2)),
       ];
+    },
+  },
+
+  watch: {
+    open(open) {
+      setTimeout(() => { this.shouldTransition = open; }, open ? 150 : 0);
     },
   },
 
