@@ -5,6 +5,8 @@ const { mapGetters, mapMutations } = createNamespacedHelpers('classroom/instruct
 export default {
   computed: {
     ...mapGetters(['selectedClassroom']),
+
+    begForAttention() { return this.selectedClassroom === null; },
   },
 
   methods: {

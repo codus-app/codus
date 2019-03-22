@@ -1,6 +1,6 @@
 <template>
   <div class="classroom-switcher">
-    <h2 class="trigger">
+    <h2 class="trigger" v-bind:class="{ 'beg-for-attention': begForAttention }">
       {{ (selectedClassroom || { name: 'Select classroom' }).name }}
     </h2>
   </div>
