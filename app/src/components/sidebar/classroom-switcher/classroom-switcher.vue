@@ -5,8 +5,8 @@
     </h2>
 
     <ul class="dropdown list" v-if="open">
-      <li class="classroom" v-for="classroom in sortedClassrooms" v-on:click="switchClassroom(classroom.code); open = false;" v-bind:key="classroom.code">
-        <span>{{ classroom.name }}</span>
+      <li class="item" v-for="classroom in sortedClassrooms" v-on:click="switchClassroom(classroom.code); open = false;" v-bind:key="classroom.code">
+        <span class="label">{{ classroom.name }}</span>
       </li>
     </ul>
   </div>

@@ -1,11 +1,59 @@
 @import 'src/styles/variables'
+@import 'src/components/context-menu/style.sass'
+
+
+.classroom-switcher
+  position: relative
 
 h2
   font-size: .6rem
-  color: $light-text-hint
+  color: $white
+  opacity: .4
   letter-spacing: .1em
   text-transform: uppercase
-  margin: 2em 0 1em
+  margin: 1.75em 0 .75em
+  padding: .25em 0
+  display: flex
+  align-items: center
+  cursor: pointer
 
-  &.beg-for-attention
-    color: $light-text-secondary
+  &::after
+    content: ''
+    display: block
+    margin-left: .25em
+    width: 0
+    height: 0
+    $size: .5em
+    border-left: $size solid transparent
+    border-right: $size solid transparent
+    border-top: $size solid $white
+    transform: scaleX(.8)
+
+  &:hover
+    opacity: .5
+    transition: opacity .2s
+
+  &.beg-for-attention,
+  &.beg-for-attention:hover
+    opacity: .8
+
+
+ul.dropdown.list
+  position: absolute
+  left: -14px
+  width: calc(100% + 28px)
+  top: -12px
+  background: $dark-2
+  list-style-type: none
+  margin: 0
+
+  border-radius: 5px
+  box-shadow: 0 10px 20px -5px transparentize($black, .75)
+  padding: 5px
+
+  li.item
+    // Gets styles from imported contextmenu stylesheet
+    padding: 7px 9px
+
+    .label
+      font-size: .7rem
