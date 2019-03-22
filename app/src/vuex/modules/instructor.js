@@ -35,6 +35,7 @@ export default {
       Vue.delete(state.classrooms, index);
 
       if (index === state.selectedIndex) state.selectedIndex = null;
+      else if (index < state.selectedIndex) state.selectedIndex -= 1;
     },
 
     switchClassroom(state, index) {
