@@ -27,6 +27,7 @@ const iconNames = [
   { name: 'MenuIcon', as: 'icon-menu' },
   { name: 'MoreHorizontalIcon', as: 'icon-more' },
   'PlayIcon',
+  'PlusIcon',
   'SearchIcon',
   'SettingsIcon',
   'SlidersIcon',

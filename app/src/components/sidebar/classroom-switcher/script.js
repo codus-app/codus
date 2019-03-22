@@ -35,7 +35,11 @@ export default {
 
   methods: {
     ...mapMutations(['switchClassroom']),
-  },
+
+    createClassroom() {
+      this.$emit('createClassroom');
+    },
+
     closeOnClick(e) {
       if (!this.$el.contains(e.target)) this.open = false;
     },
