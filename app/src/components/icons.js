@@ -4,6 +4,7 @@ import * as icons from 'vue-feather-icons';
 
 const iconNames = [
   'AtSignIcon',
+  'BookOpenIcon',
   'CameraIcon',
   'CheckIcon',
   'CheckCircleIcon',
@@ -18,6 +19,7 @@ const iconNames = [
   'FileTextIcon',
   'FolderIcon',
   'HomeIcon',
+  'InboxIcon',
   'LogOutIcon',
   { name: 'Maximize2Icon', as: 'icon-maximize' },
   { name: 'Minimize2Icon', as: 'icon-minimize' },
@@ -30,6 +32,7 @@ const iconNames = [
   { name: 'Trash2Icon', as: 'icon-trash' },
   'UploadCloudIcon',
   'UserIcon',
+  'UsersIcon',
   'XCircleIcon',
   'XIcon',
 ];
