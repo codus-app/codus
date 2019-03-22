@@ -7,6 +7,7 @@ export default {
 
   state: {
     classrooms: [],
+    selectedIndex: null,
   },
 
   mutations: {
@@ -29,9 +30,16 @@ export default {
       else Vue.set(state.classrooms, index, { ...state.classrooms[index], ...payload });
     },
 
-    removeClassroom(state, payload) {
-      const index = state.classrooms.findIndex(c => c.code === payload);
+    removeClassroom(state, code) {
+      const index = state.classrooms.findIndex(c => c.code === code);
       Vue.delete(state.classrooms, index);
+
+      if (index === state.selectedIndex) state.selectedIndex = null;
+    },
+
+    switchClassroom(state, index) {
+      if (index >= state.classrooms.length) state.selectedIndex = null;
+      else state.selectedIndex = index;
     },
   },
 
@@ -60,6 +68,13 @@ export default {
     async deleteClassroom({ commit }, code) {
       await api.delete({ endpoint: `/classroom/${code}`, store });
       commit('removeClassroom', code);
+    },
+  },
+
+  getters: {
+    selectedClassroom(state) {
+      if (state.selectedIndex === null) return null;
+      return state.classrooms[state.selectedIndex];
     },
   },
 };
