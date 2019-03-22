@@ -1,6 +1,6 @@
 <template>
   <router-link
-    class="sb-link" v-bind:class="{ collapsed }"
+    class="sb-link" v-bind:class="{ collapsed, disabled }"
     v-bind:to="replaceParams(path)"
     v-bind:title="collapsed ? meta.label : ''"
   >
@@ -16,7 +16,7 @@
 <script>
 export default {
 
-  props: ['path', 'meta', 'collapsed', 'replaceParams'],
+  props: ['path', 'meta', 'collapsed', 'disabled', 'replaceParams'],
 
 };
 </script>

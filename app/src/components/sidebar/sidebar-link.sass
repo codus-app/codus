@@ -9,6 +9,8 @@
   margin: 1.25em 0 0
   position: relative
 
+  transition: opacity .35s
+
   svg
     width: .85rem
     height: .85rem
@@ -44,3 +46,7 @@
 
     &.router-link-exact-active svg
       opacity: 1
+
+  &.disabled
+    opacity: .4
+    pointer-events: none
