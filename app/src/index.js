@@ -30,7 +30,6 @@ Vue.use(VueTippy, {
   theme: 'codus-light',
   placement: 'bottom',
   distance: 5,
-
   animation: 'fade',
   duration: [200, 150],
   delay: 0,
@@ -38,6 +37,9 @@ Vue.use(VueTippy, {
   arrow: true,
   arrowTransform: 'scale(0)',
 });
+
+import PortalVue from 'portal-vue';
+Vue.use(PortalVue);
 
 import KeyboardShortcuts from './keyboard-shortcuts';
 Vue.use(KeyboardShortcuts);
