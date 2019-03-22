@@ -36,4 +36,11 @@ export default {
   methods: {
     ...mapMutations(['switchClassroom']),
   },
+    closeOnClick(e) {
+      if (!this.$el.contains(e.target)) this.open = false;
+    },
+  },
+
+  created() { document.body.addEventListener('click', this.closeOnClick); },
+  destroyed() { document.body.removeEventListener('click', this.closeOnClick); },
 };
