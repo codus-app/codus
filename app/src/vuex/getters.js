@@ -1,7 +1,7 @@
 export default {
   // Return id token information, adding fetched profile information when it becomes available
   profile: state => Object.assign({}, state.auth.profile, state.user.profile),
-  // Return role of current user, "teacher" or "student"
+  // Return role of current user, "instructor" or "student"
   role: state => state.user.role,
   // Get the IDs of all categories
   categoryIds: state => state.categories.map(c => c.name),

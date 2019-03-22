@@ -9,7 +9,7 @@ const { getUsers } = require('../../auth');
 
 
 module.exports.classrooms = {
-  /** List classrooms that this teacher owns */
+  /** List classrooms that this instructor owns */
   async list(req, res) {
     const classrooms = await Classroom.model
       .find()
