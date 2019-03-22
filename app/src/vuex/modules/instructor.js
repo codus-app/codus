@@ -7,7 +7,7 @@ export default {
 
   state: {
     classrooms: [],
-    selectedIndex: null,
+    selectedCode: null,
   },
 
   mutations: {
@@ -32,15 +32,15 @@ export default {
 
     removeClassroom(state, code) {
       const index = state.classrooms.findIndex(c => c.code === code);
+      if (index === -1) return false;
       Vue.delete(state.classrooms, index);
-
-      if (index === state.selectedIndex) state.selectedIndex = null;
-      else if (index < state.selectedIndex) state.selectedIndex -= 1;
+      if (code === state.selectedCode) state.selectedCode = null;
+      return true;
     },
 
-    switchClassroom(state, index) {
-      if (index < 0 || index >= state.classrooms.length) state.selectedIndex = null;
-      else state.selectedIndex = index;
+    switchClassroom(state, newCode) {
+      if (!state.classrooms.map(({ code }) => code).includes(newCode)) state.selectedCode = null;
+      else state.selectedCode = newCode;
     },
   },
 
@@ -70,17 +70,12 @@ export default {
       await api.delete({ endpoint: `/classroom/${code}`, store });
       commit('removeClassroom', code);
     },
-
-    /** Switch classroom to a given class code */
-    async switchClassroomByCode({ commit, state }, code) {
-      commit('switchClassroom', state.classrooms.findIndex(c => c.code === code));
-    },
   },
 
   getters: {
     selectedClassroom(state) {
-      if (state.selectedIndex === null) return null;
-      return state.classrooms[state.selectedIndex];
+      if (state.selectedCode === null) return null;
+      return state.classrooms.find(({ code }) => code === state.selectedCode);
     },
   },
 };
