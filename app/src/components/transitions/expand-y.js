@@ -38,7 +38,7 @@ export default {
       Object.assign(el.style, {
         height: `${height}px`,
         overflow: 'hidden',
-        transition: `height ${this.transitionDuration / 1000}s, opacity ${this.transitionDuration / 1000}s`,
+        transition: `height ${this.transitionDuration / 1000}s, opacity ${(this.transitionDuration / 1000) * 0.65}s`,
       });
       // Wait for styles to apply
       (() => {})(el.offsetHeight);

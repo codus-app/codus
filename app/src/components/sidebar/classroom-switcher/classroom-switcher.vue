@@ -18,10 +18,13 @@
       </li>
 
 
-      <li class="item action" v-if="managing" v-on:click="createClassroom">
-        <icon-plus></icon-plus>
-        <div class="label">Create classroom</div>
-      </li>
+      <transition-expand-y>
+        <li class="item action" v-if="managing" v-on:click="createClassroom">
+          <icon-plus></icon-plus>
+          <div class="label">Create classroom</div>
+        </li>
+      </transition-expand-y>
+
       <li class="item action" v-on:click="managing = !managing">
         <component
           v-bind:is="managing ? 'icon-x' : 'icon-list'"
