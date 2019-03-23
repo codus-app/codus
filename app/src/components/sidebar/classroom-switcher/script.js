@@ -1,12 +1,13 @@
 
 import { createNamespacedHelpers } from 'vuex';
-const { mapState, mapGetters, mapMutations } = createNamespacedHelpers('classroom/instructor');
+const { mapState, mapGetters, mapActions, mapMutations } = createNamespacedHelpers('classroom/instructor');
 
 export default {
   data: () => ({
     open: false,
     shouldTransition: false,
     managing: false,
+    classroomDeleting: null, // The classroom to be deleted; stored while confirmation modal is open
   }),
 
   computed: {
@@ -35,13 +36,10 @@ export default {
 
   methods: {
     ...mapMutations(['switchClassroom']),
+    ...mapActions(['deleteClassroom']),
 
     createClassroom() {
       this.$emit('createClassroom');
-    },
-
-    deleteClassroom(code) {
-      this.$emit('deleteClassroom', code);
     },
 
     closeOnClick(e) {
