@@ -11,9 +11,9 @@
           <slot name="header"></slot>
         </div>
         <!-- Content -->
-        <p>
+        <div class="message">
           <slot></slot>
-        </p>
+        </div>
         <!-- Buttons -->
         <div class="buttons">
           <slot name="buttons"></slot>
