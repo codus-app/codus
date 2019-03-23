@@ -7,7 +7,7 @@
 <script>
 export default {
   props: {
-    type: { type: String, default: '', validator: value => ['', 'green', 'red'].includes(value) },
+    type: { type: String, default: '', validator: value => ['', 'green', 'red', 'gray'].includes(value) },
   },
 };
 </script>
