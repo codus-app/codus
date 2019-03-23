@@ -24,7 +24,7 @@ mainRouter.beforeEach(async (to, from, next) => {
   if (store.state.user.role === 'instructor') {
     const selectedCode = (store.getters['classroom/instructor/selectedClassroom'] || {}).code;
     if (to.params.classroomCode && to.params.classroomCode !== selectedCode) {
-      store.dispatch('classroom/instructor/switchClassroom', to.params.classroomCode);
+      store.commit('classroom/instructor/switchClassroom', to.params.classroomCode);
     }
   }
 
