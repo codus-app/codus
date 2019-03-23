@@ -65,11 +65,12 @@
       &:hover
         opacity: .75
 
-    .header h1
-      margin: 0
-      font-size: 1.15rem
-      font-weight: 900
-      color: $light-text-primary
+    .header /deep/ // Scoping on slot content seems to get messed up with portal
+      & > *
+        margin: 0
+        font-size: 1.15rem
+        font-weight: 900
+        color: $light-text-primary
 
     p
       line-height: 1.35
