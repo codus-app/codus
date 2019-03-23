@@ -2,6 +2,7 @@
 import Vue from 'vue';
 
 // External components
+
 import { codemirror } from 'vue-codemirror';
 import 'codemirror/lib/codemirror.css';
 Vue.component('codemirror', codemirror);
@@ -10,9 +11,11 @@ import simplebar from 'simplebar-vue';
 Vue.component('simplebar', simplebar);
 
 // Icons
+
 import './icons';
 
 // Internal components
+
 import Sidebar from './sidebar/sidebar.vue';
 Vue.component('sidebar', Sidebar);
 
@@ -39,3 +42,6 @@ Vue.component('text-input', TextInput);
 
 import ContextMenu from './context-menu/context-menu.vue';
 Vue.component('context-menu', ContextMenu);
+
+// Transition effects
+import './transitions';
