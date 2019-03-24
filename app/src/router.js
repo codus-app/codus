@@ -21,8 +21,12 @@ mainRouter.beforeEach(async (to, from, next) => {
     document.title = to.meta.title;
   } else if (typeof to.meta.title === 'function') {
     const result = to.meta.title(to);
-    if (result instanceof Promise) result.then((result2) => { document.title = result2; });
-    else document.title = result;
+    if (result instanceof Promise) {
+      const routeChecking = to.path;
+      result.then((result2) => {
+        if (window.app.$route.path === routeChecking) document.title = result2;
+      });
+    } else document.title = result;
   } else {
     document.title = 'Codus';
   }
