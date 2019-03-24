@@ -63,6 +63,7 @@ export default {
     async createClassroom({ commit }, { name }) {
       const classroom = await api.post({ endpoint: '/classroom/classrooms', body: { name }, store });
       commit('mutateClassroom', classroom);
+      return classroom;
     },
 
     /** Delete a classroom */

@@ -61,7 +61,7 @@
         text="Create"
         v-bind:enabled="classroomCreation.name.length > 0 && classroomCreation.name.length <= 20"
         v-bind:onClick="() => createClassroom({ name: classroomCreation.name })"
-        v-on:saved="classroomCreation.name = ''; classroomCreation.open = false;"
+        v-on:saved="classroomCreated"
         slot="buttons"
       ></loading-button>
     </modal>

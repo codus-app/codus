@@ -51,6 +51,13 @@ export default {
       const whitelist = [this.$el, this.$refs.creationModal.$el2, this.$refs.deletionModal.$el2];
       if (!whitelist.some(el => el && el.contains(e.target))) this.open = false;
     },
+
+    classroomCreated(classroom) {
+      this.classroomCreation.name = '';
+      this.classroomCreation.open = false;
+      this.switchClassroom(classroom.code);
+      this.open = false;
+    },
   },
 
   created() { document.body.addEventListener('click', this.closeOnClick); },
