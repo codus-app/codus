@@ -51,11 +51,13 @@
 
       <text-input v-model="classroomCreation.name" placeholder="Classroom name"></text-input>
 
-      <bold-button
+      <loading-button
+        text="Create"
+        v-bind:enabled="classroomCreation.name.length > 0"
+        v-bind:onClick="() => createClassroom({ name: classroomCreation.name })"
+        v-on:saved="classroomCreation.name = ''; classroomCreation.open = false;"
         slot="buttons"
-        type="green"
-        v-on:click="createClassroom({ name: classroomCreation.name }).then(() => { classroomCreation.name = ''; classroomCreation.open = false; })"
-      >Create</bold-button>
+      ></loading-button>
     </modal>
 
     <!-- "Delete Classroom" confirmation modal -->
