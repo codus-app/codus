@@ -17,7 +17,15 @@ const mainRouter = new VueRouter({
 // Set page title based on page metadata and check login on each navigation
 mainRouter.beforeEach(async (to, from, next) => {
   // Set page title
-  document.title = to.meta.title || 'Codus';
+  if (typeof to.meta.title === 'string') {
+    document.title = to.meta.title;
+  } else if (typeof to.meta.title === 'function') {
+    const result = to.meta.title(to);
+    if (result instanceof Promise) result.then((result2) => { document.title = result2; });
+    else document.title = result;
+  } else {
+    document.title = 'Codus';
+  }
 
   // For instructors, switch classroom context if necessary
   if (store.state.user.role === 'instructor') {
