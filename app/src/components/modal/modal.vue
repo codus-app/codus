@@ -1,6 +1,6 @@
 <template>
   <portal to="modal-target">
-    <div class="modal-wrapper" v-bind:class="{ open }">
+    <div class="modal-wrapper" v-bind:class="{ open }" ref="root">
       <div class="scrim" v-bind:style="{ ...scrimStyle, backgroundColor: fadeColor }"></div>
 
       <div class="modal" v-bind:class="{ wide }" v-bind:style="modalStyle">

@@ -43,7 +43,9 @@ export default {
     },
 
     closeOnClick(e) {
-      if (!this.$el.contains(e.target)) this.open = false;
+      // Clicks inside these elements won't close the dropdown
+      const whitelist = [this.$el, this.$refs.deletionModal.$el2];
+      if (!whitelist.some(el => el.contains(e.target))) this.open = false;
     },
   },
 

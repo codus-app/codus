@@ -6,4 +6,7 @@ export default {
     modalStyle: { type: Object, default: () => ({}) },
     scrimStyle: { type: Object, default: () => ({}) },
   },
+
+  data: () => ({ $el2: null }),
+  mounted() { this.$nextTick(() => { this.$el2 = this.$refs.root; }); },
 };

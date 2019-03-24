@@ -43,6 +43,7 @@
       v-bind:wide="true"
       v-bind:modalStyle="{ backgroundColor: '#131313', maxWidth: '21.5rem', padding: '1rem 2.5rem 1.25rem' }"
       fade-color="rgba(30, 30, 33, .85)"
+      ref="deletionModal"
     >
       <h1 slot="header">Delete {{ (classroomDeleting || {}).name }}?</h1>
 
