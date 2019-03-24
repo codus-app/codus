@@ -18,7 +18,7 @@
             v-on:click="switchClassroom(classroom.code); open = false;"
           ><span class="label">{{ classroom.name }}</span></span>
           <transition-staggered-slide v-bind:index="i">
-            <icon-x class="remove" v-if="managing" v-on:click="classroomDeleting = classroom"></icon-x>
+            <icon-x class="remove" v-if="managing" v-on:click="classroomDeletion.classroom = classroom; classroomDeletion.open = true"></icon-x>
           </transition-staggered-slide>
         </li>
 
@@ -63,13 +63,13 @@
     <!-- "Delete Classroom" confirmation modal -->
 
     <modal
-      v-bind:open="!!classroomDeleting" v-on:close="classroomDeleting = null"
+      v-bind:open="classroomDeletion.open" v-on:close="classroomDeletion.open = false"
       v-bind:wide="true"
       v-bind:modalStyle="{ backgroundColor: '#131313', maxWidth: '21.5rem', padding: '1rem 2.5rem 1.25rem' }"
       fade-color="rgba(30, 30, 33, .85)"
       ref="deletionModal"
     >
-      <h1 slot="header">Delete {{ (classroomDeleting || {}).name }}?</h1>
+      <h1 slot="header">Delete {{ (classroomDeletion.classroom || {}).name }}?</h1>
 
       <ul style="text-align: left; margin-top: .25em; padding-left: 1.25em;">
         <li>Class data will be permanently erased</li>
@@ -78,10 +78,10 @@
       </ul>
 
       <template slot="buttons">
-        <bold-button type="gray" v-on:click="classroomDeleting = null">Cancel</bold-button>
+        <bold-button type="gray" v-on:click="classroomDeletion.open = false">Cancel</bold-button>
         <bold-button
           type="red"
-          v-on:click="deleteClassroom(classroomDeleting.code).then(() => { classroomDeleting = null })"
+          v-on:click="deleteClassroom(classroomDeletion.classroom.code).then(() => { classroomDeletion.open = false })"
         >Delete</bold-button>
       </template>
     </modal>

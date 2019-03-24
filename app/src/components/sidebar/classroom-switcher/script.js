@@ -7,8 +7,11 @@ export default {
     open: false,
     shouldTransition: false,
     managing: false,
-    classroomDeleting: null, // The classroom to be deleted; stored while confirmation modal is open
 
+    classroomDeletion: {
+      open: false,
+      classroom: null, // The classroom to be deleted; stored while confirmation modal is open
+    },
     classroomCreation: {
       open: false,
       name: '',
