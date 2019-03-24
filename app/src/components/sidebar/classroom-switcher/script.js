@@ -48,6 +48,7 @@ export default {
 
     switchClassroom(classroomCode) {
       this._switchClassroom(classroomCode);
+      // Replace classroom in route with new classroom
       if (this.$route.params.classroomCode) {
         this.$router.push({
           name: this.$route.name,
