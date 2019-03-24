@@ -187,6 +187,5 @@ export default {
   components: {
     'profile-picture-upload': require('./components/profile-picture-upload/profile-picture-upload.vue').default,
     'password-reset': require('./components/password-reset/password-reset.vue').default,
-    'save-button': require('./components/save-button/save-button.vue').default,
   },
 };

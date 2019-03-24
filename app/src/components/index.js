@@ -28,6 +28,9 @@ Vue.component('spinner', Spinner);
 import BoldButton from './bold-button/bold-button.vue';
 Vue.component('bold-button', BoldButton);
 
+import LoadingButton from './loading-button/loading-button.vue';
+Vue.component('loading-button', LoadingButton);
+
 import Modal from './modal/modal.vue';
 Vue.component('modal', Modal);
 

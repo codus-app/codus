@@ -43,13 +43,13 @@
       </div>
     </div>
 
-    <save-button
+    <loading-button
       v-bind:onClick="save"
       v-bind:enabled="canSave"
       v-bind:text="changed ? 'Save' : 'Saved'"
       v-on:saved="saved"
       v-on:error="errored"
-    ></save-button>
+    ></loading-button>
   </div>
 </template>
 
