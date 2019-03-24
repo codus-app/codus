@@ -11,12 +11,18 @@
       >
 
       <div class="indicator-wrapper">
-        <component class="indicator" v-bind:is="{
+        <component class="indicator" v-if="charLimit == null" v-bind:is="{
           neutral: undefined,
           success: 'icon-check',
           failure: 'icon-x',
           loading: 'spinner'
         }[status]"></component>
+
+        <div
+          class="counter"
+          v-bind:class="{ invalid: !charsValid }"
+          v-if="charLimit != null"
+        >{{ charsRemaining }}</div>
       </div>
     </div>
     <div class="message">{{ message }}</div>

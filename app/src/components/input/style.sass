@@ -6,6 +6,7 @@ $radius: 4px
 $padding: .7em
 $font-size: 1em
 $height: ($font-size * 1.25) + ($padding * 2)
+$indicator-size: .9em
 
 
 .input
@@ -27,7 +28,7 @@ $height: ($font-size * 1.25) + ($padding * 2)
     font-family: $font-lato
     font-size: $font-size
     border-radius: $radius
-    padding: $padding 0 $padding $padding
+    padding: $padding (($height + $indicator-size) / 2 + $padding) $padding $padding
     margin: .3em 0 .15em
     width: 100%
     height: $height
@@ -46,8 +47,6 @@ $height: ($font-size * 1.25) + ($padding * 2)
     margin-left: $radius
     font-size: .9em
 
-  $indicator-size: .9em
-
   .input-container
     position: relative
 
@@ -64,6 +63,23 @@ $height: ($font-size * 1.25) + ($padding * 2)
       left: 0
       width: 100%
       height: 100%
+
+    .counter
+      position: absolute
+      top: 0
+      right: 0
+      width: 100%
+      height: 100%
+      display: flex
+      justify-content: flex-end
+      align-items: center
+
+      font-family: $font-lato
+      font-weight: 600
+      color: $light-text-hint
+
+      &.invalid
+        color: $red-solid
 
   &.loading .indicator-wrapper
     width: $indicator-size * 2
