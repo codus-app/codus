@@ -8,6 +8,11 @@ export default {
     shouldTransition: false,
     managing: false,
     classroomDeleting: null, // The classroom to be deleted; stored while confirmation modal is open
+
+    classroomCreation: {
+      open: false,
+      name: '',
+    },
   }),
 
   computed: {
@@ -36,16 +41,12 @@ export default {
 
   methods: {
     ...mapMutations(['switchClassroom']),
-    ...mapActions(['deleteClassroom']),
-
-    createClassroom() {
-      this.$emit('createClassroom');
-    },
+    ...mapActions(['deleteClassroom', 'createClassroom']),
 
     closeOnClick(e) {
       // Clicks inside these elements won't close the dropdown
-      const whitelist = [this.$el, this.$refs.deletionModal.$el2];
-      if (!whitelist.some(el => el.contains(e.target))) this.open = false;
+      const whitelist = [this.$el, this.$refs.creationModal.$el2, this.$refs.deletionModal.$el2];
+      if (!whitelist.some(el => el && el.contains(e.target))) this.open = false;
     },
   },
 
