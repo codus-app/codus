@@ -1,6 +1,10 @@
 <template>
   <div class="classroom-switcher">
-    <h2 class="trigger" v-on:click="open = true" v-bind:class="{ 'beg-for-attention': begForAttention }">
+    <h2
+      class="trigger"
+      v-on:click="open = true"
+      v-bind:class="{ 'beg-for-attention': begForAttention }"
+    >
       {{ (selectedClassroom || { name: 'Select classroom' }).name }}
     </h2>
 
@@ -18,7 +22,11 @@
             v-on:click="switchClassroom(classroom.code); open = false;"
           ><span class="label">{{ classroom.name }}</span></span>
           <transition-staggered-slide v-bind:index="i">
-            <icon-x class="remove" v-if="managing" v-on:click="classroomDeletion.classroom = classroom; classroomDeletion.open = true"></icon-x>
+            <icon-x
+              class="remove"
+              v-if="managing"
+              v-on:click="classroomDeletion.classroom = classroom; classroomDeletion.open = true"
+            ></icon-x>
           </transition-staggered-slide>
         </li>
 
@@ -44,8 +52,10 @@
 
     <modal
       class="creation-modal" ref="creationModal"
-      v-bind:open="classroomCreation.open" v-on:close="classroomCreation.open = false"
-      v-bind:modalStyle="{ backgroundColor: '#131313', width: '20rem', padding: '1.5rem 3rem' }" v-bind:wide="true"
+      v-bind:open="classroomCreation.open"
+      v-on:close="classroomCreation.open = false"
+      v-bind:modalStyle="{ backgroundColor: '#131313', width: '20rem', padding: '1.5rem 3rem' }"
+      v-bind:wide="true"
       fade-color="rgba(30, 30, 33, .85)"
     >
       <h1 slot="header" style="margin-bottom: -.5em">Create a classroom</h1>
@@ -54,7 +64,6 @@
         v-model="classroomCreation.name"
         placeholder="Classroom name"
         :char-limit="20"
-        v-on:validationChange
       ></text-input>
 
       <loading-button
@@ -72,7 +81,11 @@
       class="deletion-modal" ref="deletionModal"
       v-bind:open="classroomDeletion.open" v-on:close="classroomDeletion.open = false"
       v-bind:wide="true"
-      v-bind:modalStyle="{ backgroundColor: '#131313', width: '20rem', padding: '1rem 2.5rem 1.25rem' }"
+      v-bind:modalStyle="{
+        backgroundColor: '#131313',
+        width: '20rem',
+        padding: '1rem 2.5rem 1.25rem'
+      }"
       fade-color="rgba(30, 30, 33, .85)"
     >
       <h1 slot="header">Delete {{ (classroomDeletion.classroom || {}).name }}?</h1>
@@ -87,7 +100,9 @@
         <bold-button type="gray" v-on:click="classroomDeletion.open = false">Cancel</bold-button>
         <bold-button
           type="red"
-          v-on:click="deleteClassroom(classroomDeletion.classroom.code).then(() => { classroomDeletion.open = false })"
+          v-on:click="deleteClassroom(classroomDeletion.classroom.code).then(() => {
+            classroomDeletion.open = false;
+          })"
         >Delete</bold-button>
       </template>
     </modal>

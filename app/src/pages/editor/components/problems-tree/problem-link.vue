@@ -4,7 +4,9 @@
     v-bind:class="{ solved }"
     v-bind:to="`/problem/${categoryName}/${name}`"
   >
-    <component v-bind:is="solved ? 'icon-check' : (solutionBegun ? 'icon-file-text' : 'icon-file')"></component>
+    <component
+      v-bind:is="solved ? 'icon-check' : (solutionBegun ? 'icon-file-text' : 'icon-file')"
+    ></component>
     <span>{{name}}</span>
   </router-link>
 </template>

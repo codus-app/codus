@@ -10,7 +10,10 @@
       target-name="sidebar-more"
       v-bind:placement="collapsed ? 'right-start' : 'bottom-end'"
       v-bind:items="[
-        { icon: 'user', label: 'View profile', onclick: () => $router.push(replaceParams('/user/:username')) },
+        {
+          icon: 'user', label: 'View profile',
+          onclick: () => $router.push(replaceParams('/user/:username'))
+        },
         { icon: 'settings', label: 'Settings', onclick: () => $router.push('/settings/account') },
         { icon: 'log-out', label: 'Log out', onclick: logout },
       ]"
@@ -21,21 +24,31 @@
       <!-- Links for student accounts -->
       <template v-if="role === 'student'">
         <h2 v-if="!collapsed">You</h2>
-        <sidebar-link v-for="r in getRoutes('student/personal')" v-bind:key="r.path" v-bind="{ ...r, collapsed, replaceParams }"></sidebar-link>
+        <sidebar-link
+          v-for="r in getRoutes('student/personal')"
+          v-bind:key="r.path"
+          v-bind="{ ...r, collapsed, replaceParams }"
+        ></sidebar-link>
       </template>
 
       <!-- Links for instructor accounts -->
       <template v-if="role === 'instructor'">
         <classroom-switcher v-if="!collapsed"></classroom-switcher>
         <div v-if="selectedClassroom || !collapsed">
-          <sidebar-link v-for="r in getRoutes('instructor/classroom')" v-bind:key="r.path" v-bind="{ ...r, collapsed, disabled: !selectedClassroom, replaceParams }"></sidebar-link>
+          <sidebar-link
+            v-for="r in getRoutes('instructor/classroom')"
+            v-bind:key="r.path"
+            v-bind="{ ...r, collapsed, disabled: !selectedClassroom, replaceParams }"
+          ></sidebar-link>
         </div>
         <h2 v-if="!collapsed">Personal</h2>
         <div class="divider" v-else-if="selectedClassroom"></div>
-        <sidebar-link v-for="r in getRoutes('instructor/personal')" v-bind:key="r.path" v-bind="{ ...r, collapsed, replaceParams }"></sidebar-link>
+        <sidebar-link
+          v-for="r in getRoutes('instructor/personal')"
+          v-bind:key="r.path"
+          v-bind="{ ...r, collapsed, replaceParams }"
+        ></sidebar-link>
       </template>
-
-      <div class="divider" v-if="collapsed"></div> <!-- For spacing between sections if sidebar is collapsed -->
 
       <div class="sb-link logout" v-on:click="logout" v-bind:title="collapsed ? 'Log out' : ''">
         <icon-log-out></icon-log-out>

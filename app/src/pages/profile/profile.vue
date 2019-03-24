@@ -10,12 +10,7 @@
         <context-menu
           target-name="profile-summary-more"
           placement="bottom-end"
-          v-bind:items="[
-            ...(isAuthenticatedUser
-              ? [{ icon: 'edit', label: 'Edit profile', onclick: () => $router.push('/settings/account') }]
-              : []),
-            { icon: 'copy', label: 'Copy link', onclick: copyLink },
-          ]"
+          v-bind:items="profileContextItems"
         ></context-menu>
       </div>
       <div class="detail card c1" v-bind:class="{ empty: !profileLoaded }">

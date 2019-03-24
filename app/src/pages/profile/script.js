@@ -19,6 +19,14 @@ export default {
     },
 
     isAuthenticatedUser() { return this.authenticatedUserProfile.username === this.username; },
+
+    profileContextItems() {
+      const editProfile = { icon: 'edit', label: 'Edit profile', onclick: () => this.$router.push('/settings/account') };
+      const copyLink = { icon: 'copy', label: 'Copy link', onclick: this.copyLink };
+      return this.isAuthenticatedUser
+        ? [editProfile, copyLink]
+        : [copyLink];
+    },
   },
 
   methods: {

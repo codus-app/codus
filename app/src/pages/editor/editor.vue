@@ -68,7 +68,11 @@
       <simplebar class="cards-scroll" ref="cards-scroll">
         <div class="cards">
           <transition v-on:enter="findReplaceEnter" v-on:leave="findReplaceLeave">
-            <find-replace-card v-if="mounted && findReplaceOpen" v-bind:cm="$refs.codemirror" v-bind:code="code"></find-replace-card> <!-- Wait for mount so that $refs.codemirror is defined -->
+            <find-replace-card
+              v-if="mounted && findReplaceOpen"
+              v-bind:cm="$refs.codemirror"
+              v-bind:code="code"
+            ></find-replace-card> <!-- Wait for mount so that $refs.codemirror is defined -->
           </transition>
           <problem-overview-card
             v-if="fetched"
@@ -90,7 +94,11 @@
             </div>
           </div>
 
-          <div class="tests" v-if="fetched" v-bind:class="{ outdated: testResults.length && code !== testedCode }">
+          <div
+            class="tests"
+            v-if="fetched"
+            v-bind:class="{ outdated: testResults.length && code !== testedCode }"
+          >
             <test-case-card
               v-for="(t, i) in tests"
               v-bind="t"
@@ -117,7 +125,10 @@
       <transition name="pop-up">
         <window
           class="output"
-          v-bind:class="{ 'has-error': errorMessage, outdated: code !== testedCode && outputCollapsed }"
+          v-bind:class="{
+            'has-error': errorMessage,
+            outdated: code !== testedCode && outputCollapsed,
+          }"
           v-if="hasOutput"
           v-bind:collapsed="outputCollapsed"
           v-bind:bounds="outputWindowBounds"
