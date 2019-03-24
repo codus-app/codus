@@ -42,12 +42,12 @@
 
     <!-- "Create Classroom" modal -->
     <modal
+      class="creation-modal" ref="creationModal"
       v-bind:open="classroomCreation.open" v-on:close="classroomCreation.open = false"
-      v-bind:modalStyle="{ backgroundColor: '#131313', width: '21.5rem', maxWidth: '21.5rem', padding: '1rem 2.5rem 1.25rem' }"
+      v-bind:modalStyle="{ backgroundColor: '#131313', width: '20rem', padding: '1.5rem 3rem' }" v-bind:wide="true"
       fade-color="rgba(30, 30, 33, .85)"
-      ref="creationModal"
     >
-      <h1 slot="header">Create a classroom</h1>
+      <h1 slot="header" style="margin-bottom: -.5em">Create a classroom</h1>
 
       <text-input v-model="classroomCreation.name" placeholder="Classroom name"></text-input>
 
@@ -63,16 +63,16 @@
     <!-- "Delete Classroom" confirmation modal -->
 
     <modal
+      class="deletion-modal" ref="deletionModal"
       v-bind:open="classroomDeletion.open" v-on:close="classroomDeletion.open = false"
       v-bind:wide="true"
-      v-bind:modalStyle="{ backgroundColor: '#131313', maxWidth: '21.5rem', padding: '1rem 2.5rem 1.25rem' }"
+      v-bind:modalStyle="{ backgroundColor: '#131313', width: '20rem', padding: '1rem 2.5rem 1.25rem' }"
       fade-color="rgba(30, 30, 33, .85)"
-      ref="deletionModal"
     >
       <h1 slot="header">Delete {{ (classroomDeletion.classroom || {}).name }}?</h1>
 
-      <ul style="text-align: left; margin-top: .25em; padding-left: 1.25em;">
-        <li>Class data will be permanently erased</li>
+      <ul class="modal-content">
+        <li>All class data will be permanently erased</li>
         <li>All students will be removed from this class</li>
         <li>Individual student accounts and site progress will be preserved</li>
       </ul>
