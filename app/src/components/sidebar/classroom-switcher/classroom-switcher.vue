@@ -41,6 +41,7 @@
     </transition-expand-y>
 
     <!-- "Create Classroom" modal -->
+
     <modal
       class="creation-modal" ref="creationModal"
       v-bind:open="classroomCreation.open" v-on:close="classroomCreation.open = false"
@@ -49,11 +50,16 @@
     >
       <h1 slot="header" style="margin-bottom: -.5em">Create a classroom</h1>
 
-      <text-input v-model="classroomCreation.name" placeholder="Classroom name"></text-input>
+      <text-input
+        v-model="classroomCreation.name"
+        placeholder="Classroom name"
+        :char-limit="20"
+        v-on:validationChange
+      ></text-input>
 
       <loading-button
         text="Create"
-        v-bind:enabled="classroomCreation.name.length > 0"
+        v-bind:enabled="classroomCreation.name.length > 0 && classroomCreation.name.length <= 20"
         v-bind:onClick="() => createClassroom({ name: classroomCreation.name })"
         v-on:saved="classroomCreation.name = ''; classroomCreation.open = false;"
         slot="buttons"
