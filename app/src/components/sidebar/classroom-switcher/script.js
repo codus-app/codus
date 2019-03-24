@@ -43,8 +43,18 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['switchClassroom']),
+    ...mapMutations({ _switchClassroom: 'switchClassroom' }),
     ...mapActions(['deleteClassroom', 'createClassroom']),
+
+    switchClassroom(classroomCode) {
+      this._switchClassroom(classroomCode);
+      if (this.$route.params.classroomCode) {
+        this.$router.push({
+          name: this.$route.name,
+          params: { ...this.$route.params, classroomCode },
+        });
+      }
+    },
 
     closeOnClick(e) {
       // Clicks inside these elements won't close the dropdown
