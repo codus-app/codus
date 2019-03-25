@@ -41,7 +41,7 @@ export default {
       if (!open) this.managing = false;
     },
 
-    selectedClassroom() { this.open = false; },
+    $route() { this.open = false; },
   },
 
   methods: {
