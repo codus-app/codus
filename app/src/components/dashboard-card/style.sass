@@ -1,0 +1,28 @@
+@import 'src/styles/variables'
+@import 'src/styles/mixins'
+
+
+.card
+  @include dark-card
+  padding: .75rem 1.2rem
+
+  .top
+    display: flex
+    width: 100%
+    margin-bottom: 1.1rem
+
+  .label,
+  .link
+    font-family: $font-lato
+    font-size: .6rem
+    text-transform: uppercase
+    letter-spacing: .08em
+
+  .label
+    font-weight: 500
+    color: transparentize($light-text-primary, .7)
+
+  .link
+    margin-left: auto
+    font-weight: 600
+    color: #308a59

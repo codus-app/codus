@@ -46,6 +46,9 @@ Vue.component('text-input', TextInput);
 import ContextMenu from './context-menu/context-menu.vue';
 Vue.component('context-menu', ContextMenu);
 
+import DashboardCard from './dashboard-card/dashboard-card.vue';
+Vue.component('dashboard-card', DashboardCard);
+
 // Classroom components
 
 import ClassroomHeader from './classroom/header.vue';
