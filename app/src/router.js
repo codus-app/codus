@@ -24,7 +24,7 @@ mainRouter.beforeEach(async (to, from, next) => {
     if (result instanceof Promise) {
       const routeChecking = to.path;
       result.then((result2) => {
-        if (window.app.$route.path === routeChecking) document.title = result2;
+        if (mainRouter.currentRoute.path === routeChecking) document.title = result2;
       });
     } else document.title = result;
   } else {

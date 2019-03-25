@@ -91,8 +91,12 @@ window.app = new Vue({
     },
 
     switchRoutes(role) {
-      router.matcher = routers[role].matcher;
-      router.replace(this.$route.fullPath);
+      this.$router.matcher = routers[role].matcher;
+      // Hack to force recomputing route (vue-router tries to skip over route transitions between
+      // identical routes)
+      this.$router.history.current = { matched: [] };
+      // Recompute the route we're already on
+      this.$router.replace(this.$route.fullPath);
     },
   },
 
