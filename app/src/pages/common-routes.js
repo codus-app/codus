@@ -35,7 +35,11 @@ export default [
     path: '/problem/:category/:name',
     name: 'problem',
     component: require('./editor/editor.vue').default,
-    meta: { collapseSidebar: true, protected: true },
+    meta: {
+      collapseSidebar: true,
+      protected: true,
+      title: ({ params }) => `${params.name} | Codus`,
+    },
   },
 
   // Settings pages
