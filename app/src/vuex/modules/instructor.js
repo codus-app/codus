@@ -56,7 +56,7 @@ export default {
       */
     async fetchClassroom({ commit }, code) {
       const classroom = await api.get({ endpoint: `/classroom/${code}`, store });
-      commit('mutateClassroom', classroom);
+      commit('mutateClassroom', { ...classroom, fetched: true });
     },
 
     /** Create a classroom */
@@ -76,7 +76,9 @@ export default {
   getters: {
     selectedClassroom(state) {
       if (state.selectedCode === null) return null;
-      return state.classrooms.find(({ code }) => code === state.selectedCode);
+      return state.classrooms.find(({ code }) => code === state.selectedCode) || {};
     },
+
+    getClassroom: state => c => state.classrooms.find(({ code }) => code === c) || {},
   },
 };
