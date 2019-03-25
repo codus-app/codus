@@ -40,6 +40,8 @@ export default {
       setTimeout(() => { this.shouldTransition = open; }, open ? 150 : 0);
       if (!open) this.managing = false;
     },
+
+    selectedClassroom() { this.open = false; },
   },
 
   methods: {
@@ -53,8 +55,17 @@ export default {
         this.$router.push({
           name: this.$route.name,
           params: { ...this.$route.params, classroomCode },
+          query: this.$route.query,
         });
       }
+    },
+
+    linkToClassroom(classroomCode) {
+      return this.$router.resolve({
+        name: this.$route.params.classroomCode ? this.$route.name : 'classroom-overview',
+        params: { ...this.$route.params, classroomCode },
+        query: this.$route.query,
+      }).route.fullPath;
     },
 
     closeOnClick(e) {

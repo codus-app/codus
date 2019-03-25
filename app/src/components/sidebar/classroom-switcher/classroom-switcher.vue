@@ -17,10 +17,10 @@
           v-bind:class="{ selected: classroom.code === (selectedClassroom || {}).code }"
           v-bind:key="classroom.code"
         >
-          <span
+          <router-link
             class="item label"
-            v-on:click="switchClassroom(classroom.code); open = false;"
-          ><span class="label">{{ classroom.name }}</span></span>
+            v-bind:to="linkToClassroom(classroom.code)"
+          >{{ classroom.name }}</router-link>
           <transition-staggered-slide v-bind:index="i">
             <icon-x
               class="remove"
