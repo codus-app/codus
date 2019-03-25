@@ -34,6 +34,7 @@ const iconNames = [
   { name: 'Trash2Icon', as: 'icon-trash' },
   'UploadCloudIcon',
   'UserIcon',
+  'UserPlusIcon',
   'UsersIcon',
   'XCircleIcon',
   'XIcon',

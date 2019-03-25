@@ -11,6 +11,7 @@ export default [
   {
     path: '/classroom/:classroomCode/overview',
     name: 'classroom-overview',
+    component: require('./classroom/instructor/overview/overview.vue').default,
     meta: { icon: 'book-open', label: 'Overview', category: `${namespace}/classroom`, protected: true },
   },
   {
