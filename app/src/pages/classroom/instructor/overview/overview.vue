@@ -7,7 +7,7 @@
       </template>
     </classroom-header>
 
-    <div class="grid">
+    <div class="grid" v-bind:class="{ unfetched: !fetched }">
       <dashboard-card class="students">
         <template slot="label">{{ (students || []).length || '' }} Students</template>
         <template slot="link">View all</template>

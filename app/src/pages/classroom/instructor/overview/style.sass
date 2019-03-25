@@ -1,9 +1,40 @@
+.classroom-header
+  padding: 0 4px
+
 .grid
   display: grid
   grid-gap: 20px
 
   justify-items: stretch
   align-items: stretch
+
+  &.unfetched
+    .card
+      box-shadow: none
+      opacity: .4
+
+      & /deep/
+        & > *
+          opacity: 0
+
+// Stagger fade-in cards
+
+.card
+  transition: opacity .35s
+
+  & /deep/
+    & > *
+      transition: opacity .35s
+
+  @for $i from 1 through 2
+    &:nth-child(#{$i})
+      $delay: .075s * ($i - 1)
+
+      &,
+      & /deep/
+        & > *
+          transition-delay: $delay
+
 
 @media (min-width: 1000px)
   .grid

@@ -7,7 +7,7 @@
 
   &,
   & > *
-    transition: opacity .3s
+    transition: opacity .35s
 
   &.empty
     box-shadow: none
@@ -18,7 +18,7 @@
 
   @for $i from 1 through 2
     &:nth-child(#{$i})
-      $delay: .05s * ($i - 1)
+      $delay: .075s * ($i - 1)
 
       &,
       & > *
