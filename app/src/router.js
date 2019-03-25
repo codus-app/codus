@@ -27,6 +27,8 @@ mainRouter.beforeEach(async (to, from, next) => {
         if (mainRouter.currentRoute.path === routeChecking) document.title = result2;
       });
     } else document.title = result;
+  } else if (to.meta.label) {
+    document.title = `${to.meta.label} | Codus`;
   } else {
     document.title = 'Codus';
   }
