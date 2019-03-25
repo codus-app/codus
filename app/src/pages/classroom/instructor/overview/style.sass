@@ -1,0 +1,17 @@
+.grid
+  display: grid
+  grid-gap: 20px
+
+  justify-items: stretch
+  align-items: stretch
+
+@media (min-width: 1000px)
+  .grid
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr)
+    grid-template-rows: minmax(0, 1fr)
+
+  .students
+    grid-area: 1 / 1 / 2 / 2
+
+  .assignments
+    grid-area: 1 / 2 / 2 / 3

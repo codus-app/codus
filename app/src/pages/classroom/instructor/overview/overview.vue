@@ -6,6 +6,18 @@
         <icon-settings></icon-settings>
       </template>
     </classroom-header>
+
+    <div class="grid">
+      <dashboard-card class="students">
+        <template slot="label">{{ (students || []).length }} Students</template>
+        <template slot="link">View all</template>
+      </dashboard-card>
+
+      <dashboard-card class="assignments">
+        <template slot="label">{{ (assignments || []).length }} Assignments</template>
+        <template slot="link">View all</template>
+      </dashboard-card>
+    </div>
   </div>
 </template>
 
