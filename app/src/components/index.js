@@ -46,5 +46,11 @@ Vue.component('text-input', TextInput);
 import ContextMenu from './context-menu/context-menu.vue';
 Vue.component('context-menu', ContextMenu);
 
+// Classroom components
+
+import ClassroomHeader from './classroom/header.vue';
+Vue.component('classroom-header', ClassroomHeader);
+
 // Transition effects
+
 import './transitions';

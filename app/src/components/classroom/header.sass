@@ -1,0 +1,30 @@
+@import 'src/styles/variables'
+
+.classroom-header
+  display: flex
+  align-items: center
+  margin-bottom: 1.5rem
+
+  h1
+    font-family: $font-lato
+    font-size: 1.35rem
+    color: $light-text-secondary
+    margin: 0
+
+  .actions
+    margin-left: auto
+    display: flex
+
+    .feather
+      width: .95rem
+      height: .95rem
+      cursor: pointer
+      color: $light-text-tertiary
+      transition: color .25s
+
+      &:not(:last-child)
+        margin-right: .8rem
+
+      &:hover
+        color: $light-text-secondary
+
