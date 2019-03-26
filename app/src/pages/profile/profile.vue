@@ -1,5 +1,5 @@
 <template>
-  <div class="cards-dashboard page">
+  <div class="cards-dashboard page" v-if="!notFound">
     <div class="top">
       <div class="summary card" v-bind:class="{ empty: !profileLoaded }">
         <user-profile-summary v-bind:profile="profile"></user-profile-summary>
@@ -32,6 +32,7 @@
       <div class="detail card c4 empty"></div>
     </div>
   </div>
+  <not-found v-else></not-found>
 </template>
 
 <script src="./script.js"></script>

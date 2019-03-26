@@ -4,6 +4,10 @@ import { mapGetters, mapActions } from 'vuex';
 import { clamp } from '../../helpers';
 
 export default {
+  data: () => ({
+    notFound: false,
+  }),
+
   computed: {
     ...mapGetters({ getUser: 'getUser', authenticatedUserProfile: 'profile' }),
 
@@ -34,7 +38,10 @@ export default {
 
     fetch() {
       const { username } = this;
-      if (username && !Object.keys(this.profile).length) this.fetchUser({ username });
+      if (username && !Object.keys(this.profile).length) {
+        this.fetchUser({ username })
+          .catch((e) => { if (e.endsWith('not found')) this.notFound = true; });
+      }
     },
 
     copyLink() {
@@ -55,5 +62,6 @@ export default {
 
   components: {
     'user-profile-summary': require('./components/user-profile-summary/user-profile-summary.vue').default,
+    'not-found': require('../404/404.vue').default,
   },
 };
