@@ -1,11 +1,12 @@
 import { createNamespacedHelpers } from 'vuex';
-const { mapGetters, mapActions } = createNamespacedHelpers('classroom/instructor');
+const { mapState, mapGetters, mapActions } = createNamespacedHelpers('classroom/instructor');
 
 export default {
   data: () => ({ }),
 
   computed: {
     ...mapGetters(['getClassroom']),
+    ...mapState(['classroomsFetched']),
     code() { return this.$route.params.classroomCode; },
     classroom() { return this.getClassroom(this.code); },
     fetched() { return this.classroom.fetched || false; },
@@ -15,8 +16,8 @@ export default {
 
   methods: {
     ...mapActions(['fetchClassroom']),
-    fetch() {
-      if (!this.classroom.fetched) this.fetchClassroom(this.code);
+    async fetch() {
+      if (this.classroom !== null && !this.classroom.fetched) await this.fetchClassroom(this.code);
     },
   },
 

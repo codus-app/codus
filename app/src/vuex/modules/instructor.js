@@ -84,9 +84,9 @@ export default {
   getters: {
     selectedClassroom(state) {
       if (state.selectedCode === null) return null;
-      return state.classrooms.find(({ code }) => code === state.selectedCode) || {};
+      return state.classrooms.find(({ code }) => code === state.selectedCode) || null;
     },
 
-    getClassroom: state => c => state.classrooms.find(({ code }) => code === c) || {},
+    getClassroom: state => c => state.classrooms.find(({ code }) => code === c) || null,
   },
 };

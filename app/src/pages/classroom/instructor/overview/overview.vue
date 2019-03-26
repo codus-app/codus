@@ -1,5 +1,5 @@
 <template>
-  <div class="cards-dashboard classroom page" v-bind:class="{ unfetched: !fetched }">
+  <div class="cards-dashboard classroom page" v-if="classroom !== null" v-bind:class="{ unfetched: !fetched }">
     <classroom-header>
       <template slot="actions">
         <icon-user-plus></icon-user-plus>
