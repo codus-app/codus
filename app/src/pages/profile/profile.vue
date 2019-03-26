@@ -1,5 +1,5 @@
 <template>
-  <div class="page">
+  <div class="cards-dashboard page">
     <div class="top">
       <div class="summary card" v-bind:class="{ empty: !profileLoaded }">
         <user-profile-summary v-bind:profile="profile"></user-profile-summary>
