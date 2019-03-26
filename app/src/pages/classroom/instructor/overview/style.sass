@@ -1,3 +1,5 @@
+@import 'src/styles/variables'
+
 .classroom-header
   padding: 0 4px
 
@@ -5,11 +7,58 @@
   display: flex
   flex-wrap: wrap
   margin-right: -20px
+  min-height: 13rem
 
   .card
-    flex-grow: 1
+    flex: 1 1 0
     min-width: 16rem
     margin: 0 20px 20px 0
+
+.students
+  ul.students-list
+    list-style-type: none
+    padding: 0
+    margin: 0
+
+    // display: flex
+    // flex-wrap: wrap
+    // justify-content: space-between
+    // margin-right: -.35rem
+
+    li.student
+      // flex: 0 1 40%
+      float: left
+      width: calc(50% - 1rem)
+      margin-right: 1rem
+      margin-bottom: .5rem
+
+      display: flex
+      align-items: center
+      justify-content: flex-start
+
+      @media (min-width: 1600px)
+        width: calc(33% - 1rem)
+
+
+      .image
+        width: 1.5rem
+        height: 1.5rem
+        flex: 0 0 1.5rem
+        border-radius: 50%
+        background-size: cover
+        margin-right: .6rem
+
+      .name
+        flex: 1 1 0
+        min-width: 0
+        font-family: $font-lato
+        font-weight: 400
+        font-size: .8rem
+        color: $light-text-secondary
+        white-space: nowrap
+        overflow: hidden
+        text-overflow: ellipsis
+
 
 
 // Stagger fade-in cards
@@ -38,15 +87,3 @@
       & /deep/
         & > *
           transition-delay: $delay
-
-
-@media (min-width: 1000px)
-  .grid
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr)
-    grid-template-rows: minmax(0, 1fr)
-
-  .students
-    grid-area: 1 / 1 / 2 / 2
-
-  .assignments
-    grid-area: 1 / 2 / 2 / 3
