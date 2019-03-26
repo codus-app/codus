@@ -1,5 +1,5 @@
 <template>
-  <div class="classroom page">
+  <div class="classroom page" v-bind:class="{ unfetched: !fetched }">
     <classroom-header>
       <template slot="actions">
         <icon-user-plus></icon-user-plus>
@@ -7,7 +7,7 @@
       </template>
     </classroom-header>
 
-    <div class="grid" v-bind:class="{ unfetched: !fetched }">
+    <div class="row">
       <dashboard-card class="students">
         <template slot="label">{{ (students || []).length || '' }} Students</template>
         <template slot="link">View all</template>

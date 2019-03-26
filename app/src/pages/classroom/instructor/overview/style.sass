@@ -1,23 +1,27 @@
 .classroom-header
   padding: 0 4px
 
-.grid
-  display: grid
-  grid-gap: 20px
+.row
+  display: flex
+  flex-wrap: wrap
+  margin-right: -20px
 
-  justify-items: stretch
-  align-items: stretch
+  .card
+    flex-grow: 1
+    min-width: 16rem
+    margin: 0 20px 20px 0
 
-  &.unfetched
-    .card
-      box-shadow: none
-      opacity: .4
-
-      & /deep/
-        & > *
-          opacity: 0
 
 // Stagger fade-in cards
+
+.unfetched
+  .card
+    box-shadow: none
+    opacity: .4
+
+    & /deep/
+      & > *
+        opacity: 0
 
 .card
   transition: opacity .35s
