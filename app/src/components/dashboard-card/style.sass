@@ -14,15 +14,18 @@
   .label,
   .link
     font-family: $font-lato
+    font-weight: 500
     font-size: .6rem
     text-transform: uppercase
     letter-spacing: .08em
 
   .label
-    font-weight: 500
     color: transparentize($light-text-primary, .7)
 
   .link
     margin-left: auto
-    font-weight: 600
     color: #308a59
+    transition: color .15s
+
+    &:hover
+      color: saturate(lighten(#308a59, 3%), 5%)

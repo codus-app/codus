@@ -9,12 +9,15 @@
 
     <div class="row">
       <dashboard-card class="students">
-        <template slot="label">{{ students.length || '' }} Students</template>
+        <template slot="label">
+          {{ students.length || '' }} Student<span v-if="students.length !== 1">s</span>
+        </template>
         <router-link
           slot="link"
           v-bind:to="{ name: 'classroom-students', params: $route.params }"
+          v-if="students.length"
         >View all</router-link>
-        <div class="students-list" v-if="students">
+        <div class="students-list" v-if="students.length">
           <router-link
             class="student"
             v-for="student in students.slice(0, 8)"
@@ -28,14 +31,26 @@
             <div class="name">{{ student.name }}</div>
           </router-link>
         </div>
+        <div class="empty" v-else>
+          <h3>There’s nobody here</h3>
+          <div class="cta"> <icon-plus></icon-plus> Invite students </div>
+        </div>
       </dashboard-card>
 
       <dashboard-card class="assignments">
-        <template slot="label">{{ assignments.length || '' }} Assignments</template>
+        <template slot="label">
+          {{ assignments.length || '' }} Assignment<span v-if="assignments.length !== 1">s</span>
+        </template>
         <router-link
           slot="link"
           v-bind:to="{ name: 'classroom-assignments', params: $route.params }"
+          v-if="assignments.length"
         >View all</router-link>
+        <div class="assignments-list" v-if="assignments.length"></div>
+        <div class="empty" v-else>
+          <h3>No assignments found</h3>
+          <div class="cta"> <icon-plus></icon-plus> Create assignment </div>
+        </div>
       </dashboard-card>
     </div>
   </div>
