@@ -10,7 +10,10 @@
     <div class="row">
       <dashboard-card class="students">
         <template slot="label">{{ students.length || '' }} Students</template>
-        <template slot="link">View all</template>
+        <router-link
+          slot="link"
+          v-bind:to="{ name: 'classroom-students', params: $route.params }"
+        >View all</router-link>
         <div class="students-list" v-if="students">
           <router-link
             class="student"
@@ -29,7 +32,10 @@
 
       <dashboard-card class="assignments">
         <template slot="label">{{ assignments.length || '' }} Assignments</template>
-        <template slot="link">View all</template>
+        <router-link
+          slot="link"
+          v-bind:to="{ name: 'classroom-assignments', params: $route.params }"
+        >View all</router-link>
       </dashboard-card>
     </div>
   </div>
