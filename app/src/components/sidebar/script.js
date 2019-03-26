@@ -1,4 +1,4 @@
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapState, mapGetters } from 'vuex';
 import routes from '../../pages';
 
 export default {
@@ -7,6 +7,7 @@ export default {
   computed: {
     ...mapGetters(['profile', 'role']),
     ...mapGetters('classroom/instructor', ['selectedClassroom']),
+    ...mapState('classroom/instructor', ['classroomsFetched']),
 
     routes() { return routes[this.role] || []; },
 

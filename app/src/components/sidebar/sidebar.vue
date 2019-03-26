@@ -33,16 +33,17 @@
 
       <!-- Links for instructor accounts -->
       <template v-if="role === 'instructor'">
-        <classroom-switcher v-if="!collapsed"></classroom-switcher>
-        <div v-if="selectedClassroom || !collapsed">
+        <classroom-switcher v-if="classroomsFetched && !collapsed"></classroom-switcher>
+        <div v-if="classroomsFetched && (selectedClassroom || !collapsed)">
           <sidebar-link
             v-for="r in getRoutes('instructor/classroom')"
             v-bind:key="r.path"
             v-bind="{ ...r, collapsed, disabled: !selectedClassroom, replaceParams }"
           ></sidebar-link>
         </div>
+
         <h2 v-if="!collapsed">Personal</h2>
-        <div class="divider" v-else-if="selectedClassroom"></div>
+        <div class="divider" v-else-if="classroomsFetched && selectedClassroom"></div>
         <sidebar-link
           v-for="r in getRoutes('instructor/personal')"
           v-bind:key="r.path"

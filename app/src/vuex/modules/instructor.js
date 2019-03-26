@@ -7,6 +7,7 @@ export default {
 
   state: {
     classrooms: [],
+    classroomsFetched: false,
     selectedCode: null,
   },
 
@@ -22,6 +23,7 @@ export default {
         // Add new classrooms
         ...fresh,
       ];
+      state.classroomsFetched = true;
 
       const stored = localStorage.getItem('instructor-context');
       if (!state.selectedCode && stored && state.classrooms.map(c => c.code).includes(stored)) {
