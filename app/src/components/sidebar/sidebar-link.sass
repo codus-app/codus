@@ -6,7 +6,7 @@
   font-size: .65rem
   display: flex
   align-items: center
-  margin: 1.25em 0 0
+  padding: .4rem 0
   position: relative
 
   transition: opacity .25s
@@ -30,7 +30,7 @@
   &:hover .indicator
     background: $green-1
     transform: translate(-.7rem)
-    transition: transform .075s .05s
+    transition: transform .075s
 
   &.router-link-exact-active .indicator
     background: linear-gradient(90deg, $green-1, $green-2)
@@ -40,7 +40,7 @@
   // Collapsed mode styles
 
   &.collapsed
-    margin: 1.6em 0 0
+    padding: .55rem 0
 
     svg
       width: .95rem
