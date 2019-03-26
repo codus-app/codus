@@ -24,4 +24,8 @@ export default {
   // Fetch each classroom that's not fetched
   created() { this.fetch(); },
   watch: { code() { this.fetch(); } },
+
+  components: {
+    'not-found': require('../../../404/404.vue').default,
+  },
 };

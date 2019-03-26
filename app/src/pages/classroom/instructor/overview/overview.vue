@@ -33,6 +33,8 @@
       </dashboard-card>
     </div>
   </div>
+
+  <not-found v-else></not-found>
 </template>
 
 <script src="./script.js"></script>
