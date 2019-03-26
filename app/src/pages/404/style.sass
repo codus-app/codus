@@ -84,17 +84,17 @@ $num-rings: 7
         opacity: 1 - ($i / ($num-rings + .75))
 
 
-  &.active
-    animation: pulse 1.25s infinite alternate ease-in-out
+  // &.active
+  //   animation: pulse 1.25s infinite alternate ease-in-out
 
-    .ring
-      box-shadow: 0 0 0 2px transparentize($active-color, .15)
+  //   .ring
+  //     box-shadow: 0 0 0 2px transparentize($active-color, .15)
 
-      @for $i from 1 through $num-rings
-        &:nth-child(#{$i})
-          transform: translate(-50%, -50%) scale(1.1)
-          transition-delay: ease-out-quad($i / ($num-rings + 1)) * .25s
-          transition-duration: .1s + sqrt($i * .75 + 1) * .15s
+  //     @for $i from 1 through $num-rings
+  //       &:nth-child(#{$i})
+  //         transform: translate(-50%, -50%) scale(1.1)
+  //         transition-delay: ease-out-quad($i / ($num-rings + 1)) * .25s
+  //         transition-duration: .1s + sqrt($i * .75 + 1) * .15s
 
 @keyframes pulse
   to
