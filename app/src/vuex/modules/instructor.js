@@ -22,6 +22,11 @@ export default {
         // Add new classrooms
         ...fresh,
       ];
+
+      const stored = localStorage.getItem('instructor-context');
+      if (!state.selectedCode && stored && state.classrooms.map(c => c.code).includes(stored)) {
+        state.selectedCode = stored;
+      }
     },
 
     mutateClassroom(state, payload) {
@@ -41,6 +46,7 @@ export default {
     switchClassroom(state, newCode) {
       if (!state.classrooms.map(({ code }) => code).includes(newCode)) state.selectedCode = null;
       else state.selectedCode = newCode;
+      localStorage.setItem('instructor-context', state.selectedCode);
     },
   },
 
