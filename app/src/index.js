@@ -58,7 +58,7 @@ window.app = new Vue({
     fetchPromise: undefined,
   },
   computed: {
-    ...mapGetters({ isAuthenticated: 'auth/isAuthenticated', authValid: 'auth/loginValid' }),
+    ...mapGetters({ isAuthenticated: 'auth/isAuthenticated', loginExpired: 'auth/loginExpired', authValid: 'auth/loginValid' }),
     ...mapGetters(['role']),
     ...mapState(['user']),
   },
@@ -73,6 +73,7 @@ window.app = new Vue({
     ...mapActions({
       fetchSolved: 'fetchSolved',
       fetchPrimaryUserProfile: 'fetchPrimaryUserProfile',
+      renew: 'auth/renew',
       logout: 'auth/logout',
     }),
 
@@ -114,8 +115,13 @@ window.app = new Vue({
 
       // We're already logged in! Just fetch and go
       if (this.authValid()) this.initialFetch().then(resolve);
+      // We need to renew
+      else if (this.isAuthenticated && this.loginExpired()) {
+        this.renew()
+          .then(this.initialFetch)
+          .then(resolve);
       // We're not logged in; wait for authentication, then fetch
-      else this.$once('loggedIn', () => this.initialFetch().then(resolve));
+      } else this.$once('loggedIn', () => this.initialFetch().then(resolve));
       return undefined;
     })
       .then(() => { if (this.role) this.switchRoutes(this.role); });
