@@ -1,0 +1,50 @@
+@import 'src/styles/variables'
+
+.methods
+  display: flex
+  margin: 1.25rem 2rem 1rem
+
+  .method
+    flex: 0 0 0
+    display: flex
+    flex-direction: column
+    align-items: center
+    font-family: $font-lato
+    font-weight: 700
+    font-size: .65rem
+    color: transparentize($white, .5)
+    transition: color .2s
+    cursor: pointer
+    padding: 0 .75rem
+
+    .icon
+      width: 3.25rem
+      height: 3.25rem
+      border-radius: 50%
+      background: saturate(lighten($dark-2, 2%), 2%)
+      color: $white
+      opacity: .5
+      transition: opacity .2s
+      margin-bottom: .2rem
+
+      display: flex
+      align-items: center
+      justify-content: center
+
+      .feather-mail
+        width: 1.45rem
+        height: 1.45rem
+
+      svg
+        width: 1.7rem
+        height: .8rem
+
+      .feather-link
+        width: 1.35rem
+        height: 1.35rem
+
+    &:hover
+      color: transparentize($white, .35)
+
+      .icon
+        opacity: .65

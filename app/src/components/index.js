@@ -54,6 +54,9 @@ Vue.component('dashboard-card', DashboardCard);
 import ClassroomHeader from './classroom/header.vue';
 Vue.component('classroom-header', ClassroomHeader);
 
+import ClassroomInvitation from './classroom/invitation/invitation.vue';
+Vue.component('classroom-invitation-modal', ClassroomInvitation);
+
 // Transition effects
 
 import './transitions';
