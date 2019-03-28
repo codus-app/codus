@@ -11,6 +11,10 @@
     fade-color="rgba(30, 30, 33, .65)"
     v-bind:wide="true"
   >
+    <!-- Back arrow -->
+    <icon-arrow-left v-if="page !== 'list'" v-on:click="page = 'list'"></icon-arrow-left>
+
+
     <template v-if="page === 'list'">
       <h2 class="header">Invite students</h2>
 
@@ -59,4 +63,5 @@
 
 <script src="./script.js"></script>
 
+<style scoped lang="sass" src="./style.sass"></style>
 <style scoped lang="sass" src="./methods.sass"></style>

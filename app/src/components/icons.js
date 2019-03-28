@@ -3,6 +3,7 @@ import Vue from 'vue';
 import * as icons from 'vue-feather-icons';
 
 const iconNames = [
+  'ArrowLeftIcon',
   'AtSignIcon',
   'BookOpenIcon',
   'CameraIcon',
