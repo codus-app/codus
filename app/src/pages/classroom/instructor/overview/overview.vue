@@ -1,8 +1,12 @@
 <template>
-  <div class="cards-dashboard classroom page" v-if="classroom !== null" v-bind:class="{ unfetched: !fetched }">
+  <div
+    class="cards-dashboard classroom page"
+    v-if="classroom !== null"
+    v-bind:class="{ unfetched: !fetched }"
+  >
     <classroom-header>
       <template slot="actions">
-        <icon-user-plus></icon-user-plus>
+        <icon-user-plus v-on:click="invitationOpen = true"></icon-user-plus>
         <icon-settings></icon-settings>
       </template>
     </classroom-header>
@@ -33,7 +37,9 @@
         </div>
         <div class="empty" v-else>
           <h3>There’s nobody here</h3>
-          <div class="cta"> <icon-plus></icon-plus> Invite students </div>
+          <div class="cta" v-on:click="invitationOpen = true">
+            <icon-plus></icon-plus> Invite students
+          </div>
         </div>
       </dashboard-card>
 
@@ -53,6 +59,11 @@
         </div>
       </dashboard-card>
     </div>
+
+    <classroom-invitation-modal
+      v-bind:open="invitationOpen"
+      v-on:close="invitationOpen = false"
+    ></classroom-invitation-modal>
   </div>
 
   <not-found v-else></not-found>
