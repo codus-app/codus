@@ -24,15 +24,16 @@ h2
 
 .page-wrapper
   position: absolute
-  top: 1rem
+  top: 50%
   left: 0
   width: 100%
 
   .page
     position: relative
     left: 50%
+    top: 50%
+    transform: translate(-50%, -50%)
     overflow: hidden
-    transform: translate(-50%)
 
 
 
@@ -55,15 +56,14 @@ h2
     top: 0
     left: 50%
     width: 100%
-    transform: translate(-50%)
-
+    transform: translate(-50%, 0)
 
   .above-enter,
   .above-leave-to
     opacity: 0
-    transform: translate(-50%) translateY(2.5rem)
+    transform: translate(-50%, -50%) translateY(-3rem)
 
   .below-enter,
   .below-leave-to
     opacity: 0
-    transform: translate(-50%) translateY(-2.5rem)
+    transform: translate(-50%, -50%) translateY(3rem)
