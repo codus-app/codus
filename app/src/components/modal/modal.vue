@@ -11,7 +11,7 @@
           <slot name="header"></slot>
         </div>
         <!-- Content -->
-        <div class="message">
+        <div class="content">
           <slot></slot>
         </div>
         <!-- Buttons -->

@@ -1,5 +1,11 @@
 @import 'src/styles/variables'
 
+h2
+  font-size: 1.15rem
+  font-weight: 900
+  color: $light-text-primary
+  margin: 0
+
 .feather-arrow-left
   position: absolute
   top: .85rem
@@ -14,3 +20,50 @@
 
   &:hover
     opacity: .75
+
+
+.page-wrapper
+  position: absolute
+  top: 1rem
+  left: 0
+  width: 100%
+
+  .page
+    position: relative
+    left: 50%
+    overflow: hidden
+    transform: translate(-50%)
+
+
+
+
+  .above-enter-active,
+  .below-enter-active
+    transition: transform .25s, opacity .25s
+
+  .above-leave-active,
+  .below-leave-active
+    transition: transform .25s, opacity .2s
+
+  .above-leave,
+  .above-leave-active,
+  .above-leave-to,
+  .below-leave,
+  .below-leave-active,
+  .below-leave-to
+    position: absolute
+    top: 0
+    left: 50%
+    width: 100%
+    transform: translate(-50%)
+
+
+  .above-enter,
+  .above-leave-to
+    opacity: 0
+    transform: translate(-50%) translateY(2.5rem)
+
+  .below-enter,
+  .below-leave-to
+    opacity: 0
+    transform: translate(-50%) translateY(-2.5rem)
