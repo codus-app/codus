@@ -1,5 +1,5 @@
 export default {
-  props: { open: Boolean },
+  props: { open: Boolean, classroom: Object },
 
   data: () => ({
     page: 'list', // One of 'list', 'email', 'code', or 'link'

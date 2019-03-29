@@ -67,7 +67,10 @@
       <transition name="below">
         <div class="page" v-if="page === 'code'">
           <h2>Share invite code</h2>
-          Code here!
+          <div class="invite-code">
+            {{ classroom.code }}
+            <icon-maximize></icon-maximize>
+          </div>
         </div>
       </transition>
 
@@ -88,3 +91,4 @@
 
 <style scoped lang="sass" src="./style.sass"></style>
 <style scoped lang="sass" src="./methods.sass"></style>
+<style scoped lang="sass" src="./invite-code.sass"></style>

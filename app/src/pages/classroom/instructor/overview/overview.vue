@@ -63,6 +63,7 @@
     <classroom-invitation-modal
       v-bind:open="invitationOpen"
       v-on:close="invitationOpen = false"
+      v-bind:classroom="classroom"
     ></classroom-invitation-modal>
   </div>
 

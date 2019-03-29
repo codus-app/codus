@@ -94,7 +94,8 @@ export default {
     collapsed() {
       setTimeout(() => {
         this.computeBounds();
-        this.$refs['content-scroll'].SimpleBar.recalculate();
+        const { SimpleBar } = this.$refs['content-scroll'];
+        if (SimpleBar) SimpleBar.recalculate();
       }, 500);
     },
   },
