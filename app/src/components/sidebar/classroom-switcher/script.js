@@ -26,7 +26,7 @@ export default {
     sortedClassrooms() {
       return [
         // First the selected classroom (if there is one)
-        ...this.selectedClassroom && [this.selectedClassroom],
+        ...this.selectedClassroom ? [this.selectedClassroom] : [],
         // Then the other classrooms sorted by name
         ...this.classrooms
           .filter(({ code }) => code !== (this.selectedClassroom || {}).code)
