@@ -14,7 +14,9 @@
     v-bind:wide="true"
   >
     <!-- Back arrow -->
-    <icon-arrow-left v-if="page !== 'list'" v-on:click="page = 'list'"></icon-arrow-left>
+    <transition-fade>
+      <icon-arrow-left v-if="page !== 'list'" v-on:click="page = 'list'"></icon-arrow-left>
+    </transition-fade>
 
 
     <div class="page-wrapper" ref="pageWrapper">
