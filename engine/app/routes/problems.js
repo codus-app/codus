@@ -240,7 +240,8 @@ module.exports.userSolution = {
           passed: results.passed,
           tests: results.tests.map(t => ({
             ...t,
-            ...(t.hidden ? { expected: undefined, value: undefined } : {}),
+            // Censor 'expected' and 'value' from hidden test cases
+            ...t.hidden && { expected: undefined, value: undefined },
           })),
           error: null,
           solution: {

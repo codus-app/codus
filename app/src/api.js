@@ -8,7 +8,7 @@ async function apiRequest({ endpoint, method, heads, body, signal, store }) {
   if (authed && store.getters['auth/loginExpired']()) await store.dispatch('auth/renew');
 
   const headers = {
-    ...authed ? { Authorization: `Bearer ${store.state.auth.accessToken}` } : {},
+    ...authed && { Authorization: `Bearer ${store.state.auth.accessToken}` },
     ...heads,
   };
 

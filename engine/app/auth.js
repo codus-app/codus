@@ -69,8 +69,8 @@ module.exports.updateUser = async function updateUser(id, { username, email, nam
   // eslint-disable-next-line camelcase
   const user_metadata = {
     // Only include keys if they're defined, avoid setting name or picture to undefined
-    ...(name ? { name } : {}),
-    ...(picture ? { picture } : {}),
+    ...name && { name },
+    ...picture && { picture },
   };
 
   // Can't update email and username in the same request so send SEPARATE requests if those both

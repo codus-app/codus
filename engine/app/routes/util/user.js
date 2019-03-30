@@ -11,7 +11,7 @@ module.exports = {
       username,
       name: user_metadata.name,
       picture: user_metadata.picture,
-      ...solutionProgress ? { solutionProgress } : {}, // Optional
+      ...solutionProgress && { solutionProgress }, // Optional
       role,
     };
   },
