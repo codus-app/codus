@@ -13,6 +13,12 @@ export default {
         ? 'transform .35s cubic-bezier(.175, .885, .32, 1.275), opacity .35s'
         : 'transform .2s cubic-bezier(.55, .085, .68, .53), opacity .2s cubic-bezier(.55, .085, .68, .53)';
     },
+
+    modalWidth() {
+      return this.page === 'code'
+        ? '27.5rem'
+        : '20rem';
+    },
   },
 
   methods: {

@@ -19,7 +19,7 @@
       </span>
       <component
         v-if="canCollapse"
-        v-bind:is="collapsed ? 'icon-maximize-2' : 'icon-minimize-2'"
+        v-bind:is="collapsed ? 'icon-maximize' : 'icon-minimize'"
         v-on:click="(collapsed ? expand : collapse)()"
       ></component>
     </div>

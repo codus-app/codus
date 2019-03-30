@@ -4,11 +4,11 @@
     v-on:close="$emit('close')"
     v-bind:modalStyle="{
       backgroundColor: '#131313',
-      width: '20rem',
       padding: '1rem',
       marginRight: '-12rem',
+      width: modalWidth,
       height: modalHeight,
-      transition: `${modalBaseTransition}, height .25s`,
+      transition: `${modalBaseTransition}, width .25s, height .25s`,
     }"
     fade-color="rgba(30, 30, 33, .65)"
     v-bind:wide="true"
@@ -68,10 +68,8 @@
 
       <transition name="below">
         <div class="page" v-if="page === 'code'">
-          <h2>Share invite code</h2>
           <div class="invite-code">
             {{ classroom.code }}
-            <icon-maximize></icon-maximize>
           </div>
         </div>
       </transition>
