@@ -22,8 +22,7 @@ export default {
 
   methods: {
     updateHeight() {
-      const el = this.$refs.pageWrapper || document.getElementById('modal-target').getElementsByClassName('page-wrapper')[0];
-      const height = `${el.offsetHeight}px`;
+      const height = `${this.$refs.pageWrapper.offsetHeight}px`;
       this.modalHeight = `calc(${height} + 2rem)`;
     },
   },

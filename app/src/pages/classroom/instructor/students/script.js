@@ -2,10 +2,6 @@ import { createNamespacedHelpers } from 'vuex';
 const { mapState, mapGetters, mapActions } = createNamespacedHelpers('classroom/instructor');
 
 export default {
-  data: () => ({
-    invitationOpen: false,
-  }),
-
   computed: {
     ...mapGetters(['getClassroom']),
     ...mapState(['classroomsFetched']),

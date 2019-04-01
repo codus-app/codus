@@ -6,18 +6,12 @@
   >
     <classroom-header>
       <template slot="actions">
-        <icon-user-plus v-on:click="invitationOpen = true"></icon-user-plus>
+        <icon-user-plus v-on:click="$emit('open-invitation')"></icon-user-plus>
         <icon-settings></icon-settings>
       </template>
     </classroom-header>
 
     Students!
-
-    <classroom-invitation-modal
-      v-bind:open="invitationOpen"
-      v-on:close="invitationOpen = false"
-      v-bind:classroom="classroom"
-    ></classroom-invitation-modal>
   </div>
 
   <not-found v-else></not-found>
