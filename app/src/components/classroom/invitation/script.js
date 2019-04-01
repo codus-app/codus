@@ -4,7 +4,6 @@ export default {
   data: () => ({
     page: 'list', // One of 'list', 'email', 'code', or 'link'
     modalHeight: 'calc(200px + 2rem)',
-    windowSize: [window.innerWidth, window.innerHeight],
   }),
 
   computed: {
@@ -23,7 +22,8 @@ export default {
 
   methods: {
     updateHeight() {
-      const height = `${this.$refs.pageWrapper.offsetHeight}px`;
+      const el = this.$refs.pageWrapper || document.getElementById('modal-target').getElementsByClassName('page-wrapper')[0];
+      const height = `${el.offsetHeight}px`;
       this.modalHeight = `calc(${height} + 2rem)`;
     },
   },
