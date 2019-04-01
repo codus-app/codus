@@ -17,6 +17,7 @@ export default [
   {
     path: '/classroom/:classroomCode/students',
     name: 'classroom-students',
+    component: require('./classroom/instructor/students/students.vue').default,
     meta: { icon: 'users', label: 'Students', category: `${namespace}/classroom`, protected: true },
   },
   {
