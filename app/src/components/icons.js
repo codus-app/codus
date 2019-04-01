@@ -18,6 +18,7 @@ const iconNames = [
   'EditIcon',
   'FileIcon',
   'FileTextIcon',
+  'FilePlusIcon',
   'FolderIcon',
   'HomeIcon',
   'InboxIcon',
