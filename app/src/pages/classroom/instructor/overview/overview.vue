@@ -1,7 +1,6 @@
 <template>
   <div
     class="cards-dashboard classroom page"
-    v-if="classroom !== null"
     v-bind:class="{ unfetched: !fetched }"
   >
     <classroom-header>
@@ -60,8 +59,6 @@
       </dashboard-card>
     </div>
   </div>
-
-  <not-found v-else></not-found>
 </template>
 
 <script src="./script.js"></script>
