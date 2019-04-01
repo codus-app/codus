@@ -1,3 +1,4 @@
+import urljoin from 'url-join';
 import { mapActions, mapState, mapGetters } from 'vuex';
 import routes from '../../pages';
 
@@ -9,7 +10,21 @@ export default {
     ...mapGetters('classroom/instructor', ['selectedClassroom']),
     ...mapState('classroom/instructor', ['classroomsFetched']),
 
-    routes() { return routes[this.role] || []; },
+    routes() {
+      const roleRoutes = routes[this.role] || [];
+      return [
+        // Routes without children can be added straight up
+        ...roleRoutes.filter(r => !r.children),
+        // Routes with children need to be processed (only works 1 level deep)
+        ...roleRoutes
+          .filter(r => r.children)
+          // Convert to nested array of child routes where each route has its path adjusted to be
+          // absolute
+          .map(r => r.children.map(r2 => ({ ...r2, path: urljoin(r.path, r2.path) })))
+          // Flatten that
+          .flat(),
+      ];
+    },
 
     username() { return this.profile.username || this.profile.nickname; },
   },
