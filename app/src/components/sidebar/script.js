@@ -44,7 +44,9 @@ export default {
         // Replace '/:username' with the user's username
         .replace(/\/:username(?=$|\/)/g, `/${this.username}`)
         // Replace '/:classroomCode' with the current classroom's code
-        .replace(/\/:classroomCode(?=$|\/)/g, `/${currentClassCode}`);
+        .replace(/\/:classroomCode(?=$|\/)/g, `/${currentClassCode}`)
+        // Replace optional params at the end of routes with nothing
+        .replace(/\/:.*\?\/?$/g, '/');
     },
 
     openContextMenu() {
