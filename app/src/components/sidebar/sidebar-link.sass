@@ -32,7 +32,8 @@
     transform: translate(-.7rem)
     transition: transform .075s
 
-  &.router-link-exact-active .indicator
+  &.router-link-exact-active .indicator,
+  &.loose-match.router-link-active .indicator
     background: linear-gradient(90deg, $green-1, $green-2)
     transform: none
     transition: transform .1s ease-out, background .1s

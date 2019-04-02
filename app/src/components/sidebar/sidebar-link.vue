@@ -1,6 +1,6 @@
 <template>
   <router-link
-    class="sb-link" v-bind:class="{ collapsed, disabled }"
+    class="sb-link" v-bind:class="{ collapsed, disabled, 'loose-match': meta.looseMatch }"
     v-bind:to="replaceParams(path)"
     v-bind:title="collapsed ? meta.label : ''"
   >
