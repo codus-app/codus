@@ -19,10 +19,10 @@ export default [
         meta: { icon: 'book-open', label: 'Overview', category: `${namespace}/classroom`, protected: true },
       },
       {
-        path: 'students',
+        path: 'students/:username?',
         name: 'classroom-students',
         component: require('./classroom/instructor/students/students.vue').default,
-        meta: { icon: 'users', label: 'Students', category: `${namespace}/classroom`, protected: true },
+        meta: { icon: 'users', label: 'Students', category: `${namespace}/classroom`, looseMatch: true, protected: true },
       },
       {
         path: 'assignments',

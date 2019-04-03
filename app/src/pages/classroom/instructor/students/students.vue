@@ -14,7 +14,7 @@
       <router-link
         class="student"
         v-for="student in students"
-        v-bind:to="''"
+        v-bind:to="{ name: 'classroom-students', params: { ...$route.params, username: student.username } }"
         v-bind:key="student.username"
       >
         <div
