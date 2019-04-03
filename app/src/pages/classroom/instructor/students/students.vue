@@ -10,7 +10,26 @@
       </template>
     </classroom-header>
 
-    Students!
+    <div class="left students-list">
+      <router-link
+        class="student"
+        v-for="student in students"
+        v-bind:to="''"
+        v-bind:key="student.username"
+      >
+        <div
+          class="image"
+          v-bind:style="{
+            'background-image': `url(${student.picture})`,
+            ...student.picture.endsWith('avatar.svg') && { filter: 'brightness(80%)' },
+          }"
+        ></div>
+        <div class="info">
+          <div class="name">{{ student.name }}</div>
+          <div class="username"><icon-at-sign></icon-at-sign> {{ student.username }}</div>
+        </div>
+      </router-link>
+    </div>
   </div>
 </template>
 
