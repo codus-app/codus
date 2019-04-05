@@ -16,7 +16,10 @@
           <router-link
             class="student"
             v-for="student in students"
-            v-bind:to="{ name: 'classroom-students', params: { ...$route.params, username: student.username } }"
+            v-bind:to="{
+              name: 'classroom-students',
+              params: { ...$route.params, username: student.username }
+            }"
             v-bind:key="student.username"
           >
             <div
@@ -35,7 +38,11 @@
       </div>
 
       <div class="right" v-bind:class="{ empty: !$route.params.username }">
-        <div class="student-details" v-if="fetched && $route.params.username"> {{ selectedStudent.name }} </div>
+        <user-profile
+          class="student-details"
+          v-if="fetched && $route.params.username"
+          v-bind:username-override="$route.params.username"
+        ></user-profile>
         <div class="empty-message" v-else-if="fetched">
           Select a student from the list to the left to view detailed information here
         </div>

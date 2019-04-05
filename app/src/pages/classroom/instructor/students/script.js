@@ -9,4 +9,8 @@ export default {
         .find(({ username }) => username === this.$route.params.username);
     },
   },
+
+  components: {
+    'user-profile': require('../../../profile/profile.vue').default,
+  },
 };
