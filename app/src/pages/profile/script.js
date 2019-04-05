@@ -4,6 +4,8 @@ import { mapGetters, mapActions } from 'vuex';
 import { clamp } from '../../helpers';
 
 export default {
+  props: { usernameOverride: String },
+
   data: () => ({
     notFound: false,
   }),
@@ -11,7 +13,7 @@ export default {
   computed: {
     ...mapGetters({ getUser: 'getUser', authenticatedUserProfile: 'profile' }),
 
-    username() { return this.$route.params.username; },
+    username() { return this.usernameOverride || this.$route.params.username; },
 
     profile() { return this.getUser(this.username); },
     profileLoaded() { return Object.keys(this.profile).length; },
