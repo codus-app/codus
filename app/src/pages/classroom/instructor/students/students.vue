@@ -37,10 +37,10 @@
         </simplebar>
       </div>
 
-      <div class="right" v-bind:class="{ empty: !$route.params.username }">
+      <div class="right" v-bind:class="{ empty: fetched && this.selectedStudent === null }">
         <user-profile
           class="student-details"
-          v-if="fetched && $route.params.username"
+          v-if="fetched && this.selectedStudent !== null"
           v-bind:username-override="$route.params.username"
         ></user-profile>
         <div class="empty-message" v-else-if="fetched">
