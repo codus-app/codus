@@ -6,7 +6,7 @@
   flex-direction: column
 
 .classroom-header
-  padding: 0 4px 0 6px
+  padding: 0 4px
   flex: 0 0 auto
 
 .page-content
@@ -16,7 +16,7 @@
 
 .left.students-list
   width: calc(15rem + 15px)
-  margin-right: -15px
+  margin: -.85rem -15px 0 -1rem
   flex: 0 0 15rem
   max-height: 100%
 
@@ -25,16 +25,16 @@
     align-items: center
     padding: .85rem 0
     border-top: 1.5px solid rgba(#cfd0e5, .075)
+    margin-left: 1rem
     margin-right: 15px
 
     &:first-child
-      margin-top: -.85rem
       border-top: 0
 
     &.router-link-active
       border-top-color: transparent
       padding-left: 1rem
-      margin-left: -1rem
+      margin-left: 0
       border-radius: 4px
       background: $dark-4
       transition: background .2s, border-color .2s
@@ -102,3 +102,6 @@
 
   .student-details
     padding: 0
+
+    & /deep/ .top
+      margin-top: 0
