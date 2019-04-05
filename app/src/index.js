@@ -6,6 +6,8 @@ import 'babel-polyfill';
 import 'promise-polyfill';
 import 'abortcontroller-polyfill';
 import 'whatwg-fetch';
+import ElementQueries from 'css-element-queries/src/ElementQueries';
+ElementQueries.listen();
 
 // Vue
 import Vue from 'vue';
