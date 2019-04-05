@@ -13,29 +13,31 @@
           v-bind:items="profileContextItems"
         ></context-menu>
       </div>
-      <div
-        class="detail card c1"
-        style="cursor: pointer"
-        v-bind:class="{ empty: !profileLoaded }"
-        v-on:click="exactSolutions = !exactSolutions"
-      >
-        <div class="left">
-          <radial-progress
-            type="ring"
-            v-bind:progress="proportionSolved || 0"
-            v-bind:transition-delay="150"
-            v-bind:transition-duration="550"
-          ></radial-progress>
+      <slot name="card-1">
+        <div
+          class="detail card c1"
+          style="cursor: pointer"
+          v-bind:class="{ empty: !profileLoaded }"
+          v-on:click="exactSolutions = !exactSolutions"
+        >
+          <div class="left">
+            <radial-progress
+              type="ring"
+              v-bind:progress="proportionSolved || 0"
+              v-bind:transition-delay="150"
+              v-bind:transition-duration="550"
+            ></radial-progress>
+          </div>
+          <div class="right">
+            <div class="large" v-if="exactSolutions && profile.solutionProgress">{{ profile.solutionProgress[0] }}</div>
+            <div class="large" v-else>{{ Math.floor(proportionSolved * 100)}}%</div>
+            <div class="small">Problems solved</div>
+          </div>
         </div>
-        <div class="right">
-          <div class="large" v-if="exactSolutions && profile.solutionProgress">{{ profile.solutionProgress[0] }}</div>
-          <div class="large" v-else>{{ Math.floor(proportionSolved * 100)}}%</div>
-          <div class="small">Problems solved</div>
-        </div>
-      </div>
-      <div class="detail card c2 empty"></div>
-      <div class="detail card c3 empty"></div>
-      <div class="detail card c4 empty"></div>
+      </slot>
+      <slot name="card-2"><div class="detail card c2 empty"></div></slot>
+      <slot name="card-3"><div class="detail card c3 empty"></div></slot>
+      <slot name="card-4"><div class="detail card c4 empty"></div></slot>
     </div>
   </div>
   <not-found v-else></not-found>
