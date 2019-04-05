@@ -10,25 +10,35 @@
       </template>
     </classroom-header>
 
-    <div class="left students-list">
-      <router-link
-        class="student"
-        v-for="student in students"
-        v-bind:to="{ name: 'classroom-students', params: { ...$route.params, username: student.username } }"
-        v-bind:key="student.username"
-      >
-        <div
-          class="image"
-          v-bind:style="{
-            'background-image': `url(${student.picture})`,
-            ...student.picture.endsWith('avatar.svg') && { filter: 'brightness(80%)' },
-          }"
-        ></div>
-        <div class="info">
-          <div class="name">{{ student.name }}</div>
-          <div class="username"><icon-at-sign></icon-at-sign> {{ student.username }}</div>
+    <div class="page-content">
+      <div class="left students-list">
+        <router-link
+          class="student"
+          v-for="student in students"
+          v-bind:to="{ name: 'classroom-students', params: { ...$route.params, username: student.username } }"
+          v-bind:key="student.username"
+        >
+          <div
+            class="image"
+            v-bind:style="{
+              'background-image': `url(${student.picture})`,
+              ...student.picture.endsWith('avatar.svg') && { filter: 'brightness(80%)' },
+            }"
+          ></div>
+          <div class="info">
+            <div class="name">{{ student.name }}</div>
+            <div class="username"><icon-at-sign></icon-at-sign> {{ student.username }}</div>
+          </div>
+        </router-link>
+      </div>
+
+      <div class="right" v-bind:class="{ empty: !$route.params.username }">
+        <div class="student-details" v-if="fetched && $route.params.username"> {{ selectedStudent.name }} </div>
+        <div class="empty-message" v-else-if="fetched">
+          Select a student from the list to the left to view detailed information here
         </div>
-      </router-link>
+        <div class="loading" v-else></div>
+      </div>
     </div>
   </div>
 </template>
