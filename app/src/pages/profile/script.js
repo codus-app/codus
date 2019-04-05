@@ -8,6 +8,7 @@ export default {
 
   data: () => ({
     notFound: false,
+    exactSolutions: false,
   }),
 
   computed: {

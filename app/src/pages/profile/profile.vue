@@ -13,7 +13,12 @@
           v-bind:items="profileContextItems"
         ></context-menu>
       </div>
-      <div class="detail card c1" v-bind:class="{ empty: !profileLoaded }">
+      <div
+        class="detail card c1"
+        style="cursor: pointer"
+        v-bind:class="{ empty: !profileLoaded }"
+        v-on:click="exactSolutions = !exactSolutions"
+      >
         <div class="left">
           <radial-progress
             type="ring"
@@ -23,7 +28,8 @@
           ></radial-progress>
         </div>
         <div class="right">
-          <div class="large">{{ Math.floor(proportionSolved * 100)}}%</div>
+          <div class="large" v-if="exactSolutions && profile.solutionProgress">{{ profile.solutionProgress[0] }}</div>
+          <div class="large" v-else>{{ Math.floor(proportionSolved * 100)}}%</div>
           <div class="small">Problems solved</div>
         </div>
       </div>
