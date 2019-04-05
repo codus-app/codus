@@ -42,6 +42,7 @@
           class="student-details"
           v-if="fetched && this.selectedStudent !== null"
           v-bind:username-override="$route.params.username"
+          v-bind:context-items="profileContextItems"
         ></user-profile>
         <div class="empty-message" v-else-if="fetched">
           Select a student from the list to the left to view detailed information here

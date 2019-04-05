@@ -1,6 +1,26 @@
 export default {
   props: { classroom: Object },
 
+  data() {
+    return {
+      profileContextItems: [
+        {
+          icon: 'external-link',
+          label: 'View full profile',
+          onclick: () => this.$router.push({
+            name: 'profile',
+            params: { username: this.$route.params.username },
+          }),
+        },
+        {
+          icon: 'user-x',
+          label: 'Remove',
+          onclick: () => this.removeUser(this.selectedStudent),
+        },
+      ],
+    };
+  },
+
   computed: {
     fetched() { return this.classroom.fetched || false; },
     students() { return this.classroom.students || []; },
@@ -11,8 +31,10 @@ export default {
     },
   },
 
-  components: {
-    'user-profile': require('../../../profile/profile.vue').default,
+  methods: {
+    removeUser() {
+      // TODO
+    },
   },
 
   watch: {
@@ -27,5 +49,9 @@ export default {
         });
       }
     },
+  },
+
+  components: {
+    'user-profile': require('../../../profile/profile.vue').default,
   },
 };
