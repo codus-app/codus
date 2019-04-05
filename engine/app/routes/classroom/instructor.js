@@ -34,6 +34,9 @@ module.exports.classrooms = {
     const students = mongoStudents
       .map(s => publicizeUser(s, auth0Students.find(s2 => s2.user_id === s.userId)));
 
+    const lastName = ({ name }) => name.trim().split(' ').slice(-1)[0];
+    students.sort((a, b) => lastName(a).localeCompare(lastName(b)) || a.name.localeCompare(b.name));
+
     return res.json({
       data: {
         ...classroom.toObject(),
