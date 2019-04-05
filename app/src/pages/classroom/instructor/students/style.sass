@@ -10,19 +10,22 @@
   flex: 0 0 auto
 
 .page-content
-  flex-grow: 1
+  flex: 1 1 0
   display: flex
   align-items: stretch
 
 .left.students-list
-  width: 15rem
+  width: calc(15rem + 15px)
+  margin-right: -15px
   flex: 0 0 15rem
+  max-height: 100%
 
   .student
     display: flex
     align-items: center
     padding: .85rem 0
     border-top: 1.5px solid rgba(#cfd0e5, .075)
+    margin-right: 15px
 
     &:first-child
       margin-top: -.85rem

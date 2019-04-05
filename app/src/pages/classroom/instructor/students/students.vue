@@ -12,24 +12,26 @@
 
     <div class="page-content">
       <div class="left students-list">
-        <router-link
-          class="student"
-          v-for="student in students"
-          v-bind:to="{ name: 'classroom-students', params: { ...$route.params, username: student.username } }"
-          v-bind:key="student.username"
-        >
-          <div
-            class="image"
-            v-bind:style="{
-              'background-image': `url(${student.picture})`,
-              ...student.picture.endsWith('avatar.svg') && { filter: 'brightness(80%)' },
-            }"
-          ></div>
-          <div class="info">
-            <div class="name">{{ student.name }}</div>
-            <div class="username"><icon-at-sign></icon-at-sign> {{ student.username }}</div>
-          </div>
-        </router-link>
+        <simplebar>
+          <router-link
+            class="student"
+            v-for="student in students"
+            v-bind:to="{ name: 'classroom-students', params: { ...$route.params, username: student.username } }"
+            v-bind:key="student.username"
+          >
+            <div
+              class="image"
+              v-bind:style="{
+                'background-image': `url(${student.picture})`,
+                ...student.picture.endsWith('avatar.svg') && { filter: 'brightness(80%)' },
+              }"
+            ></div>
+            <div class="info">
+              <div class="name">{{ student.name }}</div>
+              <div class="username"><icon-at-sign></icon-at-sign> {{ student.username }}</div>
+            </div>
+          </router-link>
+        </simplebar>
       </div>
 
       <div class="right" v-bind:class="{ empty: !$route.params.username }">
