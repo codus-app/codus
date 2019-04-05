@@ -61,6 +61,7 @@ export default {
 
   watch: {
     username() { this.fetch(); },
+    profileLoaded() { this.$emit('loadStateChange', this.profileLoaded); },
   },
 
   created() { this.fetch(); },

@@ -43,7 +43,12 @@
           v-if="fetched && this.selectedStudent !== null"
           v-bind:username-override="$route.params.username"
           v-bind:context-items="profileContextItems"
-        ></user-profile>
+          v-on:loadStateChange="profileLoaded = $event"
+        >
+          <div class="detail card c2" slot="card-2" v-bind:class="{ empty: !profileLoaded }"></div>
+          <div slot="card-3"></div>
+          <div slot="card-4"></div>
+        </user-profile>
         <div class="empty-message" v-else-if="fetched">
           Select a student from the list to the left to view detailed information here
         </div>
