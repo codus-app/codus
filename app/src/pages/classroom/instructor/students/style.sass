@@ -11,9 +11,23 @@
     display: flex
     align-items: center
     padding: .85rem 0
+    border-top: 1.5px solid rgba(#cfd0e5, .075)
 
     &:first-child
-      padding-top: 0
+      margin-top: -.85rem
+      border-top: 0
+
+    &.router-link-active
+      border-top-color: transparent
+      padding-left: 1rem
+      margin-left: -1rem
+      border-radius: 4px
+      background: $dark-4
+      transition: background .2s, border-color .2s
+
+      & + .student
+        border-top-color: transparent
+        transition: border-color .2s
 
     .image
       width: 3.75rem
