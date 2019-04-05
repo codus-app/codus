@@ -4,7 +4,7 @@ import { mapGetters, mapActions } from 'vuex';
 import { clamp } from '../../helpers';
 
 export default {
-  props: { usernameOverride: String },
+  props: { usernameOverride: String, contextItems: Array },
 
   data: () => ({
     notFound: false,
@@ -28,6 +28,8 @@ export default {
     isAuthenticatedUser() { return this.authenticatedUserProfile.username === this.username; },
 
     profileContextItems() {
+      if (this.$props.contextItems) return this.$props.contextItems;
+
       const editProfile = { icon: 'edit', label: 'Edit profile', onclick: () => this.$router.push('/settings/account') };
       const copyLink = { icon: 'copy', label: 'Copy link', onclick: this.copyLink };
       return this.isAuthenticatedUser
