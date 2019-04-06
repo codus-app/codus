@@ -45,7 +45,15 @@
           v-bind:context-items="profileContextItems"
           v-on:loadStateChange="profileLoaded = $event"
         >
-          <div class="detail card c2" slot="card-2" v-bind:class="{ empty: !profileLoaded }"></div>
+          <div class="detail card c2" slot="card-2" v-bind:class="{ empty: !profileLoaded }">
+            <div class="left gradient">
+              <icon-arrow-up-circle></icon-arrow-up-circle>
+            </div>
+            <div class="right">
+              <div class="large">0</div>
+              <div class="small">Statistic</div>
+            </div>
+          </div>
         </user-profile>
         <div class="empty-message" v-else-if="fetched">
           Select a student from the list to the left to view detailed information here
