@@ -1,7 +1,6 @@
 @import 'src/styles/mixins'
 
 .top
-  height: 12rem
   margin: 20px 0
   display: grid
   grid-gap: 20px
@@ -25,6 +24,7 @@
 
   &[min-width~='900px']
     .top
+      height: 12rem
       grid-template-columns: minmax(0, 6.5fr) minmax(0, 5fr) minmax(0, 5fr)
       grid-template-rows: minmax(0, 1fr) minmax(0, 1fr)
 

@@ -105,4 +105,12 @@
     padding: 0
 
     & /deep/ .top
+      height: 17rem
       margin-top: 0
+
+      &[max-width~='500px']
+        height: 40rem
+
+      .card.c3,
+      .card.c4
+        display: none
