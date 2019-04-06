@@ -2,6 +2,8 @@ const keystone = require('keystone');
 
 const User = keystone.list('User');
 const Classroom = keystone.list('Classroom');
+const Problem = keystone.list('Problem');
+const Solution = keystone.list('Solution');
 
 const { generateInviteCode } = require('../util/classroom');
 const { publicizeUser } = require('../util/user');
@@ -29,11 +31,23 @@ module.exports.classrooms = {
     if (!classroom) return res.status(404).json({ error: `Classroom '${code}' was not found` });
     if (!classroom.instructor.equals(req.user2._id)) return res.status(403).json({ error: `You don't own classroom ${code}` });
 
+    // Fetch user info from student list from mongo and auth0
     const mongoStudents = await User.model.find().where('classroom').equals(classroom._id);
     const auth0Students = await getUsers.byIds(mongoStudents.map(s => s.userId));
+    // Add info on how many problems each student has solved
+    const [numProblems, allSolutions] = await Promise.all([
+      Problem.model.count(),
+      Solution.model.find().where('user').in(mongoStudents.map(s => s._id)),
+    ]);
+    // Compile student information
     const students = mongoStudents
-      .map(s => publicizeUser(s, auth0Students.find(s2 => s2.user_id === s.userId)));
+      .map(s => publicizeUser(
+        s,
+        auth0Students.find(s2 => s2.user_id === s.userId),
+        [allSolutions.filter(s2 => s2.passed && s2.user.equals(s._id)).length, numProblems],
+      ));
 
+    // Sort students by last name
     const lastName = ({ name }) => name.trim().split(' ').slice(-1)[0];
     students.sort((a, b) => lastName(a).localeCompare(lastName(b)) || a.name.localeCompare(b.name));
 
