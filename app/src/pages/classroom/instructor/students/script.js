@@ -1,3 +1,6 @@
+import { createNamespacedHelpers } from 'vuex';
+const { mapActions } = createNamespacedHelpers('classroom/instructor');
+
 export default {
   props: { classroom: Object },
 
@@ -15,7 +18,10 @@ export default {
         {
           icon: 'user-x',
           label: 'Remove',
-          onclick: () => this.removeUser(this.selectedStudent),
+          onclick: () => this.removeUser({
+            classroom: this.classroom.code,
+            username: this.selectedStudent.username,
+          }),
         },
       ],
     };
@@ -31,11 +37,7 @@ export default {
     },
   },
 
-  methods: {
-    removeUser() {
-      // TODO
-    },
-  },
+  methods: mapActions(['removeUser']),
 
   watch: {
     students(students, oldStudents) {
