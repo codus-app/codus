@@ -49,8 +49,8 @@
               <icon-arrow-up-circle></icon-arrow-up-circle>
             </div>
             <div class="right">
-              <div class="large">0</div>
-              <div class="small">Statistic</div>
+              <div class="large">{{ selectedStudent.rank }}</div>
+              <div class="small">Class rank</div>
             </div>
           </div>
         </user-profile>
