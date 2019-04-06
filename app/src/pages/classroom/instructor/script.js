@@ -1,4 +1,4 @@
-import { createNamespacedHelpers } from 'vuex';
+import { createNamespacedHelpers, mapMutations } from 'vuex';
 const { mapGetters, mapActions } = createNamespacedHelpers('classroom/instructor');
 
 export default {
@@ -14,8 +14,10 @@ export default {
 
   methods: {
     ...mapActions(['fetchClassroom']),
+    ...mapMutations(['userFetched']),
     async fetch() {
       if (this.classroom !== null && !this.classroom.fetched) await this.fetchClassroom(this.code);
+      this.classroom.students.forEach(s => this.userFetched(s));
     },
   },
 
