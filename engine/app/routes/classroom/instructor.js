@@ -45,7 +45,13 @@ module.exports.classrooms = {
         s,
         auth0Students.find(s2 => s2.user_id === s.userId),
         [allSolutions.filter(s2 => s2.passed && s2.user.equals(s._id)).length, numProblems],
-      ));
+      ))
+      .map((s, i, list) => ({
+        ...s,
+        // Class rank is 1 greater than the number of other students who have solved more problems
+        // Gives tied users the same rank (eg: 1, 1, 3, 3, 3, 3, 7, 8, 8, 10)
+        rank: list.filter(s2 => s2.solutionProgress[0] > s.solutionProgress[0]).length + 1,
+      }));
 
     // Sort students by last name
     const lastName = ({ name }) => name.trim().split(' ').slice(-1)[0];
