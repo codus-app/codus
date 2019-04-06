@@ -29,7 +29,9 @@
             ></radial-progress>
           </div>
           <div class="right">
-            <div class="large" v-if="exactSolutions && profile.solutionProgress">{{ profile.solutionProgress[0] }}</div>
+            <div class="large" v-if="exactSolutions && profile.solutionProgress">
+              {{ profile.solutionProgress[0] }}
+            </div>
             <div class="large" v-else>{{ Math.floor(proportionSolved * 100)}}%</div>
             <div class="small">Problems solved</div>
           </div>
