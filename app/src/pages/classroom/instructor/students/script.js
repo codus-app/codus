@@ -3,7 +3,6 @@ export default {
 
   data() {
     return {
-      profileLoaded: false,
       profileContextItems: [
         {
           icon: 'external-link',

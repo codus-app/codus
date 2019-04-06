@@ -4,7 +4,7 @@ import { mapGetters, mapActions } from 'vuex';
 import { clamp } from '../../helpers';
 
 export default {
-  props: { usernameOverride: String, contextItems: Array },
+  props: { passedProfile: Object, contextItems: Array },
 
   data: () => ({
     notFound: false,
@@ -14,9 +14,9 @@ export default {
   computed: {
     ...mapGetters({ getUser: 'getUser', authenticatedUserProfile: 'profile' }),
 
-    username() { return this.usernameOverride || this.$route.params.username; },
+    username() { return this.$route.params.username; },
 
-    profile() { return this.getUser(this.username); },
+    profile() { return this.passedProfile || this.getUser(this.username); },
     profileLoaded() { return Object.keys(this.profile).length; },
 
     proportionSolved() {
@@ -43,7 +43,7 @@ export default {
 
     fetch() {
       const { username } = this;
-      if (username && !Object.keys(this.profile).length) {
+      if (username && !this.profileLoaded) {
         this.fetchUser({ username })
           .catch((e) => { if (e.endsWith('not found')) this.notFound = true; });
       }

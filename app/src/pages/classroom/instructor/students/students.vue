@@ -41,11 +41,10 @@
         <user-profile
           class="student-details"
           v-if="fetched && this.selectedStudent !== null"
-          v-bind:username-override="$route.params.username"
+          v-bind:passed-profile="selectedStudent"
           v-bind:context-items="profileContextItems"
-          v-on:loadStateChange="profileLoaded = $event"
         >
-          <div class="detail card c2" slot="card-2" v-bind:class="{ empty: !profileLoaded }">
+          <div class="detail card c2" slot="card-2">
             <div class="left gradient">
               <icon-arrow-up-circle></icon-arrow-up-circle>
             </div>
