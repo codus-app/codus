@@ -25,7 +25,10 @@
             class="student"
             v-for="student in students.slice(0, 8)"
             v-bind:key="student.username"
-            v-bind:to="`/user/${student.username}`"
+            v-bind:to="{
+              name: 'classroom-students',
+              params: { ...$route.params, username: student.username }
+            }"
           >
             <div
               class="image"
