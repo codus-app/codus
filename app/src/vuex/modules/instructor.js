@@ -33,7 +33,7 @@ export default {
 
     mutateClassroom(state, payload) {
       const index = state.classrooms.findIndex(c => c.code === payload.code);
-      if (index < 0) state.classrooms = [...state.classrooms, payload];
+      if (index === -1) state.classrooms = [...state.classrooms, payload];
       else Vue.set(state.classrooms, index, { ...state.classrooms[index], ...payload });
     },
 
@@ -49,6 +49,16 @@ export default {
       if (!state.classrooms.map(({ code }) => code).includes(newCode)) state.selectedCode = null;
       else state.selectedCode = newCode;
       localStorage.setItem('instructor-context', state.selectedCode);
+    },
+
+    removeUser(state, { classroom, username }) {
+      const index = state.classrooms.findIndex(c => c.code === classroom);
+      if (index === -1) return false;
+      Vue.set(state.classrooms, index, {
+        ...state.classrooms[index],
+        students: state.classrooms[index].students.filter(s => s.username !== username),
+      });
+      return true;
     },
   },
 
@@ -78,6 +88,12 @@ export default {
     async deleteClassroom({ commit }, code) {
       await api.delete({ endpoint: `/classroom/${code}`, store });
       commit('removeClassroom', code);
+    },
+
+    /** Remove a student from a classroom */
+    async removeUser({ commit }, { classroom, username }) {
+      await api.delete({ endpoint: `/classroom/${classroom}/students/${username}`, store });
+      commit('removeUser', { classroom, username });
     },
   },
 
