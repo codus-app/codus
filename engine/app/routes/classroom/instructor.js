@@ -7,7 +7,7 @@ const Solution = keystone.list('Solution');
 
 const { generateInviteCode } = require('../util/classroom');
 const { publicizeUser } = require('../util/user');
-const { getUsers } = require('../../auth');
+const { getUser, getUsers } = require('../../auth');
 
 
 module.exports.classrooms = {
@@ -108,5 +108,27 @@ module.exports.classrooms = {
     await classroom.remove();
 
     return res.json({});
+  },
+
+  async deleteUser(req, res) {
+    const { code, username } = req.params;
+    const classroom = await Classroom.model
+      .findOne()
+      .where('code').equals(code);
+
+    const userId = (await getUser.byUsername(username)).user_id;
+    const user = await User.model
+      .findOne()
+      .where('userId').equals(userId);
+
+    if (!classroom) return res.status(404).json({ error: `Classroom '${code}' was not found` });
+    if (!user) return res.status(404).json({ error: `User ${username} was not found` });
+    if (!classroom.instructor.equals(req.user2._id)) return res.status(403).json({ error: "Can't remove a student from a classroom you don't own" });
+    if (!user.classroom.equals(classroom._id)) return res.status(403).json({ error: `User ${username} does not belong to classroom ${code}` });
+
+    return User.updateItem(user, { classroom: null }, async (error) => {
+      if (error) return res.status(500).json({ error });
+      return res.json({ data: { removed: [username] } });
+    });
   },
 };

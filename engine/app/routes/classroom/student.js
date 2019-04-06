@@ -14,7 +14,7 @@ module.exports.classroom = {
     console.log(classroom);
     if (!classroom) return res.status(404).send({ error: `Could not find classroom ${code}` });
 
-    User.updateItem(req.user2, { classroom: classroom._id }, async (error) => {
+    return User.updateItem(req.user2, { classroom: classroom._id }, async (error) => {
       if (error) res.status(500).json({ error });
       else {
         res.json({
@@ -30,8 +30,6 @@ module.exports.classroom = {
         });
       }
     });
-
-    return undefined;
   },
 
   async get(req, res) {
