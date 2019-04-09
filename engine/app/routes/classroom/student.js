@@ -11,7 +11,6 @@ module.exports.classroom = {
       .where('code').equals(code)
       .select('-__v');
 
-    console.log(classroom);
     if (!classroom) return res.status(404).send({ error: `Could not find classroom ${code}` });
 
     return User.updateItem(req.user2, { classroom: classroom._id }, async (error) => {

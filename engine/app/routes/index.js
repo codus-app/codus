@@ -61,11 +61,13 @@ module.exports = (app) => {
 
   app.get('/api/classroom/classrooms', auth0(), enforceRole('instructor'), routes.api.classroom.instructor.classrooms.list);
   app.post('/api/classroom/classrooms', auth0(), enforceRole('instructor'), routes.api.classroom.instructor.classrooms.post);
+  // app.get('/api/classrom/:code') defined below
   app.delete('/api/classroom/:code', auth0(), enforceRole('instructor'), routes.api.classroom.instructor.classrooms.delete);
   app.delete('/api/classroom/:code/students/:username', auth0(), enforceRole('instructor'), routes.api.classroom.instructor.classrooms.deleteUser);
 
   app.get('/api/classroom/join/:code', auth0(), enforceRole('student'), routes.api.classroom.student.classroom.join);
   app.get('/api/classroom', auth0(), enforceRole('student'), routes.api.classroom.student.classroom.get);
+  // app.get('/api/classrom/:code') defined below
   app.get('/api/classroom/leave', auth0(), enforceRole('student'), routes.api.classroom.student.classroom.leave);
 
   app.get('/api/classroom/:code', auth0(), roleSwitch({

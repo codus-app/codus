@@ -41,7 +41,6 @@ export default {
       const usernames = students.map(s => s.username);
       const oldUsernames = oldStudents.map(s => s.username);
       const { username } = this.$route.params;
-      console.log('ye');
       if (username && oldUsernames.includes(username) && !usernames.includes(username)) {
         this.$router.replace({
           name: 'classroom-students',
