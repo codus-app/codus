@@ -21,7 +21,7 @@ export default {
     /** Fetch the classroom the user is currently in */
     async fetchClassroom({ commit }) {
       const classroom = await api.get({ endpoint: '/classroom', store });
-      commit('classroomFetched', { ...classroom, fetched: true });
+      commit('classroomFetched', classroom);
     },
   },
 };

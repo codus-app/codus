@@ -40,7 +40,7 @@ module.exports.classroom = {
     // No code was passed; find the classroom to which the authenticated user belongs
     else if (req.user2.classroom) classroom = await Classroom.model.findById(req.user2.classroom.toString()); // eslint-disable-line max-len
     // No code was passed, but the user is not a member of any classes to use as the default
-    else return res.json({ data: {} });
+    else return res.json({ data: null });
 
     const instructor = await User.model
       .findById(classroom.instructor.toString())
