@@ -7,8 +7,9 @@ export default {
 
   computed: {
     ...mapGetters(['profile', 'role']),
-    ...mapGetters('classroom/instructor', ['selectedClassroom']),
-    ...mapState('classroom/instructor', ['classroomsFetched']),
+    ...mapGetters('classroom/instructor', { instructorSelectedClassroom: 'selectedClassroom' }),
+    ...mapState('classroom/instructor', { instructorClassroomsFetched: 'classroomsFetched' }),
+    ...mapState('classroom/student', { studentClassroom: 'classroom' }),
 
     routes() {
       const roleRoutes = routes[this.role] || [];
@@ -52,7 +53,6 @@ export default {
     openContextMenu() {
       this.$refs.contextmenuTrigger._tippy.show(); // eslint-disable-line no-underscore-dangle
     },
-
   },
 
   components: {

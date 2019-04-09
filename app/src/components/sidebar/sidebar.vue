@@ -29,21 +29,33 @@
           v-bind:key="r.path"
           v-bind="{ ...r, collapsed, replaceParams }"
         ></sidebar-link>
+
+        <template v-if="studentClassroom">
+          <h2 v-if="!collapsed">{{ studentClassroom.name }}</h2>
+          <sidebar-link
+            v-for="r in getRoutes('student/classroom')"
+            v-bind:key="r.path"
+            v-bind="{ ...r, collapsed, replaceParams }"
+          ></sidebar-link>
+        </template>
       </template>
 
       <!-- Links for instructor accounts -->
       <template v-if="role === 'instructor'">
-        <classroom-switcher v-if="classroomsFetched && !collapsed"></classroom-switcher>
-        <div v-if="classroomsFetched && (selectedClassroom || !collapsed)">
+        <classroom-switcher v-if="instructorClassroomsFetched && !collapsed"></classroom-switcher>
+        <div v-if="instructorClassroomsFetched && (instructorSelectedClassroom || !collapsed)">
           <sidebar-link
             v-for="r in getRoutes('instructor/classroom')"
             v-bind:key="r.path"
-            v-bind="{ ...r, collapsed, disabled: !selectedClassroom, replaceParams }"
+            v-bind="{ ...r, collapsed, disabled: !instructorSelectedClassroom, replaceParams }"
           ></sidebar-link>
         </div>
 
         <h2 v-if="!collapsed">Personal</h2>
-        <div class="divider" v-else-if="classroomsFetched && selectedClassroom"></div>
+        <div
+          class="divider"
+          v-else-if="instructorClassroomsFetched && instructorSelectedClassroom"
+        ></div>
         <sidebar-link
           v-for="r in getRoutes('instructor/personal')"
           v-bind:key="r.path"
