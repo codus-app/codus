@@ -3,6 +3,10 @@ const { mapState } = createNamespacedHelpers('classroom/student');
 
 export default {
   computed: {
-    ...mapState(['classroom']),
+    ...mapState(['classroom', 'classroomFetched']),
+  },
+
+  components: {
+    'not-found': require('../../404/404.vue').default,
   },
 };

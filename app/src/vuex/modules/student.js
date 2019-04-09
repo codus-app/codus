@@ -6,6 +6,7 @@ export default {
 
   state: {
     classroom: null,
+    classroomFetched: false,
   },
 
   mutations: {
@@ -14,6 +15,7 @@ export default {
       //  from the old one
       if (!state.classroom || state.classroom.code !== payload.code) state.classroom = payload;
       else state.classroom = { ...state.classroom, ...payload };
+      state.classroomFetched = true;
     },
   },
 
