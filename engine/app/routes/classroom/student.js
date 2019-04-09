@@ -40,7 +40,7 @@ module.exports.classroom = {
     // No code was passed; find the classroom to which the authenticated user belongs
     else if (req.user2.classroom) classroom = await Classroom.model.findById(req.user2.classroom.toString()); // eslint-disable-line max-len
     // No code was passed, but the user is not a member of any classes to use as the default
-    else res.status(400).json({ error: 'code parameter is required when no classroom joined' });
+    else return res.json({ data: {} });
 
     const instructor = await User.model
       .findById(classroom.instructor.toString())
@@ -49,7 +49,7 @@ module.exports.classroom = {
 
     // Viewing an external classroom
     if (!(req.user2.classroom && req.user2.classroom.equals(classroom._id))) {
-      res.json({
+      return res.json({
         data: {
           ...classroom.toObject(),
           instructor,
@@ -57,17 +57,16 @@ module.exports.classroom = {
           _id: undefined,
         },
       });
-    // Viewing the classroom the user is currently in (user gets more info)
-    } else {
-      res.json({
-        data: {
-          ...classroom.toObject(),
-          instructor,
-          joined: true,
-          _id: undefined,
-        },
-      });
     }
+    // Viewing the classroom the user is currently in (user gets more info)
+    return res.json({
+      data: {
+        ...classroom.toObject(),
+        instructor,
+        joined: true,
+        _id: undefined,
+      },
+    });
   },
 
   async leave(req, res) {
