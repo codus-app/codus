@@ -63,6 +63,7 @@ window.app = new Vue({
     ...mapGetters({ isAuthenticated: 'auth/isAuthenticated', loginExpired: 'auth/loginExpired', authValid: 'auth/loginValid' }),
     ...mapGetters(['role']),
     ...mapState(['user']),
+    ...mapState('classroom/student', { studentClassroom: 'classroom' }),
   },
 
   watch: {
@@ -83,6 +84,10 @@ window.app = new Vue({
       fetchInstructorClassrooms: 'fetchClassrooms',
     }),
 
+    ...mapActions('classroom/student', {
+      fetchStudentClassroom: 'fetchClassroom',
+    }),
+
 
     async initialFetch() {
       await Promise.all([
@@ -91,6 +96,7 @@ window.app = new Vue({
       ]);
 
       if (this.role === 'instructor') await this.fetchInstructorClassrooms();
+      if (this.role === 'student') await this.fetchStudentClassroom();
     },
 
     switchRoutes(role) {
