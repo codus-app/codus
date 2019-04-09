@@ -47,7 +47,7 @@ export default {
         // Replace '/:classroomCode' with the current classroom's code
         .replace(/\/:classroomCode(?=$|\/)/g, `/${currentClassCode}`)
         // Replace optional params at the end of routes with nothing
-        .replace(/\/:.*\?\/?$/g, '/');
+        .replace(/\/:.*\?\/?$/g, '');
     },
 
     openContextMenu() {
