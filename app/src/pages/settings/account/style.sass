@@ -14,6 +14,9 @@
   max-width: 25rem
   text-align: center
   padding: .35rem 1.5rem 1rem
+
+.card,
+.loading-button
   margin-bottom: 1.25rem
 
 h2
@@ -36,3 +39,44 @@ h2
 .input,
 .password-reset
   text-align: left
+
+
+.classroom-info .classroom
+  margin-top: .9rem
+  background: $dark-2
+  height: 4rem
+  border-radius: 6px
+  box-shadow: 0 15px 30px -15px rgba(0, 0, 0, .5)
+  padding: .5rem .9rem
+  display: flex
+  align-items: center
+  cursor: pointer
+
+  .picture
+    width: 2.75rem
+    height: 2.75rem
+    background-size: cover
+    background-position: center
+    border-radius: 50%
+    margin-right: .7rem
+
+  .info
+    flex: 1 0 auto
+    text-align: left
+
+    .name
+      font-family: $font-lato
+      font-weight: 700
+      font-size: .9rem
+
+    .students
+      font-family: $font-lato
+      font-weight: 400
+      font-size: .65rem
+      color: $light-text-hint
+      margin-top: -.2em
+
+  button
+    flex-grow: 0
+    margin-left: auto
+    padding: .35rem 1.75rem .425rem

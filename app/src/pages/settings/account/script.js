@@ -1,4 +1,4 @@
-import { mapGetters, mapActions } from 'vuex';
+import { mapState, mapGetters, mapActions } from 'vuex';
 import debounce from 'debounce';
 import isEmail from 'validator/lib/isEmail';
 import * as api from '../../../api';
@@ -27,7 +27,8 @@ export default {
   }),
 
   computed: {
-    ...mapGetters(['profile']),
+    ...mapGetters(['profile', 'role']),
+    ...mapState('classroom/student', ['classroom', 'classroomFetched']),
 
     changed() {
       return Object.keys(this.profile).length // Profile loaded

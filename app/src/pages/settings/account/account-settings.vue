@@ -50,6 +50,20 @@
       v-on:saved="saved"
       v-on:error="errored"
     ></loading-button>
+
+    <template v-if="role === 'student'">
+      <div class="card classroom-info" v-if="classroomFetched && classroom">
+        <h2>Classroom</h2>
+        <div class="classroom" v-on:click="$router.push('/classroom')">
+          <div class="picture" v-bind:style="{ backgroundImage: `url(${ classroom.instructor.picture })` }"></div>
+          <div class="info">
+            <div class="name">{{ classroom.name }}</div>
+            <div class="students"> {{ classroom.size }} Students</div>
+          </div>
+          <bold-button type="red" v-on:click="$event.stopPropagation()">Leave</bold-button>
+        </div>
+      </div>
+    </template>
   </div>
 </template>
 
