@@ -13,16 +13,26 @@ module.exports.classroom = {
 
     if (!classroom) return res.status(404).send({ error: `Could not find classroom ${code}` });
 
+    // Fetch some info about the classroom
+    const [size, instructor] = await Promise.all([
+      User.model
+        .count()
+        .where('classroom').equals(classroom._id),
+
+      User.model
+        .findById(classroom.instructor.toString())
+        .select('-_id -__v')
+        .then(user => user.fetch()),
+    ]);
+
     return User.updateItem(req.user2, { classroom: classroom._id }, async (error) => {
       if (error) res.status(500).json({ error });
       else {
         res.json({
           data: {
             ...classroom.toObject(),
-            instructor: await User.model
-              .findById(classroom.instructor.toString())
-              .select('-_id -__v')
-              .then(user => user.fetch()),
+            size,
+            instructor,
             joined: true,
             _id: undefined,
           },
@@ -42,10 +52,17 @@ module.exports.classroom = {
     // No code was passed, but the user is not a member of any classes to use as the default
     else return res.json({ data: null });
 
-    const instructor = await User.model
-      .findById(classroom.instructor.toString())
-      .select('-_id -__v')
-      .then(user => user.fetch());
+    // Fetch some info about the classroom
+    const [size, instructor] = await Promise.all([
+      User.model
+        .count()
+        .where('classroom').equals(classroom._id),
+
+      User.model
+        .findById(classroom.instructor.toString())
+        .select('-_id -__v')
+        .then(user => user.fetch()),
+    ]);
 
     // Viewing an external classroom
     if (!(req.user2.classroom && req.user2.classroom.equals(classroom._id))) {
@@ -62,6 +79,7 @@ module.exports.classroom = {
     return res.json({
       data: {
         ...classroom.toObject(),
+        size,
         instructor,
         joined: true,
         _id: undefined,
