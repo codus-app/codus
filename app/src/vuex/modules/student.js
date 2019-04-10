@@ -17,6 +17,10 @@ export default {
       else state.classroom = { ...state.classroom, ...payload };
       state.classroomFetched = true;
     },
+
+    classroomLeft(state) {
+      state.classroom = null;
+    },
   },
 
   actions: {
@@ -29,6 +33,11 @@ export default {
     async joinClassroom({ commit }, code) {
       const classroom = await api.get({ endpoint: `/classroom/join/${code}`, store });
       commit('classroomFetched', classroom);
+    },
+
+    async leaveClassroom({ commit }) {
+      await api.get({ endpoint: '/classroom/leave', store });
+      commit('classroomLeft');
     },
   },
 };

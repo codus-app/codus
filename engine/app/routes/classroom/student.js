@@ -72,7 +72,7 @@ module.exports.classroom = {
   async leave(req, res) {
     User.updateItem(req.user2, { classroom: null }, (error) => {
       if (error) req.status(500).json({ error });
-      else res.json({});
+      else res.json({ data: null });
     });
   },
 };
