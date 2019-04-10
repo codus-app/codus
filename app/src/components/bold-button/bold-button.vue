@@ -1,5 +1,5 @@
 <template>
-  <button v-bind:class="{ bg: type !== '', [type]: true }" v-on:click="$emit('click')">
+  <button v-bind:class="{ bg: type !== '', [type]: true }" v-on:click="$emit('click', $event)">
     <slot></slot>
   </button>
 </template>
