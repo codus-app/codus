@@ -123,6 +123,7 @@ export default {
 
   methods: {
     ...mapActions(['updatePrimaryUserProfile', 'uploadProfileImage']),
+    ...mapActions('classroom/student', ['leaveClassroom']),
 
     // Make a request to check availability of a username
     async checkUsername() {

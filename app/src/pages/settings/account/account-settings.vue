@@ -60,7 +60,7 @@
             <div class="name">{{ classroom.name }}</div>
             <div class="students"> {{ classroom.size }} Students</div>
           </div>
-          <bold-button type="red" v-on:click="$event.stopPropagation()">Leave</bold-button>
+          <bold-button type="red" v-on:click="$event.stopPropagation(); leaveClassroom();">Leave</bold-button>
         </div>
       </div>
     </template>
