@@ -25,5 +25,10 @@ export default {
       const classroom = await api.get({ endpoint: '/classroom', store });
       commit('classroomFetched', classroom);
     },
+
+    async joinClassroom({ commit }, code) {
+      const classroom = await api.get({ endpoint: `/classroom/join/${code}`, store });
+      commit('classroomFetched', classroom);
+    },
   },
 };
