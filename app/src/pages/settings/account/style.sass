@@ -6,7 +6,10 @@
   display: flex
   flex-direction: column
   align-items: center
-  padding: 2.5rem 1.25rem
+  padding: 2.5rem 1.25rem 0
+
+  & > *
+    flex-shrink: 0
 
 .card
   @include dark-card(true, 6px)
@@ -14,10 +17,10 @@
   max-width: 25rem
   text-align: center
   padding: .35rem 1.5rem 1rem
-
-.card,
-.loading-button
   margin-bottom: 1.25rem
+
+.loading-button
+  margin-bottom: 2rem
 
 h2
   font-size: .9rem

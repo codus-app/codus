@@ -24,6 +24,8 @@ export default {
     email: undefined,
     emailStatus: 'neutral',
     emailMessage: '',
+
+    leaveModalOpen: false,
   }),
 
   computed: {

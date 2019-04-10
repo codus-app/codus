@@ -60,9 +60,37 @@
             <div class="name">{{ classroom.name }}</div>
             <div class="students"> {{ classroom.size }} Students</div>
           </div>
-          <bold-button type="red" v-on:click="$event.stopPropagation(); leaveClassroom();">Leave</bold-button>
+          <bold-button type="red" v-on:click="$event.stopPropagation(); leaveModalOpen = true;">Leave</bold-button>
         </div>
       </div>
+
+      <!-- "Leave classroom" confirmation modal -->
+
+      <modal
+        class="leave-modal" ref="leaveModal"
+        v-bind:open="leaveModalOpen" v-on:close="leaveModalOpen = false"
+        v-bind:wide="true"
+        v-bind:modalStyle="{
+          backgroundColor: '#131313',
+          width: '22rem',
+          padding: '1rem 3rem 1.25rem'
+        }"
+        fade-color="rgba(30, 30, 33, .85)"
+      >
+        <h1 slot="header">Leave {{ (classroom || {}).name }}?</h1>
+        You’ll completely lose access to {{ (classroom || {}).name }}. You can rejoin
+        {{ (classroom || {}).name }} later with the classroom code, but some of your classroom data
+        may be permanently erased.
+
+        <template slot="buttons">
+          <bold-button type="gray" v-on:click="leaveModalOpen = false">Cancel</bold-button>
+          <bold-button
+            type="red"
+            v-on:click="leaveClassroom().then(() => { leaveModalOpen = false; })"
+          >Leave</bold-button>
+        </template>
+      </modal>
+
     </template>
   </div>
 </template>
