@@ -1,5 +1,5 @@
 <template>
-  <div class="action-input">
+  <div class="action-input" v-bind:class="{ failed }">
     <input
       type="text"
       v-bind:value="value"
