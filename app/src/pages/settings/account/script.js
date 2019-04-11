@@ -25,6 +25,7 @@ export default {
     emailStatus: 'neutral',
     emailMessage: '',
 
+    codeToJoin: undefined,
     leaveModalOpen: false,
   }),
 

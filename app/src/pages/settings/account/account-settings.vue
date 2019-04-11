@@ -52,8 +52,13 @@
         v-on:error="errored"
       ></loading-button>
 
-      <template v-if="role === 'student'">
-        <div class="card classroom-info" v-if="classroomFetched && classroom">
+      <template v-if="role === 'student' && classroomFetched">
+        <div class="card classroom-join" v-if="classroom === null">
+          <h2>Join a class</h2>
+          <action-input v-model="codeToJoin" placeholder="Classroom invite code"></action-input>
+        </div>
+
+        <div class="card classroom-info" v-else>
           <h2>Classroom</h2>
           <div class="classroom" v-on:click="$router.push('/classroom')">
             <div class="picture" v-bind:style="{ backgroundImage: `url(${ classroom.instructor.picture })` }"></div>
