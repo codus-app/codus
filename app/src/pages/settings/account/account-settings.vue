@@ -55,7 +55,11 @@
       <template v-if="role === 'student' && classroomFetched">
         <div class="card classroom-join" v-if="classroom === null">
           <h2>Join a class</h2>
-          <action-input v-model="codeToJoin" placeholder="Classroom invite code"></action-input>
+          <action-input
+            v-model="codeToJoin"
+            placeholder="Classroom invite code"
+            v-bind:on-click="() => join(codeToJoin)"
+          ></action-input>
         </div>
 
         <div class="card classroom-info" v-else>

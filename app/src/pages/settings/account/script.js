@@ -126,7 +126,12 @@ export default {
 
   methods: {
     ...mapActions(['updatePrimaryUserProfile', 'uploadProfileImage']),
-    ...mapActions('classroom/student', ['leaveClassroom']),
+    ...mapActions('classroom/student', ['joinClassroom', 'leaveClassroom']),
+
+    join() {
+      return this.joinClassroom(this.codeToJoin)
+        .catch((e) => { this.codeToJoin = ''; throw e; });
+    },
 
     // Make a request to check availability of a username
     async checkUsername() {
