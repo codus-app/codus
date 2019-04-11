@@ -28,16 +28,19 @@ export default {
     async fetchClassroom({ commit }) {
       const classroom = await api.get({ endpoint: '/classroom', store });
       commit('classroomFetched', classroom);
+      return classroom;
     },
 
     async joinClassroom({ commit }, code) {
       const classroom = await api.get({ endpoint: `/classroom/join/${code}`, store });
       commit('classroomFetched', classroom);
+      return classroom;
     },
 
     async leaveClassroom({ commit }) {
-      await api.get({ endpoint: '/classroom/leave', store });
+      const resp = await api.get({ endpoint: '/classroom/leave', store });
       commit('classroomLeft');
+      return resp;
     },
   },
 };
