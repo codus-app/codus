@@ -1,0 +1,38 @@
+@import 'src/styles/variables'
+
+.action-input
+  display: flex
+  overflow: hidden
+  border-radius: 6px
+
+  input
+    flex: 1 0 0
+    background: $dark-4
+    border: 0
+    outline: 0
+    padding: 0 1.1rem
+
+    font-family: $font-nunito
+    font-weight: 400
+    font-size: .7rem
+    color: $light-text-primary
+
+    &::placeholder
+      color: $light-text-hint
+
+  button
+    flex: 0 1 auto
+    background: $green-bg
+    border: 0
+    outline: 0
+    padding: .8rem 1.75rem
+    cursor: pointer
+
+    font-family: $font-lato
+    font-weight: 700
+    font-size: .6rem
+    letter-spacing: .15em
+    text-align: center
+    text-transform: uppercase
+    color: $light-text-primary
+

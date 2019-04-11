@@ -43,6 +43,9 @@ Vue.component('window', Window);
 import TextInput from './input/input.vue';
 Vue.component('text-input', TextInput);
 
+import ActionInput from './action-input/action-input.vue';
+Vue.component('action-input', ActionInput);
+
 import ContextMenu from './context-menu/context-menu.vue';
 Vue.component('context-menu', ContextMenu);
 
