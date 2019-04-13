@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="172" height="222">
+  <defs>
+    <rect id="b" width="144" height="195" x="14" y="15" rx="1"/>
+    <filter id="a" width="107.6%" height="105.6%" x="-3.8%" y="-1.8%" filterUnits="objectBoundingBox">
+      <feMorphology in="SourceAlpha" radius="3.5" result="shadowSpreadOuter1"/>
+      <feOffset dy="2" in="shadowSpreadOuter1" result="shadowOffsetOuter1"/>
+      <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="5"/>
+      <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+    </filter>
+    <path id="d" d="M41 0h90a2 2 0 0 1 2 2v8.314c0 5.697-4.618 10.314-10.314 10.314H49.314C43.618 20.628 39 16.011 39 10.314V2a2 2 0 0 1 2-2z"/>
+    <filter id="c" width="112.8%" height="158.2%" x="-6.4%" y="-14.5%" filterUnits="objectBoundingBox">
+      <feMorphology in="SourceAlpha" radius="3.5" result="shadowSpreadOuter1"/>
+      <feOffset dy="3" in="shadowSpreadOuter1" result="shadowOffsetOuter1"/>
+      <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="5"/>
+      <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+    </filter>
+  </defs>
+  <g fill="none" fill-rule="evenodd">
+    <rect width="172" height="218" y="4" fill="#27272B" rx="7"/>
+    <use fill="#000" filter="url(#a)" xlink:href="#b"/>
+    <use fill="#343438" xlink:href="#b"/>
+    <g transform="translate(34 33)">
+      <rect width="45" height="7" y="141" fill="#2AD175" fill-opacity=".13" rx=".5"/>
+      <rect width="104" height="7" y="130" fill="#2AD175" fill-opacity=".13" rx=".5"/>
+      <rect width="104" height="7" y="119" fill="#2AD175" fill-opacity=".13" rx=".5"/>
+      <rect width="45" height="7" y="102" fill="#2AD175" fill-opacity=".13" rx=".5"/>
+      <rect width="104" height="7" y="91" fill="#2AD175" fill-opacity=".13" rx=".5"/>
+      <rect width="104" height="7" y="80" fill="#2AD175" fill-opacity=".13" rx=".5"/>
+      <rect width="45" height="7" y="63" fill="#2AD175" fill-opacity=".13" rx=".5"/>
+      <rect width="104" height="7" y="52" fill="#2AD175" fill-opacity=".13" rx=".5"/>
+      <rect width="104" height="7" y="41" fill="#2AD175" fill-opacity=".13" rx=".5"/>
+      <circle cx="51.5" cy="12.5" r="12.5" fill="#3BDB83" fill-opacity=".26"/>
+    </g>
+    <g>
+      <use fill="#000" filter="url(#c)" xlink:href="#d"/>
+      <use fill="#4C4C50" xlink:href="#d"/>
+    </g>
+  </g>
+</svg>
