@@ -77,7 +77,7 @@ module.exports = {
       CODUS_API_BASE: JSON.stringify(process.env.CODUS_API_BASE),
     }),
     new VueLoaderPlugin(),
-    new CopyWebpackPlugin(['static/*']),
+    new CopyWebpackPlugin(['static/**/*']),
   ],
 
 
