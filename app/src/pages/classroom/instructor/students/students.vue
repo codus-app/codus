@@ -10,7 +10,7 @@
       </template>
     </classroom-header>
 
-    <div class="page-content">
+    <div class="page-content" v-if="students.length">
       <div class="left students-list">
         <simplebar>
           <router-link
@@ -60,6 +60,11 @@
         <div class="loading" v-else></div>
       </div>
     </div>
+    <empty-message v-else-if="fetched" v-on:action-click="$emit('open-invitation')">
+      <h2 slot="title">There’s nobody here</h2>
+      To get started, invite students to join {{ classroom.name }}.
+      <span slot="cta">Invite students</span>
+    </empty-message>
 
     <!-- "Remove student" confirmation modal -->
 

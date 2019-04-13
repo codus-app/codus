@@ -52,5 +52,6 @@ export default {
 
   components: {
     'user-profile': require('../../../profile/profile.vue').default,
+    'empty-message': require('../empty/empty.vue').default,
   },
 };
