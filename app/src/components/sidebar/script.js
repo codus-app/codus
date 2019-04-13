@@ -36,16 +36,13 @@ export default {
     getRoutes(category) { return this.routes.filter(r => r.meta.category === category); },
 
     replaceParams(path) {
-      const currentClassCode = ({
-        instructor: (this.selectedClassroom || {}).code,
-        student: null, // TODO
-      })[this.role];
+      const instructorCurrentClassroomCode = (this.instructorSelectedClassroom || {}).code;
 
       return path
         // Replace '/:username' with the user's username
         .replace(/\/:username(?=$|\/)/g, `/${this.username}`)
         // Replace '/:classroomCode' with the current classroom's code
-        .replace(/\/:classroomCode(?=$|\/)/g, `/${currentClassCode}`)
+        .replace(/\/:classroomCode(?=$|\/)/g, `/${instructorCurrentClassroomCode}`)
         // Replace optional params at the end of routes with nothing
         .replace(/\/:.*\?\/?$/g, '');
     },
