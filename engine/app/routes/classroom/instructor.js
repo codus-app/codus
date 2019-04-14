@@ -2,12 +2,16 @@ const keystone = require('keystone');
 
 const User = keystone.list('User');
 const Classroom = keystone.list('Classroom');
+const Assignment = keystone.list('Assignment');
 const Problem = keystone.list('Problem');
 const Solution = keystone.list('Solution');
 
 const { generateInviteCode } = require('../util/classroom');
 const { publicizeUser } = require('../util/user');
 const { getUser, getUsers } = require('../../auth');
+
+
+// Classrooms
 
 
 module.exports.classrooms = {
@@ -129,6 +133,46 @@ module.exports.classrooms = {
     return User.updateItem(user, { classroom: null }, async (error) => {
       if (error) return res.status(500).json({ error });
       return res.json({ data: { removed: [username] } });
+    });
+  },
+};
+
+
+// Assignments
+
+
+module.exports.assignments = {
+  async list(req, res) {
+    const { classroomCode } = req.params;
+
+    const classroom = await Classroom.model
+      .findOne()
+      .where('code').equals(classroomCode)
+      .select('-__v');
+
+    if (!classroom) return res.status(404).json({ error: `Classroom '${classroomCode}' was not found` });
+    if (!classroom.instructor.equals(req.user2._id)) return res.status(403).json({ error: `You don't own classroom ${classroomCode}` });
+
+    const assignments = await Assignment.model
+      .find()
+      .where('classroom').equals(classroom._id)
+      .populate('problems')
+      .select('-__v');
+
+    return res.json({
+      data: assignments
+        .map(a => ({
+          ...a.toObject(),
+          classroom: classroomCode,
+          // Replace ID with a shorter one. 8 characters are a base16 timestamp to the second, and
+          // are sufficient to uniquely identify an assignment within a single classroom
+          _id: undefined,
+          id: a._id.toString().substring(0, 8),
+          // Replace problems list with the number of problems (assignments list endpoint doesn’t
+          // need that level of detail)
+          problems: undefined,
+          numProblems: a.numProblems,
+        })),
     });
   },
 };
