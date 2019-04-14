@@ -22,6 +22,12 @@ Classroom.relationship({
   refPath: 'classroom',
 });
 
+Classroom.relationship({
+  path: 'assignments',
+  ref: 'Assignment',
+  refPath: 'classroom',
+});
+
 Classroom.register();
 
 Classroom.defaultColumns = 'name, code, instructor';
