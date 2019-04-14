@@ -12,6 +12,8 @@ Assignment.add({
   classroom: { type: Types.Relationship, ref: 'Classroom', initial: true, required: true },
 });
 
+Assignment.schema.virtual('numProblems').get(function countProblems() { return this.problems.length; });
+
 Assignment.register();
 
 Assignment.defaultColumns = 'name, classroom, due';
