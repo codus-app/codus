@@ -30,4 +30,24 @@ module.exports = {
     _id: undefined,
     __v: undefined,
   }),
+
+  /** Parse a problem from a string or object and throw an error if unsupported format is passed */
+  parseProblem: (problem) => {
+    if (typeof problem === 'string') {
+      if ((problem.match(/\//g) || []).length !== 1) throw new Error('Problem strings must be formatted as category/ProblemName');
+      else {
+        const [category, problemName] = problem.trim().split('/');
+        return { category, problemName };
+      }
+    } else if (Array.isArray(problem)) {
+      if (problem.length !== 2 || problem.some(c => typeof c !== 'string')) throw new Error("Arrays representing problems must be formatted as ['category', 'problemName']");
+      else return { category: problem[0], problemName: problem[1] };
+    } else if (typeof problem === 'object') {
+      const keys = Object.keys(problem);
+      if (keys.length !== 2 || !problem.category || !problem.problemName) throw new Error("Objects representing problems must be formatted as { category: '(categoryName)', problemName: '(problemName)' }");
+      else return problem;
+    } else {
+      throw new Error(`Problem '${problem}' passed in unsupported format`);
+    }
+  },
 };
