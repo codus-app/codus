@@ -1,11 +1,14 @@
 const keystone = require('keystone');
 
+const { ObjectID } = keystone.mongoose.mongo;
+
 const User = keystone.list('User');
 const Classroom = keystone.list('Classroom');
 const Assignment = keystone.list('Assignment');
 const Problem = keystone.list('Problem');
 const Solution = keystone.list('Solution');
 
+const { publicizeProblem } = require('../util');
 const { generateInviteCode } = require('../util/classroom');
 const { publicizeUser } = require('../util/user');
 const { getUser, getUsers } = require('../../auth');
@@ -173,6 +176,42 @@ module.exports.assignments = {
           problems: undefined,
           numProblems: a.numProblems,
         })),
+    });
+  },
+
+  async get(req, res) {
+    const { classroomCode, assignmentCode } = req.params;
+
+    if (!assignmentCode || assignmentCode.length !== 8) return res.status(400).json({ error: 'Classroom code must be an 8-character code' });
+
+    const classroom = await Classroom.model
+      .findOne()
+      .where('code').equals(classroomCode)
+      .select('-__v');
+
+    if (!classroom) return res.status(404).json({ error: `Classroom '${classroomCode}' was not found` });
+    if (!classroom.instructor.equals(req.user2._id)) return res.status(403).json({ error: `You don't own classroom ${classroomCode}` });
+
+    const assignment = await Assignment.model
+      .findOne()
+      .where('classroom').equals(classroom._id)
+      .where('_id')
+        .gte(new ObjectID(`${assignmentCode}0000000000000000`)) // eslint-disable-line indent
+        .lte(new ObjectID(`${assignmentCode}ffffffffffffffff`)) // eslint-disable-line indent
+      .populate({ path: 'problems', populate: { path: 'category' } })
+      .select('-__v');
+
+    if (!assignment) return res.status(404).json({ error: `Assignment '${assignmentCode}' was not found in classroom '${classroomCode}'` });
+
+    return res.json({
+      data: {
+        ...assignment.toObject(),
+        classroom: classroomCode,
+        _id: undefined,
+        id: assignment._id.toString().substring(0, 8),
+        problems: assignment.problems.map(p => publicizeProblem(p, p.category)),
+        numProblems: assignment.numProblems,
+      },
     });
   },
 };
