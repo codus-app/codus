@@ -8,7 +8,7 @@ const Assignment = keystone.list('Assignment');
 const Problem = keystone.list('Problem');
 const Solution = keystone.list('Solution');
 
-const { publicizeProblem } = require('../util');
+const { publicizeProblem } = require('../util/problem');
 const { generateInviteCode } = require('../util/classroom');
 const { publicizeUser } = require('../util/user');
 const { getUser, getUsers } = require('../../auth');
