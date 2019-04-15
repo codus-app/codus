@@ -27,6 +27,7 @@ module.exports.classrooms = {
     res.json({ data: classrooms.map(c => c.toObject()) });
   },
 
+  /** Get detailed information on a specific classroom */
   async get(req, res) {
     const { code } = req.params;
 
@@ -117,7 +118,8 @@ module.exports.classrooms = {
     return res.json({});
   },
 
-  async deleteUser(req, res) {
+  /** Remove a user from a classroom */
+  async removeUser(req, res) {
     const { code, username } = req.params;
     const classroom = await Classroom.model
       .findOne()
@@ -145,6 +147,7 @@ module.exports.classrooms = {
 
 
 module.exports.assignments = {
+  /** List all assignments in a classroom */
   async list(req, res) {
     const { classroomCode } = req.params;
 
@@ -179,6 +182,7 @@ module.exports.assignments = {
     });
   },
 
+  /** Get information on a single assignment */
   async get(req, res) {
     const { classroomCode, assignmentCode } = req.params;
 
@@ -201,7 +205,7 @@ module.exports.assignments = {
       .populate({ path: 'problems', populate: { path: 'category' } })
       .select('-__v');
 
-    if (!assignment) return res.status(404).json({ error: `Assignment '${assignmentCode}' was not found in classroom '${classroomCode}'` });
+    if (!assignment) return res.status(404).json({ error: `Assignment '${assignmentCode}' was not found in classroom ${classroomCode}` });
 
     return res.json({
       data: {
