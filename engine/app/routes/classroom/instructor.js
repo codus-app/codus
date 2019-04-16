@@ -179,6 +179,8 @@ module.exports.assignments = {
           // need that level of detail)
           problems: undefined,
           numProblems: a.numProblems,
+
+          createdAt: a.createdAt,
         })),
     });
   },
@@ -216,6 +218,7 @@ module.exports.assignments = {
         id: assignment._id.toString().substring(0, 8),
         problems: assignment.problems.map(p => publicizeProblem(p, p.category)),
         numProblems: assignment.numProblems,
+        createdAt: assignment.createdAt,
       },
     });
   },
@@ -273,7 +276,8 @@ module.exports.assignments = {
           id: assignment._id.toString().substring(0, 8),
           problems: problems
             .map(p => publicizeProblem(p, categories.find(c => c._id.equals(p.category)))),
-          numProblems: problems.length,
+          numProblems: assignment.numProblems,
+          createdAt: assignment.createdAt,
         } });
       }
     });
