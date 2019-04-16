@@ -53,5 +53,13 @@ module.exports = {
   },
 
   /** Parse multiple problems from an array and error if an unsupported problem is passed */
-  parseProblems: problems => problems.map(p => module.exports.parseProblem(p)),
+  parseProblems: (problems) => {
+    const parsed = problems.map(p => module.exports.parseProblem(p));
+    const out = {};
+    parsed.forEach(({ category, problemName }) => {
+      if (!out[category]) out[category] = [];
+      if (!out[category].includes(problemName)) out[category].push(problemName);
+    });
+    return out;
+  },
 };
