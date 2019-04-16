@@ -5,10 +5,11 @@ const { ObjectID } = keystone.mongoose.mongo;
 const User = keystone.list('User');
 const Classroom = keystone.list('Classroom');
 const Assignment = keystone.list('Assignment');
+const Category = keystone.list('Category');
 const Problem = keystone.list('Problem');
 const Solution = keystone.list('Solution');
 
-const { publicizeProblem } = require('../util/problem');
+const { publicizeProblem, parseProblems } = require('../util/problem');
 const { generateInviteCode } = require('../util/classroom');
 const { publicizeUser } = require('../util/user');
 const { getUser, getUsers } = require('../../auth');
@@ -217,5 +218,65 @@ module.exports.assignments = {
         numProblems: assignment.numProblems,
       },
     });
+  },
+
+  /** Create a new assignment */
+  async post(req, res) {
+    const { classroomCode } = req.params;
+    const { name, description, dueDate, problems: rawProblems } = req.body;
+
+    // Fetch classroom we're adding to
+
+    const classroom = await Classroom.model
+      .findOne()
+      .where('code').equals(classroomCode)
+      .select('-__v');
+
+    if (!classroom) return res.status(404).json({ error: `Classroom '${classroomCode}' was not found` });
+    if (!classroom.instructor.equals(req.user2._id)) return res.status(403).json({ error: `You don't own classroom ${classroomCode}` });
+
+    // Get the IDs of all of the problems we're adding to the assignment
+
+    const parsedProblems = parseProblems(rawProblems);
+    const problemsMap = {};
+    parsedProblems.forEach(({ category, problemName }) => {
+      if (!problemsMap[category]) problemsMap[category] = [];
+      if (!problemsMap[category].includes(problemName)) problemsMap[category].push(problemName);
+    });
+
+    const categories = await Category.model
+      .find()
+      .where('name').in(Object.keys(problemsMap));
+    const problemQueries = parsedProblems.map(({ category, problemName }) => ({
+      name: problemName,
+      category: categories.find(c => c.name === category)._id,
+    }));
+    const problems = await Problem.model
+      .find()
+      .or(problemQueries);
+
+    const assignment = new Assignment.model(); // eslint-disable-line new-cap
+    Assignment.updateItem(assignment, {
+      classroom: classroom._id,
+      name,
+      description,
+      dueDate: new Date(dueDate).toISOString(),
+      problems: problems.map(p => p._id),
+    }, (error) => {
+      if (error) res.status(500).json({ error });
+      else {
+        res.json({ data: {
+          ...assignment.toObject(),
+          _id: undefined,
+          __v: undefined,
+          classroom: classroom.code,
+          id: assignment._id.toString().substring(0, 8),
+          problems: problems
+            .map(p => publicizeProblem(p, categories.find(c => c._id.equals(p.category)))),
+          numProblems: problems.length,
+        } });
+      }
+    });
+    return undefined;
   },
 };

@@ -66,6 +66,7 @@ module.exports = (app) => {
   app.delete('/api/classroom/:code/students/:username', auth0(), enforceRole('instructor'), routes.api.classroom.instructor.classrooms.removeUser);
   app.get('/api/classroom/:classroomCode/assignments', auth0(), enforceRole('instructor'), routes.api.classroom.instructor.assignments.list);
   app.get('/api/classroom/:classroomCode/assignments/:assignmentCode', auth0(), enforceRole('instructor'), routes.api.classroom.instructor.assignments.get);
+  app.post('/api/classroom/:classroomCode/assignments', auth0(), enforceRole('instructor'), routes.api.classroom.instructor.assignments.post);
 
   app.get('/api/classroom/join/:code', auth0(), enforceRole('student'), routes.api.classroom.student.classroom.join);
   app.get('/api/classroom', auth0(), enforceRole('student'), routes.api.classroom.student.classroom.get);
