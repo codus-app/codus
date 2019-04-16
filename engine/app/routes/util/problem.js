@@ -51,4 +51,7 @@ module.exports = {
       throw new Error(`Problem '${util.inspect(problem)}' passed in unsupported format`);
     }
   },
+
+  /** Parse multiple problems from an array and error if an unsupported problem is passed */
+  parseProblems: problems => problems.map(p => module.exports.parseProblem(p)),
 };
