@@ -40,23 +40,21 @@ module.exports.category = {
       .findOne()
       .where('name').equals(req.params.name)
       .select('-__v -sortOrder');
-    if (!category) res.status(404).json({ error: `Category '${req.params.name}' was not found` });
+    if (!category) return res.status(404).json({ error: `Category '${req.params.name}' was not found` });
 
-    else {
-      const problems = (await Problem.model
-        .find()
-        .where('category').equals(category._id)
-        .sort({ sortOrder: 1 }))
-        .map(({ name }) => ({ name })); // Include just the name in the output object
+    const problems = (await Problem.model
+      .find()
+      .where('category').equals(category._id)
+      .sort({ sortOrder: 1 }))
+      .map(({ name }) => ({ name })); // Include just the name in the output object
 
-      res.json({
-        data: Object.assign(category.toObject(), {
-          problems,
-          description: md(category.description),
-          _id: undefined,
-        }),
-      });
-    }
+    return res.json({
+      data: Object.assign(category.toObject(), {
+        problems,
+        description: md(category.description),
+        _id: undefined,
+      }),
+    });
   },
 };
 
@@ -70,22 +68,18 @@ module.exports.problem = {
     const category = await Category.model
       .findOne()
       .where('name').equals(req.params.category);
-    if (!category) res.status(404).json({ error: `Category '${req.params.category}' was not found` });
+    if (!category) return res.status(404).json({ error: `Category '${req.params.category}' was not found` });
 
     // Find problem with right category and right name
-    else {
-      const problem = await Problem.model
-        .findOne()
-        .where('category').equals(category._id)
-        .where('name').equals(req.params.name)
-        .populate('category')
-        .select('-_id -__v');
+    const problem = await Problem.model
+      .findOne()
+      .where('category').equals(category._id)
+      .where('name').equals(req.params.name)
+      .populate('category')
+      .select('-_id -__v');
 
-      if (!problem) res.status(404).json({ error: `Problem '${req.params.name}' was not found` });
-      else {
-        res.json({ data: publicizeProblem(problem, problem.category) });
-      }
-    }
+    if (!problem) return res.status(404).json({ error: `Problem '${req.params.name}' was not found` });
+    return res.json({ data: publicizeProblem(problem, problem.category) });
   },
 };
 
@@ -121,13 +115,13 @@ module.exports.userSolution = {
     const problemCategory = await Category.model
       .findOne()
       .where('name').equals(req.params.category);
-    if (!problemCategory) { res.status(404).json({ error: `Category '${req.params.category}' was not found` }); return; }
+    if (!problemCategory) return res.status(404).json({ error: `Category '${req.params.category}' was not found` });
 
     const problem = await Problem.model
       .findOne()
       .where('category').equals(problemCategory._id)
       .where('name').equals(req.params.problem);
-    if (!problem) { res.status(404).json({ error: `Problem '${req.params.category}/${req.params.problem}' was not found` }); return; }
+    if (!problem) return res.status(404).json({ error: `Problem '${req.params.category}/${req.params.problem}' was not found` });
 
     const user = await User.model
       .findOne()
@@ -141,7 +135,7 @@ module.exports.userSolution = {
       // When there's no existing user solution, code should be null
       || { toObject: () => ({ code: null, passed: false }) };
 
-    res.json({
+    return res.json({
       data: {
         ...solution.toObject(),
         user: undefined,
@@ -153,18 +147,18 @@ module.exports.userSolution = {
 
   async put(req, res) {
     const { code = '' } = req.body;
-    if (code.length > 10000) { res.status(413).json({ error: 'Code must not be more than 10kb in size' }); return; }
+    if (code.length > 10000) return res.status(413).json({ error: 'Code must not be more than 10kb in size' });
 
     const problemCategory = await Category.model
       .findOne()
       .where('name').equals(req.params.category);
-    if (!problemCategory) { res.status(404).json({ error: `Category '${req.params.category}' was not found` }); return; }
+    if (!problemCategory) return res.status(404).json({ error: `Category '${req.params.category}' was not found` });
 
     const problem = await Problem.model
       .findOne()
       .where('category').equals(problemCategory._id)
       .where('name').equals(req.params.problem);
-    if (!problem) { res.status(404).json({ error: `Problem '${req.params.category}/${req.params.problem}' was not found` }); return; }
+    if (!problem) return res.status(404).json({ error: `Problem '${req.params.category}/${req.params.problem}' was not found` });
 
     const user = await User.model
       .findOne()
@@ -185,42 +179,37 @@ module.exports.userSolution = {
       passed = codeChanged ? false : previouslyPassed;
     }
 
-    let created = false;
+    if (solution) {
+      // Update an existing solution.
+      Solution.updateItem(solution, { code, passed }, (error) => {
+        if (error) res.status(500).json({ error });
+        else res.json({ data: { code, passed } });
+      });
+    } else {
+      // Add a new solution
+      const newSolution = new Solution.model(); // eslint-disable-line new-cap
+      Solution.updateItem(newSolution, {
+        problem, user: user._id, code, passed: false,
+      }, (error) => {
+        if (error) res.status(500).json({ error });
+        else res.status(201).json({ data: { code, passed } });
+      });
+    }
 
-    await new Promise((resolve, reject) => {
-      if (solution) {
-        // Update an existing solution.
-        Solution.updateItem(solution, { code, passed }, (error) => {
-          if (error) reject(error);
-          else resolve();
-        });
-      } else {
-        // Add a new solution
-        const newSolution = new Solution.model(); // eslint-disable-line new-cap
-        Solution.updateItem(newSolution, {
-          problem, user: user._id, code, passed: false,
-        }, (error) => {
-          if (error) reject(error);
-          else resolve();
-        });
-        created = true;
-      }
-    }).catch(err => res.status(400).json(err));
-
-    res.status(created ? 201 : 200).json({ data: { code, passed } });
+    return undefined;
   },
 
   async check(req, res) {
     const problemCategory = await Category.model
       .findOne()
       .where('name').equals(req.params.category);
-    if (!problemCategory) { res.status(404).json({ error: `Category '${req.params.category}' was not found` }); return; }
+    if (!problemCategory) return res.status(404).json({ error: `Category '${req.params.category}' was not found` });
 
     const problem = await Problem.model
       .findOne()
       .where('category').equals(problemCategory._id)
       .where('name').equals(req.params.problem);
-    if (!problem) { res.status(404).json({ error: `Problem '${req.params.category}/${req.params.problem}' was not found` }); return; }
+    if (!problem) return res.status(404).json({ error: `Problem '${req.params.category}/${req.params.problem}' was not found` });
 
     const user = await User.model
       .findOne()
@@ -230,13 +219,13 @@ module.exports.userSolution = {
       .findOne()
       .where('user').equals(user._id)
       .where('problem').equals(problem._id);
-    if (!solution) { res.status(404).json({ error: `No solution to problem '${req.params.category}/${req.params.problem}' was found for authenticated user ${req.user.sub}` }); return; }
+    if (!solution) return res.status(404).json({ error: `No solution to problem '${req.params.category}/${req.params.problem}' was found for authenticated user ${req.user.sub}` });
 
     try {
       // Check solution
       const results = await solution.check();
       // Return results
-      res.json({
+      return res.json({
         data: {
           passed: results.passed,
           tests: results.tests.map(t => ({
@@ -253,7 +242,7 @@ module.exports.userSolution = {
       });
     } catch (e) {
       // If check failed (due to error) return that error
-      res.json({
+      return res.json({
         data: {
           passed: false,
           tests: problem.testCases2

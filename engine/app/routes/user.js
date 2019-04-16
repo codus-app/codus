@@ -31,10 +31,9 @@ module.exports = {
 
         const solutionProgress = await getUserSolvedProgress(user);
 
-        res.json({
+        return res.json({
           data: publicizeUser(user, { username, user_metadata }, solutionProgress),
         });
-        return undefined;
       });
   },
 
@@ -45,47 +44,46 @@ module.exports = {
     const { username, name, email, password, role = 'student' } = req.body;
 
     const errors = validateUser({ username, name, email, password, role }, ['username', 'name', 'email', 'password']);
-    if (errors.length) res.status(400).json({ error: errors });
+    if (errors.length) return res.status(400).json({ error: errors });
 
-    else {
-      try {
-        // Create Auth0 user
-        const user = await createAuth0User({ username, name, email, password });
-        // Create Keystone user
-        await new Promise((resolve, reject) => {
-          // eslint-disable-next-line new-cap
-          const newUser = new User.model();
-          User.updateItem(newUser, {
-            userId: user.user_id,
-            role,
-          }, (error) => {
-            if (error) reject(error);
-            else resolve();
-          });
+    try {
+      // Create Auth0 user
+      const user = await createAuth0User({ username, name, email, password });
+      // Create Keystone user
+      await new Promise((resolve, reject) => {
+        // eslint-disable-next-line new-cap
+        const newUser = new User.model();
+        User.updateItem(newUser, {
+          userId: user.user_id,
+          role,
+        }, (error) => {
+          if (error) reject(error);
+          else resolve();
         });
+      });
 
-        res.status(201).json({
-          data: {
-            id: user.user_id,
-            username: user.username,
-            name: user.user_metadata.name,
-            email: user.email,
-          },
-          also: user,
-        });
-      } catch (e) {
-        if (e.message === 'The username provided is in use already.') {
-          res.status(409).json({ error: [{ key: 'username', message: e.message }] });
-        } else if (e.message === 'The user already exists.') {
-          res.status(409).json({ error: [{ key: 'email', message: e.message }] });
-        } else if (e.message === 'PasswordNoUserInfoError: Password contains user information') {
-          res.status(400).json({ error: [{ key: 'password', message: 'Password contains user information' }] });
-        } else if (e.message === 'PasswordDictionaryError: Password is too common') {
-          res.status(400).json({ error: [{ key: 'password', message: 'Password is too commonly used.' }] });
-        } else {
-          res.status(500).json({ error: [{ message: e.message }] });
-        }
+      return res.status(201).json({
+        data: {
+          id: user.user_id,
+          username: user.username,
+          name: user.user_metadata.name,
+          email: user.email,
+        },
+        also: user,
+      });
+    } catch (e) {
+      if (e.message === 'The username provided is in use already.') {
+        res.status(409).json({ error: [{ key: 'username', message: e.message }] });
+      } else if (e.message === 'The user already exists.') {
+        res.status(409).json({ error: [{ key: 'email', message: e.message }] });
+      } else if (e.message === 'PasswordNoUserInfoError: Password contains user information') {
+        res.status(400).json({ error: [{ key: 'password', message: 'Password contains user information' }] });
+      } else if (e.message === 'PasswordDictionaryError: Password is too common') {
+        res.status(400).json({ error: [{ key: 'password', message: 'Password is too commonly used.' }] });
+      } else {
+        res.status(500).json({ error: [{ message: e.message }] });
       }
+      return undefined;
     }
   },
 
@@ -121,27 +119,26 @@ module.exports = {
       const { username, name, email } = req.body;
 
       const errors = validateUser({ username, name, email });
-      if (errors.length) res.status(400).json({ error: errors });
-      else {
-        try {
-          const updated = await updateAuth0User(req.user.sub, { username, email, name });
-          res.json({
-            data: {
-              id: req.user.sub,
-              username: updated.username,
-              name: updated.user_metadata.name,
-              email: updated.email,
-            },
-          });
-        } catch (e) {
-          if (e.message.endsWith('username already exists')) {
-            res.status(409).json({ error: [{ key: 'username', message: e.message }] });
-          } else if (e.message.endsWith('email already exists')) {
-            res.status(409).json({ error: [{ key: 'email', message: e.message }] });
-          } else {
-            res.status(500).json({ error: e.message });
-          }
+      if (errors.length) return res.status(400).json({ error: errors });
+      try {
+        const updated = await updateAuth0User(req.user.sub, { username, email, name });
+        res.json({
+          data: {
+            id: req.user.sub,
+            username: updated.username,
+            name: updated.user_metadata.name,
+            email: updated.email,
+          },
+        });
+      } catch (e) {
+        if (e.message.endsWith('username already exists')) {
+          res.status(409).json({ error: [{ key: 'username', message: e.message }] });
+        } else if (e.message.endsWith('email already exists')) {
+          res.status(409).json({ error: [{ key: 'email', message: e.message }] });
+        } else {
+          res.status(500).json({ error: e.message });
         }
+        return undefined;
       }
     },
 
