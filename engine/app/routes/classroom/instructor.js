@@ -228,6 +228,8 @@ module.exports.assignments = {
     const { classroomCode } = req.params;
     const { name, description, dueDate, problems: rawProblems } = req.body;
 
+    if (Number.isNaN(Number(new Date(dueDate)))) return res.status(400).json({ error: `Date '${dueDate}' could not be parsed` });
+
     // Fetch classroom we're adding to
 
     const classroom = await Classroom.model
@@ -246,10 +248,15 @@ module.exports.assignments = {
       if (!problemsMap[category]) problemsMap[category] = [];
       if (!problemsMap[category].includes(problemName)) problemsMap[category].push(problemName);
     });
-
+    // Fetch all categories from which the assignment's problems draw
+    const categoryNames = Object.keys(problemsMap);
     const categories = await Category.model
       .find()
-      .where('name').in(Object.keys(problemsMap));
+      .where('name').in(categoryNames);
+    const fetchedCategoryNames = categories.map(c => c.name);
+    // Error if there are missing categories
+    if (categories.length !== categoryNames.length) return res.status(404).json({ error: `Category '${categoryNames.find(c => !fetchedCategoryNames.includes(c))}' was not found` });
+    // Fetch all problems in the assignment
     const problemQueries = parsedProblems.map(({ category, problemName }) => ({
       name: problemName,
       category: categories.find(c => c.name === category)._id,
@@ -257,6 +264,14 @@ module.exports.assignments = {
     const problems = await Problem.model
       .find()
       .or(problemQueries);
+    // Error handling: find first prbolem that was queried for but doesn't appear in the fetched set
+    // of problems
+    const missing = parsedProblems[problemQueries
+      .findIndex(({ name: p, category: c }) => !problems
+        .find(({ name: p2, category: c2 }) => p === p2 && c.equals(c2)))];
+    if (missing) return res.status(404).json({ error: `Problem '${missing.category}/${missing.problemName}' was not found` });
+
+    // Create the new assignment
 
     const assignment = new Assignment.model(); // eslint-disable-line new-cap
     Assignment.updateItem(assignment, {
