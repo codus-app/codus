@@ -15,7 +15,7 @@ async function fetchUser(req, res, next) {
 function enforceRole(role) {
   return async (req, res, next) => {
     // Require userFetch middleware to precede this middleware
-    if (!req.user2) return new HTTPError(500, 'Route misconfigured').handle(res);
+    if (!req.user2) return new HTTPError('Route misconfigured').handle(res);
     // Error if role doesn't match
     if (req.user2.role !== role) return new HTTPError(403, `Authenticated user must have role: ${role}`).handle(res);
     return next();
@@ -29,7 +29,7 @@ function enforceRole(role) {
 function roleSwitch(handlers) {
   return async (req, res) => {
     // Require userFetch middleware to precede this middleware
-    if (!req.user2) return new HTTPError(500, 'Route misconfigured').handle(res);
+    if (!req.user2) return new HTTPError('Route misconfigured').handle(res);
     // Call handler corresponding to user role
     return handlers[req.user2.role](req, res);
   };
@@ -42,7 +42,7 @@ function roleSwitch(handlers) {
 async function fetchClassroom(req, res, next) {
   let classroom;
   // Require userFetch middleware to precede this middleware
-  if (!req.user2) return new HTTPError(500, 'Route misconfigured').handle(res);
+  if (!req.user2) return new HTTPError('Route misconfigured').handle(res);
   const { role } = req.user2;
 
   if (req.params.classroomCode) {

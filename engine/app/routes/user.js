@@ -3,6 +3,7 @@ const { isEmail } = require('validator');
 const { validateUser, publicizeUser } = require('./util/user');
 const upload = require('./util/profile-image-upload');
 const getUserSolvedProgress = require('./util/user-solution-progress.js');
+const HTTPError = require('./util/error');
 
 const {
   getUser: getAuth0User,
@@ -23,7 +24,7 @@ module.exports = {
     getAuth0User.byUsername(req.params.username)
       .then(user => user || { error: 'not found' })
       .then(async ({ error, username, user_id, user_metadata }) => {
-        if (error) return res.status(404).json({ error: `User '${req.params.username}' was not found` });
+        if (error) return new HTTPError(404, `User '${req.params.username}' was not found`).handle(res);
 
         const user = await User.model
           .findOne()
@@ -44,7 +45,7 @@ module.exports = {
     const { username, name, email, password, role = 'student' } = req.body;
 
     const errors = validateUser({ username, name, email, password, role }, ['username', 'name', 'email', 'password']);
-    if (errors.length) return res.status(400).json({ error: errors });
+    if (errors.length) return new HTTPError(400, errors).handle(res);
 
     try {
       // Create Auth0 user
@@ -73,15 +74,15 @@ module.exports = {
       });
     } catch (e) {
       if (e.message === 'The username provided is in use already.') {
-        res.status(409).json({ error: [{ key: 'username', message: e.message }] });
+        new HTTPError(409, [{ key: 'username', message: e.message }]).handle(res);
       } else if (e.message === 'The user already exists.') {
-        res.status(409).json({ error: [{ key: 'email', message: e.message }] });
+        new HTTPError(409, [{ key: 'email', message: e.message }]).handle(res);
       } else if (e.message === 'PasswordNoUserInfoError: Password contains user information') {
-        res.status(400).json({ error: [{ key: 'password', message: 'Password contains user information' }] });
+        new HTTPError(400, [{ key: 'password', message: 'Password contains user information' }]).handle(res);
       } else if (e.message === 'PasswordDictionaryError: Password is too common') {
-        res.status(400).json({ error: [{ key: 'password', message: 'Password is too commonly used.' }] });
+        new HTTPError(400, [{ key: 'password', message: 'Password is too commonly used.' }]).handle(res);
       } else {
-        res.status(500).json({ error: [{ message: e.message }] });
+        new HTTPError(500, [{ message: e.message }]).handle(res);
       }
       return undefined;
     }
@@ -119,10 +120,10 @@ module.exports = {
       const { username, name, email } = req.body;
 
       const errors = validateUser({ username, name, email });
-      if (errors.length) return res.status(400).json({ error: errors });
+      if (errors.length) return new HTTPError(400, errors).handle(res);
       try {
         const updated = await updateAuth0User(req.user.sub, { username, email, name });
-        res.json({
+        return res.json({
           data: {
             id: req.user.sub,
             username: updated.username,
@@ -132,11 +133,11 @@ module.exports = {
         });
       } catch (e) {
         if (e.message.endsWith('username already exists')) {
-          res.status(409).json({ error: [{ key: 'username', message: e.message }] });
+          new HTTPError(409, [{ key: 'username', message: e.message }]).handle(res);
         } else if (e.message.endsWith('email already exists')) {
-          res.status(409).json({ error: [{ key: 'email', message: e.message }] });
+          new HTTPError(409, [{ key: 'email', message: e.message }]).handle(res);
         } else {
-          res.status(500).json({ error: e.message });
+          new HTTPError(e.message).handle(res);
         }
         return undefined;
       }
@@ -144,17 +145,14 @@ module.exports = {
 
     // Accepts multipart form data with the new image under the "picture" key
     putProfileImage(req, res) {
-      if (!req.is('multipart/form-data')) {
-        res.status(400).send({ error: 'Content-Type must be multipart/form-data' });
-        return;
-      }
+      if (!req.is('multipart/form-data')) return new HTTPError(400, 'Content-Type must be multipart/form-data').handle(res);
       // Upload new profile image
       new Promise((resolve, reject) => {
         upload.single('picture')(req, res, (err) => {
           // Error
-          if (err) reject(err);
+          if (err) reject(new HTTPError(422, err));
           // File missing
-          else if (!req.file) reject(Object.assign(new Error("'picture' field is required"), { statusCode: 400 }));
+          else if (!req.file) reject(new HTTPError(400, "'picture' field is required"));
           // Success
           else resolve(req.file.location);
         });
@@ -168,7 +166,8 @@ module.exports = {
           },
         }))
         // Handle errors
-        .catch(e => res.status(e.statusCode || 422).json({ error: [{ key: 'picture', message: e.message }] }));
+        .catch(e => res.status(e.statusCode).json({ error: [{ key: 'picture', message: e.message }] }));
+      return undefined;
     },
   },
 

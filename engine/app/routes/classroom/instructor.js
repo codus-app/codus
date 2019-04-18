@@ -8,6 +8,7 @@ const Assignment = keystone.list('Assignment');
 const Problem = keystone.list('Problem');
 const Solution = keystone.list('Solution');
 
+const HTTPError = require('../util/error');
 const { publicizeProblem, fetchProblems } = require('../util/problem');
 const { generateInviteCode } = require('../util/classroom');
 const { publicizeUser } = require('../util/user');
@@ -78,7 +79,7 @@ module.exports.classrooms = {
       instructor: req.user2._id,
       code,
     }, (error) => {
-      if (error) res.status(500).json({ error: 'Something went wrong' });
+      if (error) new HTTPError('Something went wrong').handle(res);
       else res.json({ data: { name, code } });
     });
   },
@@ -96,7 +97,7 @@ module.exports.classrooms = {
         if (error) errors.push(error);
       });
     });
-    if (errors.length) return res.status(500).json({ error: 'Could not remove students from classroom' });
+    if (errors.length) return new HTTPError('Could not remove students from classroom').handle(res);
 
     // Remove classroom
     await req.classroom.remove();
@@ -113,11 +114,11 @@ module.exports.classrooms = {
       .findOne()
       .where('userId').equals(userId);
 
-    if (!user) return res.status(404).json({ error: `User ${username} was not found` });
-    if (!user.classroom.equals(req.classroom._id)) return res.status(403).json({ error: `User ${username} does not belong to classroom ${req.classroom.code}` });
+    if (!user) return new HTTPError(404, `User ${username} was not found`).handle(res);
+    if (!user.classroom.equals(req.classroom._id)) return new HTTPError(403, `User ${username} does not belong to classroom ${req.classroom.code}`).handle(res);
 
     return User.updateItem(user, { classroom: null }, async (error) => {
-      if (error) return res.status(500).json({ error });
+      if (error) return new HTTPError('Something went wrong').handle(res);
       return res.json({ data: { removed: [username] } });
     });
   },
@@ -159,7 +160,7 @@ module.exports.assignments = {
   async get(req, res) {
     const { assignmentCode } = req.params;
 
-    if (!assignmentCode || assignmentCode.length !== 8) return res.status(400).json({ error: 'Assignment code must be an 8-character code' });
+    if (!assignmentCode || assignmentCode.length !== 8) return new HTTPError(400, 'Assignment code must be an 8-character code').handle(res);
 
     const assignment = await Assignment.model
       .findOne()
@@ -170,7 +171,7 @@ module.exports.assignments = {
       .populate({ path: 'problems', populate: { path: 'category' } })
       .select('-__v');
 
-    if (!assignment) return res.status(404).json({ error: `Assignment '${assignmentCode}' was not found in classroom ${req.classroom.code}` });
+    if (!assignment) return new HTTPError(400, `Assignment '${assignmentCode}' was not found in classroom ${req.classroom.code}`).handle(res);
 
     return res.json({
       data: {
@@ -189,7 +190,7 @@ module.exports.assignments = {
   async post(req, res) {
     const { name, description, dueDate, problems: rawProblems } = req.body;
 
-    if (Number.isNaN(Number(new Date(dueDate)))) return res.status(400).json({ error: `Date '${dueDate}' could not be parsed` });
+    if (Number.isNaN(Number(new Date(dueDate)))) return new HTTPError(400, `Date '${dueDate}' could not be parsed`).handle(res);
 
     // Get the IDs of all of the problems we're adding to the assignment
     let problems;
@@ -198,7 +199,7 @@ module.exports.assignments = {
       ({ problems, categories } = await fetchProblems(rawProblems));
     } catch (e) {
       if (e.statusCode) return e.handle(res);
-      return res.status(500).json({ error: 'Something went wrong' });
+      return new HTTPError('Something went wrong').handle(res);
     }
 
     // Create the new assignment
@@ -211,7 +212,7 @@ module.exports.assignments = {
       dueDate: new Date(dueDate).toISOString(),
       problems: problems.map(p => p._id),
     }, (error) => {
-      if (error) res.status(500).json({ error });
+      if (error) new HTTPError('Something went wrong').handle(res);
       else {
         res.json({ data: {
           ...assignment.toObject(),
@@ -236,9 +237,9 @@ module.exports.assignments = {
     const { name, description, dueDate, problems: rawProblems } = req.body;
 
     // Initial validation
-    if (name === null) return res.status(400).json({ error: 'Name cannot be blank' });
-    if (rawProblems === null || (rawProblems && rawProblems.length === 0)) return res.status(400).json({ error: 'Problems cannot be blank' });
-    if (dueDate && Number.isNaN(Number(new Date(dueDate)))) return res.status(400).json({ error: `Date '${dueDate}' could not be parsed` });
+    if (name === null) return new HTTPError(400, 'Name cannot be blank').handle(res);
+    if (rawProblems === null || (rawProblems && rawProblems.length === 0)) return new HTTPError(400, 'Problems cannot be blank').handle(res);
+    if (dueDate && Number.isNaN(Number(new Date(dueDate)))) return new HTTPError(400, `Date '${dueDate}' could not be parsed`).handle(res);
 
     const assignmentPromise = Assignment.model
       .findOne()
@@ -251,7 +252,7 @@ module.exports.assignments = {
     if (!rawProblems) assignmentPromise.populate({ path: 'problems', populate: { path: 'category' } });
     const assignment = await assignmentPromise;
 
-    if (!assignment) return res.status(404).json({ error: `Assignment '${assignmentCode}' was not found in classroom ${req.classroom.code}` });
+    if (!assignment) return new HTTPError(404, `Assignment '${assignmentCode}' was not found in classroom ${req.classroom.code}`).handle(res);
 
 
     // Get the IDs of all of the problems we're adding to the assignment
@@ -262,7 +263,7 @@ module.exports.assignments = {
         ({ problems, categories } = await fetchProblems(rawProblems));
       } catch (e) {
         if (e.statusCode) return e.handle(res);
-        return res.status(500).json({ error: 'Something went wrong' });
+        return new HTTPError('Something went wrong').handle(res);
       }
     }
 
@@ -274,7 +275,7 @@ module.exports.assignments = {
     }, {
       fields: ['name', 'description', 'dueDate', ...rawProblems ? ['problems'] : []],
     }, (error) => {
-      if (error) res.status(500).json({ error });
+      if (error) new HTTPError('Something went wrong').handle(res);
       else {
         res.json({ data: {
           ...assignment.toObject(),

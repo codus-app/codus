@@ -3,6 +3,8 @@ const keystone = require('keystone');
 const User = keystone.list('User');
 const Classroom = keystone.list('Classroom');
 
+const HTTPError = require('../util/error');
+
 module.exports.classroom = {
   async join(req, res) {
     const { classroomCode } = req.params;
@@ -11,7 +13,7 @@ module.exports.classroom = {
       .where('code').equals(classroomCode)
       .select('-__v');
 
-    if (!classroom) return res.status(404).send({ error: `Could not find classroom ${classroomCode}` });
+    if (!classroom) return new HTTPError(404, `Could not find classroom ${classroomCode}`).handle(res);
 
     // Fetch some info about the classroom
     const [size, instructor] = await Promise.all([
@@ -26,18 +28,17 @@ module.exports.classroom = {
     ]);
 
     return User.updateItem(req.user2, { classroom: classroom._id }, async (error) => {
-      if (error) res.status(500).json({ error });
-      else {
-        res.json({
-          data: {
-            ...classroom.toObject(),
-            size,
-            instructor,
-            joined: true,
-            _id: undefined,
-          },
-        });
-      }
+      if (error) return new HTTPError('Something went wrong').handle(res);
+
+      return res.json({
+        data: {
+          ...classroom.toObject(),
+          size,
+          instructor,
+          joined: true,
+          _id: undefined,
+        },
+      });
     });
   },
 
@@ -89,8 +90,8 @@ module.exports.classroom = {
 
   async leave(req, res) {
     User.updateItem(req.user2, { classroom: null }, (error) => {
-      if (error) req.status(500).json({ error });
-      else res.json({ data: null });
+      if (error) return new HTTPError('Something went wrong').handle(res);
+      return res.json({ data: null });
     });
   },
 };
