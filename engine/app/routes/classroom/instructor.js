@@ -111,7 +111,7 @@ module.exports.classrooms = {
         if (error) errors.push(error);
       });
     });
-    if (errors.length) return res.status(500).json({ error: errors });
+    if (errors.length) return res.status(500).json({ error: 'Could not remove students from classroom' });
 
     await classroom.remove();
 

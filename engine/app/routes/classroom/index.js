@@ -1,4 +1,5 @@
 const keystone = require('keystone');
+const HTTPError = require('../util/error');
 
 const User = keystone.list('User');
 
@@ -9,14 +10,15 @@ function enforceRole(role) {
       .findOne()
       .where('userId').equals(req.user.sub);
 
-    if (req.user2.role !== role) res.status(403).json({ error: `Authenticated user must have role: ${role}` });
+    if (req.user2.role !== role) new HTTPError(403, `Authenticated user must have role: ${role}`).handle(res);
     else next();
   };
 }
 
-/** Use a different route handler depending on whether the authenticated user is a student or an
-  * instructor
-  */
+/**
+ * Use a different route handler depending on whether the authenticated user is a student or an
+ * instructor
+ */
 function roleSwitch(handlers) {
   return async (req, res) => {
     req.user2 = await User.model
