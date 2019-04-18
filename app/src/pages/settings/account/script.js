@@ -141,7 +141,6 @@ export default {
         // Make API request
         const { available } = await api.get({
           endpoint: `user-check/username/${this.username}`,
-          store: this.$store,
           signal: this.usernameRequestController.signal,
         });
         this.usernameRequestController = undefined;

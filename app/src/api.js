@@ -1,7 +1,9 @@
 /* global CODUS_API_BASE */
 
+import store from './vuex';
+
 /** Most generic function */
-async function apiRequest({ endpoint, method, heads, body, signal, store }) {
+async function apiRequest({ endpoint, method, heads, body, signal }) {
   const authed = store.getters['auth/isAuthenticated'];
   // If the user was previously logged in but that login expired, renew before making an
   // authenticated API call
@@ -32,13 +34,13 @@ async function apiRequest({ endpoint, method, heads, body, signal, store }) {
 }
 
 /** Perform a GET request and return a promise */
-export function get({ endpoint, signal, store }) {
-  return apiRequest({ endpoint, method: 'GET', signal, store });
+export function get({ endpoint, signal }) {
+  return apiRequest({ endpoint, method: 'GET', signal });
 }
 
 /** Perform a DELETE request and return a promise */
-function del({ endpoint, signal, store }) {
-  return apiRequest({ endpoint, method: 'DELETE', signal, store });
+function del({ endpoint, signal }) {
+  return apiRequest({ endpoint, method: 'DELETE', signal });
 }
 export { del as delete };
 
@@ -46,7 +48,7 @@ export { del as delete };
  * Perform an HTTP request for a method that requires a body like GET or POST, implementing easy
  * JSON support etc
  */
-function requestWithBody({ endpoint, body, contentType = 'application/json', method, signal, store }) {
+function requestWithBody({ endpoint, body, contentType = 'application/json', method, signal }) {
   const heads = { 'Content-Type': contentType };
   const json = contentType === 'application/json';
   return apiRequest({
@@ -55,7 +57,6 @@ function requestWithBody({ endpoint, body, contentType = 'application/json', met
     heads,
     body: json ? JSON.stringify(body) : body,
     signal,
-    store,
   });
 }
 

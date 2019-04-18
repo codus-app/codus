@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import * as api from '../../api';
-import store from '..';
 
 export default {
   namespaced: true,
@@ -65,7 +64,7 @@ export default {
   /** Fetch a list of all managed classrooms from the API */
   actions: {
     async fetchClassrooms({ commit }) {
-      const classrooms = await api.get({ endpoint: '/classroom/classrooms', store });
+      const classrooms = await api.get({ endpoint: '/classroom/classrooms' });
       commit('classroomsFetched', classrooms);
     },
 
@@ -73,26 +72,26 @@ export default {
       * querying that classroom directly
       */
     async fetchClassroom({ commit }, code) {
-      const classroom = await api.get({ endpoint: `/classroom/${code}`, store });
+      const classroom = await api.get({ endpoint: `/classroom/${code}` });
       commit('mutateClassroom', { ...classroom, fetched: true });
     },
 
     /** Create a classroom */
     async createClassroom({ commit }, { name }) {
-      const classroom = await api.post({ endpoint: '/classroom/classrooms', body: { name }, store });
+      const classroom = await api.post({ endpoint: '/classroom/classrooms', body: { name } });
       commit('mutateClassroom', classroom);
       return classroom;
     },
 
     /** Delete a classroom */
     async deleteClassroom({ commit }, code) {
-      await api.delete({ endpoint: `/classroom/${code}`, store });
+      await api.delete({ endpoint: `/classroom/${code}` });
       commit('removeClassroom', code);
     },
 
     /** Remove a student from a classroom */
     async removeUser({ commit }, { classroom, username }) {
-      await api.delete({ endpoint: `/classroom/${classroom}/students/${username}`, store });
+      await api.delete({ endpoint: `/classroom/${classroom}/students/${username}` });
       commit('removeUser', { classroom, username });
     },
   },

@@ -1,5 +1,4 @@
 import * as api from '../../api';
-import store from '..';
 
 export default {
   namespaced: true,
@@ -26,19 +25,19 @@ export default {
   actions: {
     /** Fetch the classroom the user is currently in */
     async fetchClassroom({ commit }) {
-      const classroom = await api.get({ endpoint: '/classroom', store });
+      const classroom = await api.get({ endpoint: '/classroom' });
       commit('classroomFetched', classroom);
       return classroom;
     },
 
     async joinClassroom({ commit }, code) {
-      const classroom = await api.get({ endpoint: `/classroom/join/${code}`, store });
+      const classroom = await api.get({ endpoint: `/classroom/join/${code}` });
       commit('classroomFetched', classroom);
       return classroom;
     },
 
     async leaveClassroom({ commit }) {
-      const resp = await api.get({ endpoint: '/classroom/leave', store });
+      const resp = await api.get({ endpoint: '/classroom/leave' });
       commit('classroomLeft');
       return resp;
     },
