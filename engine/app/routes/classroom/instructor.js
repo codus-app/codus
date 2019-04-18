@@ -243,19 +243,16 @@ module.exports.assignments = {
     // Get the IDs of all of the problems we're adding to the assignment
 
     const parsedProblems = parseProblems(rawProblems);
-    const problemsMap = {};
-    parsedProblems.forEach(({ category, problemName }) => {
-      if (!problemsMap[category]) problemsMap[category] = [];
-      if (!problemsMap[category].includes(problemName)) problemsMap[category].push(problemName);
-    });
+    const categoryNames = new Set();
+    parsedProblems.forEach(({ category }) => categoryNames.add(category));
     // Fetch all categories from which the assignment's problems draw
-    const categoryNames = Object.keys(problemsMap);
     const categories = await Category.model
       .find()
-      .where('name').in(categoryNames);
+      .where('name').in([...categoryNames]);
     const fetchedCategoryNames = categories.map(c => c.name);
     // Error if there are missing categories
-    if (categories.length !== categoryNames.length) return res.status(404).json({ error: `Category '${categoryNames.find(c => !fetchedCategoryNames.includes(c))}' was not found` });
+    console.log(categories.length, categoryNames.size);
+    if (categories.length !== categoryNames.size) return res.status(404).json({ error: `Category '${[...categoryNames].find(c => !fetchedCategoryNames.includes(c))}' was not found` });
     // Fetch all problems in the assignment
     const problemQueries = parsedProblems.map(({ category, problemName }) => ({
       name: problemName,
