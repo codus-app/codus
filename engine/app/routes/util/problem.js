@@ -1,6 +1,7 @@
 const util = require('util');
 const keystone = require('keystone');
 const { md } = require('.');
+const HTTPError = require('./error');
 
 const Category = keystone.list('Category');
 const Problem = keystone.list('Problem');
@@ -75,7 +76,7 @@ module.exports = {
     const fetchedCategoryNames = categories.map(c => c.name);
     // Error if there are missing categories
     const missingCategory = [...categoryNames].find(c => !fetchedCategoryNames.includes(c));
-    if (missingCategory) throw new Error(`Category '${missingCategory}' was not found`);
+    if (missingCategory) throw new HTTPError(404, `Category '${missingCategory}' was not found`);
 
     // Fetch all problems
     const problemQueries = parsedProblems.map(({ category, problemName }) => ({
@@ -90,7 +91,7 @@ module.exports = {
     const missingProblemIndex = problemQueries.findIndex(({ name: p, category: c }) => !problems
       .find(({ name: p2, category: c2 }) => p === p2 && c.equals(c2)));
     const missingProblem = parsedProblems[missingProblemIndex];
-    if (missingProblem) throw new Error(`Problem '${missingProblem.category}/${missingProblem.problemName}' was not found`);
+    if (missingProblem) throw new HTTPError(404, `Problem '${missingProblem.category}/${missingProblem.problemName}' was not found`);
 
     return { problems, categories };
   },

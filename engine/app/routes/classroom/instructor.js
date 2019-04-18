@@ -245,7 +245,8 @@ module.exports.assignments = {
     try {
       ({ problems, categories } = await fetchProblems(rawProblems));
     } catch (e) {
-      return res.status(404).json({ error: e.message });
+      if (e.statusCode) return e.handle(res);
+      return res.status(500).json({ error: 'Something went wrong' });
     }
 
     // Create the new assignment
@@ -316,7 +317,8 @@ module.exports.assignments = {
       try {
         ({ problems, categories } = await fetchProblems(rawProblems));
       } catch (e) {
-        return res.status(404).json({ error: e.message });
+        if (e.statusCode) return e.handle(res);
+        return res.status(500).json({ error: 'Something went wrong' });
       }
     }
 
