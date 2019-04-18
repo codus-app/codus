@@ -29,15 +29,15 @@ module.exports.classrooms = {
 
   /** Get detailed information on a specific classroom */
   async get(req, res) {
-    const { code } = req.params;
+    const { classroomCode } = req.params;
 
     const classroom = await Classroom.model
       .findOne()
-      .where('code').equals(code)
+      .where('code').equals(classroomCode)
       .select('-__v');
 
-    if (!classroom) return res.status(404).json({ error: `Classroom '${code}' was not found` });
-    if (!classroom.instructor.equals(req.user2._id)) return res.status(403).json({ error: `You don't own classroom ${code}` });
+    if (!classroom) return res.status(404).json({ error: `Classroom '${classroomCode}' was not found` });
+    if (!classroom.instructor.equals(req.user2._id)) return res.status(403).json({ error: `You don't own classroom ${classroomCode}` });
 
     // Fetch user info from student list from mongo and auth0
     const mongoStudents = await User.model.find().where('classroom').equals(classroom._id);
@@ -93,13 +93,13 @@ module.exports.classrooms = {
 
   /** Remove a classroom */
   async delete(req, res) {
-    const { code } = req.params;
+    const { classroomCode } = req.params;
     const classroom = await Classroom.model
       .findOne()
-      .where('code').equals(code);
+      .where('code').equals(classroomCode);
 
-    if (!classroom) return res.status(404).json({ error: `Classroom '${code}' was not found` });
-    if (!classroom.instructor.equals(req.user2._id)) return res.status(403).json({ error: `You don't own classroom ${code}` });
+    if (!classroom) return res.status(404).json({ error: `Classroom '${classroomCode}' was not found` });
+    if (!classroom.instructor.equals(req.user2._id)) return res.status(403).json({ error: `You don't own classroom ${classroomCode}` });
 
     const users = await User.model
       .find()
@@ -120,20 +120,20 @@ module.exports.classrooms = {
 
   /** Remove a user from a classroom */
   async removeUser(req, res) {
-    const { code, username } = req.params;
+    const { classroomCode, username } = req.params;
     const classroom = await Classroom.model
       .findOne()
-      .where('code').equals(code);
+      .where('code').equals(classroomCode);
 
     const userId = (await getUser.byUsername(username)).user_id;
     const user = await User.model
       .findOne()
       .where('userId').equals(userId);
 
-    if (!classroom) return res.status(404).json({ error: `Classroom '${code}' was not found` });
+    if (!classroom) return res.status(404).json({ error: `Classroom '${classroomCode}' was not found` });
     if (!user) return res.status(404).json({ error: `User ${username} was not found` });
     if (!classroom.instructor.equals(req.user2._id)) return res.status(403).json({ error: "Can't remove a student from a classroom you don't own" });
-    if (!user.classroom.equals(classroom._id)) return res.status(403).json({ error: `User ${username} does not belong to classroom ${code}` });
+    if (!user.classroom.equals(classroom._id)) return res.status(403).json({ error: `User ${username} does not belong to classroom ${classroomCode}` });
 
     return User.updateItem(user, { classroom: null }, async (error) => {
       if (error) return res.status(500).json({ error });

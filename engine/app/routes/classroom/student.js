@@ -5,13 +5,13 @@ const Classroom = keystone.list('Classroom');
 
 module.exports.classroom = {
   async join(req, res) {
-    const { code } = req.params;
+    const { classroomCode } = req.params;
     const classroom = await Classroom.model
       .findOne()
-      .where('code').equals(code)
+      .where('code').equals(classroomCode)
       .select('-__v');
 
-    if (!classroom) return res.status(404).send({ error: `Could not find classroom ${code}` });
+    if (!classroom) return res.status(404).send({ error: `Could not find classroom ${classroomCode}` });
 
     // Fetch some info about the classroom
     const [size, instructor] = await Promise.all([
@@ -42,11 +42,11 @@ module.exports.classroom = {
   },
 
   async get(req, res) {
-    const { code } = req.params;
+    const { classroomCode } = req.params;
 
     let classroom;
     // A code was passed; find the classroom with that code
-    if (code) classroom = await Classroom.model.findOne().where('code').equals(code);
+    if (classroomCode) classroom = await Classroom.model.findOne().where('code').equals(classroomCode);
     // No code was passed; find the classroom to which the authenticated user belongs
     else if (req.user2.classroom) classroom = await Classroom.model.findById(req.user2.classroom.toString()); // eslint-disable-line max-len
     // No code was passed, but the user is not a member of any classes to use as the default
