@@ -5,11 +5,10 @@ const { ObjectID } = keystone.mongoose.mongo;
 const User = keystone.list('User');
 const Classroom = keystone.list('Classroom');
 const Assignment = keystone.list('Assignment');
-const Category = keystone.list('Category');
 const Problem = keystone.list('Problem');
 const Solution = keystone.list('Solution');
 
-const { publicizeProblem, parseProblems } = require('../util/problem');
+const { publicizeProblem, fetchProblems } = require('../util/problem');
 const { generateInviteCode } = require('../util/classroom');
 const { publicizeUser } = require('../util/user');
 const { getUser, getUsers } = require('../../auth');
@@ -241,32 +240,13 @@ module.exports.assignments = {
     if (!classroom.instructor.equals(req.user2._id)) return res.status(403).json({ error: `You don't own classroom ${classroomCode}` });
 
     // Get the IDs of all of the problems we're adding to the assignment
-
-    const parsedProblems = parseProblems(rawProblems);
-    const categoryNames = new Set();
-    parsedProblems.forEach(({ category }) => categoryNames.add(category));
-    // Fetch all categories from which the assignment's problems draw
-    const categories = await Category.model
-      .find()
-      .where('name').in([...categoryNames]);
-    const fetchedCategoryNames = categories.map(c => c.name);
-    // Error if there are missing categories
-    console.log(categories.length, categoryNames.size);
-    if (categories.length !== categoryNames.size) return res.status(404).json({ error: `Category '${[...categoryNames].find(c => !fetchedCategoryNames.includes(c))}' was not found` });
-    // Fetch all problems in the assignment
-    const problemQueries = parsedProblems.map(({ category, problemName }) => ({
-      name: problemName,
-      category: categories.find(c => c.name === category)._id,
-    }));
-    const problems = await Problem.model
-      .find()
-      .or(problemQueries);
-    // Error handling: find first prbolem that was queried for but doesn't appear in the fetched set
-    // of problems
-    const missing = parsedProblems[problemQueries
-      .findIndex(({ name: p, category: c }) => !problems
-        .find(({ name: p2, category: c2 }) => p === p2 && c.equals(c2)))];
-    if (missing) return res.status(404).json({ error: `Problem '${missing.category}/${missing.problemName}' was not found` });
+    let problems;
+    let categories;
+    try {
+      ({ problems, categories } = await fetchProblems(rawProblems));
+    } catch (e) {
+      return res.status(404).json({ error: e.message });
+    }
 
     // Create the new assignment
 
