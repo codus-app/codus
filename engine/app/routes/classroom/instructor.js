@@ -275,4 +275,75 @@ module.exports.assignments = {
     });
     return undefined;
   },
+
+  /** Update an assignment with new field values */
+  async put(req, res) {
+    const { classroomCode, assignmentCode } = req.params;
+    // Get new values
+    const { name, description, dueDate, problems: rawProblems } = req.body;
+
+    // Initial validation
+    if (name === null) return res.status(400).json({ error: 'Name cannot be blank' });
+    if (rawProblems === null || (rawProblems && rawProblems.length === 0)) return res.status(400).json({ error: 'Problems cannot be blank' });
+    if (dueDate && Number.isNaN(Number(new Date(dueDate)))) return res.status(400).json({ error: `Date '${dueDate}' could not be parsed` });
+
+    const classroom = await Classroom.model
+      .findOne()
+      .where('code').equals(classroomCode)
+      .select('-__v');
+
+    if (!classroom) return res.status(404).json({ error: `Classroom '${classroomCode}' was not found` });
+    if (!classroom.instructor.equals(req.user2._id)) return res.status(403).json({ error: `You don't own classroom ${classroomCode}` });
+
+    const assignmentPromise = Assignment.model
+      .findOne()
+      .where('classroom').equals(classroom._id)
+      .where('_id')
+        .gte(new ObjectID(`${assignmentCode}0000000000000000`)) // eslint-disable-line indent
+        .lte(new ObjectID(`${assignmentCode}ffffffffffffffff`)) // eslint-disable-line indent
+      .select('-__v');
+    // If we're not rewriting the problems list, we'll need the old list
+    if (!rawProblems) assignmentPromise.populate({ path: 'problems', populate: { path: 'category' } });
+    const assignment = await assignmentPromise;
+
+    if (!assignment) return res.status(404).json({ error: `Assignment '${assignmentCode}' was not found in classroom ${classroomCode}` });
+
+
+    // Get the IDs of all of the problems we're adding to the assignment
+    let problems;
+    let categories;
+    if (rawProblems) {
+      try {
+        ({ problems, categories } = await fetchProblems(rawProblems));
+      } catch (e) {
+        return res.status(404).json({ error: e.message });
+      }
+    }
+
+    Assignment.updateItem(assignment, {
+      name,
+      description,
+      dueDate: dueDate && new Date(dueDate).toISOString(),
+      problems: rawProblems && problems.map(p => p._id),
+    }, {
+      fields: ['name', 'description', 'dueDate', ...rawProblems ? ['problems'] : []],
+    }, (error) => {
+      if (error) res.status(500).json({ error });
+      else {
+        res.json({ data: {
+          ...assignment.toObject(),
+          _id: undefined,
+          classroom: classroom.code,
+          id: assignment._id.toString().substring(0, 8),
+          // Problem info is in a different place depending on whether or not it was replaced
+          problems: rawProblems
+            ? problems.map(p => publicizeProblem(p, categories.find(c => c._id.equals(p.category))))
+            : assignment.problems.map(p => publicizeProblem(p, p.category)),
+          numProblems: assignment.numProblems,
+          createdAt: assignment.createdAt,
+        } });
+      }
+    });
+    return undefined;
+  },
 };
