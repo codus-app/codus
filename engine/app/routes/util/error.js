@@ -3,22 +3,23 @@
  * as first argument and message as second.
  */
 class HTTPError extends Error {
-  constructor(...args) {
-    // Pass a status code as first argument
-    if (typeof args[0] === 'number') {
-      super(...args.slice(1));
-      [this.statusCode] = args;
-    // Or fall back to 500
-    } else {
-      super(...args);
-      this.statusCode = 500;
+  /* eslint-disable no-param-reassign */
+  constructor(statusCode, rawMessage, ...args) {
+    // If no status code was passed, message was first argument, and statusCode should fallback to
+    // default 500
+    if (typeof statusCode !== 'number' || !rawMessage) {
+      rawMessage = statusCode;
+      statusCode = 500;
     }
+
+    super(rawMessage.toString(), ...args);
+    Object.assign(this, { rawMessage, statusCode });
     Error.captureStackTrace(this, HTTPError);
   }
 
   // Handle the error with an Express response
   handle(res) {
-    res.status(this.statusCode).json({ error: this.message });
+    res.status(this.statusCode).json({ error: this.rawMessage });
   }
 }
 
