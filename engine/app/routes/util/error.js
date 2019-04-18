@@ -4,8 +4,15 @@
  */
 class HTTPError extends Error {
   constructor(...args) {
-    super(...args.slice(1));
-    [this.statusCode] = args;
+    // Pass a status code as first argument
+    if (typeof args[0] === 'number') {
+      super(...args.slice(1));
+      [this.statusCode] = args;
+    // Or fall back to 500
+    } else {
+      super(...args);
+      this.statusCode = 500;
+    }
     Error.captureStackTrace(this, HTTPError);
   }
 
