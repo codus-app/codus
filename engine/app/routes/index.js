@@ -3,7 +3,15 @@ const auth0 = require('../auth');
 
 const { category, problem, userSolution } = require('./problems');
 const user = require('./user');
-const { enforceRole, roleSwitch, instructor, student } = require('./classroom');
+const {
+  fetchUser,
+  enforceRole,
+  roleSwitch,
+  fetchClassroom,
+
+  instructor: instructorRoutes,
+  student: studentRoutes,
+} = require('./classroom');
 
 const routes = {
   api: {
@@ -11,7 +19,7 @@ const routes = {
     problem,
     user,
     userSolution,
-    classroom: { instructor, student },
+    classroom: { instructor: instructorRoutes, student: studentRoutes },
   },
 };
 
@@ -59,22 +67,27 @@ module.exports = (app) => {
 
   // '/classroom' endpoints work with classrooms
 
-  app.get('/api/classroom/classrooms', auth0(), enforceRole('instructor'), routes.api.classroom.instructor.classrooms.list);
-  app.post('/api/classroom/classrooms', auth0(), enforceRole('instructor'), routes.api.classroom.instructor.classrooms.post);
+  // Instructor routes
+  const instructor = [...auth0(), fetchUser, enforceRole('instructor')]; // Middleware for instructor routes
+  app.get('/api/classroom/classrooms', instructor, routes.api.classroom.instructor.classrooms.list);
+  app.post('/api/classroom/classrooms', instructor, routes.api.classroom.instructor.classrooms.post);
   // app.get('/api/classrom/:classroomCode') defined below
-  app.delete('/api/classroom/:classroomCode', auth0(), enforceRole('instructor'), routes.api.classroom.instructor.classrooms.delete);
-  app.delete('/api/classroom/:classroomCode/students/:username', auth0(), enforceRole('instructor'), routes.api.classroom.instructor.classrooms.removeUser);
-  app.get('/api/classroom/:classroomCode/assignments', auth0(), enforceRole('instructor'), routes.api.classroom.instructor.assignments.list);
-  app.get('/api/classroom/:classroomCode/assignments/:assignmentCode', auth0(), enforceRole('instructor'), routes.api.classroom.instructor.assignments.get);
-  app.post('/api/classroom/:classroomCode/assignments', auth0(), enforceRole('instructor'), routes.api.classroom.instructor.assignments.post);
-  app.put('/api/classroom/:classroomCode/assignments/:assignmentCode', auth0(), enforceRole('instructor'), routes.api.classroom.instructor.assignments.put);
+  app.delete('/api/classroom/:classroomCode', instructor, fetchClassroom, routes.api.classroom.instructor.classrooms.delete);
+  app.delete('/api/classroom/:classroomCode/students/:username', instructor, fetchClassroom, routes.api.classroom.instructor.classrooms.removeUser);
+  app.get('/api/classroom/:classroomCode/assignments', instructor, fetchClassroom, routes.api.classroom.instructor.assignments.list);
+  app.get('/api/classroom/:classroomCode/assignments/:assignmentCode', instructor, fetchClassroom, routes.api.classroom.instructor.assignments.get);
+  app.post('/api/classroom/:classroomCode/assignments', instructor, fetchClassroom, routes.api.classroom.instructor.assignments.post);
+  app.put('/api/classroom/:classroomCode/assignments/:assignmentCode', instructor, fetchClassroom, routes.api.classroom.instructor.assignments.put);
 
-  app.get('/api/classroom/join/:classroomCode', auth0(), enforceRole('student'), routes.api.classroom.student.classroom.join);
-  app.get('/api/classroom', auth0(), enforceRole('student'), routes.api.classroom.student.classroom.get);
+  // Student routes
+  const student = [...auth0(), fetchUser, enforceRole('student')];
+  app.get('/api/classroom/join/:classroomCode', student, fetchClassroom, routes.api.classroom.student.classroom.join);
+  app.get('/api/classroom', student, fetchClassroom, routes.api.classroom.student.classroom.get);
   // app.get('/api/classrom/:classroomCode') defined below
-  app.get('/api/classroom/leave', auth0(), enforceRole('student'), routes.api.classroom.student.classroom.leave);
+  app.get('/api/classroom/leave', student, fetchClassroom, routes.api.classroom.student.classroom.leave);
 
-  app.get('/api/classroom/:classroomCode', auth0(), roleSwitch({
+  // "Switched" routes available to students and instructors with different handlers for each
+  app.get('/api/classroom/:classroomCode', [...auth0(), fetchUser, fetchClassroom], roleSwitch({
     student: routes.api.classroom.student.classroom.get,
     instructor: routes.api.classroom.instructor.classrooms.get,
   }));

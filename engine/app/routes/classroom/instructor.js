@@ -29,18 +29,10 @@ module.exports.classrooms = {
 
   /** Get detailed information on a specific classroom */
   async get(req, res) {
-    const { classroomCode } = req.params;
-
-    const classroom = await Classroom.model
-      .findOne()
-      .where('code').equals(classroomCode)
-      .select('-__v');
-
-    if (!classroom) return res.status(404).json({ error: `Classroom '${classroomCode}' was not found` });
-    if (!classroom.instructor.equals(req.user2._id)) return res.status(403).json({ error: `You don't own classroom ${classroomCode}` });
+    // Get students info (classroom comes from middleware)
 
     // Fetch user info from student list from mongo and auth0
-    const mongoStudents = await User.model.find().where('classroom').equals(classroom._id);
+    const mongoStudents = await User.model.find().where('classroom').equals(req.classroom._id);
     const auth0Students = await getUsers.byIds(mongoStudents.map(s => s.userId));
     // Add info on how many problems each student has solved
     const [numProblems, allSolutions] = await Promise.all([
@@ -67,7 +59,7 @@ module.exports.classrooms = {
 
     return res.json({
       data: {
-        ...classroom.toObject(),
+        ...req.classroom.toObject(),
         students,
         _id: undefined,
         instructor: undefined,
@@ -86,24 +78,17 @@ module.exports.classrooms = {
       instructor: req.user2._id,
       code,
     }, (error) => {
-      if (error) res.status(500).json({ error });
+      if (error) res.status(500).json({ error: 'Something went wrong' });
       else res.json({ data: { name, code } });
     });
   },
 
   /** Remove a classroom */
   async delete(req, res) {
-    const { classroomCode } = req.params;
-    const classroom = await Classroom.model
-      .findOne()
-      .where('code').equals(classroomCode);
-
-    if (!classroom) return res.status(404).json({ error: `Classroom '${classroomCode}' was not found` });
-    if (!classroom.instructor.equals(req.user2._id)) return res.status(403).json({ error: `You don't own classroom ${classroomCode}` });
-
+    // Remove all students from classroom
     const users = await User.model
       .find()
-      .where('classroom').equals(classroom._id);
+      .where('classroom').equals(req.classroom._id);
 
     const errors = [];
     users.forEach((user) => {
@@ -113,27 +98,23 @@ module.exports.classrooms = {
     });
     if (errors.length) return res.status(500).json({ error: 'Could not remove students from classroom' });
 
-    await classroom.remove();
+    // Remove classroom
+    await req.classroom.remove();
 
-    return res.json({});
+    return res.json({ data: { success: true } });
   },
 
   /** Remove a user from a classroom */
   async removeUser(req, res) {
-    const { classroomCode, username } = req.params;
-    const classroom = await Classroom.model
-      .findOne()
-      .where('code').equals(classroomCode);
+    const { username } = req.params;
 
     const userId = (await getUser.byUsername(username)).user_id;
     const user = await User.model
       .findOne()
       .where('userId').equals(userId);
 
-    if (!classroom) return res.status(404).json({ error: `Classroom '${classroomCode}' was not found` });
     if (!user) return res.status(404).json({ error: `User ${username} was not found` });
-    if (!classroom.instructor.equals(req.user2._id)) return res.status(403).json({ error: "Can't remove a student from a classroom you don't own" });
-    if (!user.classroom.equals(classroom._id)) return res.status(403).json({ error: `User ${username} does not belong to classroom ${classroomCode}` });
+    if (!user.classroom.equals(req.classroom._id)) return res.status(403).json({ error: `User ${username} does not belong to classroom ${req.classroom.code}` });
 
     return User.updateItem(user, { classroom: null }, async (error) => {
       if (error) return res.status(500).json({ error });
@@ -149,19 +130,9 @@ module.exports.classrooms = {
 module.exports.assignments = {
   /** List all assignments in a classroom */
   async list(req, res) {
-    const { classroomCode } = req.params;
-
-    const classroom = await Classroom.model
-      .findOne()
-      .where('code').equals(classroomCode)
-      .select('-__v');
-
-    if (!classroom) return res.status(404).json({ error: `Classroom '${classroomCode}' was not found` });
-    if (!classroom.instructor.equals(req.user2._id)) return res.status(403).json({ error: `You don't own classroom ${classroomCode}` });
-
     const assignments = await Assignment.model
       .find()
-      .where('classroom').equals(classroom._id)
+      .where('classroom').equals(req.classroom._id)
       .populate('problems')
       .select('-__v');
 
@@ -169,7 +140,7 @@ module.exports.assignments = {
       data: assignments
         .map(a => ({
           ...a.toObject(),
-          classroom: classroomCode,
+          classroom: req.classroom.code,
           // Replace ID with a shorter one. 8 characters are a base16 timestamp to the second, and
           // are sufficient to uniquely identify an assignment within a single classroom
           _id: undefined,
@@ -186,33 +157,25 @@ module.exports.assignments = {
 
   /** Get information on a single assignment */
   async get(req, res) {
-    const { classroomCode, assignmentCode } = req.params;
+    const { assignmentCode } = req.params;
 
-    if (!assignmentCode || assignmentCode.length !== 8) return res.status(400).json({ error: 'Classroom code must be an 8-character code' });
-
-    const classroom = await Classroom.model
-      .findOne()
-      .where('code').equals(classroomCode)
-      .select('-__v');
-
-    if (!classroom) return res.status(404).json({ error: `Classroom '${classroomCode}' was not found` });
-    if (!classroom.instructor.equals(req.user2._id)) return res.status(403).json({ error: `You don't own classroom ${classroomCode}` });
+    if (!assignmentCode || assignmentCode.length !== 8) return res.status(400).json({ error: 'Assignment code must be an 8-character code' });
 
     const assignment = await Assignment.model
       .findOne()
-      .where('classroom').equals(classroom._id)
+      .where('classroom').equals(req.classroom._id)
       .where('_id')
         .gte(new ObjectID(`${assignmentCode}0000000000000000`)) // eslint-disable-line indent
         .lte(new ObjectID(`${assignmentCode}ffffffffffffffff`)) // eslint-disable-line indent
       .populate({ path: 'problems', populate: { path: 'category' } })
       .select('-__v');
 
-    if (!assignment) return res.status(404).json({ error: `Assignment '${assignmentCode}' was not found in classroom ${classroomCode}` });
+    if (!assignment) return res.status(404).json({ error: `Assignment '${assignmentCode}' was not found in classroom ${req.classroom.code}` });
 
     return res.json({
       data: {
         ...assignment.toObject(),
-        classroom: classroomCode,
+        classroom: req.classroom.code,
         _id: undefined,
         id: assignment.code,
         problems: assignment.problems.map(p => publicizeProblem(p, p.category)),
@@ -224,20 +187,9 @@ module.exports.assignments = {
 
   /** Create a new assignment */
   async post(req, res) {
-    const { classroomCode } = req.params;
     const { name, description, dueDate, problems: rawProblems } = req.body;
 
     if (Number.isNaN(Number(new Date(dueDate)))) return res.status(400).json({ error: `Date '${dueDate}' could not be parsed` });
-
-    // Fetch classroom we're adding to
-
-    const classroom = await Classroom.model
-      .findOne()
-      .where('code').equals(classroomCode)
-      .select('-__v');
-
-    if (!classroom) return res.status(404).json({ error: `Classroom '${classroomCode}' was not found` });
-    if (!classroom.instructor.equals(req.user2._id)) return res.status(403).json({ error: `You don't own classroom ${classroomCode}` });
 
     // Get the IDs of all of the problems we're adding to the assignment
     let problems;
@@ -253,7 +205,7 @@ module.exports.assignments = {
 
     const assignment = new Assignment.model(); // eslint-disable-line new-cap
     Assignment.updateItem(assignment, {
-      classroom: classroom._id,
+      classroom: req.classroom._id,
       name,
       description,
       dueDate: new Date(dueDate).toISOString(),
@@ -265,7 +217,7 @@ module.exports.assignments = {
           ...assignment.toObject(),
           _id: undefined,
           __v: undefined,
-          classroom: classroom.code,
+          classroom: req.classroom.code,
           id: assignment.code,
           problems: problems
             .map(p => publicizeProblem(p, categories.find(c => c._id.equals(p.category)))),
@@ -279,7 +231,7 @@ module.exports.assignments = {
 
   /** Update an assignment with new field values */
   async put(req, res) {
-    const { classroomCode, assignmentCode } = req.params;
+    const { assignmentCode } = req.params;
     // Get new values
     const { name, description, dueDate, problems: rawProblems } = req.body;
 
@@ -288,17 +240,9 @@ module.exports.assignments = {
     if (rawProblems === null || (rawProblems && rawProblems.length === 0)) return res.status(400).json({ error: 'Problems cannot be blank' });
     if (dueDate && Number.isNaN(Number(new Date(dueDate)))) return res.status(400).json({ error: `Date '${dueDate}' could not be parsed` });
 
-    const classroom = await Classroom.model
-      .findOne()
-      .where('code').equals(classroomCode)
-      .select('-__v');
-
-    if (!classroom) return res.status(404).json({ error: `Classroom '${classroomCode}' was not found` });
-    if (!classroom.instructor.equals(req.user2._id)) return res.status(403).json({ error: `You don't own classroom ${classroomCode}` });
-
     const assignmentPromise = Assignment.model
       .findOne()
-      .where('classroom').equals(classroom._id)
+      .where('classroom').equals(req.classroom._id)
       .where('_id')
         .gte(new ObjectID(`${assignmentCode}0000000000000000`)) // eslint-disable-line indent
         .lte(new ObjectID(`${assignmentCode}ffffffffffffffff`)) // eslint-disable-line indent
@@ -307,7 +251,7 @@ module.exports.assignments = {
     if (!rawProblems) assignmentPromise.populate({ path: 'problems', populate: { path: 'category' } });
     const assignment = await assignmentPromise;
 
-    if (!assignment) return res.status(404).json({ error: `Assignment '${assignmentCode}' was not found in classroom ${classroomCode}` });
+    if (!assignment) return res.status(404).json({ error: `Assignment '${assignmentCode}' was not found in classroom ${req.classroom.code}` });
 
 
     // Get the IDs of all of the problems we're adding to the assignment
@@ -335,7 +279,7 @@ module.exports.assignments = {
         res.json({ data: {
           ...assignment.toObject(),
           _id: undefined,
-          classroom: classroom.code,
+          classroom: req.classroom.code,
           id: this.code,
           // Problem info is in a different place depending on whether or not it was replaced
           problems: rawProblems
