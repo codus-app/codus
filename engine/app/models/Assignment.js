@@ -12,10 +12,12 @@ Assignment.add({
   classroom: { type: Types.Relationship, ref: 'Classroom', initial: true, required: true },
 });
 
+Assignment.schema.virtual('code').get(function shortCode() { return this._id.toString().substring(0, 8); });
+
 Assignment.schema.virtual('numProblems').get(function countProblems() { return this.problems.length; });
 
 Assignment.schema.virtual('createdAt').get(function creationTime() {
-  return new Date(parseInt(this._id.toString().substring(0, 8), 16) * 1000);
+  return new Date(parseInt(this.code, 16) * 1000);
 });
 
 Assignment.register();

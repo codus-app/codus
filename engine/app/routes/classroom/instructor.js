@@ -173,7 +173,7 @@ module.exports.assignments = {
           // Replace ID with a shorter one. 8 characters are a base16 timestamp to the second, and
           // are sufficient to uniquely identify an assignment within a single classroom
           _id: undefined,
-          id: a._id.toString().substring(0, 8),
+          id: a.code,
           // Replace problems list with the number of problems (assignments list endpoint doesn’t
           // need that level of detail)
           problems: undefined,
@@ -214,7 +214,7 @@ module.exports.assignments = {
         ...assignment.toObject(),
         classroom: classroomCode,
         _id: undefined,
-        id: assignment._id.toString().substring(0, 8),
+        id: assignment.code,
         problems: assignment.problems.map(p => publicizeProblem(p, p.category)),
         numProblems: assignment.numProblems,
         createdAt: assignment.createdAt,
@@ -265,7 +265,7 @@ module.exports.assignments = {
           _id: undefined,
           __v: undefined,
           classroom: classroom.code,
-          id: assignment._id.toString().substring(0, 8),
+          id: assignment.code,
           problems: problems
             .map(p => publicizeProblem(p, categories.find(c => c._id.equals(p.category)))),
           numProblems: assignment.numProblems,
@@ -334,7 +334,7 @@ module.exports.assignments = {
           ...assignment.toObject(),
           _id: undefined,
           classroom: classroom.code,
-          id: assignment._id.toString().substring(0, 8),
+          id: this.code,
           // Problem info is in a different place depending on whether or not it was replaced
           problems: rawProblems
             ? problems.map(p => publicizeProblem(p, categories.find(c => c._id.equals(p.category))))
