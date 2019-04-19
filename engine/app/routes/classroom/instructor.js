@@ -30,10 +30,15 @@ module.exports.classrooms = {
 
   /** Get detailed information on a specific classroom */
   async get(req, res) {
-    // Get students info (classroom comes from middleware)
+    // Fetch basic info from mongoDB
 
-    // Fetch user info from student list from mongo and auth0
-    const mongoStudents = await User.model.find().where('classroom').equals(req.classroom._id);
+    const [mongoStudents, assignments] = await Promise.all([
+      User.model.find().where('classroom').equals(req.classroom._id),
+      Assignment.model.find().where('classroom').equals(req.classroom._id)
+    ]);
+
+    // Embellish students list with additional info
+
     const auth0Students = await getUsers.byIds(mongoStudents.map(s => s.userId));
     // Add info on how many problems each student has solved
     const [numProblems, allSolutions] = await Promise.all([
@@ -53,15 +58,28 @@ module.exports.classrooms = {
         // Gives tied users the same rank (eg: 1, 1, 3, 3, 3, 3, 7, 8, 8, 10)
         rank: list.filter(s2 => s2.solutionProgress[0] > s.solutionProgress[0]).length + 1,
       }));
-
     // Sort students by last name
     const lastName = ({ name }) => name.trim().split(' ').slice(-1)[0];
     students.sort((a, b) => lastName(a).localeCompare(lastName(b)) || a.name.localeCompare(b.name));
 
+
     return res.json({
       data: {
         ...req.classroom.toObject(),
+
         students,
+
+        assignments: assignments.map(a => ({
+          ...a.toObject(),
+          classroom: undefined,
+          __v: undefined,
+          _id: undefined,
+          problems: undefined,
+          id: a.code,
+          numProblems: a.numProblems,
+          createdAt: a.createdAt,
+        })),
+
         _id: undefined,
         instructor: undefined,
       },
@@ -154,7 +172,6 @@ module.exports.assignments = {
     const assignments = await Assignment.model
       .find()
       .where('classroom').equals(req.classroom._id)
-      .populate('problems')
       .select('-__v');
 
     return res.json({
