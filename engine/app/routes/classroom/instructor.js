@@ -302,4 +302,21 @@ module.exports.assignments = {
     });
     return undefined;
   },
+
+  /** Remove an assignment */
+  async delete(req, res) {
+    let assignment;
+
+    try {
+      assignment = await fetchAssignment(req.params.assignmentCode, req.classroom);
+    } catch (e) {
+      if (e.statusCode) return e.handle(res);
+      return new HTTPError('Something went wrong').handle(res);
+    }
+
+    // Remove assignment
+    await assignment.remove();
+
+    return res.json({ data: { success: true } });
+  },
 };
