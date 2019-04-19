@@ -127,6 +127,26 @@ module.exports.classrooms = {
 
 // Assignments
 
+async function fetchAssignment(code, classroom, shouldPopulate = false) {
+  if (code.length !== 8) throw new HTTPError(400, 'Assignment code must be an 8-character code');
+
+  const assignmentPromise = Assignment.model
+    .findOne()
+    .where('classroom').equals(classroom._id)
+    .where('_id')
+      .gte(new ObjectID(`${code}0000000000000000`)) // eslint-disable-line indent
+      .lte(new ObjectID(`${code}ffffffffffffffff`)) // eslint-disable-line indent
+    .select('-__v');
+
+  // Populate if shouldPopulate was passed as true
+  if (shouldPopulate) assignmentPromise.populate({ path: 'problems', populate: { path: 'category' } });
+
+  const assignment = await assignmentPromise;
+
+  if (!assignment) throw new HTTPError(400, `Assignment '${code}' was not found in classroom ${classroom.code}`);
+
+  return assignment;
+}
 
 module.exports.assignments = {
   /** List all assignments in a classroom */
@@ -158,20 +178,13 @@ module.exports.assignments = {
 
   /** Get information on a single assignment */
   async get(req, res) {
-    const { assignmentCode } = req.params;
-
-    if (!assignmentCode || assignmentCode.length !== 8) return new HTTPError(400, 'Assignment code must be an 8-character code').handle(res);
-
-    const assignment = await Assignment.model
-      .findOne()
-      .where('classroom').equals(req.classroom._id)
-      .where('_id')
-        .gte(new ObjectID(`${assignmentCode}0000000000000000`)) // eslint-disable-line indent
-        .lte(new ObjectID(`${assignmentCode}ffffffffffffffff`)) // eslint-disable-line indent
-      .populate({ path: 'problems', populate: { path: 'category' } })
-      .select('-__v');
-
-    if (!assignment) return new HTTPError(400, `Assignment '${assignmentCode}' was not found in classroom ${req.classroom.code}`).handle(res);
+    let assignment;
+    try {
+      assignment = await fetchAssignment(req.params.assignmentCode, req.classroom, true);
+    } catch (e) {
+      if (e.statusCode) return e.handle(res);
+      return new HTTPError('Something went wrong').handle(res);
+    }
 
     return res.json({
       data: {
@@ -241,19 +254,15 @@ module.exports.assignments = {
     if (rawProblems === null || (rawProblems && rawProblems.length === 0)) return new HTTPError(400, 'Problems cannot be blank').handle(res);
     if (dueDate && Number.isNaN(Number(new Date(dueDate)))) return new HTTPError(400, `Date '${dueDate}' could not be parsed`).handle(res);
 
-    const assignmentPromise = Assignment.model
-      .findOne()
-      .where('classroom').equals(req.classroom._id)
-      .where('_id')
-        .gte(new ObjectID(`${assignmentCode}0000000000000000`)) // eslint-disable-line indent
-        .lte(new ObjectID(`${assignmentCode}ffffffffffffffff`)) // eslint-disable-line indent
-      .select('-__v');
+    let assignment;
     // If we're not rewriting the problems list, we'll need the old list
-    if (!rawProblems) assignmentPromise.populate({ path: 'problems', populate: { path: 'category' } });
-    const assignment = await assignmentPromise;
-
-    if (!assignment) return new HTTPError(404, `Assignment '${assignmentCode}' was not found in classroom ${req.classroom.code}`).handle(res);
-
+    const shouldPopulate = !rawProblems;
+    try {
+      assignment = await fetchAssignment(assignmentCode, req.classroom, shouldPopulate);
+    } catch (e) {
+      if (e.statusCode) return e.handle(res);
+      return new HTTPError('Something went wrong').handle(res);
+    }
 
     // Get the IDs of all of the problems we're adding to the assignment
     let problems;
@@ -282,7 +291,7 @@ module.exports.assignments = {
           _id: undefined,
           classroom: req.classroom.code,
           id: this.code,
-          // Problem info is in a different place depending on whether or not it was replaced
+          // Problem info is in a different place depending on whether or not it's being replaced
           problems: rawProblems
             ? problems.map(p => publicizeProblem(p, categories.find(c => c._id.equals(p.category))))
             : assignment.problems.map(p => publicizeProblem(p, p.category)),
