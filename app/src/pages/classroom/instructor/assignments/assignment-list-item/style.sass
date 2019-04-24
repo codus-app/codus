@@ -5,6 +5,9 @@
   padding: .75rem 1rem
   display: flex
   align-items: center
+  border-radius: 6px
+  cursor: pointer
+  transition: background .2s
 
   .icon
     width: 2.25rem
@@ -15,11 +18,13 @@
     align-items: center
     justify-content: center
     margin-right: .75rem
+    transition: background .2s
 
     .feather
       width: 1.2rem
       height: 1.2rem
       transform: translateY(-5%)
+      opacity: .65
 
   .info
     h2
@@ -47,15 +52,23 @@
   .actions
     margin-left: auto
     color: $light-text-primary
-    opacity: .1
 
     .feather
       margin-left: .75rem
       width: 1.05rem
       height: 1.05rem
-
-      &.feather-more-horizontal
-        opacity: 0
+      opacity: .2
+      transition: opacity .2s
 
       &.reorder
         transform: scale(.8)
+        cursor: move
+
+  &:hover
+    background: $dark-4
+
+    .icon
+      background: #31323b
+
+    .actions .feather
+      opacity: .7
