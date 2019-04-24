@@ -5,6 +5,12 @@ dayjs.extend(calendar);
 export default {
   props: { assignment: { type: Object, required: true } },
   computed: {
+    overdue() {
+      const date = dayjs(this.assignment.dueDate);
+      const now = Date.now();
+      return date.isBefore(now);
+    },
+
     dueDate() {
       if (!this.assignment.dueDate) return 'No due date';
       const date = dayjs(this.assignment.dueDate);
