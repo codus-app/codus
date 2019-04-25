@@ -3,7 +3,11 @@ import calendar from 'dayjs/plugin/calendar';
 dayjs.extend(calendar);
 
 export default {
-  props: { assignment: { type: Object, required: true } },
+  props: {
+    assignment: { type: Object, required: true },
+    expanded: { type: Boolean },
+  },
+
   computed: {
     overdue() {
       const date = dayjs(this.assignment.dueDate);

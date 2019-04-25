@@ -1,83 +1,113 @@
 @import 'src/styles/variables'
+@import 'src/styles/mixins'
+
 
 .assignment-list-item
   width: 100%
-  padding: .75rem 1rem
-  display: flex
-  align-items: center
   border-radius: 6px
-  cursor: pointer
-  transition: background .2s
+  overflow: hidden
 
-  .icon
-    width: 2.25rem
-    height: 2.25rem
-    border-radius: 50%
-    background: #2d2e35
+  .top
+    padding: .75rem 1rem
     display: flex
     align-items: center
-    justify-content: center
-    margin-right: .75rem
+    cursor: pointer
     transition: background .2s
 
-    .feather
-      width: 1.2rem
-      height: 1.2rem
-      transform: translateY(-5%)
-      opacity: .65
-
-  .info
-    h2
-      font-family: $font-lato
-      font-weight: 600
-      font-size: .9rem
-      margin: 0 0 .2rem
-
-    .due
+    .icon
+      width: 2.25rem
+      height: 2.25rem
+      border-radius: 50%
+      background: #2d2e35
       display: flex
       align-items: center
-      margin-left: -.05rem
-      color: $light-text-hint
-      font-family: $font-lato
-      font-weight: 400
-      font-size: .65rem
+      justify-content: center
+      margin-right: .75rem
+      transition: background .2s
 
-      .feather-calendar
-        width: .75rem
-        height: .75rem
-        margin-right: .3rem
-        color: $light-text-primary
-        opacity: .4
+      .feather
+        width: 1.2rem
+        height: 1.2rem
+        transform: translateY(-5%)
+        opacity: .65
 
-  .actions
-    margin-left: auto
-    color: $light-text-primary
+    .info
+      h2
+        font-family: $font-lato
+        font-weight: 600
+        font-size: .9rem
+        margin: 0 0 .2rem
 
-    .feather
-      margin-left: .75rem
-      width: 1.05rem
-      height: 1.05rem
-      opacity: .2
-      transition: opacity .2s
+      .due
+        display: flex
+        align-items: center
+        margin-left: -.05rem
+        color: $light-text-hint
+        font-family: $font-lato
+        font-weight: 400
+        font-size: .65rem
 
-      &.reorder
-        transform: scale(.8)
-        cursor: move
+        .feather-calendar
+          width: .75rem
+          height: .75rem
+          margin-right: .3rem
+          color: $light-text-primary
+          opacity: .4
+
+    .actions
+      margin-left: auto
+      color: $light-text-primary
+
+      .feather
+        margin-left: .75rem
+        width: 1.05rem
+        height: 1.05rem
+        opacity: .2
+        transition: opacity .2s
+
+        &.reorder
+          transform: scale(.8)
+          cursor: move
+
+  .bottom-content
+    margin: .75rem 1.5rem 1rem
+
+  // Border
 
   &:not(:first-child)
     // Top border of 1.5px that extends as far as .75rem from each side
     box-shadow: 0 calc(-.75rem - 1.5px) 0 -.75rem hsla(237, 30, 85, .05)
-    transition-property: background, box-shadow
+    transition: box-shadow .2s
 
-  &:hover
-    background: $dark-4
+  // Hover styles
 
-    .icon
-      background: #31323b
+  &:not(.expanded):hover
+    .top
+      background: $dark-4
 
-    .actions .feather
-      opacity: .7
+      .icon
+        background: #31323b
+
+      .actions .feather
+        opacity: .7
 
     &:not(:first-child),
+    & + .assignment-list-item:not(.expanded)
+      box-shadow: none
+
+  // Styles when open
+  &.expanded
+    @include dark-card
+    margin: .7rem 0
+    border-radius: 6px
+
+    .top,
+    .top:hover
+      background: $dark-2
+
+      .actions .feather
+        opacity: .7
+
+    // No top border on following item
     & + .assignment-list-item:not(:first-child)
       box-shadow: none
