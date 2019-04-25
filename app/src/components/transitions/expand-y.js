@@ -8,7 +8,7 @@ export default {
       const duration1 = `${this.transitionDuration / 1000}s, `;
       const duration2 = `${this.transitionDuration / 1000 * (direction === 'in' ? 0.65 : 1)}s`;
       return {
-        transitionProperty: 'height, padding-top, padding-bottom, opacity',
+        transitionProperty: 'height, padding-top, padding-bottom, margin-top, margin-bottom, opacity',
         transitionDuration: duration1.repeat(3) + duration2,
       };
     },
@@ -22,6 +22,8 @@ export default {
         height: '0',
         paddingTop: '0',
         paddingBottom: '0',
+        marginTop: '0',
+        marginBottom: '0',
         overflow: 'hidden',
         position: null,
       });
@@ -33,6 +35,8 @@ export default {
         height: `${height}px`,
         paddingTop: null,
         paddingBottom: null,
+        marginTop: null,
+        marginBottom: null,
         opacity: null,
       });
       // Wait for transition to complete
@@ -58,6 +62,8 @@ export default {
         height: '0',
         paddingTop: '0',
         paddingBottom: '0',
+        marginTop: '0',
+        marginBottom: '0',
         opacity: '0',
       });
       // Wait for transition to complete
