@@ -6,6 +6,8 @@
   width: 100%
   border-radius: 6px
   overflow: hidden
+  margin: 0
+  transition: margin .3s, background .2s
 
   .top
     padding: .75rem 1rem
@@ -57,6 +59,12 @@
     .actions
       margin-left: auto
       color: $light-text-primary
+      display: flex
+
+      .action-wrapper
+        display: inline-flex
+        justify-content: flex-end
+        overflow: hidden
 
       .feather
         margin-left: .75rem
@@ -64,20 +72,23 @@
         height: 1.05rem
         opacity: .2
         transition: opacity .2s
+        flex: 0 0 auto
 
         &.reorder
           transform: scale(.8)
           cursor: move
 
   .bottom-content
+    height: 7rem
     margin: .75rem 1.5rem 1rem
+    overflow: hidden
 
   // Border
 
   &:not(:first-child)
     // Top border of 1.5px that extends as far as .75rem from each side
     box-shadow: 0 calc(-.75rem - 1.5px) 0 -.75rem hsla(237, 30, 85, .05)
-    transition: box-shadow .2s
+    transition: margin .3s, background .2s, box-shadow .2s
 
   // Hover styles
 
@@ -100,6 +111,7 @@
     @include dark-card
     margin: .7rem 0
     border-radius: 6px
+    transition: margin .3s, background .3s, box-shadow .3s
 
     .top,
     .top:hover

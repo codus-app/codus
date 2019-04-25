@@ -11,11 +11,17 @@
       </div>
       <div class="actions">
         <icon-more v-on:click="$event.stopPropagation()"></icon-more>
-        <icon-menu class="reorder" v-if="!expanded" v-on:click="$event.stopPropagation()"></icon-menu>
+        <transition-expand axis="x" v-bind:transition-duration="expanded ? 250 : 300">
+          <div class="action-wrapper" v-if="!expanded">
+            <icon-menu class="reorder" v-on:click="$event.stopPropagation()"></icon-menu>
+          </div>
+        </transition-expand>
       </div>
     </div>
 
-    <div class="bottom-content" v-if="expanded">Hey</div>
+    <transition-expand axis="y" v-bind:transition-duration="300">
+      <div class="bottom-content" v-if="expanded">{{ assignment.description }}</div>
+    </transition-expand>
   </div>
 </template>
 
