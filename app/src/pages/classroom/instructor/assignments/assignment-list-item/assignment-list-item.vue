@@ -10,8 +10,8 @@
         </div>
       </div>
       <div class="actions">
-        <icon-more></icon-more>
-        <icon-menu class="reorder" v-if="!expanded"></icon-menu>
+        <icon-more v-on:click="$event.stopPropagation()"></icon-more>
+        <icon-menu class="reorder" v-if="!expanded" v-on:click="$event.stopPropagation()"></icon-menu>
       </div>
     </div>
 

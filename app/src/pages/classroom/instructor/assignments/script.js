@@ -1,6 +1,10 @@
 export default {
   props: { classroom: Object },
 
+  data: () => ({
+    expandedIndex: null,
+  }),
+
   computed: {
     fetched() { return this.classroom.fetched || false; },
     assignments() { return this.classroom.assignments || []; },

@@ -12,9 +12,12 @@
 
     <div class="assignments-list">
       <assignment-list-item
-        v-for="assignment in classroom.assignments"
+        v-for="(assignment, i) in classroom.assignments"
         v-bind:key="assignment.id"
         v-bind:assignment="assignment"
+        v-bind:expanded="expandedIndex === i"
+        v-on:expand="expandedIndex = i"
+        v-on:collapse="expandedIndex = expandedIndex === i ? null : expandedIndex"
       ></assignment-list-item>
     </div>
   </div>

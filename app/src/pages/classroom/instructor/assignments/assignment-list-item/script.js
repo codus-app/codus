@@ -32,4 +32,13 @@ export default {
       return date.format(thisYear ? '[Due] MMM D' : '[Due] MMM D[,] YYYY');
     },
   },
+
+  methods: {
+    expand() { this.$emit('expand'); },
+    collapse() { this.$emit('collapse'); },
+    toggle() {
+      if (this.expanded) this.collapse();
+      else this.expand();
+    },
+  },
 };
