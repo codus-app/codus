@@ -10,7 +10,7 @@
 
     <!-- Dropdown -->
 
-    <transition-expand-y v-bind:transition-duration="200">
+    <transition-expand axis="y" v-bind:transition-duration="200">
       <ul class="dropdown list" v-if="open" v-bind:class="{ 'transition': shouldTransition }">
         <li
           v-for="(classroom, i) in sortedClassrooms"
@@ -31,12 +31,12 @@
         </li>
 
 
-        <transition-expand-y>
+        <transition-expand axis="y">
           <li class="item action" v-if="managing" v-on:click="classroomCreation.open = true">
             <icon-plus></icon-plus>
             <div class="label">Create classroom</div>
           </li>
-        </transition-expand-y>
+        </transition-expand>
 
         <li class="item action" v-on:click="managing = !managing">
           <component
@@ -46,7 +46,7 @@
           <span class="label"> {{ managing ? 'Cancel' : 'Manage classes' }} </span>
         </li>
       </ul>
-    </transition-expand-y>
+    </transition-expand>
 
     <!-- "Create Classroom" modal -->
 

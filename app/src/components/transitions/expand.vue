@@ -8,4 +8,4 @@
   </transition>
 </template>
 
-<script src="./expand-y.js"></script>
+<script src="./expand.js"></script>
