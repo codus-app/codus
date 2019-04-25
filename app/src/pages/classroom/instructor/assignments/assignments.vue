@@ -10,11 +10,13 @@
       </template>
     </classroom-header>
 
-    <assignment-list-item
-      v-for="assignment in classroom.assignments"
-      v-bind:key="assignment.id"
-      v-bind:assignment="assignment"
-    ></assignment-list-item>
+    <div class="assignments-list">
+      <assignment-list-item
+        v-for="assignment in classroom.assignments"
+        v-bind:key="assignment.id"
+        v-bind:assignment="assignment"
+      ></assignment-list-item>
+    </div>
   </div>
 </template>
 
