@@ -34,7 +34,7 @@ module.exports.classrooms = {
 
     const [mongoStudents, assignments] = await Promise.all([
       User.model.find().where('classroom').equals(req.classroom._id),
-      Assignment.model.find().where('classroom').equals(req.classroom._id)
+      Assignment.model.find().where('classroom').equals(req.classroom._id).sort('sortOrder'),
     ]);
 
     // Embellish students list with additional info
@@ -172,6 +172,7 @@ module.exports.assignments = {
     const assignments = await Assignment.model
       .find()
       .where('classroom').equals(req.classroom._id)
+      .sort('sortOrder')
       .select('-__v');
 
     return res.json({
