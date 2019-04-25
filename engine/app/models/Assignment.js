@@ -24,7 +24,7 @@ Assignment.schema.virtual('createdAt').get(function creationTime() {
 // For assignments with no sort order set, automatically set to 1 more than the max sort order
 // within the same classroom
 Assignment.schema.pre('save', async function setSortOrder(next) {
-  if (!this.sortOrder) {
+  if (typeof this.sortOrder !== 'number') {
     const lastAssignment = await Assignment.model
       .findOne()
       .where('classroom').equals(this.classroom)
