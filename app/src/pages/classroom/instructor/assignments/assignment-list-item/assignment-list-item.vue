@@ -11,11 +11,7 @@
       </div>
       <div class="actions">
         <icon-more v-on:click="$event.stopPropagation()"></icon-more>
-        <transition-expand axis="x" v-bind:transition-duration="expanded ? 250 : 300">
-          <div class="action-wrapper" v-if="!expanded">
-            <icon-menu class="reorder" v-on:click="$event.stopPropagation()"></icon-menu>
-          </div>
-        </transition-expand>
+        <icon-menu class="reorder" v-on:click="$event.stopPropagation()"></icon-menu>
       </div>
     </div>
 
