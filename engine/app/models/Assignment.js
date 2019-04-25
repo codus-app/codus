@@ -10,6 +10,7 @@ Assignment.add({
   dueDate: { type: Types.Datetime, initial: true },
   problems: { type: Types.Relationship, ref: 'Problem', many: true, initial: true, required: true },
   classroom: { type: Types.Relationship, ref: 'Classroom', initial: true, required: true },
+  sortOrder: { type: Types.Number },
 });
 
 Assignment.schema.virtual('code').get(function shortCode() { return this._id.toString().substring(0, 8); });
@@ -22,4 +23,5 @@ Assignment.schema.virtual('createdAt').get(function creationTime() {
 
 Assignment.register();
 
-Assignment.defaultColumns = 'name, classroom, due';
+Assignment.defaultColumns = 'name, classroom, dueDate';
+Assignment.defaultSort = 'sortOrder';
