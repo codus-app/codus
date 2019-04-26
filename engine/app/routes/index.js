@@ -85,6 +85,7 @@ module.exports = (app) => {
   app.post('/api/classroom/:classroomCode/assignments', instructorMiddleware2, instructor.assignments.post);
   app.put('/api/classroom/:classroomCode/assignments/:assignmentCode', instructorMiddleware2, instructor.assignments.put);
   app.delete('/api/classroom/:classroomCode/assignments/:assignmentCode', instructorMiddleware2, instructor.assignments.delete);
+  app.patch('/api/classroom/:classroomCode/assignmentOrder', instructorMiddleware2, instructor.assignments.reorder);
 
   // Student routes
 

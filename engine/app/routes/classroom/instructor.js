@@ -1,3 +1,4 @@
+const util = require('util');
 const keystone = require('keystone');
 
 const { ObjectID } = keystone.mongoose.mongo;
@@ -336,5 +337,58 @@ module.exports.assignments = {
     await assignment.remove();
 
     return res.json({ data: { success: true } });
+  },
+
+  async reorder(req, res) {
+    const assignments = await Assignment.model
+      .find()
+      .where('classroom').equals(req.classroom._id)
+      .sort('sortOrder')
+      .select('-__v');
+
+    const codes = assignments.map(({ code }) => code);
+    const newOrder = req.body;
+    // Error if new order missing
+    if (!newOrder || !Array.isArray(newOrder) || !newOrder.length) return new HTTPError(400, 'New order is required in request body').handle(res);
+    // Error if codes are passed that are not in assignments
+    const extraCodes = newOrder.filter(c => !codes.includes(c));
+    if (extraCodes.length) return new HTTPError(400, `Assignments ${util.inspect(extraCodes)} were not found in classroom ${req.classroom.code}`).handle(res);
+    // Error if not all codes are passed in new order
+    const missingCodes = codes.filter(c => !newOrder.includes(c));
+    if (missingCodes.length) return new HTTPError(400, `Assignments ${util.inspect(missingCodes)} are missing from new order`).handle(res);
+
+    const updates = newOrder.map((code, newIndex) => {
+      const assignment = assignments.find(a => a.code === code);
+      const { sortOrder: oldOrder } = assignment;
+      return new Promise((resolve, reject) => {
+        Assignment.updateItem(assignment, {
+          sortOrder: newIndex,
+        }, (error) => {
+          if (error) reject(error);
+          else resolve();
+          console.log(oldOrder, 'to', assignment.sortOrder);
+        });
+      });
+    });
+
+    try {
+      await Promise.all(updates);
+    } catch (e) {
+      return new HTTPError('Something went wrong').handle(res);
+    }
+
+    return res.json({
+      data: newOrder
+        .map(code => assignments.find(a => a.code === code))
+        .map(a => ({
+          ...a.toObject(),
+          classroom: req.classroom.code,
+          _id: undefined,
+          id: a.code,
+          problems: undefined,
+          numProblems: a.numProblems,
+          createdAt: a.createdAt,
+        })),
+    });
   },
 };
