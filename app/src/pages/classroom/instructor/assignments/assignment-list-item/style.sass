@@ -119,7 +119,8 @@
     & + .assignment-list-item:not(:first-child)
       box-shadow: none
 
-  &.sortable-ghost
+  &.sortable-ghost,
+  &.drag-active[draggable='true']
     .top
       transition: opacity .25s
       opacity: .3
