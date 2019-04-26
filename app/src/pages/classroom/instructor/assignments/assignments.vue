@@ -14,6 +14,7 @@
       class="assignments-list"
       v-model="assignments"
       handle=".reorder"
+      v-bind:animation="200"
     >
       <assignment-list-item
         v-for="assignment in assignments"
