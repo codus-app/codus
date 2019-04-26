@@ -15,12 +15,15 @@
       v-model="assignments"
       handle=".reorder"
       v-bind:animation="200"
+      v-on:start="dragging = true"
+      v-on:end="dragging = false"
     >
       <assignment-list-item
         v-for="assignment in assignments"
         v-bind:key="assignment.id"
         v-bind:assignment="assignment"
         v-bind:expanded="expandedId === assignment.id"
+        v-bind:class="{ 'drag-active': dragging }"
         v-on:expand="expandedId = assignment.id"
         v-on:collapse="expandedId = expandedId === assignment.id ? null : expandedId"
       ></assignment-list-item>

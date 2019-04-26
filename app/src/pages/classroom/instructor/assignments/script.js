@@ -6,6 +6,7 @@ export default {
 
   data: () => ({
     expandedId: null,
+    dragging: false,
   }),
 
   computed: {
