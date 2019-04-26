@@ -6,7 +6,11 @@ export default {
 
   data: () => ({
     expandedId: null,
+    // True from when the user starts actually dragging an item until the user drops the item
     dragging: false,
+    // True from when the user starts dragging an item OR presses down on the drag handle until the
+    // user drops the item
+    dragActive: false,
   }),
 
   computed: {
@@ -24,6 +28,15 @@ export default {
 
   methods: {
     ...mapActions(['reorderAssignments']),
+
+    dragPress() {
+      this.dragActive = true;
+      const release = () => {
+        this.dragActive = false;
+        document.removeEventListener('mouseup', release);
+      };
+      document.addEventListener('mouseup', release);
+    },
   },
 
   components: {

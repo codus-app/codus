@@ -11,7 +11,12 @@
       </div>
       <div class="actions">
         <icon-more v-on:click="$event.stopPropagation()"></icon-more>
-        <icon-menu class="reorder" v-on:click="$event.stopPropagation()"></icon-menu>
+        <icon-menu
+          class="reorder"
+          v-on:mousedown="$emit('handlePress')"
+          v-on:click="$event.stopPropagation()"
+          v-on:contextmenu="$event.preventDefault()"
+        ></icon-menu>
       </div>
     </div>
 
