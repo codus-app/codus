@@ -59,6 +59,29 @@ export default {
       });
       return true;
     },
+
+    assignmentsReordered(state, { classroom: classroomCode, assignments: newAssignments }) {
+      const index = state.classrooms.findIndex(c => c.code === classroomCode);
+      if (index === -1) throw new Error(`Classroom ${classroomCode} not found`);
+      const classroom = state.classrooms[index];
+      // New assignment order from passed array of new assignments
+      const newOrder = newAssignments.map(a => a.id);
+      // Make sure every assignment ID is in the new order
+      if (!classroom.assignments.every(({ id }) => newOrder.includes(id))) throw new Error('New assignment order incomplete');
+
+      Vue.set(state.classrooms, index, {
+        ...state.classrooms[index],
+        assignments: classroom.assignments
+          // Sort by new order
+          .sort(({ id: idA }, { id: idB }) => newOrder.indexOf(idA) - newOrder.indexOf(idB))
+          // Add info from new assignments
+          .map(assignment => ({
+            ...assignment,
+            ...newAssignments.find(({ id }) => id === assignment.id),
+          })),
+      });
+      return true;
+    },
   },
 
   /** Fetch a list of all managed classrooms from the API */
@@ -93,6 +116,18 @@ export default {
     async removeUser({ commit }, { classroom, username }) {
       await api.delete({ endpoint: `/classroom/${classroom}/students/${username}` });
       commit('removeUser', { classroom, username });
+    },
+
+    async reorderAssignments({ commit }, { classroom, ids }) {
+      // Mock reordering API response so that changes are immediately applied client-side
+      commit('assignmentsReordered', {
+        classroom,
+        assignments: ids.map((id, i) => ({ id, sortOrder: i })),
+      });
+      // Perform API request to actually change order
+      const assignments = await api.patch({ endpoint: `/classroom/${classroom}/assignmentOrder`, body: ids });
+      // Change order / mutate assignments based on actual response
+      commit('assignmentsReordered', { classroom, assignments });
     },
   },
 
