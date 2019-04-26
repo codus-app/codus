@@ -382,10 +382,10 @@ module.exports.assignments = {
         .map(code => assignments.find(a => a.code === code))
         .map(a => ({
           ...a.toObject(),
-          classroom: req.classroom.code,
+          classroom: undefined,
           _id: undefined,
-          id: a.code,
           problems: undefined,
+          id: a.code,
           numProblems: a.numProblems,
           createdAt: a.createdAt,
         })),
