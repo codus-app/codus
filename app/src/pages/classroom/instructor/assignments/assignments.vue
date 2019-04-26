@@ -10,16 +10,20 @@
       </template>
     </classroom-header>
 
-    <div class="assignments-list">
+    <draggable
+      class="assignments-list"
+      v-model="assignments"
+      handle=".reorder"
+    >
       <assignment-list-item
-        v-for="assignment in classroom.assignments"
+        v-for="assignment in assignments"
         v-bind:key="assignment.id"
         v-bind:assignment="assignment"
         v-bind:expanded="expandedId === assignment.id"
         v-on:expand="expandedId = assignment.id"
         v-on:collapse="expandedId = expandedId === assignment.id ? null : expandedId"
       ></assignment-list-item>
-    </div>
+    </draggable>
   </div>
 </template>
 

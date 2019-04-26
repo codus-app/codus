@@ -3,11 +3,17 @@ export default {
 
   data: () => ({
     expandedId: null,
+    assignments: [],
   }),
 
   computed: {
     fetched() { return this.classroom.fetched || false; },
-    assignments() { return this.classroom.assignments || []; },
+  },
+
+  watch: {
+    fetched() {
+      this.assignments = this.classroom.assignments;
+    },
   },
 
   components: {
