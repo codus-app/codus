@@ -2,7 +2,7 @@ export default {
   props: { classroom: Object },
 
   data: () => ({
-    expandedIndex: null,
+    expandedId: null,
   }),
 
   computed: {
