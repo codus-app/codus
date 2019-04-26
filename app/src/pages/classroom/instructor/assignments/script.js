@@ -6,11 +6,9 @@ export default {
 
   data: () => ({
     expandedId: null,
-    // True from when the user starts actually dragging an item until the user drops the item
     dragging: false,
-    // True from when the user starts dragging an item OR presses down on the drag handle until the
-    // user drops the item
-    dragActive: false,
+    // Collapse open element temporarily while maintaining info on which one was open
+    overrideCollapse: false,
   }),
 
   computed: {
@@ -29,13 +27,15 @@ export default {
   methods: {
     ...mapActions(['reorderAssignments']),
 
-    dragPress() {
-      this.dragActive = true;
-      const release = () => {
-        this.dragActive = false;
-        document.removeEventListener('mouseup', release);
-      };
-      document.addEventListener('mouseup', release);
+    dragPress(id) {
+      if (id === this.expandedId) {
+        this.overrideCollapse = true;
+        const release = () => {
+          this.overrideCollapse = false;
+          document.removeEventListener('mouseup', release);
+        };
+        document.addEventListener('mouseup', release);
+      }
     },
   },
 
