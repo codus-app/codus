@@ -118,3 +118,8 @@
     // No top border on following item
     & + .assignment-list-item:not(:first-child)
       box-shadow: none
+
+  &.sortable-ghost
+    .top
+      transition: opacity .25s
+      opacity: .3
