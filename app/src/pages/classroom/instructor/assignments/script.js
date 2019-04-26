@@ -1,19 +1,28 @@
+import { createNamespacedHelpers } from 'vuex';
+const { mapActions } = createNamespacedHelpers('classroom/instructor');
+
 export default {
   props: { classroom: Object },
 
   data: () => ({
     expandedId: null,
-    assignments: [],
   }),
 
   computed: {
     fetched() { return this.classroom.fetched || false; },
+    assignments: {
+      get() { return this.classroom.assignments || []; },
+      set(value) {
+        this.reorderAssignments({
+          classroom: this.classroom.code,
+          ids: value.map(assignment => assignment.id),
+        });
+      },
+    },
   },
 
-  watch: {
-    fetched() {
-      this.assignments = this.classroom.assignments;
-    },
+  methods: {
+    ...mapActions(['reorderAssignments']),
   },
 
   components: {
