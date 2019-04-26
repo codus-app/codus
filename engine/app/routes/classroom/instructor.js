@@ -359,14 +359,12 @@ module.exports.assignments = {
 
     const updates = newOrder.map((code, newIndex) => {
       const assignment = assignments.find(a => a.code === code);
-      const { sortOrder: oldOrder } = assignment;
       return new Promise((resolve, reject) => {
         Assignment.updateItem(assignment, {
           sortOrder: newIndex,
         }, (error) => {
           if (error) reject(error);
           else resolve();
-          console.log(oldOrder, 'to', assignment.sortOrder);
         });
       });
     });
