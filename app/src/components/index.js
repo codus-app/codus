@@ -10,6 +10,9 @@ Vue.component('codemirror', codemirror);
 import simplebar from 'simplebar-vue';
 Vue.component('simplebar', simplebar);
 
+import draggable from 'vuedraggable';
+Vue.component('draggable', draggable);
+
 // Icons
 
 import './icons';
