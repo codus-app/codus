@@ -15,7 +15,7 @@
       v-model="assignments"
       handle=".reorder"
       v-bind:animation="200"
-      v-on:start="dragging = true"
+      v-on:start="dragging = true; expandedId = overrideCollapse ? expandedId : null"
       v-on:end="dragging = false; overrideCollapse = false"
     >
       <assignment-list-item
