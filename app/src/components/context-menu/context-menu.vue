@@ -4,7 +4,7 @@
 
     trigger="click"
     v-bind:placement="placement"
-    theme="codus-context"
+    v-bind:theme="theme || 'codus-context'"
     interactive="true"
 
     @show="show"

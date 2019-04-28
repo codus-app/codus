@@ -9,6 +9,7 @@ export default {
       // least the keys "icon," "label," and "onclick"
       validator: val => val.every(n => n instanceof Object && ['icon', 'label', 'onclick'].every(key => Object.keys(n).includes(key))),
     },
+    theme: String,
   },
 
   methods: {
