@@ -8,6 +8,11 @@ export default {
     expanded: { type: Boolean },
   },
 
+  data: () => ({
+    holdTimeout: null,
+    holding: false,
+  }),
+
   computed: {
     overdue() {
       const date = dayjs(this.assignment.dueDate);
@@ -34,6 +39,9 @@ export default {
   },
 
   methods: {
+    setTimeout: window.setTimeout.bind(window),
+    clearTimeout: window.clearTimeout.bind(window),
+
     expand() { this.$emit('expand'); },
     collapse() { this.$emit('collapse'); },
     toggle() {

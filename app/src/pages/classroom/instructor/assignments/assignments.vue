@@ -13,7 +13,6 @@
     <draggable
       class="assignments-list"
       v-model="assignments"
-      handle=".reorder"
       v-bind:animation="200"
       v-on:start="dragging = true; expandedId = overrideCollapse ? expandedId : null"
       v-on:end="dragging = false; overrideCollapse = false"
@@ -30,7 +29,7 @@
         v-on:expand="expandedId = assignment.id"
         v-on:collapse="expandedId = expandedId === assignment.id ? null : expandedId"
 
-        v-on:handlePress="dragPress(assignment.id)"
+        v-on:dragPress="dragPress(assignment.id)"
       ></assignment-list-item>
     </draggable>
   </div>

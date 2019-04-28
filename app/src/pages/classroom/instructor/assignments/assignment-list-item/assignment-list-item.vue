@@ -1,6 +1,12 @@
 <template>
   <div class="assignment-list-item" v-bind:class="{ expanded }">
-    <div class="top" v-on:click="toggle">
+    <div
+      class="top"
+      v-on:click="() => { if (!holding) toggle(); else holding = false; }"
+      v-on:mousedown="holdTimeout = setTimeout(() => { $emit('dragPress'); holding = true; }, 200);"
+      v-on:mouseup="clearTimeout(holdTimeout)"
+      v-on:contextmenu="$event.preventDefault()"
+    >
       <div class="icon"><icon-clipboard></icon-clipboard></div>
       <div class="info">
         <h2>{{ assignment.name }}</h2>
@@ -13,7 +19,7 @@
         <icon-more v-on:click="$event.stopPropagation()"></icon-more>
         <icon-menu
           class="reorder"
-          v-on:mousedown="$emit('handlePress')"
+          v-on:mousedown="$emit('dragPress'); $event.stopPropagation();"
           v-on:click="$event.stopPropagation()"
           v-on:contextmenu="$event.preventDefault()"
         ></icon-menu>
