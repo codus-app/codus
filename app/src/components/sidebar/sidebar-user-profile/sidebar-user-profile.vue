@@ -1,10 +1,11 @@
 <template>
   <router-link
     class="sidebar-user-profile" v-bind:class="{ compact }"
-    v-bind:to="`/user/${this.profile.username || this.profile.nickname}`"
+    v-bind:to="`/user/${profile.username || profile.nickname}`"
   >
     <div class="picture" v-bind:style="{ backgroundImage: `url(${profile.picture})` }"></div>
     <div class="name" v-if="!compact">{{ profile.name }}</div>
+    <div class="role-badge" v-if="profile.role === 'instructor'">{{ profile.role }}</div>
   </router-link>
 </template>
 
