@@ -1,3 +1,4 @@
+/* global CODUS_APP_URL */
 import dayjs from 'dayjs';
 import calendar from 'dayjs/plugin/calendar';
 dayjs.extend(calendar);
@@ -36,6 +37,8 @@ export default {
       const thisYear = date.year() === dayjs(Date.now()).year();
       return date.format(thisYear ? '[Due] MMM D' : '[Due] MMM D[,] YYYY');
     },
+
+    link() { return `/classroom/${this.$route.params.classroomCode}/assignments/${this.assignment.id}`; },
   },
 
   methods: {
@@ -47,6 +50,17 @@ export default {
     toggle() {
       if (this.expanded) this.collapse();
       else this.expand();
+    },
+
+    openContextMenu() {
+      this.$refs.contextMenuTrigger._tippy.show(); // eslint-disable-line no-underscore-dangle
+    },
+
+    copyLink() {
+      navigator.permissions.query({ name: 'clipboard-write' })
+        .then(({ state }) => {
+          if (state === 'granted') { navigator.clipboard.writeText(CODUS_APP_URL + this.link); }
+        });
     },
   },
 };

@@ -5,7 +5,7 @@
       v-on:contextmenu.native="$event.preventDefault(); openContextMenu();"
     ></sidebar-user-profile>
 
-    <icon-more name="sidebar-more" ref="contextmenuTrigger"></icon-more>
+    <icon-more name="sidebar-more" ref="contextMenuTrigger"></icon-more>
     <context-menu
       target-name="sidebar-more"
       v-bind:placement="collapsed ? 'right-start' : 'bottom-end'"

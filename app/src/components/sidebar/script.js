@@ -48,7 +48,7 @@ export default {
     },
 
     openContextMenu() {
-      this.$refs.contextmenuTrigger._tippy.show(); // eslint-disable-line no-underscore-dangle
+      this.$refs.contextMenuTrigger._tippy.show(); // eslint-disable-line no-underscore-dangle
     },
   },
 
