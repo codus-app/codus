@@ -1,7 +1,8 @@
 @import 'src/styles/variables'
 
 
-.tippy-tooltip.codus-context-theme
+.tippy-tooltip.codus-context-theme,
+.tippy-tooltip.codus-context-contrast-theme
   background: $dark-2
   border-radius: 5px
   box-shadow: 0 10px 20px -5px transparentize($black, .75)
@@ -14,17 +15,22 @@
   &.shown
     animation: context-menu-scale .2s
 
+.tippy-tooltip.codus-context-contrast-theme
+  box-shadow: 0 10px 20px -5px transparentize($black, .75), 0 -5px 15px -2px transparentize($black, .65)
+
 
 .tippy-popper
   // Custom transform origins (too lazy to implement all)
 
   &[x-placement='bottom-start'],
   &[x-placement='right-start']
-    .codus-context-theme
+    .codus-context-theme,
+    .codus-context-contrast-theme
       transform-origin: top left
 
   &[x-placement='bottom-end']
-    .codus-context-theme
+    .codus-context-theme,
+    .codus-context-contrast-theme
       transform-origin: top right
 
 
