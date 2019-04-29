@@ -7,6 +7,7 @@ export default {
   data: () => ({
     expandedId: null,
     dragging: false,
+    draggingId: null,
     // Collapse open element temporarily while maintaining info on which one was open
     overrideCollapse: false,
     // “Delete assignment” confirmation modal

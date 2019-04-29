@@ -2,7 +2,7 @@
   <div class="assignment-list-item" v-bind:class="{ expanded }">
     <div
       class="top"
-      v-on:click="() => { if (!holding) toggle(); else holding = false; }"
+      v-on:click="() => { if (!expanded || !holding || (holding && !dragged)) toggle(); else { holding = false; dragged = false; }; }"
       v-on:mousedown="holdTimeout = setTimeout(() => { $emit('dragPress'); holding = true; }, 200);"
       v-on:mouseup="clearTimeout(holdTimeout)"
       v-on:contextmenu="$event.preventDefault(); openContextMenu()"

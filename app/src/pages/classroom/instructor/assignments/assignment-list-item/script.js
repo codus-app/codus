@@ -7,11 +7,14 @@ export default {
   props: {
     assignment: { type: Object, required: true },
     expanded: { type: Boolean },
+    dragging: { type: Boolean },
+    position: { type: Number },
   },
 
   data: () => ({
     holdTimeout: null,
     holding: false,
+    dragged: false,
   }),
 
   computed: {
@@ -62,5 +65,11 @@ export default {
           if (state === 'granted') { navigator.clipboard.writeText(CODUS_APP_URL + this.link); }
         });
     },
+  },
+
+  watch: {
+    // When position changes, set 'dragged' to true until the next time a drag starts
+    position() { this.dragged = true; },
+    dragging(dragging) { if (dragging) this.dragged = false; },
   },
 };

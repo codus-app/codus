@@ -15,16 +15,18 @@
         class="assignments-list"
         v-model="assignments"
         v-bind:animation="200"
-        v-on:start="dragging = true; expandedId = overrideCollapse ? expandedId : null"
-        v-on:end="dragging = false; overrideCollapse = false"
+        v-on:start="dragging = true; draggingId = assignments[$event.oldIndex].id; expandedId = overrideCollapse ? expandedId : null"
+        v-on:end="dragging = false; draggingId = null; overrideCollapse = false"
       >
         <assignment-list-item
-          v-for="assignment in assignments"
+          v-for="(assignment, i) in assignments"
           v-bind:key="assignment.id"
 
           v-bind:assignment="assignment"
 
           v-bind:expanded="!overrideCollapse && expandedId === assignment.id"
+          v-bind:dragging="dragging && draggingId === assignment.id"
+          v-bind:position="i"
           v-bind:class="{ 'drag-active': dragging }"
 
           v-on:expand="expandedId = assignment.id"
