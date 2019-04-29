@@ -74,6 +74,14 @@
               </div>
             </div>
           </router-link>
+          <router-link
+            class="view-more"
+            v-if="numNotDisplayed"
+            v-bind:to="{ name: 'classroom-assignments', params: $route.params }"
+          >
+            View {{ numNotDisplayed }} more assignment<span v-if="numNotDisplayed !== 1">s</span>
+            <icon-arrow-right></icon-arrow-right>
+          </router-link>
         </div>
         <div class="empty" v-else>
           <h3>No assignments found</h3>

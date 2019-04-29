@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { formatDueDate } from '../../../../helpers';
 
 export default {
@@ -21,6 +22,9 @@ export default {
         .sort(({ dueDate: ddA }, { dueDate: ddB }) => new Date(ddB) - new Date(ddA));
 
       return [...dueInFuture, ...noDueDate, ...dueInPast];
+    },
+    numNotDisplayed() {
+      return this.assignments.length - this.displayAssignments.slice(0, 3).length;
     },
   },
 

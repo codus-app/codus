@@ -4,6 +4,7 @@ import * as icons from 'vue-feather-icons';
 
 const iconNames = [
   'ArrowLeftIcon',
+  'ArrowRightIcon',
   'ArrowUpCircleIcon',
   'AtSignIcon',
   'BookOpenIcon',

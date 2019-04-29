@@ -11,6 +11,7 @@
   .card
     flex: 1 1 0
     min-width: 16rem
+    min-height: 14rem
     margin: 0 20px 20px 0
 
 
@@ -109,6 +110,31 @@
       margin-right: .15rem
       transform: translateY(5%)
 
+
+
+.view-more
+  display: flex
+  align-items: center
+  font-family: $font-lato
+  font-size: .75rem
+  font-weight: 400
+  color: $white
+  opacity: .3
+  transition: opacity .2s
+  cursor: pointer
+
+  .feather-arrow-right
+    width: .8rem
+    height: .8rem
+    margin-left: .2rem
+    transform: translateY(10%)
+    transition: transform .2s
+
+  &:hover
+    opacity: .4
+
+    .feather-arrow-right
+      transform: translate(.2rem, 10%)
 
 
 
