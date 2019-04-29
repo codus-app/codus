@@ -1,7 +1,11 @@
 <template>
   <portal to="modal-target">
     <div class="modal-wrapper" v-bind:class="{ open }" ref="root">
-      <div class="scrim" v-bind:style="{ ...scrimStyle, backgroundColor: fadeColor }"></div>
+      <div
+        class="scrim"
+        v-bind:style="{ ...scrimStyle, backgroundColor: fadeColor }"
+        v-on:click="$emit('close')"
+      ></div>
 
       <div class="modal" v-bind:class="{ wide }" v-bind:style="modalStyle">
         <icon-x v-on:click="$emit('close')"></icon-x>
