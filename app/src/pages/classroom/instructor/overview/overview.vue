@@ -28,7 +28,7 @@
             v-bind:key="student.username"
             v-bind:to="{
               name: 'classroom-students',
-              params: { ...$route.params, username: student.username }
+              params: { ...$route.params, username: student.username },
             }"
           >
             <div
@@ -55,7 +55,26 @@
           v-bind:to="{ name: 'classroom-assignments', params: $route.params }"
           v-if="assignments.length"
         >View all</router-link>
-        <div class="assignments-list" v-if="assignments.length"></div>
+        <div class="assignments-list" v-if="assignments.length">
+          <router-link
+            class="assignment"
+            v-for="assignment in assignments.slice(0, 2)"
+            v-bind:key="assignment.id"
+            v-bind:to="{
+              name: 'classroom-assignment-detail',
+              params: { ...$route.params, assignmentId: assignment.id },
+            }"
+          >
+            <div class="icon"><icon-clipboard></icon-clipboard></div>
+            <div class="info">
+              <h2>{{ assignment.name }}</h2>
+              <div class="due">
+                <icon-calendar></icon-calendar>
+                {{ formatDueDate(assignment.dueDate) }}
+              </div>
+            </div>
+          </router-link>
+        </div>
         <div class="empty" v-else>
           <h3>No assignments found</h3>
           <div class="cta" v-on:click="$emit('create-assignment')">

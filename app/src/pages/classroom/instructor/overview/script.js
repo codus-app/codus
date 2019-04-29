@@ -1,3 +1,5 @@
+import { formatDueDate } from '../../../../helpers';
+
 export default {
   props: { classroom: Object },
 
@@ -5,5 +7,9 @@ export default {
     fetched() { return this.classroom.fetched || false; },
     students() { return this.classroom.students || []; },
     assignments() { return this.classroom.assignments || []; },
+  },
+
+  methods: {
+    formatDueDate,
   },
 };

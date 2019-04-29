@@ -16,62 +16,8 @@
     cursor: pointer
     transition: background .2s
 
-    .icon
-      width: 2.25rem
-      height: 2.25rem
-      border-radius: 50%
-      background: #2d2e35
-      display: flex
-      align-items: center
-      justify-content: center
-      margin-right: .75rem
-      transition: background .2s
+    @import item-elements
 
-      .feather
-        width: 1.2rem
-        height: 1.2rem
-        transform: translateY(-5%)
-        opacity: .65
-
-    .info
-      h2
-        font-family: $font-lato
-        font-weight: 600
-        font-size: .9rem
-        margin: 0 0 .2rem
-
-      .due
-        display: flex
-        align-items: center
-        margin-left: -.05rem
-        color: $light-text-hint
-        font-family: $font-lato
-        font-weight: 400
-        font-size: .65rem
-
-        .feather-calendar
-          width: .75rem
-          height: .75rem
-          margin-right: .3rem
-          color: $light-text-primary
-          opacity: .4
-
-    .actions
-      margin-left: auto
-      color: $light-text-primary
-      display: flex
-
-      .feather
-        margin-left: 1rem
-        width: 1.05rem
-        height: 1.05rem
-        opacity: .2
-        transition: opacity .2s
-        flex: 0 0 auto
-
-        &.reorder
-          transform: scale(.8)
-          cursor: move
 
   .bottom-content
     height: 7rem
