@@ -36,7 +36,7 @@ export default {
       else Vue.set(state.classrooms, index, { ...state.classrooms[index], ...payload });
     },
 
-    removeClassroom(state, code) {
+    classroomDeleted(state, code) {
       const index = state.classrooms.findIndex(c => c.code === code);
       if (index === -1) return false;
       Vue.delete(state.classrooms, index);
@@ -50,7 +50,7 @@ export default {
       localStorage.setItem('instructor-context', state.selectedCode);
     },
 
-    removeUser(state, { classroom, username }) {
+    userRemoved(state, { classroom, username }) {
       const index = state.classrooms.findIndex(c => c.code === classroom);
       if (index === -1) return false;
       Vue.set(state.classrooms, index, {
@@ -82,6 +82,18 @@ export default {
       });
       return true;
     },
+
+    assignmentDeleted(state, { classroom: classroomCode, id: assignmentId }) {
+      const index = state.classrooms.findIndex(c => c.code === classroomCode);
+      if (index === -1) throw new Error(`Classroom ${classroomCode} not found`);
+      const classroom = state.classrooms[index];
+
+      Vue.set(state.classrooms, index, {
+        ...state.classrooms[index],
+        assignments: classroom.assignments
+          .filter(({ id }) => id !== assignmentId),
+      });
+    },
   },
 
   /** Fetch a list of all managed classrooms from the API */
@@ -108,14 +120,14 @@ export default {
 
     /** Delete a classroom */
     async deleteClassroom({ commit }, code) {
-      await api.delete({ endpoint: `/classroom/${code}` });
-      commit('removeClassroom', code);
+      const { success } = await api.delete({ endpoint: `/classroom/${code}` });
+      if (success) commit('classroomDeleted', code);
     },
 
     /** Remove a student from a classroom */
     async removeUser({ commit }, { classroom, username }) {
       await api.delete({ endpoint: `/classroom/${classroom}/students/${username}` });
-      commit('removeUser', { classroom, username });
+      commit('userRemoved', { classroom, username });
     },
 
     async reorderAssignments({ commit }, { classroom, ids }) {
@@ -128,6 +140,11 @@ export default {
       const assignments = await api.patch({ endpoint: `/classroom/${classroom}/assignmentOrder`, body: ids });
       // Change order / mutate assignments based on actual response
       commit('assignmentsReordered', { classroom, assignments });
+    },
+
+    async deleteAssignment({ commit }, { classroom, id }) {
+      const { success } = await api.delete({ endpoint: `/classroom/${classroom}/assignments/${id}` });
+      if (success) commit('assignmentDeleted', { classroom, id });
     },
   },
 
