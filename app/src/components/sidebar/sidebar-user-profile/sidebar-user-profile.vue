@@ -5,7 +5,7 @@
   >
     <div class="picture" v-bind:style="{ backgroundImage: `url(${profile.picture})` }"></div>
     <div class="name" v-if="!compact">{{ profile.name }}</div>
-    <div class="role-badge" v-if="profile.role === 'instructor'">{{ profile.role }}</div>
+    <div class="role-badge" v-if="!compact && profile.role === 'instructor'">{{ profile.role }}</div>
   </router-link>
 </template>
 
