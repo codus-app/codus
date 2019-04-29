@@ -58,7 +58,7 @@
         <div class="assignments-list" v-if="assignments.length">
           <router-link
             class="assignment"
-            v-for="assignment in assignments.slice(0, 2)"
+            v-for="assignment in assignments.slice(0, 3)"
             v-bind:key="assignment.id"
             v-bind:to="{
               name: 'classroom-assignment-detail',
