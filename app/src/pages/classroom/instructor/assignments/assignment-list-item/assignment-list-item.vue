@@ -1,9 +1,15 @@
 <template>
   <div class="assignment-list-item" v-bind:class="{ expanded }">
+    <!-- Detect click “intent” - we collapse the assignment temporarily if the user is about to drag
+         to change the assignment order. However, in some cases, if the user is slow to click, they
+         may click for long enough that we collapse the assignment for "drag" intent. If the user
+         releases a drag within 600ms, the assignment will remain closed, and not reopen. Clicks
+         longer than 600ms strongly indicate "drag" intent, so we will reopen the assignment as in a
+         cancelled drag only if the click lasted longer than 600ms. -->
     <div
       class="top"
-      v-on:click="() => { if (!expanded || !holding || (holding && !dragged)) toggle(); else { holding = false; dragged = false; }; }"
-      v-on:mousedown="holdTimeout = setTimeout(() => { $emit('dragPress'); holding = true; }, 200);"
+      v-on:click="() => { if (!expanded || clickDuration() < 600) toggle(); holdStart = null; }"
+      v-on:mousedown="holdTimeout = setTimeout(() => { $emit('dragPress'); }, 200); holdStart = new Date()"
       v-on:mouseup="clearTimeout(holdTimeout)"
       v-on:contextmenu="$event.preventDefault(); openContextMenu()"
     >
