@@ -18,7 +18,7 @@
         <h2>{{ assignment.name }}</h2>
         <div class="due">
           <icon-calendar></icon-calendar>
-          {{ dueDate }}
+          {{ formatDueDate(assignment.dueDate) }}
         </div>
       </div>
       <div class="actions">
