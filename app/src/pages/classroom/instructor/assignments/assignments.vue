@@ -5,7 +5,7 @@
   >
     <classroom-header>
       <template slot="actions">
-        <icon-file-plus></icon-file-plus>
+        <icon-file-plus v-on:click="$emit('create-assignment')"></icon-file-plus>
         <icon-settings></icon-settings>
       </template>
     </classroom-header>

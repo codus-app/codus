@@ -4,6 +4,7 @@ const { mapGetters, mapActions } = createNamespacedHelpers('classroom/instructor
 export default {
   data: () => ({
     invitationOpen: false,
+    assignmentCreationOpen: false,
   }),
 
   computed: {

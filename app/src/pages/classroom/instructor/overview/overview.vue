@@ -6,6 +6,7 @@
     <classroom-header>
       <template slot="actions">
         <icon-user-plus v-on:click="$emit('open-invitation')"></icon-user-plus>
+        <icon-file-plus v-on:click="$emit('create-assignment')"></icon-file-plus>
         <icon-settings></icon-settings>
       </template>
     </classroom-header>
@@ -57,7 +58,9 @@
         <div class="assignments-list" v-if="assignments.length"></div>
         <div class="empty" v-else>
           <h3>No assignments found</h3>
-          <div class="cta"> <icon-plus></icon-plus> Create assignment </div>
+          <div class="cta" v-on:click="$emit('create-assignment')">
+            <icon-plus></icon-plus> Create assignment
+          </div>
         </div>
       </dashboard-card>
     </div>
