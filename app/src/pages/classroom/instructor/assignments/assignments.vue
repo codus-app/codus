@@ -10,7 +10,7 @@
       </template>
     </classroom-header>
 
-    <simplebar>
+    <simplebar v-if="assignments.length">
       <draggable
         class="assignments-list"
         v-model="assignments"
@@ -35,6 +35,11 @@
         ></assignment-list-item>
       </draggable>
     </simplebar>
+    <empty-message v-else-if="fetched" v-on:action-click="$emit('create-assignment')">
+      <h2 slot="title">There’s nothing here</h2>
+      To get started, create your first assignment.
+      <span slot="cta">Create assignment</span>
+    </empty-message>
 
 
     <!-- "Delete assignment" confirmation modal -->

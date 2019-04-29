@@ -43,5 +43,6 @@ export default {
 
   components: {
     'assignment-list-item': require('./assignment-list-item/assignment-list-item.vue').default,
+    'empty-message': require('../empty/empty.vue').default,
   },
 };
