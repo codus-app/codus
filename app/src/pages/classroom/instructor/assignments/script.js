@@ -9,6 +9,8 @@ export default {
     dragging: false,
     // Collapse open element temporarily while maintaining info on which one was open
     overrideCollapse: false,
+    // “Delete assignment” confirmation modal
+    assignmentDeletion: { open: false, assignment: null },
   }),
 
   computed: {
@@ -25,7 +27,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['reorderAssignments']),
+    ...mapActions(['reorderAssignments', 'deleteAssignment']),
 
     dragPress(id) {
       if (id === this.expandedId) {
