@@ -28,6 +28,11 @@
       <span slot="label">{{ page &lt; 3 ? 'Next step' : 'Finish up' }}</span>
       {{ ['Add problems', 'Finish up', 'Post assignment'][page - 1] }}
     </proceed-button>
+
+    <div class="back-button" v-if="page > 1" v-on:click="page -= 1">
+      <icon-arrow-left></icon-arrow-left>
+      Back
+    </div>
   </modal>
 </template>
 

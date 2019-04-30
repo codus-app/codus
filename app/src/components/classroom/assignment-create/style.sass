@@ -1,4 +1,32 @@
+@import 'src/styles/variables'
+
 .proceed-button
   position: absolute
   bottom: 1rem
   right: 1rem
+
+
+.back-button
+  position: absolute
+  bottom: 1.4rem
+  left: 2rem
+
+  display: flex
+  align-items: center
+
+  cursor: pointer
+  font-family: $font-lato
+  font-weight: 500
+  font-size: .75rem
+  text-transform: uppercase
+  color: $white
+  opacity: .2
+  transition: opacity .2s
+
+  .feather
+    width: 1rem
+    height: 1rem
+    margin-right: .25rem
+
+  &:hover
+    opacity: .3
