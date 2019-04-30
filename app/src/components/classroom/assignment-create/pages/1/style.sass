@@ -1,0 +1,58 @@
+@import 'src/styles/variables'
+
+.page-1
+  text-align: left
+  font-size: 1rem
+
+
+label
+  display: flex
+  flex-direction: column-reverse
+
+  &:not(:last-child)
+    margin-bottom: 2.75rem
+
+  span
+    font-family: $font-lato
+    font-weight: 500
+    font-size: .85rem
+    color: transparentize($white, .55)
+    transition: color .2s
+    margin-bottom: .75rem
+
+input,
+textarea
+  width: 100%
+  resize: none
+  background: none
+  border: 0
+  outline: 0
+  margin: 0
+  padding: 0
+  color: $light-text-tertiary
+  font-family: $font-lato
+  font-size: 1rem
+  font-weight: 500
+  margin-left: -.05em
+
+  &::placeholder
+    color: transparentize($white, .89)
+    transition: color .2s
+
+  &:focus::placeholder
+    color: transparentize($white, .85)
+
+  &:focus + span
+    color: transparentize($white, .45)
+
+  &.h1-input
+    color: $light-text-secondary
+    font-weight: 800
+    font-size: 1.75rem
+    letter-spacing: .01em
+
+    &::placeholder
+      color: transparentize($white, .92)
+
+    &:focus::placeholder
+      color: transparentize($white, .89)

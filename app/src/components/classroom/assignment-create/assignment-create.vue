@@ -5,7 +5,7 @@
     no-margin
     v-bind:modalStyle="{
       backgroundColor: '#131313',
-      padding: '3rem 3.5rem',
+      padding: '3rem 5rem',
       marginRight: '-12rem',
       // Window width - sidebar width - 3rem minimum margin on both sides
       width: 'calc(100vw - 12rem - (3rem * 2))',
@@ -13,7 +13,11 @@
     }"
     fade-color="rgba(30, 30, 33, .65)"
   >
-    <page-1 v-if="page === 1"></page-1>
+    <page-1
+      v-if="page === 1"
+      v-bind:name.sync="name"
+      v-bind:description.sync="description"
+    ></page-1>
 
     <page-2 v-else-if="page === 2"></page-2>
 

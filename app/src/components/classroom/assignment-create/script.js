@@ -5,6 +5,9 @@ export default {
 
   data: () => ({
     page: 1,
+
+    name: '',
+    description: '',
   }),
 
   components: {
