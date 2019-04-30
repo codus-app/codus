@@ -46,7 +46,7 @@
         </div>
       </dashboard-card>
 
-      <dashboard-card class="assignments">
+      <dashboard-card class="assignments contains-view-more">
         <template slot="label">
           {{ assignments.length || '' }} Assignment<span v-if="assignments.length !== 1">s</span>
         </template>

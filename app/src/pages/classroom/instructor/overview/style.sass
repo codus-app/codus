@@ -18,6 +18,9 @@
 .card
   position: relative
 
+  &.contains-view-more
+    padding-bottom: .75rem + (.75rem * 1.4)
+
 
 
 .students
@@ -26,7 +29,7 @@
       float: left
       width: calc(50% - 1rem)
       margin-right: 1rem
-      margin-bottom: .5rem
+      margin-bottom: .6rem
 
       display: flex
       align-items: center
@@ -113,6 +116,9 @@
 
 
 .view-more
+  position: absolute
+  bottom: .75rem
+  left: 1.2rem
   display: flex
   align-items: center
   font-family: $font-lato
