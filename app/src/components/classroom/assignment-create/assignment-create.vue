@@ -2,6 +2,7 @@
   <modal
     v-bind:open="open"
     v-on:close="$emit('close')"
+    no-margin
     v-bind:modalStyle="{
       backgroundColor: '#131313',
       padding: '3rem 3.5rem',

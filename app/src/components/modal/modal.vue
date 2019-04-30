@@ -15,7 +15,7 @@
           <slot name="header"></slot>
         </div>
         <!-- Content -->
-        <div class="content">
+        <div class="content" v-bind:style="{ margin: noMargin ? '0' : null }">
           <slot></slot>
         </div>
         <!-- Buttons -->
