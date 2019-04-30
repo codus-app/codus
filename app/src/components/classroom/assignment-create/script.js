@@ -6,6 +6,12 @@ export default {
   data: () => ({
     page: 1,
 
+    pageValidation: {
+      1: false,
+      2: false,
+      3: false,
+    },
+
     name: '',
     description: '',
   }),

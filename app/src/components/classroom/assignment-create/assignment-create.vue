@@ -17,6 +17,7 @@
       v-if="page === 1"
       v-bind:name.sync="name"
       v-bind:description.sync="description"
+      v-on:validationchange="pageValidation[1] = $event"
     ></page-1>
 
     <page-2 v-else-if="page === 2"></page-2>
