@@ -65,12 +65,17 @@
         <div class="card classroom-info" v-else>
           <h2>Classroom</h2>
           <div class="classroom" v-on:click="$router.push('/classroom')">
-            <div class="picture" v-bind:style="{ backgroundImage: `url(${ classroom.instructor.picture })` }"></div>
+            <div
+              class="picture"
+              v-bind:style="{ backgroundImage: `url(${ classroom.instructor.picture })` }"
+            ></div>
             <div class="info">
               <div class="name">{{ classroom.name }}</div>
               <div class="students"> {{ classroom.size }} Students</div>
             </div>
-            <bold-button type="red" v-on:click="$event.stopPropagation(); leaveModalOpen = true;">Leave</bold-button>
+            <bold-button type="red" v-on:click="$event.stopPropagation(); leaveModalOpen = true;">
+              Leave
+            </bold-button>
           </div>
         </div>
 
@@ -89,8 +94,8 @@
         >
           <h1 slot="header">Leave {{ (classroom || {}).name }}?</h1>
           You’ll completely lose access to {{ (classroom || {}).name }}. You can rejoin
-          {{ (classroom || {}).name }} later with the classroom code, but some of your classroom data
-          may be permanently erased.
+          {{ (classroom || {}).name }} later with the classroom code, but some of your classroom
+          data may be permanently erased.
 
           <template slot="buttons">
             <bold-button type="gray" v-on:click="leaveModalOpen = false">Cancel</bold-button>

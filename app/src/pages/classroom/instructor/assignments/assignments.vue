@@ -64,7 +64,10 @@
         <bold-button type="gray" v-on:click="assignmentDeletion.open = false">Cancel</bold-button>
         <bold-button
           type="red"
-          v-on:click="deleteAssignment({ classroom: classroom.code, id: assignmentDeletion.assignment.id })
+          v-on:click="deleteAssignment({
+            classroom: classroom.code,
+            id: assignmentDeletion.assignment.id
+          })
             .then(() => { assignmentDeletion.open = false; })"
         >Delete</bold-button>
       </template>

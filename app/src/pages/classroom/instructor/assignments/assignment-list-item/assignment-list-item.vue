@@ -9,7 +9,10 @@
     <div
       class="top"
       v-on:click="() => { if (!expanded || clickDuration() < 600) toggle(); holdStart = null; }"
-      v-on:mousedown="holdTimeout = setTimeout(() => { $emit('dragPress'); }, 200); holdStart = new Date()"
+      v-on:mousedown="
+        holdTimeout = setTimeout(() => { $emit('dragPress'); }, 200);
+        holdStart = new Date();
+      "
       v-on:mouseup="clearTimeout(holdTimeout)"
       v-on:contextmenu="$event.preventDefault(); openContextMenu()"
     >
