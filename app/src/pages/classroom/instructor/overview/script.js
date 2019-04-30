@@ -23,7 +23,10 @@ export default {
 
       return [...dueInFuture, ...noDueDate, ...dueInPast];
     },
-    numNotDisplayed() {
+    numStudentsNotDisplayed() {
+      return this.students.length - this.students.slice(0, 8).length;
+    },
+    numAssignmentsNotDisplayed() {
       return this.assignments.length - this.displayAssignments.slice(0, 3).length;
     },
   },
