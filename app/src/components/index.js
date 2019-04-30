@@ -57,7 +57,7 @@ Vue.component('dashboard-card', DashboardCard);
 
 // Classroom components
 
-import ClassroomHeader from './classroom/header.vue';
+import ClassroomHeader from './classroom/header/header.vue';
 Vue.component('classroom-header', ClassroomHeader);
 
 import ClassroomInvitation from './classroom/invitation/invitation.vue';
