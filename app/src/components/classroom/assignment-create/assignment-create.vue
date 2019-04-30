@@ -12,7 +12,11 @@
     }"
     fade-color="rgba(30, 30, 33, .65)"
   >
+    <page-1 v-if="page === 1"></page-1>
 
+    <page-2 v-else-if="page === 2"></page-2>
+
+    <page-3 v-else-if="page === 3"></page-3>
   </modal>
 </template>
 
