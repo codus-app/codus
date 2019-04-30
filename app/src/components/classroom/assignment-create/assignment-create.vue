@@ -24,7 +24,7 @@
 
     <page-3 v-else-if="page === 3"></page-3>
 
-    <proceed-button v-bind:disabled="!pageValidation[page]">
+    <proceed-button v-bind:disabled="!pageValidation[page]" v-on:click="next">
       <span slot="label">{{ page &lt; 3 ? 'Next step' : 'Finish up' }}</span>
       {{ ['Add problems', 'Finish up', 'Post assignment'][page - 1] }}
     </proceed-button>

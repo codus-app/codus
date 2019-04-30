@@ -16,6 +16,17 @@ export default {
     description: '',
   }),
 
+  methods: {
+    next() {
+      if (this.page < 3) this.page += 1;
+      else this.submit();
+    },
+    submit() {
+      alert('submit');
+      this.$emit('close');
+    },
+  },
+
   components: {
     'page-1': require('./pages/1/page-1.vue').default,
     'page-2': require('./pages/2/page-2.vue').default,
