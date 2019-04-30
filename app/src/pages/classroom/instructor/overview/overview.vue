@@ -12,7 +12,7 @@
     </classroom-header>
 
     <div class="row">
-      <dashboard-card class="students">
+      <dashboard-card class="students contains-view-more">
         <template slot="label">
           {{ students.length || '' }} Student<span v-if="students.length !== 1">s</span>
         </template>
@@ -36,6 +36,16 @@
               v-bind:style="{ 'background-image': `url(${student.picture})` }"
             ></div>
             <div class="name">{{ student.name }}</div>
+          </router-link>
+
+          <router-link
+            class="view-more"
+            v-bind:to="{ name: 'classroom-students', params: $route.params }"
+          >
+            View {{ numStudentsNotDisplayed || '' }}
+            {{ numStudentsNotDisplayed ? 'more' : 'all' }}
+            student<span v-if="numStudentsNotDisplayed !== 1">s</span>
+            <icon-arrow-right></icon-arrow-right>
           </router-link>
         </div>
         <div class="empty" v-else>
