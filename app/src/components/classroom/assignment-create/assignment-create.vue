@@ -10,19 +10,24 @@
       // Window width - sidebar width - 3rem minimum margin on both sides
       width: 'calc(100vw - 12rem - (3rem * 2))',
       maxWidth: '38rem',
+      height: modalHeight,
+      maxHeight: 'calc(100vh - 7.5rem)',
+      transition: `${modalBaseTransition}, width .25s, height .25s`,
     }"
     fade-color="rgba(30, 30, 33, .65)"
   >
-    <page-1
-      v-if="page === 1"
-      v-bind:name.sync="name"
-      v-bind:description.sync="description"
-      v-on:validationchange="pageValidation[1] = $event"
-    ></page-1>
+    <div class="page-wrapper" ref="pageWrapper">
+      <page-1
+        v-if="page === 1"
+        v-bind:name.sync="name"
+        v-bind:description.sync="description"
+        v-on:validationchange="pageValidation[1] = $event"
+      ></page-1>
 
-    <page-2 v-else-if="page === 2"></page-2>
+      <page-2 v-else-if="page === 2"></page-2>
 
-    <page-3 v-else-if="page === 3"></page-3>
+      <page-3 v-else-if="page === 3"></page-3>
+    </div>
 
     <proceed-button v-bind:disabled="!pageValidation[page]" v-on:click="next">
       <span slot="label">{{ page &lt; 3 ? 'Next step' : 'Finish up' }}</span>

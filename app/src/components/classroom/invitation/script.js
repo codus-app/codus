@@ -30,10 +30,7 @@ export default {
   mounted() {
     this.$nextTick(this.updateHeight);
     window.addEventListener('resize', this.updateHeight);
-    this.$watch('page', async () => {
-      await this.$nextTick(); // eslint-disable-line no-await-in-loop
-      this.updateHeight();
-    });
+    this.$watch('page', () => this.$nextTick().then(this.updateHeight));
   },
   destroyed() { window.removeEventListener('resize', this.updateHeight); },
 };
