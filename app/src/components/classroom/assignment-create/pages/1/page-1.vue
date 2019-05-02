@@ -1,5 +1,5 @@
 <template>
-  <div class="page page-1">
+  <div class="assignment-creation-page page-1">
     <label>
       <input
         type="text"

@@ -12,21 +12,27 @@
       maxWidth: '38rem',
       height: modalHeight,
       maxHeight: 'calc(100vh - 7.5rem)',
-      transition: `${modalBaseTransition}, width .25s, height .25s`,
+      transition: `${modalBaseTransition}, height .35s`,
     }"
     fade-color="rgba(30, 30, 33, .65)"
   >
     <div class="page-wrapper" ref="pageWrapper">
-      <page-1
-        v-if="page === 1"
-        v-bind:name.sync="name"
-        v-bind:description.sync="description"
-        v-on:validationchange="pageValidation[1] = $event"
-      ></page-1>
+      <transition name="left">
+        <page-1
+          v-if="page === 1"
+          v-bind:name.sync="name"
+          v-bind:description.sync="description"
+          v-on:validationchange="pageValidation[1] = $event"
+        ></page-1>
+      </transition>
 
-      <page-2 v-else-if="page === 2"></page-2>
+      <transition :name="'right' /* TODO: change dynamically */">
+        <page-2 v-if="page === 2"></page-2>
+      </transition>
 
-      <page-3 v-else-if="page === 3"></page-3>
+      <transition name="right">
+        <page-3 v-if="page === 3"></page-3>
+      </transition>
     </div>
 
     <proceed-button v-bind:disabled="!pageValidation[page]" v-on:click="next">

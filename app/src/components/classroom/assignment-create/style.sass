@@ -2,9 +2,17 @@
 
 .page-wrapper
   position: absolute
-  top: 3rem
+  top: 50%
   left: 5rem
   width: calc(100% - 10rem)
+
+  .assignment-creation-page
+    position: relative
+    left: 0
+    width: 100%
+    top: 0
+    transform: translateY(-50%)
+    overflow: hidden
 
 .proceed-button
   position: absolute
@@ -36,3 +44,35 @@
 
   &:hover
     opacity: .3
+
+.page-wrapper // sass-lint:disable-line no-mergeable-selectors
+  .left-enter-active,
+  .right-enter-active
+    transition: transform .35s, opacity .35s
+
+  .left-leave-active,
+  .right-leave-active
+    transition: transform .35s, opacity .25s
+
+  // Leaving elements are taken out of flow
+  .left-leave,
+  .left-leave-active,
+  .left-leave-to,
+  .right-leave,
+  .right-leave-active,
+  .right-leave-to
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    transform: translateY(-50%)
+
+  .left-enter,
+  .left-leave-to
+    opacity: 0
+    transform: translate(-60%, -50%)
+
+  .right-enter,
+  .right-leave-to
+    opacity: 0
+    transform: translate(60%, -50%)

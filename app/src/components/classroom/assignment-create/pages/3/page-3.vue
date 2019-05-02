@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="assignment-creation-page page-3">
     Page 3!
   </div>
 </template>
