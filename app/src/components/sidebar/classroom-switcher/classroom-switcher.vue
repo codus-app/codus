@@ -50,62 +50,64 @@
 
     <!-- "Create Classroom" modal -->
 
-    <modal
-      class="creation-modal" ref="creationModal"
-      v-bind:open="classroomCreation.open"
-      v-on:close="classroomCreation.open = false"
-      v-bind:modalStyle="{ backgroundColor: '#131313', width: '20rem', padding: '1.5rem 3rem' }"
-      v-bind:wide="true"
-      fade-color="rgba(30, 30, 33, .85)"
-    >
-      <h1 slot="header" style="margin-bottom: -.5em">Create a classroom</h1>
+    <portal to="modal-target">
+      <modal
+        class="creation-modal" ref="creationModal"
+        v-bind:open="classroomCreation.open"
+        v-on:close="classroomCreation.open = false"
+        v-bind:modalStyle="{ backgroundColor: '#131313', width: '20rem', padding: '1.5rem 3rem' }"
+        v-bind:wide="true"
+        fade-color="rgba(30, 30, 33, .85)"
+      >
+        <h1 slot="header" style="margin-bottom: -.5em">Create a classroom</h1>
 
-      <text-input
-        v-model="classroomCreation.name"
-        placeholder="Classroom name"
-        :char-limit="20"
-      ></text-input>
+        <text-input
+          v-model="classroomCreation.name"
+          placeholder="Classroom name"
+          :char-limit="20"
+        ></text-input>
 
-      <loading-button
-        text="Create"
-        v-bind:enabled="classroomCreation.name.length > 0 && classroomCreation.name.length <= 20"
-        v-bind:onClick="() => createClassroom({ name: classroomCreation.name })"
-        v-on:saved="classroomCreated"
-        slot="buttons"
-      ></loading-button>
-    </modal>
+        <loading-button
+          text="Create"
+          v-bind:enabled="classroomCreation.name.length > 0 && classroomCreation.name.length <= 20"
+          v-bind:onClick="() => createClassroom({ name: classroomCreation.name })"
+          v-on:saved="classroomCreated"
+          slot="buttons"
+        ></loading-button>
+      </modal>
 
-    <!-- "Delete Classroom" confirmation modal -->
+      <!-- "Delete Classroom" confirmation modal -->
 
-    <modal
-      class="deletion-modal" ref="deletionModal"
-      v-bind:open="classroomDeletion.open" v-on:close="classroomDeletion.open = false"
-      v-bind:wide="true"
-      v-bind:modalStyle="{
-        backgroundColor: '#131313',
-        width: '20rem',
-        padding: '1rem 2.5rem 1.25rem'
-      }"
-      fade-color="rgba(30, 30, 33, .85)"
-    >
-      <h1 slot="header">Delete {{ (classroomDeletion.classroom || {}).name }}?</h1>
+      <modal
+        class="deletion-modal" ref="deletionModal"
+        v-bind:open="classroomDeletion.open" v-on:close="classroomDeletion.open = false"
+        v-bind:wide="true"
+        v-bind:modalStyle="{
+          backgroundColor: '#131313',
+          width: '20rem',
+          padding: '1rem 2.5rem 1.25rem'
+        }"
+        fade-color="rgba(30, 30, 33, .85)"
+      >
+        <h1 slot="header">Delete {{ (classroomDeletion.classroom || {}).name }}?</h1>
 
-      <ul class="modal-content">
-        <li>All class data will be permanently erased</li>
-        <li>All students will be removed from this class</li>
-        <li>Individual student accounts and site progress will be preserved</li>
-      </ul>
+        <ul class="modal-content">
+          <li>All class data will be permanently erased</li>
+          <li>All students will be removed from this class</li>
+          <li>Individual student accounts and site progress will be preserved</li>
+        </ul>
 
-      <template slot="buttons">
-        <bold-button type="gray" v-on:click="classroomDeletion.open = false">Cancel</bold-button>
-        <bold-button
-          type="red"
-          v-on:click="deleteClassroom(classroomDeletion.classroom.code).then(() => {
-            classroomDeletion.open = false;
-          })"
-        >Delete</bold-button>
-      </template>
-    </modal>
+        <template slot="buttons">
+          <bold-button type="gray" v-on:click="classroomDeletion.open = false">Cancel</bold-button>
+          <bold-button
+            type="red"
+            v-on:click="deleteClassroom(classroomDeletion.classroom.code).then(() => {
+              classroomDeletion.open = false;
+            })"
+          >Delete</bold-button>
+        </template>
+      </modal>
+    </portal>
   </div>
 </template>
 

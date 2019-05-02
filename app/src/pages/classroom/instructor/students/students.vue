@@ -68,32 +68,34 @@
 
     <!-- "Remove student" confirmation modal -->
 
-    <modal
-      class="remove-modal" ref="removeModal"
-      v-bind:open="studentRemoval.open" v-on:close="studentRemoval.open = false"
-      v-bind:wide="true"
-      v-bind:modalStyle="{
-        backgroundColor: '#131313',
-        width: '20rem',
-        padding: '1rem 2.5rem 1.25rem'
-      }"
-      fade-color="rgba(30, 30, 33, .85)"
-    >
-      <h1 slot="header">Remove {{ (studentRemoval.student || {}).name }}?</h1>
+    <portal to="modal-target">
+      <modal
+        class="remove-modal" ref="removeModal"
+        v-bind:open="studentRemoval.open" v-on:close="studentRemoval.open = false"
+        v-bind:wide="true"
+        v-bind:modalStyle="{
+          backgroundColor: '#131313',
+          width: '20rem',
+          padding: '1rem 2.5rem 1.25rem'
+        }"
+        fade-color="rgba(30, 30, 33, .85)"
+      >
+        <h1 slot="header">Remove {{ (studentRemoval.student || {}).name }}?</h1>
 
-      {{ (studentRemoval.student || {}).name }} will lose access to AP Computer science, and you’ll
-      lose access to {{ (studentRemoval.student || { name: '' }).name.split(' ')[0] }}’s solutions
-      and other classroom features.
+        {{ (studentRemoval.student || {}).name }} will lose access to AP Computer science, and you’ll
+        lose access to {{ (studentRemoval.student || { name: '' }).name.split(' ')[0] }}’s solutions
+        and other classroom features.
 
-      <template slot="buttons">
-        <bold-button type="gray" v-on:click="studentRemoval.open = false">Cancel</bold-button>
-        <bold-button
-          type="red"
-          v-on:click="removeUser({ classroom: classroom.code, username: selectedStudent.username })
-            .then(() => { studentRemoval.open = false; })"
-        >Remove</bold-button>
-      </template>
-    </modal>
+        <template slot="buttons">
+          <bold-button type="gray" v-on:click="studentRemoval.open = false">Cancel</bold-button>
+          <bold-button
+            type="red"
+            v-on:click="removeUser({ classroom: classroom.code, username: selectedStudent.username })
+              .then(() => { studentRemoval.open = false; })"
+          >Remove</bold-button>
+        </template>
+      </modal>
+    </portal>
   </div>
 </template>
 

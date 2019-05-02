@@ -140,13 +140,15 @@
         </window>
       </transition>
 
-      <modal v-bind:open="deletionConfirmOpen" v-on:close="deletionConfirmOpen = false">
-        <h1 slot="header">Delete this solution?</h1>
-        Your solution to this problem will be reset. This cannot be undone.
-        <template slot="buttons">
-          <bold-button type="red" v-on:click="reset">Delete</bold-button>
-        </template>
-      </modal>
+      <portal to="modal-target">
+        <modal v-bind:open="deletionConfirmOpen" v-on:close="deletionConfirmOpen = false">
+          <h1 slot="header">Delete this solution?</h1>
+          Your solution to this problem will be reset. This cannot be undone.
+          <template slot="buttons">
+            <bold-button type="red" v-on:click="reset">Delete</bold-button>
+          </template>
+        </modal>
+      </portal>
     </div>
 
   </div>
