@@ -7,6 +7,7 @@ export default {
     modalHeight: '29rem',
 
     page: 1,
+    transitionDirection: 'right',
 
     pageValidation: {
       1: false,
@@ -33,8 +34,13 @@ export default {
     },
 
     next() {
-      if (this.page < 3) this.page += 1;
+      this.transitionDirection = 'right';
+      if (this.page < 3) this.$nextTick(() => { this.page += 1; });
       else this.submit();
+    },
+    previous() {
+      this.transitionDirection = 'left';
+      if (this.page > 1) this.$nextTick(() => { this.page -= 1; });
     },
     submit() {
       alert('submit');

@@ -17,7 +17,7 @@
     fade-color="rgba(30, 30, 33, .65)"
   >
     <div class="page-wrapper" ref="pageWrapper">
-      <transition name="left">
+      <transition v-bind:name="transitionDirection">
         <page-1
           v-if="page === 1"
           v-bind:name.sync="name"
@@ -26,11 +26,11 @@
         ></page-1>
       </transition>
 
-      <transition :name="'right' /* TODO: change dynamically */">
+      <transition v-bind:name="transitionDirection">
         <page-2 v-if="page === 2"></page-2>
       </transition>
 
-      <transition name="right">
+      <transition v-bind:name="transitionDirection">
         <page-3 v-if="page === 3"></page-3>
       </transition>
     </div>
@@ -40,7 +40,7 @@
       {{ ['Add problems', 'Finish up', 'Post assignment'][page - 1] }}
     </proceed-button>
 
-    <div class="back-button" v-if="page > 1" v-on:click="page -= 1">
+    <div class="back-button" v-if="page > 1" v-on:click="previous">
       <icon-arrow-left></icon-arrow-left>
       Back
     </div>
