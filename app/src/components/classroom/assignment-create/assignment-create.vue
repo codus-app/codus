@@ -40,10 +40,12 @@
       {{ ['Add problems', 'Finish up', 'Post assignment'][page - 1] }}
     </proceed-button>
 
-    <div class="back-button" v-if="page > 1" v-on:click="previous">
-      <icon-arrow-left></icon-arrow-left>
-      Back
-    </div>
+    <transition-fade>
+      <div class="back-button" v-if="page > 1" v-on:click="previous">
+        <icon-arrow-left></icon-arrow-left>
+        Back
+      </div>
+    </transition-fade>
   </modal>
 </template>
 
