@@ -9,12 +9,6 @@ export default {
     page: 1,
     transitionDirection: 'right',
 
-    pageValidation: {
-      1: false,
-      2: false,
-      3: false,
-    },
-
     name: '',
     description: '',
   }),

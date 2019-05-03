@@ -13,4 +13,8 @@ export default {
   watch: {
     valid() { this.$emit('validationchange', this.valid); },
   },
+
+  components: {
+    'proceed-button': require('../../proceed-button/proceed-button.vue').default,
+  },
 };

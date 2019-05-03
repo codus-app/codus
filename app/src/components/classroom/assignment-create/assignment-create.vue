@@ -22,23 +22,24 @@
           v-if="page === 1"
           v-bind:name.sync="name"
           v-bind:description.sync="description"
-          v-on:validationchange="pageValidation[1] = $event"
+          v-on:next="next"
         ></page-1>
       </transition>
 
       <transition v-bind:name="transitionDirection">
-        <page-2 v-if="page === 2"></page-2>
+        <page-2
+          v-if="page === 2"
+          v-on:next="next"
+        ></page-2>
       </transition>
 
       <transition v-bind:name="transitionDirection">
-        <page-3 v-if="page === 3"></page-3>
+        <page-3
+          v-if="page === 3"
+          v-on:next="next"
+        ></page-3>
       </transition>
     </div>
-
-    <proceed-button v-bind:disabled="!pageValidation[page]" v-on:click="next">
-      <span slot="label">{{ page &lt; 3 ? 'Next step' : 'Finish up' }}</span>
-      {{ ['Add problems', 'Finish up', 'Post assignment'][page - 1] }}
-    </proceed-button>
 
     <transition-fade>
       <div class="back-button" v-if="page > 1" v-on:click="previous">
