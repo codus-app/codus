@@ -53,6 +53,10 @@
   .right-leave-active
     transition: transform .35s, opacity .25s
 
+    & /deep/ .proceed-button
+      transition: transform .15s ease-in, opacity .15s ease-in
+
+
   // Leaving elements are taken out of flow
   .left-leave,
   .left-leave-active,
@@ -75,3 +79,11 @@
   .left-leave-to
     opacity: 0
     transform: translate(60%, -50%)
+
+  .left-leave-to /deep/ .proceed-button
+    opacity: 0
+    transform: translate(90%)
+
+  .right-leave-to /deep/ .proceed-button
+    opacity: 0
+    transform: translate(-90%)
