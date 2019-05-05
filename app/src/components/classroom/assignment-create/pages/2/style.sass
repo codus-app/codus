@@ -1,0 +1,20 @@
+@import 'src/styles/variables'
+
+.page-2 // Sidzed to set size of modal, accounting for padding
+  height: calc(100vh - 7.5rem - 6rem)
+
+  // Positioned to fill whole modal so that there can be a scrollbar
+  .page-content
+    position: absolute
+    top: -3rem
+    left: -5rem
+    height: calc(100% + 6rem)
+    width: calc(100% + 10rem)
+    padding: 3rem 5rem
+    color: $white
+    overflow: scroll
+
+    div.proceed-button
+      position: absolute
+      bottom: 1rem
+      right: 1rem

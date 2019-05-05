@@ -1,18 +1,20 @@
 <template>
   <div class="assignment-creation-page page-2">
-    <div class="header">
-      <h2>Add some problems</h2>
-      <h3>{{ selected.length || 'None' }} selected</h3>
-      <p>Click a problem to select it. Hover over a problem to see problem info.
-        {{ $nativizeShortcut('mod+Click') }}
-        to open the problem in a new browser tab.
-      </p>
-    </div>
+    <div class="page-content">
+      <div class="header">
+        <h2>Add some problems</h2>
+        <h3>{{ selected.length || 'None' }} selected</h3>
+        <p>Click a problem to select it. Hover over a problem to see problem info.
+          {{ $nativizeShortcut('mod+Click') }}
+          to open the problem in a new browser tab.
+        </p>
+      </div>
 
-    <proceed-button v-bind:disabled="false" v-on:click="$emit('next')">
-      <template slot="label">Next step</template>
-      Final details
-    </proceed-button>
+      <proceed-button v-bind:disabled="false" v-on:click="$emit('next')">
+        <template slot="label">Next step</template>
+        Final details
+      </proceed-button>
+    </div>
   </div>
 </template>
 
