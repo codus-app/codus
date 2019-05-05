@@ -25,7 +25,7 @@
     font-family: $font-lato
     pointer-events: none
     background: $dark-1
-    box-shadow: 0 -2.1rem 25px 2.5rem $dark-1
+    box-shadow: 0 -2rem 25px 3.5rem $dark-1
     position: relative
     z-index: 5
 
@@ -61,7 +61,38 @@
     left: 0
     width: calc(100% - .25rem)
     height: calc(100% - .6rem)
-    padding: (3rem - .3rem + 5rem) 5rem (3rem - .3rem + 1.7rem)
+    padding: (3rem - .3rem + 5rem + 1.5rem) 5rem (3rem - .3rem + 1.7rem)
+
+    .category
+      overflow: hidden
+
+      &:not(:first-child)
+        margin-top: 1.25rem
+
+      h3
+        font-family: $font-lato
+        font-weight: 500
+        font-size: .6rem
+        color: transparentize($light-text-primary, .7)
+        text-transform: uppercase
+        margin: 0 0 .9rem
+
+      .problem
+        float: left
+        margin: 0 .5rem .5rem 0
+
+        background: #1a1a1f
+        font-family: $font-nunito
+        font-size: .6rem
+        font-weight: 400
+        letter-spacing: .013em
+        color: $light-text-secondary
+        padding: .5rem .9rem
+        transition: background .25s
+        cursor: pointer
+
+        &:hover
+          background: lighten(#1a1a1f, 3)
 
 
   .bottom-fade
