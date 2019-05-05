@@ -29,6 +29,7 @@
       <transition v-bind:name="transitionDirection">
         <page-2
           v-if="page === 2"
+          v-bind:selected.sync="selectedProblems"
           v-on:next="next"
         ></page-2>
       </transition>

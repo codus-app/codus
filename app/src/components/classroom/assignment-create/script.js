@@ -13,6 +13,7 @@ export default {
 
     name: '',
     description: '',
+    selectedProblems: [],
   }),
 
   computed: {
@@ -33,6 +34,7 @@ export default {
       this.modalHeight = `calc(${height} + 6rem)`;
     },
 
+    // TODO: bind to enter key
     next() {
       this.transitionDirection = 'right';
       if (this.page < 3) this.$nextTick(() => { this.page += 1; });
@@ -49,6 +51,8 @@ export default {
   },
 
   watch: {
+    // TODO: reset on close
+    // TODO: close warning
     open() {
       if (this.open && !this.contentFetched) this.fetchContent();
     },
