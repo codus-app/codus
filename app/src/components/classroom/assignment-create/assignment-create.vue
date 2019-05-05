@@ -11,7 +11,7 @@
       width: 'calc(100vw - 12rem - (3rem * 2))',
       maxWidth: '38rem',
       height: modalHeight,
-      maxHeight: 'calc(100vh - 7.5rem)',
+      maxHeight: '85vh',
       transition: `${modalBaseTransition}, height .35s`,
     }"
     fade-color="rgba(30, 30, 33, .65)"
