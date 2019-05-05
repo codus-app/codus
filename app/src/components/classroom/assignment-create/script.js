@@ -1,3 +1,5 @@
+import { mapState, mapActions } from 'vuex';
+
 export default {
   props: {
     open: Boolean,
@@ -14,6 +16,8 @@ export default {
   }),
 
   computed: {
+    ...mapState(['contentFetched']),
+
     modalBaseTransition() {
       return this.open
         ? 'transform .35s cubic-bezier(.175, .885, .32, 1.275), opacity .35s'
@@ -22,6 +26,8 @@ export default {
   },
 
   methods: {
+    ...mapActions(['fetchContent']),
+
     updateHeight() {
       const height = `${this.$refs.pageWrapper.offsetHeight}px`;
       this.modalHeight = `calc(${height} + 6rem)`;
@@ -39,6 +45,12 @@ export default {
     submit() {
       alert('submit');
       this.$emit('close');
+    },
+  },
+
+  watch: {
+    open() {
+      if (this.open && !this.contentFetched) this.fetchContent();
     },
   },
 
