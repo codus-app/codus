@@ -12,6 +12,17 @@
         </p>
       </div>
 
+      <div
+        class="category"
+        v-for="category in categories"
+        v-bind:key="category.name"
+      >
+        <h3>{{ category.displayName }}</h3>
+        <div class="problem" v-for="problem in category.problems" v-bind:key="problem.name">
+          {{ problem.name }}
+        </div>
+      </div>
+
       <proceed-button v-bind:disabled="false" v-on:click="$emit('next')">
         <template slot="label">Next step</template>
         Final details
