@@ -25,6 +25,8 @@
         </div>
       </simplebar>
 
+      <div class="bottom-fade"></div>
+
       <proceed-button v-bind:disabled="false" v-on:click="$emit('next')">
         <template slot="label">Next step</template>
         Final details
