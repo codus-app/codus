@@ -39,7 +39,7 @@
 
       <div class="bottom-fade"></div>
 
-      <proceed-button v-bind:disabled="false" v-on:click="$emit('next')">
+      <proceed-button v-bind:disabled="selected.length === 0" v-on:click="$emit('next')">
         <template slot="label">Next step</template>
         Final details
       </proceed-button>
