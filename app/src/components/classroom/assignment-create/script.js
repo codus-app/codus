@@ -8,6 +8,8 @@ const baseState = {
   name: '',
   description: '',
   selectedProblems: [],
+
+  date: new Date(new Date().setHours(23, 59)),
 };
 
 

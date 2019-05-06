@@ -1,6 +1,11 @@
 <template>
   <div class="assignment-creation-page page-3">
-    Page 3!
+    <datepicker
+      inline
+      v-bind:value="date"
+      v-on:input="$emit('update:date', $event)"
+      maximum-view="day"
+    ></datepicker>
 
     <proceed-button v-bind:disabled="false" v-on:click="$emit('next')">
       <template slot="label">Finish up</template>

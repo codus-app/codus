@@ -37,6 +37,7 @@
       <transition v-bind:name="transitionDirection">
         <page-3
           v-if="page === 3"
+          v-bind:date.sync="date"
           v-on:next="next"
         ></page-3>
       </transition>
