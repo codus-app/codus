@@ -32,6 +32,7 @@
       width: (2rem * 7) + 2rem
 
       .cell.day
+        position: relative
         width: 1.9rem
         margin: .05rem
         height: 2.3rem
@@ -50,6 +51,16 @@
         &.selected:hover
           background: $green-bg
           color: $dark-3
+
+        &.today::before
+          content: ''
+          position: absolute
+          top: .425rem
+          right: .375rem
+          width: 4px
+          height: 4px
+          border-radius: 50%
+          background: $green-bg
 
       .cell.day-header
         font-size: 100%
