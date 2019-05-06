@@ -7,6 +7,8 @@
       inline
       full-month-name
       maximum-view="day"
+      :disabled-dates="{ to: today }"
+
       v-bind:value="date"
       v-on:input="$emit('update:date', $event)"
       v-bind:language="en"
