@@ -63,6 +63,8 @@ export default {
 
         this.oldTitle = document.title;
         document.title = 'Create assignment | Codus';
+
+        this.$el.getElementsByTagName('input')[0].focus();
       } else {
         setTimeout(() => Object.assign(this, baseState), 200);
         document.title = this.oldTitle;
