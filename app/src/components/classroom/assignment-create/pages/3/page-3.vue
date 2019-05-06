@@ -5,9 +5,11 @@
 
     <datepicker
       inline
+      full-month-name
+      maximum-view="day"
       v-bind:value="date"
       v-on:input="$emit('update:date', $event)"
-      maximum-view="day"
+      v-bind:language="en"
     ></datepicker>
 
     <proceed-button v-bind:disabled="false" v-on:click="$emit('next')">
