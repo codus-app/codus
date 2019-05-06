@@ -1,5 +1,16 @@
 import { mapState, mapActions } from 'vuex';
 
+
+const baseState = {
+  page: 1,
+  transitionDirection: 'right',
+
+  name: '',
+  description: '',
+  selectedProblems: [],
+};
+
+
 export default {
   props: {
     open: Boolean,
@@ -7,13 +18,7 @@ export default {
 
   data: () => ({
     modalHeight: '29rem',
-
-    page: 1,
-    transitionDirection: 'right',
-
-    name: '',
-    description: '',
-    selectedProblems: [],
+    ...baseState,
   }),
 
   computed: {
@@ -51,9 +56,14 @@ export default {
   },
 
   watch: {
-    // TODO: reset on close
     // TODO: close warning
     open() {
+      if (this.open) {
+        if (!this.contentFetched) this.fetchContent();
+      } else {
+        setTimeout(() => Object.assign(this, baseState), 200);
+      }
+
       if (this.open && !this.contentFetched) this.fetchContent();
     },
   },
