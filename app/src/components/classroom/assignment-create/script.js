@@ -18,6 +18,7 @@ export default {
 
   data: () => ({
     modalHeight: '29rem',
+    oldTitle: '',
     ...baseState,
   }),
 
@@ -60,8 +61,12 @@ export default {
     open() {
       if (this.open) {
         if (!this.contentFetched) this.fetchContent();
+
+        this.oldTitle = document.title;
+        document.title = 'Create assignment | Codus';
       } else {
         setTimeout(() => Object.assign(this, baseState), 200);
+        document.title = this.oldTitle;
       }
 
       if (this.open && !this.contentFetched) this.fetchContent();
