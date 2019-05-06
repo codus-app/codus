@@ -21,5 +21,30 @@
     display: inline-block
     left: 50%
     transform: translate(-50%)
-    color: $black
+    color: $light-text-tertiary
     margin: 1rem 0 3rem
+
+    & /deep/ .vdp-datepicker__calendar // sass-lint:disable-line class-name-format
+      background: $dark-3
+      border: 0
+      border-radius: 15px
+      padding: 1.5rem 1rem
+      width: (2rem * 7) + 2rem
+
+      .cell.day
+        width: 1.9rem
+        margin: .05rem
+        height: 2.3rem
+        line-height: 2.25rem
+        font-family: $font-lato
+        font-weight: 700
+        border-radius: .5rem
+        transition: background .1s, color .1s
+
+        &:hover
+          border-color: transparent
+          background: transparentize($white, .95)
+
+        &.selected
+          background: $green-bg
+          color: $dark-3
