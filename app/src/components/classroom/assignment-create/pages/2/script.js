@@ -9,6 +9,8 @@ export default {
 
   computed: {
     ...mapState(['categories']),
+
+    valid() { return this.selected.length > 0; },
   },
 
   methods: {

@@ -1,5 +1,8 @@
 <template>
-  <div class="assignment-creation-page page-1">
+  <div
+    class="assignment-creation-page page-1"
+    v-on:keydown.enter="() => { if (valid) $emit('next'); }"
+  >
     <label>
       <input
         type="text"

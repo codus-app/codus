@@ -1,5 +1,9 @@
 <template>
-  <div class="assignment-creation-page page-2">
+  <div
+    class="assignment-creation-page page-2"
+    tabindex="-1"
+    v-on:keydown.enter="() => { if (valid) $emit('next'); }"
+  >
     <div class="page-content">
       <div class="header">
         <div>
@@ -39,7 +43,7 @@
 
       <div class="bottom-fade"></div>
 
-      <proceed-button v-bind:disabled="selected.length === 0" v-on:click="$emit('next')">
+      <proceed-button v-bind:disabled="!valid" v-on:click="$emit('next')">
         <template slot="label">Next step</template>
         Final details
       </proceed-button>

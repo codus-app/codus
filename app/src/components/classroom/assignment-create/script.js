@@ -40,7 +40,6 @@ export default {
       this.modalHeight = `calc(${height} + 6rem)`;
     },
 
-    // TODO: bind to enter key
     next() {
       this.transitionDirection = 'right';
       if (this.page < 3) this.$nextTick(() => { this.page += 1; });
