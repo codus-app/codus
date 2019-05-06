@@ -20,7 +20,16 @@
             v-bind:key="category.name"
           >
             <h3>{{ category.displayName }}</h3>
-            <div class="problem" v-for="problem in category.problems" v-bind:key="problem.name">
+            <div
+              class="problem"
+              v-for="problem in category.problems"
+              v-bind:key="problem.name"
+              v-bind:class="{ selected: isSelected(category.name, problem.name) }"
+              v-on:click="() => {
+                if (isSelected(category.name, problem.name)) deselect(category.name, problem.name);
+                else select(category.name, problem.name);
+              }"
+            >
               {{ problem.name }}
             </div>
           </div>
