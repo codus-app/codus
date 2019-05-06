@@ -13,6 +13,9 @@ Vue.component('simplebar', simplebar);
 import draggable from 'vuedraggable';
 Vue.component('draggable', draggable);
 
+import datepicker from 'vuejs-datepicker';
+Vue.component('datepicker', datepicker);
+
 // Icons
 
 import './icons';
