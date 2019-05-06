@@ -76,21 +76,41 @@
         margin: 0 0 .9rem
 
       .problem
-        display: inline-block
+        display: inline-flex
+        align-items: center
         margin: 0 .5rem .5rem 0
 
         background: #1a1a1f
         font-family: $font-nunito
-        font-size: .6rem
+        font-size: .65rem
         font-weight: 400
         letter-spacing: .013em
         color: $light-text-secondary
         padding: .5rem .9rem
-        transition: background .25s
+        user-select: none
         cursor: pointer
+        transition: background .15s, color .15s
 
         &:hover
           background: lighten(#1a1a1f, 3)
+
+        .feather
+          width: .7rem
+          height: .7rem
+          overflow: hidden
+          transform: translate(.25rem)
+          transition: width .15s
+
+        &:not(.selected)
+          .feather
+            margin-left: 0
+            width: 0
+
+        &.selected
+          color: $green-text
+          font-weight: 600
+          letter-spacing: .004em
+
 
 
   .bottom-fade

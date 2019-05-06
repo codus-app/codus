@@ -31,6 +31,7 @@
               }"
             >
               {{ problem.name }}
+              <icon-check></icon-check>
             </div>
           </div>
         </div>
