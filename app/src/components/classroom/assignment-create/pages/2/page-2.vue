@@ -13,14 +13,16 @@
       </div>
 
       <simplebar class="problems-select">
-        <div
-          class="category"
-          v-for="category in categories"
-          v-bind:key="category.name"
-        >
-          <h3>{{ category.displayName }}</h3>
-          <div class="problem" v-for="problem in category.problems" v-bind:key="problem.name">
-            {{ problem.name }}
+        <div ref="scrollContentContainer">
+          <div
+            class="category"
+            v-for="category in categories.filter(c => c.problems.length)"
+            v-bind:key="category.name"
+          >
+            <h3>{{ category.displayName }}</h3>
+            <div class="problem" v-for="problem in category.problems" v-bind:key="problem.name">
+              {{ problem.name }}
+            </div>
           </div>
         </div>
       </simplebar>
