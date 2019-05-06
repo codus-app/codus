@@ -1,5 +1,8 @@
 <template>
   <div class="assignment-creation-page page-3">
+    <h2>Set a due date</h2>
+    <p>Optionally, set a date and/or time at which this assignment is due.</p>
+
     <datepicker
       inline
       v-bind:value="date"
