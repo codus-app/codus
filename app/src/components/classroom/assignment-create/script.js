@@ -9,7 +9,7 @@ const baseState = {
   description: '',
   selectedProblems: [],
 
-  date: new Date(new Date().setHours(23, 59)),
+  date: null,
 };
 
 
