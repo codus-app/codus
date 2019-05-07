@@ -9,6 +9,8 @@ export default {
   }),
 
   components: {
+    'date-picker': require('./date-picker/date-picker.vue').default,
+    'time-picker': require('./time-picker/time-picker.vue').default,
     'proceed-button': require('../../proceed-button/proceed-button.vue').default,
   },
 };

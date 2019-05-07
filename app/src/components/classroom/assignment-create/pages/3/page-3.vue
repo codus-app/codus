@@ -3,6 +3,9 @@
     <h2>Set a due date</h2>
     <p>Optionally, set a date and/or time at which this assignment is due.</p>
 
+    <date-picker></date-picker>
+    <time-picker></time-picker>
+
     <proceed-button v-bind:disabled="false" v-on:click="$emit('next')">
       <template slot="label">Finish up</template>
       Post assignment
