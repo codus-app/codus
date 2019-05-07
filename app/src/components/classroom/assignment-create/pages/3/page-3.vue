@@ -22,6 +22,16 @@
           {{ datepicker.utils.getMonthName(monthDisplayed.getMonth(), en.months) }}
         </span>
         <span class="year-number">{{ monthDisplayed.getFullYear() }}</span>
+
+        <div class="month-nav">
+          <icon-chevron-left
+            v-bind:class="{ disabled: prevMonthDisabled }"
+            v-on:click="prevMonth"
+          ></icon-chevron-left>
+          <icon-chevron-right
+            v-on:click="nextMonth"
+          ></icon-chevron-right>
+        </div>
       </div>
     </datepicker>
 

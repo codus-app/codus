@@ -19,8 +19,6 @@
   .vdp-datepicker
     position: relative
     display: inline-block
-    left: 50%
-    transform: translate(-50%)
     color: rgba($white, .8)
     margin: 1rem 0 3rem
 
@@ -82,9 +80,44 @@
         font-family: $font-lato
         font-size: 1.25rem
         margin: -.25rem 0 .75rem .1rem
+        display: flex
+        align-items: center
 
         .month-name
           font-weight: 800
+          margin-right: .25em
 
         .year
           font-weight: 400
+
+        .month-nav
+          margin-left: auto
+          display: flex
+
+          .feather
+            width: 1.3rem
+            height: 1.3rem
+            padding: .2rem
+            margin-left: .1rem
+            cursor: pointer
+            color: $white
+            opacity: .7
+            border-radius: 3.5px
+            transition: opacity .3s, background .3s, box-shadow .3s
+
+            &:hover
+              background: transparentize($white, .9)
+
+            &.feather-chevron-left:hover
+              box-shadow: .035rem 0 0 .05rem transparentize($white, .9)
+
+            &.feather-chevron-right:hover
+              box-shadow: -.035rem 0 0 .05rem transparentize($white, .9)
+
+            &.disabled,
+            &.disabled:hover
+              opacity: .3
+              cursor: not-allowed
+              background: none
+              box-shadow: none
+

@@ -11,17 +11,27 @@ export default {
     mounted: false,
     today: new Date(now.getFullYear(), now.getMonth(), now.getDate()),
     monthDisplayed: now,
+    prevMonthDisabled: true,
   }),
 
   computed: {
-    datepicker() {
-      return this.mounted && this.$refs.datepicker;
-    },
+    datepicker() { return this.mounted && this.$refs.datepicker; },
+    datepicker2() { return this.datepicker.$children[1]; },
   },
 
   methods: {
     calendarPageChanged(e) {
       this.monthDisplayed = e;
+    },
+
+    prevMonth() { this.datepicker2.previousMonth(); },
+    nextMonth() { this.datepicker2.nextMonth(); },
+  },
+
+  watch: {
+    monthDisplayed() {
+      this.$nextTick()
+        .then(() => { this.prevMonthDisabled = this.datepicker2.isLeftNavDisabled; });
     },
   },
 
