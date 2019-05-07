@@ -2,12 +2,13 @@
 
 .page-3
   color: $light-text-primary
+  margin: -1rem 0 0
+  padding-bottom: 3rem
 
   h2
     font-family: $font-lato
     font-weight: 700
     font-size: 1.2rem
-    margin: 0
 
   p
     font-family: $font-lato
@@ -15,109 +16,3 @@
     font-weight: 400
     font-size: .85rem
     color: $light-text-tertiary
-
-  .vdp-datepicker
-    position: relative
-    display: inline-block
-    color: rgba($white, .8)
-    margin: 1rem 0 3rem
-
-    & /deep/ .vdp-datepicker__calendar // sass-lint:disable-line class-name-format
-      background: $dark-2
-      border: 0
-      border-radius: 15px
-      padding: 1rem
-      width: (2rem * 7) + 2rem
-
-      .cell.day
-        position: relative
-        width: 1.9rem
-        margin: .05rem
-        height: 2.3rem
-        line-height: 2.25rem
-        font-size: .725rem
-        font-family: $font-lato
-        font-weight: 800
-        border-radius: .5rem
-        transition: background .1s, color .1s
-
-        &:not(.blank):hover
-          border-color: transparent
-          background: transparentize($white, .95)
-
-        &.disabled,
-        &.disabled:hover
-          background: none
-          color: rgba($white, .25s)
-
-        &.selected,
-        &.selected:hover
-          background: $green-bg
-          color: $dark-3
-          transition: background .2s, color .2s
-
-        &.today::before
-          content: ''
-          position: absolute
-          top: .425rem
-          right: .375rem
-          width: 4px
-          height: 4px
-          border-radius: 50%
-          background: $green-bg
-
-      .cell.day-header
-        font-size: 100%
-        font-weight: 600
-        color: rgba(174, 181, 198, .3)
-        border-bottom: 1px solid rgba(174, 181, 198, .1)
-        margin-bottom: .2rem
-
-      header
-        display: none
-
-      .replacement-header
-        font-family: $font-lato
-        font-size: 1.25rem
-        margin: -.25rem 0 .75rem .1rem
-        display: flex
-        align-items: center
-
-        .month-name
-          font-weight: 800
-          margin-right: .25em
-
-        .year
-          font-weight: 400
-
-        .month-nav
-          margin-left: auto
-          display: flex
-
-          .feather
-            width: 1.3rem
-            height: 1.3rem
-            padding: .2rem
-            margin-left: .1rem
-            cursor: pointer
-            color: $white
-            opacity: .7
-            border-radius: 3.5px
-            transition: opacity .3s, background .3s, box-shadow .3s
-
-            &:hover
-              background: transparentize($white, .9)
-
-            &.feather-chevron-left:hover
-              box-shadow: .035rem 0 0 .05rem transparentize($white, .9)
-
-            &.feather-chevron-right:hover
-              box-shadow: -.035rem 0 0 .05rem transparentize($white, .9)
-
-            &.disabled,
-            &.disabled:hover
-              opacity: .3
-              cursor: not-allowed
-              background: none
-              box-shadow: none
-
