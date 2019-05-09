@@ -2,26 +2,24 @@
   <div class="date-time-display">
     <select
       v-bind:value="month"
-      v-on:input="setMonth($event.target.value); $nextTick(() => { month = getMonth(); });"
+      v-on:input="
+        setMonth($event.target.value);
+        $nextTick(() => { month = getMonth(); });
+        $event.target.style.width = `calc(${ textWidth(months[$event.target.value]) } + 1.3rem)`;
+      "
     >
       <option default hidden disabled value=""></option>
-      <option value="0">January</option>
-      <option value="1">February</option>
-      <option value="2">March</option>
-      <option value="3">April</option>
-      <option value="4">May</option>
-      <option value="5">June</option>
-      <option value="6">July</option>
-      <option value="7">August</option>
-      <option value="8">September</option>
-      <option value="9">October</option>
-      <option value="10">November</option>
-      <option value="11">December</option>
+      <option
+        v-for="(month, i) in months"
+        v-bind:key="month"
+        v-bind:value="i"
+      >{{ month }}</option>
     </select>
 
     <input
       type="text"
       v-model="day"
+      v-on:input="$event.target.style.width = `calc(${textWidth($event.target.value)} + .8rem)`"
       v-on:blur="setDay(day); $nextTick(() => { day = getDay(); });"
     >
 
@@ -30,12 +28,14 @@
     <input
       type="text"
       v-model="hours"
+      v-on:input="$event.target.style.width = `calc(${textWidth($event.target.value)} + .8rem)`"
       v-on:blur="setHours(hours); $nextTick(() => { day = getDay(); });"
     >
     <span>:</span>
     <input
       type="text"
       v-model="minutes"
+      v-on:input="$event.target.style.width = `calc(${textWidth($event.target.value)} + .8rem)`"
       v-on:blur="setMinutes(minutes); $nextTick(() => { day = getDay(); });"
     >
 

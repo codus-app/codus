@@ -6,6 +6,23 @@ export default {
     day: null,
     hours: null,
     minutes: null,
+
+    months: [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ],
+
+    textCanvas: document.createElement('canvas'),
   }),
 
   computed: {
@@ -35,14 +52,12 @@ export default {
     getMinutes() { return this.date().getMinutes().toString().padStart(2, '0'); },
     setMinutes(value) { this.$emit('input', new Date(this.date().setMinutes(value))); },
 
-
-    // update() {
-    //   this.month = this.getMonth();
-    //   this.day = this.getDay();
-    //   this.hours = this.getHours();
-    //   this.minutes = this.getMinutes();
-    //   this.period = this.getPeriod();
-    // },
+    textWidth(text) {
+      const ctx = this.textCanvas.getContext('2d');
+      const rem = parseFloat(getComputedStyle(document.body).fontSize);
+      ctx.font = `${rem * 0.95}px 'lato', sans-serif`;
+      return `${ctx.measureText(text).width / rem}rem`;
+    },
   },
 
   // watch: {
