@@ -15,6 +15,6 @@ export default {
   },
 
   components: {
-    'proceed-button': require('../../proceed-button/proceed-button.vue').default,
+    'proceed-button': require('../../components/proceed-button/proceed-button.vue').default,
   },
 };

@@ -50,6 +50,6 @@ export default {
   destroyed() { window.removeEventListener('resize', this.setScrollHeight); },
 
   components: {
-    'proceed-button': require('../../proceed-button/proceed-button.vue').default,
+    'proceed-button': require('../../components/proceed-button/proceed-button.vue').default,
   },
 };
