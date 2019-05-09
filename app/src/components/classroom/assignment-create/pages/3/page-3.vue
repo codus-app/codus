@@ -3,6 +3,11 @@
     <h2>Set a due date</h2>
     <p>Optionally, set a date and/or time at which this assignment is due.</p>
 
+    <date-time-display
+      v-bind:value="date"
+      v-on:input="$emit('update:date', $event)"
+    ></date-time-display>
+
     <date-picker></date-picker>
     <time-picker></time-picker>
 
