@@ -1,0 +1,42 @@
+@import 'src/styles/variables'
+
+.date-time-display
+  display: flex
+  justify-content: center
+  align-items: center
+
+  font-family: $font-lato
+  font-weight: 500
+  font-size: .95rem
+  color: transparentize($light-text-primary, .4)
+
+  input,
+  select,
+  .toggle
+    appearance: none
+    background: $dark-3
+    border: 0
+    outline: 0
+    border-radius: 3px
+    margin-right: .5rem
+
+    font: inherit
+    color: transparentize($light-text-primary, .15)
+
+  select
+    padding: .25rem .65rem .3rem
+
+  input,
+  .toggle
+    padding: .25rem .4rem .3rem
+    width: calc(2.2ch + .8rem)
+
+  span
+    margin-left: -.3rem
+    margin-right: .2rem
+
+  div.toggle
+    text-transform: uppercase
+    cursor: pointer
+    user-select: none
+    width: auto

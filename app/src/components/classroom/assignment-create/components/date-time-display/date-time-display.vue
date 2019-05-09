@@ -32,16 +32,16 @@
       v-model="hours"
       v-on:blur="setHours(hours); $nextTick(() => { day = getDay(); });"
     >
-    :
+    <span>:</span>
     <input
       type="text"
       v-model="minutes"
       v-on:blur="setMinutes(minutes); $nextTick(() => { day = getDay(); });"
     >
 
-    <span class="toggle"
+    <div class="toggle"
       v-on:click="period = ({ 'am': 'pm', 'pm': 'am' })[period]"
-    >{{ period }}</span>
+    >{{ period }}</div>
   </div>
 </template>
 
