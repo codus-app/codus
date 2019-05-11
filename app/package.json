@@ -127,7 +127,8 @@
         }
       ],
       "import/no-webpack-loader-syntax": "off",
-      "import/newline-after-import": "off"
+      "import/newline-after-import": "off",
+      "react/no-this-in-sfc": "off"
     },
     "settings": {
       "import/resolver": "webpack"
