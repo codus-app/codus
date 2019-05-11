@@ -26,6 +26,10 @@
   select
     padding: .25rem .65rem .3rem
 
+    &:required:invalid
+      font-weight: 400
+      color: transparentize($light-text-primary, .8)
+
   input,
   .toggle
     padding: .25rem .4rem .3rem

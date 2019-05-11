@@ -1,12 +1,13 @@
 <template>
   <div class="date-time-display">
     <select
+      required
       v-model="month"
       v-on:input="
         $event.target.style.width = `calc(${ textWidth(months[$event.target.value]) } + 1.3rem)`;
       "
     >
-      <option default hidden disabled value=""></option>
+      <option default hidden disabled value="">Choose month</option>
       <option
         v-for="(month, i) in months"
         v-bind:key="month"
