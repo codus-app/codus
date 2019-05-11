@@ -1,10 +1,8 @@
 <template>
   <div class="date-time-display">
     <select
-      v-bind:value="month"
+      v-model="month"
       v-on:input="
-        setMonth($event.target.value);
-        $nextTick(() => { month = getMonth(); });
         $event.target.style.width = `calc(${ textWidth(months[$event.target.value]) } + 1.3rem)`;
       "
     >
@@ -19,8 +17,11 @@
     <input
       type="text"
       v-model="day"
+      v-on:keydown="(e) => {
+        const v = getUpcomingValue(e);
+        if (v.match(/[^0-9]/) || (v.length && v < 1) || v > maxDayForMonth) e.preventDefault();
+      }"
       v-on:input="$event.target.style.width = `calc(${textWidth($event.target.value)} + .8rem)`"
-      v-on:blur="setDay(day); $nextTick(() => { day = getDay(); });"
     >
 
     <span class="sep">at</span>
@@ -28,15 +29,21 @@
     <input
       type="text"
       v-model="hours"
+      v-on:keydown="(e) => {
+        const v = getUpcomingValue(e);
+        if (v.match(/[^0-9]/) || (v.length && v < 1) || v > 12) e.preventDefault();
+      }"
       v-on:input="$event.target.style.width = `calc(${textWidth($event.target.value)} + .8rem)`"
-      v-on:blur="setHours(hours); $nextTick(() => { day = getDay(); });"
     >
     <span>:</span>
     <input
       type="text"
       v-model="minutes"
+      v-on:keydown="(e) => {
+        const v = getUpcomingValue(e);
+        if (v.match(/[^0-9]/) || v > 59 || v.length > 2) e.preventDefault();
+      }"
       v-on:input="$event.target.style.width = `calc(${textWidth($event.target.value)} + .8rem)`"
-      v-on:blur="setMinutes(minutes); $nextTick(() => { day = getDay(); });"
     >
 
     <div class="toggle"
