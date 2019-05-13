@@ -11,7 +11,10 @@
       <span>Add a due date</span>
     </label>
 
-    <date-time-display v-model="selectedDate"></date-time-display>
+    <date-time-display
+      v-model="selectedDate"
+      v-bind:class="{ disabled: !addDueDate }"
+    ></date-time-display>
 
     <proceed-button v-bind:disabled="addDueDate && !dateValid" v-on:click="$emit('next')">
       <template slot="label">Finish up</template>

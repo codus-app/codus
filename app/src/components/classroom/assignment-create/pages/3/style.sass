@@ -65,30 +65,10 @@
       & + span
         color: $light-text-secondary
 
-
-
-    // .switch
-    //   $thumb-size: .8rem
-    //   $padding: .125rem
-    //   width: ($thumb-size * 2.15) + ($padding * 2)
-    //   height: $thumb-size + ($padding * 2)
-    //   padding: $padding
-    //   border-radius: ($thumb-size + ($padding * 2)) / 2
-    //   margin-right: .5rem
-
-    //   .thumb
-    //     width: $thumb-size
-    //     height: $thumb-size
-    //     border-radius: $thumb-size / 2
-    //     background: $dark-3
-
-    // input[type='checkbox']:checked + .switch
-    //   background: $green-bg
-
-    //   .thumb
-    //     transform: translate(115%)
-    //     background: $dark-3
-
   .date-time-display
     margin-bottom: 2rem
+    transition: opacity .2s
 
+    &.disabled
+      opacity: .5
+      pointer-events: none
