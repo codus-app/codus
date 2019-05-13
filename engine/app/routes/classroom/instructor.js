@@ -234,6 +234,10 @@ module.exports.assignments = {
       return new HTTPError('Something went wrong').handle(res);
     }
 
+    const numBefore = await Assignment.model
+      .count()
+      .where('classroom').equals(req.classroom._id);
+
     // Create the new assignment
 
     const assignment = new Assignment.model(); // eslint-disable-line new-cap
@@ -243,6 +247,7 @@ module.exports.assignments = {
       description,
       dueDate: new Date(dueDate).toISOString(),
       problems: problems.map(p => p._id),
+      sortOrder: numBefore,
     }, (error) => {
       if (error) new HTTPError('Something went wrong').handle(res);
       else {
@@ -255,6 +260,7 @@ module.exports.assignments = {
           problems: problems
             .map(p => publicizeProblem(p, categories.find(c => c._id.equals(p.category)))),
           numProblems: assignment.numProblems,
+          sortOrder: assignment.sortOrder,
           createdAt: assignment.createdAt,
         } });
       }
