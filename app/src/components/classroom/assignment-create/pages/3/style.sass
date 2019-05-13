@@ -16,3 +16,79 @@
     font-weight: 400
     font-size: .85rem
     color: $light-text-tertiary
+
+  label
+    position: relative
+    display: inline-flex
+    left: 50%
+    transform: translate(-50%)
+    align-items: center
+    margin: 1.5rem 0 1.25rem
+    user-select: none
+    font-size: .8rem
+
+    span
+      font-family: $font-lato
+      color: $light-text-tertiary
+      transition: color .25s
+
+    input[type='checkbox']
+      display: none
+
+    .checkbox
+      box-shadow: 0 0 0 1px rgba(174, 181, 198, .2), inset 0 0 0 1px rgba(174, 181, 198, .2)
+      width: 1rem
+      height: 1rem
+      border-radius: .15rem
+      display: flex
+      justify-content: center
+      align-items: center
+      cursor: pointer
+      margin-right: .5rem
+      transition: background .25s, box-shadow .25s
+
+      .feather-check
+        width: .95rem
+        height: .95rem
+        color: transparent
+        transform: translate(1%, 1%) scale(.5)
+        transition: transform .25s .1s cubic-bezier(.175, .885, .32, 1.275), color .25s .1s
+
+    input[type='checkbox']:checked + .checkbox
+      background: $green-bg
+      box-shadow: 0 0 0 1px $green-bg
+
+      .feather-check
+        color: $dark-3
+        transform: translate(1%, 1%)
+
+      & + span
+        color: $light-text-secondary
+
+
+
+    // .switch
+    //   $thumb-size: .8rem
+    //   $padding: .125rem
+    //   width: ($thumb-size * 2.15) + ($padding * 2)
+    //   height: $thumb-size + ($padding * 2)
+    //   padding: $padding
+    //   border-radius: ($thumb-size + ($padding * 2)) / 2
+    //   margin-right: .5rem
+
+    //   .thumb
+    //     width: $thumb-size
+    //     height: $thumb-size
+    //     border-radius: $thumb-size / 2
+    //     background: $dark-3
+
+    // input[type='checkbox']:checked + .switch
+    //   background: $green-bg
+
+    //   .thumb
+    //     transform: translate(115%)
+    //     background: $dark-3
+
+  .date-time-display
+    margin-bottom: 2rem
+

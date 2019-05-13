@@ -8,6 +8,7 @@ export default {
       mounted: false,
       today: new Date(now.getFullYear(), now.getMonth(), now.getDate()),
       selectedDate: this.date,
+      addDueDate: this.date,
     };
   },
 
@@ -17,12 +18,13 @@ export default {
 
   methods: {
     update() {
-      this.$emit('update:date', this.selectedDate);
+      this.$emit('update:date', this.addDueDate ? this.selectedDate : null);
     },
   },
 
   watch: {
     selectedDate() { this.update(); },
+    addDueDate() { this.update(); },
   },
 
   components: {

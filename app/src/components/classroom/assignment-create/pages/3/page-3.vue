@@ -3,9 +3,17 @@
     <h2>Set a due date</h2>
     <p>Optionally, set a date and/or time at which this assignment is due.</p>
 
+    <label class="checkbox">
+      <input type="checkbox" v-model="addDueDate">
+      <div class="checkbox">
+        <icon-check></icon-check>
+      </div>
+      <span>Add a due date</span>
+    </label>
+
     <date-time-display v-model="selectedDate"></date-time-display>
 
-    <proceed-button v-bind:disabled="false" v-on:click="$emit('next')">
+    <proceed-button v-bind:disabled="addDueDate && !dateValid" v-on:click="$emit('next')">
       <template slot="label">Finish up</template>
       Post assignment
     </proceed-button>
