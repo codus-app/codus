@@ -9,7 +9,7 @@ const baseState = {
   description: '',
   selectedProblems: [],
 
-  date: null,
+  date: new Date(undefined),
 };
 
 

@@ -35,6 +35,7 @@
         if (v.match(/[^0-9]/) || (v.length && v < 1) || v > 12) e.preventDefault();
       }"
       v-on:input="$event.target.style.width = `calc(${textWidth($event.target.value)} + .8rem)`"
+      v-bind:placeholder="noTime ? '11' : ''"
     >
     <span>:</span>
     <input
@@ -45,6 +46,7 @@
         if (v.match(/[^0-9]/) || v > 59 || v.length > 2) e.preventDefault();
       }"
       v-on:input="$event.target.style.width = `calc(${textWidth($event.target.value)} + .8rem)`"
+      v-bind:placeholder="noTime ? '59' : ''"
     >
 
     <div class="toggle"

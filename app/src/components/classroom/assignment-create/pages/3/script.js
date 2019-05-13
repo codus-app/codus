@@ -3,10 +3,27 @@ const now = new Date();
 export default {
   props: { date: Date },
 
-  data: () => ({
-    mounted: false,
-    today: new Date(now.getFullYear(), now.getMonth(), now.getDate()),
-  }),
+  data() {
+    return {
+      mounted: false,
+      today: new Date(now.getFullYear(), now.getMonth(), now.getDate()),
+      selectedDate: this.date,
+    };
+  },
+
+  computed: {
+    dateValid() { return !Number.isNaN(Number(this.date)); },
+  },
+
+  methods: {
+    update() {
+      this.$emit('update:date', this.selectedDate);
+    },
+  },
+
+  watch: {
+    selectedDate() { this.update(); },
+  },
 
   components: {
     'date-time-display': require('../../components/date-time-display/date-time-display.vue').default,

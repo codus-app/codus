@@ -1,16 +1,18 @@
+function validDate(value) { return !Number.isNaN(Number(value)); }
+
 export default {
   props: { value: Date },
 
   data() {
     return {
       month: '',
-      day: this.value ? this.value.getDate() : '',
-      hours: this.value ? this.value.getHours() % 12 : '',
-      minutes: this.value ? this.value.getMinutes() : '',
+      day: validDate(this.value) ? this.value.getDate() : undefined,
+      hours: validDate(this.value) ? this.value.getHours() % 12 : undefined,
+      minutes: validDate(this.value) ? this.value.getMinutes() : undefined,
       // eslint-disable-next-line no-nested-ternary
-      period: this.value
-        ? ((this.date().getHours() >= 12) ? 'pm' : 'am')
-        : 'am',
+      period: validDate(this.value)
+        ? ((this.value.getHours() >= 12) ? 'pm' : 'am')
+        : 'pm',
 
       months: [
         'January',
@@ -39,17 +41,28 @@ export default {
         : 31;
     },
 
-    constructedDate() {
-      if ([this.month, this.day, this.hours, this.minutes].some(n => n.length)) {
-        return new Date(2019,
-          this.month,
-          this.day,
-          this.twentyfour(this.hours, this.period),
-          this.minutes);
-      }
-      return null;
+    noTime() {
+      return [undefined, ''].includes(this.hours) && [undefined, ''].includes(this.minutes);
     },
 
+    dateComponents() {
+      const { noTime } = this;
+      return [
+        this.month,
+        this.day,
+        // If neither hours nor minutes is defined, default to 11:59 pm
+        this.twentyfour(noTime ? 11 : this.hours, noTime ? 'pm' : this.period),
+        noTime ? 59 : this.minutes,
+      ];
+    },
+
+    constructedDate() {
+      const now = new Date();
+      let year = now.getFullYear();
+      if (new Date(year, ...this.dateComponents) < now) { year += 1; }
+
+      return new Date(year, ...this.dateComponents);
+    },
   },
 
   methods: {
@@ -84,7 +97,7 @@ export default {
 
   watch: {
     value() { /* TODO: implement */ },
-    constructedDate() { this.$emit('input', this.constructedDate); },
+    dateComponents() { this.$emit('input', this.constructedDate); },
 
     // When month changes, if the day doesn't exist in that month, change to the greatest day that
     // does

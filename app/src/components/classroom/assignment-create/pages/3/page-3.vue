@@ -3,13 +3,7 @@
     <h2>Set a due date</h2>
     <p>Optionally, set a date and/or time at which this assignment is due.</p>
 
-    <date-time-display
-      v-bind:value="date"
-      v-on:input="$emit('update:date', $event)"
-    ></date-time-display>
-
-    <date-picker></date-picker>
-    <time-picker></time-picker>
+    <date-time-display v-model="selectedDate"></date-time-display>
 
     <proceed-button v-bind:disabled="false" v-on:click="$emit('next')">
       <template slot="label">Finish up</template>
