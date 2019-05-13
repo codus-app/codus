@@ -220,9 +220,9 @@ module.exports.assignments = {
 
   /** Create a new assignment */
   async post(req, res) {
-    const { name, description, dueDate, problems: rawProblems } = req.body;
+    const { name, description, dueDate = null, problems: rawProblems } = req.body;
 
-    if (Number.isNaN(Number(new Date(dueDate)))) return new HTTPError(400, `Date '${dueDate}' could not be parsed`).handle(res);
+    if (dueDate && Number.isNaN(Number(new Date(dueDate)))) return new HTTPError(400, `Date '${dueDate}' could not be parsed`).handle(res);
 
     // Get the IDs of all of the problems we're adding to the assignment
     let problems;
@@ -245,7 +245,7 @@ module.exports.assignments = {
       classroom: req.classroom._id,
       name,
       description,
-      dueDate: new Date(dueDate).toISOString(),
+      dueDate: dueDate ? new Date(dueDate).toISOString() : null,
       problems: problems.map(p => p._id),
       sortOrder: numBefore,
     }, (error) => {
