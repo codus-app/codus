@@ -222,7 +222,9 @@ module.exports.assignments = {
   async post(req, res) {
     const { name, description, dueDate = null, problems: rawProblems } = req.body;
 
+    if (!name) return new HTTPError(400, 'Name is required').handle(res);
     if (dueDate && Number.isNaN(Number(new Date(dueDate)))) return new HTTPError(400, `Date '${dueDate}' could not be parsed`).handle(res);
+    if (!rawProblems || !rawProblems.length) return new HTTPError(400, 'Problems is required').handle(res);
 
     // Get the IDs of all of the problems we're adding to the assignment
     let problems;
