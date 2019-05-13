@@ -60,6 +60,21 @@ export default {
       return true;
     },
 
+    assignmentFetched(state, { classroom: classroomCode, assignment }) {
+      const classroomIndex = state.classrooms.findIndex(c => c.code === classroomCode);
+      if (classroomIndex === -1) throw new Error(`Classroom ${classroomCode} not found`);
+      const classroom = state.classrooms[classroomIndex];
+
+      const assignmentIndex = classroom.assignments.findIndex((a => a.id === assignment.id));
+      if (assignmentIndex === -1) state.classrooms[classroomIndex].assignments.push(assignment);
+      else {
+        state.classrooms[classroomIndex].assignments[assignmentIndex] = {
+          ...state.classrooms[classroomIndex].assignments[assignmentIndex],
+          ...assignment,
+        };
+      }
+    },
+
     assignmentsReordered(state, { classroom: classroomCode, assignments: newAssignments }) {
       const index = state.classrooms.findIndex(c => c.code === classroomCode);
       if (index === -1) throw new Error(`Classroom ${classroomCode} not found`);
@@ -128,6 +143,14 @@ export default {
     async removeUser({ commit }, { classroom, username }) {
       await api.delete({ endpoint: `/classroom/${classroom}/students/${username}` });
       commit('userRemoved', { classroom, username });
+    },
+
+    async postAssignment({ commit }, { classroom, name, description, dueDate, problems }) {
+      const assignment = await api.post({
+        endpoint: `/classroom/${classroom}/assignments`,
+        body: { name, description, dueDate, problems },
+      });
+      commit('assignmentFetched', { classroom, assignment });
     },
 
     async reorderAssignments({ commit }, { classroom, ids }) {
