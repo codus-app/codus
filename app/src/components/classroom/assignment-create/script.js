@@ -1,4 +1,4 @@
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapGetters, mapActions } from 'vuex';
 
 
 const baseState = {
@@ -26,6 +26,7 @@ export default {
 
   computed: {
     ...mapState(['contentFetched']),
+    ...mapGetters({ selectedClassroom: 'classroom/instructor/selectedClassroom' }),
 
     modalBaseTransition() {
       return this.open
@@ -35,7 +36,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['fetchContent']),
+    ...mapActions({ fetchContent: 'fetchContent', postAssignment: 'classroom/instructor/postAssignment' }),
 
     updateHeight() {
       const height = `${this.$refs.pageWrapper.offsetHeight}px`;
@@ -51,8 +52,14 @@ export default {
       this.transitionDirection = 'left';
       if (this.page > 1) this.$nextTick(() => { this.page -= 1; });
     },
-    submit() {
-      alert('submit');
+    async submit() {
+      await this.postAssignment({
+        classroom: this.selectedClassroom.code,
+        name: this.name,
+        description: this.description,
+        problems: this.selectedProblems,
+        dueDate: this.date,
+      });
       this.$emit('close');
     },
   },
