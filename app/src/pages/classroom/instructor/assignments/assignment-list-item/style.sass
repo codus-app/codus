@@ -21,8 +21,45 @@
 
   .bottom-content
     height: 7rem
-    margin: .75rem 1.5rem 1rem
+    $horiz-margin: 1.5rem
+    margin: .75rem $horiz-margin 1rem
     overflow: hidden
+
+    .left
+      max-width: 13rem
+      display: flex
+      flex-direction: column
+      height: 100%
+      font-family: $font-lato
+
+      .date
+        flex: 0 0 auto
+        font-size: .65rem
+        height: .85rem
+        margin-bottom: .2rem
+        color: $light-text-hint
+
+      .description
+        flex: 1 1 auto
+        font-size: .725rem
+        line-height: 1rem
+        color: $light-text-secondary
+
+        max-height: 4rem
+        overflow: hidden
+        display: -webkit-box
+        -webkit-box-orient: vertical
+        -webkit-line-clamp: 4
+
+        margin-bottom: .6rem
+
+      .link
+        flex: 0 0 auto
+        font-size: .6rem
+        color: $green-bg
+        font-weight: 500
+        letter-spacing: .075em
+        text-transform: uppercase
 
   // Border
 

@@ -54,7 +54,13 @@
     </div>
 
     <transition-expand axis="y" v-bind:transition-duration="300">
-      <div class="bottom-content" v-if="expanded">{{ assignment.description }}</div>
+      <div class="bottom-content" v-if="expanded">
+        <div class="left">
+          <div class="date">Posted {{ new Date(assignment.createdAt).toLocaleDateString('default', { month: 'short', day: 'numeric' }) }}</div>
+          <div class="description">{{ assignment.description }}</div>
+          <router-link class="link" v-bind:to="link">View assignment</router-link>
+        </div>
+      </div>
     </transition-expand>
   </div>
 </template>
