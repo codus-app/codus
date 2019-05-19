@@ -7,7 +7,7 @@
          longer than 600ms strongly indicate "drag" intent, so we will reopen the assignment as in a
          cancelled drag only if the click lasted longer than 600ms. -->
     <div
-      class="top"
+      class="top draggable-area"
       v-on:click="() => { if (!expanded || clickDuration() < 600) toggle(); holdStart = null; }"
       v-on:mousedown="
         holdTimeout = setTimeout(() => { $emit('dragPress'); }, 200);

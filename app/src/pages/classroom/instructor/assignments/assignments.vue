@@ -15,6 +15,7 @@
         class="assignments-list"
         v-model="assignments"
         v-bind:animation="200"
+        handle=".draggable-area"
         v-on:start="dragging = true; expandedId = overrideCollapse ? expandedId : null"
         v-on:end="dragging = false; overrideCollapse = false"
       >
