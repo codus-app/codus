@@ -57,7 +57,12 @@
       <div class="bottom-content" v-if="expanded">
         <div class="left">
           <div class="date">Posted {{ new Date(assignment.createdAt).toLocaleDateString('default', { month: 'short', day: 'numeric' }) }}</div>
-          <div class="description">{{ assignment.description }}</div>
+          <div
+            class="description"
+            v-bind:class="{ empty: !assignment.description.trim() }"
+          >
+            {{ assignment.description.trim() || 'No description' }}
+          </div>
           <router-link class="link" v-bind:to="link">View assignment</router-link>
         </div>
       </div>
