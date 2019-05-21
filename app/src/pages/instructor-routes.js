@@ -33,6 +33,7 @@ export default [
       {
         path: 'assignments/:assignmentId',
         name: 'classroom-assignment-detail',
+        component: require('./classroom/instructor/assignment/assignment.vue').default,
         meta: {},
       },
     ],
