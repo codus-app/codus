@@ -367,6 +367,8 @@ module.exports.assignments = {
 
     const updates = newOrder.map((code, newIndex) => {
       const assignment = assignments.find(a => a.code === code);
+      // Don't make an update call if the order didn't change
+      if (assignment.sortOrder === newIndex) return Promise.resolve();
       return new Promise((resolve, reject) => {
         Assignment.updateItem(assignment, {
           sortOrder: newIndex,
