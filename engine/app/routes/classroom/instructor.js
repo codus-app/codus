@@ -205,13 +205,29 @@ module.exports.assignments = {
       return new HTTPError('Something went wrong').handle(res);
     }
 
+    const mongoStudents = await User.model.find().where('classroom').equals(req.classroom._id);
+    const studentSolutions = await Solution.model
+      .find()
+      .where('user').in(mongoStudents.map(s => s._id))
+      .where('problem').in(assignment.problems.map(p => p._id));
+
     return res.json({
       data: {
         ...assignment.toObject(),
         classroom: req.classroom.code,
         _id: undefined,
         id: assignment.code,
-        problems: assignment.problems.map(p => publicizeProblem(p, p.category)),
+        problems: assignment.problems.map(p => ({
+          ...publicizeProblem(p, p.category),
+          studentSolutions: {
+            correct: studentSolutions
+              .filter(s => s.problem.equals(p._id) && s.passed === true)
+              .map(s => mongoStudents.find(({ _id }) => _id.equals(s.user)).userId),
+            incorrect: studentSolutions
+              .filter(s => s.problem === p._id && s.passed === false)
+              .map(s => mongoStudents.find(({ _id }) => _id.equals(s.user)).userId),
+          },
+        })),
         numProblems: assignment.numProblems,
         createdAt: assignment.createdAt,
       },
