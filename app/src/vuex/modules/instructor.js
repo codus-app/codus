@@ -145,6 +145,15 @@ export default {
       commit('userRemoved', { classroom, username });
     },
 
+    /** Hydrate a stored assignment with additional info (i.e. problems, student performance) that
+      * is only exposed when querying that assignment directly
+      */
+    async fetchAssignment({ commit }, { classroom, id }) {
+      const assignment = await api.get({ endpoint: `/classroom/${classroom}/assignments/${id}` });
+      commit('assignmentFetched', { classroom, assignment: { ...assignment, fetched: true } });
+    },
+
+    /** Post a new assignment to a classroom */
     async postAssignment({ commit }, { classroom, name, description, dueDate, problems }) {
       const assignment = await api.post({
         endpoint: `/classroom/${classroom}/assignments`,
@@ -153,6 +162,7 @@ export default {
       commit('assignmentFetched', { classroom, assignment });
     },
 
+    /** Change the order of the assignments in a classroom */
     async reorderAssignments({ commit }, { classroom, ids }) {
       // Mock reordering API response so that changes are immediately applied client-side
       commit('assignmentsReordered', {
@@ -165,6 +175,7 @@ export default {
       commit('assignmentsReordered', { classroom, assignments });
     },
 
+    /** Delete an assignment from a classroom */
     async deleteAssignment({ commit }, { classroom, id }) {
       const { success } = await api.delete({ endpoint: `/classroom/${classroom}/assignments/${id}` });
       if (success) commit('assignmentDeleted', { classroom, id });
