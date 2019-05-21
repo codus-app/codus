@@ -64,14 +64,15 @@ export default {
       const classroomIndex = state.classrooms.findIndex(c => c.code === classroomCode);
       if (classroomIndex === -1) throw new Error(`Classroom ${classroomCode} not found`);
       const classroom = state.classrooms[classroomIndex];
+      if (!classroom.assignments) throw new Error(`Classroom ${classroomCode} should be fetched before assignments to avoid race conditions.`);
 
       const assignmentIndex = classroom.assignments.findIndex((a => a.id === assignment.id));
       if (assignmentIndex === -1) state.classrooms[classroomIndex].assignments.push(assignment);
       else {
-        state.classrooms[classroomIndex].assignments[assignmentIndex] = {
+        Vue.set(state.classrooms[classroomIndex].assignments, assignmentIndex, {
           ...state.classrooms[classroomIndex].assignments[assignmentIndex],
           ...assignment,
-        };
+        });
       }
     },
 
