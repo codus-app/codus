@@ -5,11 +5,19 @@
   align-items: center
   margin-bottom: 1.5rem
 
-  h1
+  h1,
+  h2
     font-family: $font-lato
     font-size: 1.35rem
     color: $light-text-secondary
     margin: 0
+
+  h1.has-subtitle
+    position: absolute
+    color: $light-text-hint
+    transform-origin: bottom left
+    transform: translateY(-105%) scale(.75)
+    font-weight: 600
 
   .actions
     margin-left: auto

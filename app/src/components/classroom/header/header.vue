@@ -1,6 +1,7 @@
 <template>
   <div class="classroom-header">
-    <h1>{{ classroom.name }}</h1>
+    <h1 v-bind:class="{ 'has-subtitle': $slots.subtitle }">{{ classroom.name }}</h1>
+    <h2 v-if="$slots.subtitle"><slot name="subtitle"></slot></h2>
     <div class="actions">
       <slot name="actions"></slot>
     </div>
