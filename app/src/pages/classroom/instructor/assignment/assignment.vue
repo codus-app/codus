@@ -10,7 +10,18 @@
       </template>
     </classroom-header>
 
+    <tab-switcher
+      v-if="classroomFetched"
+      v-bind:tabs="[
+        { name: 'details', link: { name: 'classroom-assignment-details', params } },
+        { name: 'problems', link: { name: 'classroom-assignment-problems', params } },
+        { name: 'students', link: { name: 'classroom-assignment-students', params } },
+      ]"
+      v-bind:selected="$route.meta.tabId"
+    ></tab-switcher>
+
     <router-view
+      v-if="assignmentFetched"
       v-bind:assignment="assignment"
     ></router-view>
   </div>

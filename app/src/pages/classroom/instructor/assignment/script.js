@@ -9,6 +9,7 @@ export default {
   }),
 
   computed: {
+    params() { return this.$route.params; },
     classroomFetched() { return this.classroom.fetched || false; },
     id() { return this.$route.params.assignmentId; },
     assignment() {
@@ -28,5 +29,9 @@ export default {
       classroom: this.classroom.code,
       id: this.id,
     });
+  },
+
+  components: {
+    'tab-switcher': require('./tabs.vue').default,
   },
 };

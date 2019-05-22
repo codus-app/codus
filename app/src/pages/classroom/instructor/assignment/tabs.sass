@@ -1,0 +1,24 @@
+@import 'src/styles/variables'
+
+.tab-switcher
+  margin: 3rem 0 2.5rem
+  display: flex
+  justify-content: center
+
+  .tab
+    font-family: $font-lato
+    font-size: .7rem
+    font-weight: 400
+    letter-spacing: .05em
+    text-transform: uppercase
+    color: $light-text-hint
+    transition: color .35s, font-weight .35s
+
+    &.selected
+      font-weight: 700
+      color: $green-solid
+
+    &:not(:last-of-type)
+      margin-right: 2.5rem
+
+
