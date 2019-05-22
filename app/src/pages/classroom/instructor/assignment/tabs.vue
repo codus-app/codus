@@ -9,6 +9,7 @@
     >
       {{ name }}
     </router-link>
+    <div class="indicator"></div>
   </div>
 </template>
 
