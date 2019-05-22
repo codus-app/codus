@@ -4,6 +4,10 @@ const { mapActions } = createNamespacedHelpers('classroom/instructor');
 export default {
   props: { classroom: Object },
 
+  data: () => ({
+    dateFormat: { month: 'short', day: 'numeric' },
+  }),
+
   computed: {
     classroomFetched() { return this.classroom.fetched || false; },
     id() { return this.$route.params.assignmentId; },
@@ -11,6 +15,7 @@ export default {
       if (!this.classroomFetched) return false;
       return this.classroom.assignments.find(({ id }) => id === this.id);
     },
+    assignmentFetched() { return this.assignment.fetched || false; },
   },
 
   methods: {

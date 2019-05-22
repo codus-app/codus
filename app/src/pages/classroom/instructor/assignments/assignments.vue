@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="cards-dashboard classroom page"
-    v-bind:class="{ unfetched: !fetched }"
-  >
+  <div class="cards-dashboard classroom page" v-bind:class="{ unfetched: !fetched }">
     <classroom-header>
       <template slot="actions">
         <icon-file-plus v-on:click="$emit('create-assignment')"></icon-file-plus>
