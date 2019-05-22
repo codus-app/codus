@@ -162,7 +162,7 @@ async function fetchAssignment(code, classroom, shouldPopulate = false) {
 
   const assignment = await assignmentPromise;
 
-  if (!assignment) throw new HTTPError(400, `Assignment '${code}' was not found in classroom ${classroom.code}`);
+  if (!assignment) throw new HTTPError(404, `Assignment '${code}' was not found in classroom ${classroom.code}`);
 
   return assignment;
 }
@@ -376,7 +376,7 @@ module.exports.assignments = {
     if (!newOrder || !Array.isArray(newOrder) || !newOrder.length) return new HTTPError(400, 'New order is required in request body').handle(res);
     // Error if codes are passed that are not in assignments
     const extraCodes = newOrder.filter(c => !codes.includes(c));
-    if (extraCodes.length) return new HTTPError(400, `Assignments ${util.inspect(extraCodes)} were not found in classroom ${req.classroom.code}`).handle(res);
+    if (extraCodes.length) return new HTTPError(404, `Assignments ${util.inspect(extraCodes)} were not found in classroom ${req.classroom.code}`).handle(res);
     // Error if not all codes are passed in new order
     const missingCodes = codes.filter(c => !newOrder.includes(c));
     if (missingCodes.length) return new HTTPError(400, `Assignments ${util.inspect(missingCodes)} are missing from new order`).handle(res);
