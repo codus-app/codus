@@ -173,11 +173,10 @@ module.exports.userSolution = {
     // If there's a previous solution saved and the code didn't change between saves, we can
     // savfely keep the old "passed" state without checking. New solutions are never passing
     // because they've never been checked.
-    let passed = false;
+    let passed = false; // TODO: 'unknown'
     if (solution) { // previous solution exists
       const { code: oldCode, passed: previouslyPassed } = solution;
-      const codeChanged = code !== oldCode;
-      passed = codeChanged ? false : previouslyPassed;
+      if (code === oldCode) passed = previouslyPassed;
     }
 
     if (solution) {
@@ -190,7 +189,7 @@ module.exports.userSolution = {
       // Add a new solution
       const newSolution = new Solution.model(); // eslint-disable-line new-cap
       Solution.updateItem(newSolution, {
-        problem, user: user._id, code, passed: false,
+        problem, user: user._id, code, passed: false, // TODO: 'unknown'
       }, (error) => {
         if (error) new HTTPError('Something went wrong').handle(res);
         else res.status(201).json({ data: { code, passed } });
