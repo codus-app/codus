@@ -4,6 +4,10 @@
       v-for="problem in assignment.problems"
       v-bind:key="problem.name"
       v-bind:problem="problem"
+
+      v-bind:expanded="expandedProblem === problem.name"
+      v-on:expand="expandedProblem = problem.name"
+      v-on:collapse="expandedProblem = expandedProblem === problem.name ? null : expandedProblem"
     ></problem-summary>
   </div>
 </template>

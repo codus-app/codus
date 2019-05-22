@@ -1,2 +1,41 @@
+@import 'src/styles/variables'
+@import 'src/styles/mixins'
+
+
 .problem-summary
-  text-align: center
+  width: 100%
+  border-radius: 4px
+  overflow: hidden
+  margin: .1rem 0
+  transition: margin .3s, background .2s, border-radius .3s
+  user-select: none
+
+  .top
+    padding: .3rem 1rem
+    display: flex
+    align-items: center
+    justify-content: space-between
+    cursor: pointer
+    transition: background .2s, padding .2s
+
+  .bottom-content
+    min-height: 7rem
+    max-height: 12.5rem
+
+  &:not(.expanded):hover
+    .top
+      background: $dark-4
+
+  &.expanded
+    @include dark-card
+    border-radius: 6px
+    margin: .7rem 0
+    transition: margin .3s, background .3s, box-shadow .3s, border-radius .3s
+
+    .top
+      background: transparentize($dark-2, .5)
+      padding: .5rem 1rem
+      transition: background .2s, padding .3s
+
+    &:first-child
+      margin-top: 0

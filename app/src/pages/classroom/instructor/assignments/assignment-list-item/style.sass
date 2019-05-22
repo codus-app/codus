@@ -92,12 +92,10 @@
   &.expanded
     @include dark-card
     margin: .7rem 0
-    border-radius: 6px
     transition: margin .3s, background .3s, box-shadow .3s
 
-    .top,
-    .top:hover
-      background: $dark-2
+    .top
+      background: transparentize($dark-2, .1)
 
       .actions .feather
         opacity: .7
