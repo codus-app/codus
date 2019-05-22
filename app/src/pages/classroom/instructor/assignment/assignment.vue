@@ -1,5 +1,5 @@
 <template>
-  <div class="cards-dashboard classroom page" v-bind:class="{ unfetched: !assignmentFetched }">
+  <div class="cards-dashboard classroom page">
     <classroom-header v-if="classroomFetched">
       <template slot="subtitle">{{ assignment.name }}</template>
       <template slot="actions">
@@ -9,6 +9,10 @@
         </div>
       </template>
     </classroom-header>
+
+    <router-view
+      v-bind:assignment="assignment"
+    ></router-view>
   </div>
 </template>
 
