@@ -9,8 +9,8 @@ export default {
   computed: {
     styleProps() {
       return this.axis === 'y'
-        ? ['height', 'paddingTop', 'paddingBottom', 'marginTop', 'marginBottom']
-        : ['width', 'paddingLeft', 'paddingRight', 'marginLeft', 'marginRight'];
+        ? ['height', 'minHeight', 'maxHeight', 'paddingTop', 'paddingBottom', 'marginTop', 'marginBottom']
+        : ['width', 'minWidth', 'maxWidth', 'paddingLeft', 'paddingRight', 'marginLeft', 'marginRight'];
     },
   },
 
@@ -22,9 +22,10 @@ export default {
     transition(direction) {
       const duration1 = `${this.transitionDuration / 1000}s, `;
       const duration2 = `${this.transitionDuration / 1000 * (direction === 'in' ? 0.65 : 1)}s`;
+      const properties = 'height, min-height, max-height, width, min-width, max-width, padding-top, padding-right, padding-bottom, padding-left, margin-top, margin-right, margin-bottom, margin-left, opacity';
       return {
-        transitionProperty: 'height, width, padding-top, padding-right, padding-bottom, padding-left, margin-top, margin-right, margin-bottom, margin-left, opacity',
-        transitionDuration: duration1.repeat(10) + duration2,
+        transitionProperty: properties,
+        transitionDuration: duration1.repeat(properties.split(',').length - 1) + duration2,
       };
     },
 
@@ -32,6 +33,7 @@ export default {
       // Capture element width/height
       Object.assign(el.style, { position: 'absolute', opacity: '0' });
       const { width, height } = el.getBoundingClientRect();
+      const { minWidth, maxWidth, minHeight, maxHeight } = getComputedStyle(el);
       // Set to 0 width or height
       Object.assign(el.style, {
         ...this.getStyleObject('0'),
@@ -44,8 +46,8 @@ export default {
       Object.assign(el.style, {
         ...this.transition('in'),
         ...this.getStyleObject(null),
-        ...this.axis === 'x' && { width: `${width}px` },
-        ...this.axis === 'y' && { height: `${height}px` },
+        ...this.axis === 'x' && { width: `${width}px`, minWidth, maxWidth },
+        ...this.axis === 'y' && { height: `${height}px`, minHeight, maxHeight },
         opacity: null,
       });
       // Wait for transition to complete
@@ -58,10 +60,11 @@ export default {
 
     async leave(el, done) {
       // Make height or width explicit
-      const { height, width } = el.getBoundingClientRect();
+      const { width, height } = el.getBoundingClientRect();
+      const { minWidth, maxWidth, minHeight, maxHeight } = getComputedStyle(el);
       Object.assign(el.style, {
-        ...this.axis === 'x' && { width: `${width}px` },
-        ...this.axis === 'y' && { height: `${height}px` },
+        ...this.axis === 'x' && { width: `${width}px`, minWidth, maxWidth },
+        ...this.axis === 'y' && { height: `${height}px`, minHeight, maxHeight },
         overflow: 'hidden',
       });
       // Wait for styles to apply
