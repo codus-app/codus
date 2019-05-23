@@ -55,6 +55,9 @@ Vue.component('context-menu', ContextMenu);
 import DashboardCard from './dashboard-card/dashboard-card.vue';
 Vue.component('dashboard-card', DashboardCard);
 
+import ProfileChip from './profile-chip/profile-chip.vue';
+Vue.component('profile-chip', ProfileChip);
+
 // Classroom components
 
 import ClassroomHeader from './classroom/header/header.vue';

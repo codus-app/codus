@@ -1,0 +1,29 @@
+@import 'src/styles/variables'
+
+.profile-chip
+  display: inline-flex
+  align-items: center
+
+  background: mix($dark-2, $dark-3)
+  $height: 1.55rem
+  height: $height
+  border-radius: $height / 2
+  margin-right: .45rem
+  margin-bottom: .45rem
+  cursor: pointer
+
+  .picture
+    width: $height
+    height: $height
+    border-radius: $height / 2
+    transform: scale(.75)
+    background-size: cover
+    background-position: center center
+
+  .name
+    margin: 0 ($height / 2.75) 0 .3rem
+    font-family: $font-lato
+    font-weight: 500
+    font-size: .725rem
+    color: rgba(206, 207, 209, .65)
+    transform: translateY(-.075em)
