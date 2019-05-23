@@ -4,7 +4,7 @@
     v-bind:class="{ unfetched: !fetched }"
   >
     <classroom-header>
-      <template slot="actions">
+      <template v-slot:actions>
         <icon-user-plus v-on:click="$emit('open-invitation')"></icon-user-plus>
         <icon-file-plus v-on:click="$emit('create-assignment')"></icon-file-plus>
         <icon-settings></icon-settings>
@@ -13,14 +13,15 @@
 
     <div class="row">
       <dashboard-card class="students contains-view-more">
-        <template slot="label">
+        <template v-slot:label>
           {{ students.length || '' }} Student<span v-if="students.length !== 1">s</span>
         </template>
-        <router-link
-          slot="link"
-          v-bind:to="{ name: 'classroom-students', params: $route.params }"
-          v-if="students.length"
-        >View all</router-link>
+        <template v-slot:link>
+          <router-link
+            v-bind:to="{ name: 'classroom-students', params: $route.params }"
+            v-if="students.length"
+          >View all</router-link>
+        </template>
         <div class="students-list" v-if="students.length">
           <router-link
             class="student"
@@ -57,14 +58,15 @@
       </dashboard-card>
 
       <dashboard-card class="assignments contains-view-more">
-        <template slot="label">
+        <template v-slot:label>
           {{ assignments.length || '' }} Assignment<span v-if="assignments.length !== 1">s</span>
         </template>
-        <router-link
-          slot="link"
-          v-bind:to="{ name: 'classroom-assignments', params: $route.params }"
-          v-if="assignments.length"
-        >View all</router-link>
+        <template v-slot:link>
+          <router-link
+            v-bind:to="{ name: 'classroom-assignments', params: $route.params }"
+            v-if="assignments.length"
+          >View all</router-link>
+        </template>
         <div class="assignments-list" v-if="assignments.length">
           <router-link
             class="assignment"

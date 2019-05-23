@@ -32,7 +32,7 @@
     </label>
 
     <proceed-button v-bind:disabled="!valid" v-on:click="$emit('next')">
-      <template slot="label">Next step</template>
+      <template v-slot:label>Next step</template>
       Add problems
     </proceed-button>
   </div>

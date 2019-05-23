@@ -59,7 +59,9 @@
         v-bind:wide="true"
         fade-color="rgba(30, 30, 33, .85)"
       >
-        <h1 slot="header" style="margin-bottom: -.5em">Create a classroom</h1>
+        <template v-slot:header>
+          <h1 style="margin-bottom: -.5em">Create a classroom</h1>
+        </template>
 
         <text-input
           v-model="classroomCreation.name"
@@ -67,13 +69,14 @@
           :char-limit="20"
         ></text-input>
 
-        <loading-button
-          text="Create"
-          v-bind:enabled="classroomCreation.name.length > 0 && classroomCreation.name.length <= 20"
-          v-bind:onClick="() => createClassroom({ name: classroomCreation.name })"
-          v-on:saved="classroomCreated"
-          slot="buttons"
-        ></loading-button>
+        <template v-slot:buttons>
+          <loading-button
+            text="Create"
+            v-bind:enabled="classroomCreation.name.length > 0 && classroomCreation.name.length <= 20"
+            v-bind:onClick="() => createClassroom({ name: classroomCreation.name })"
+            v-on:saved="classroomCreated"
+          ></loading-button>
+        </template>
       </modal>
 
       <!-- "Delete Classroom" confirmation modal -->
@@ -89,7 +92,9 @@
         }"
         fade-color="rgba(30, 30, 33, .85)"
       >
-        <h1 slot="header">Delete {{ (classroomDeletion.classroom || {}).name }}?</h1>
+        <template v-slot:header>
+          <h1>Delete {{ (classroomDeletion.classroom || {}).name }}?</h1>
+        </template>
 
         <ul class="modal-content">
           <li>All class data will be permanently erased</li>
@@ -97,7 +102,7 @@
           <li>Individual student accounts and site progress will be preserved</li>
         </ul>
 
-        <template slot="buttons">
+        <template v-slot:buttons>
           <bold-button type="gray" v-on:click="classroomDeletion.open = false">Cancel</bold-button>
           <bold-button
             type="red"

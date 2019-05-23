@@ -17,7 +17,7 @@
     ></date-time-display>
 
     <proceed-button v-bind:disabled="addDueDate && !dateValid" v-on:click="$emit('next')">
-      <template slot="label">Finish up</template>
+      <template v-slot:label>Finish up</template>
       Post assignment
     </proceed-button>
   </div>

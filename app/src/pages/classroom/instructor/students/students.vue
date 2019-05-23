@@ -4,7 +4,7 @@
     v-bind:class="{ unfetched: !fetched }"
   >
     <classroom-header>
-      <template slot="actions">
+      <template v-slot:actions>
         <icon-user-plus v-on:click="$emit('open-invitation')"></icon-user-plus>
         <icon-settings></icon-settings>
       </template>
@@ -44,15 +44,17 @@
           v-bind:passed-profile="selectedStudent"
           v-bind:context-items="profileContextItems"
         >
-          <div class="detail card c2" slot="card-2">
-            <div class="left gradient">
-              <icon-arrow-up-circle></icon-arrow-up-circle>
+          <template v-slot:card-2>
+            <div class="detail card c2">
+              <div class="left gradient">
+                <icon-arrow-up-circle></icon-arrow-up-circle>
+              </div>
+              <div class="right">
+                <div class="large">{{ selectedStudent.rank }}</div>
+                <div class="small">Class rank</div>
+              </div>
             </div>
-            <div class="right">
-              <div class="large">{{ selectedStudent.rank }}</div>
-              <div class="small">Class rank</div>
-            </div>
-          </div>
+          </template>
         </user-profile>
         <div class="empty-message" v-else-if="fetched">
           Select a student from the list to the left to view detailed information here
@@ -61,9 +63,9 @@
       </div>
     </div>
     <empty-message v-else-if="fetched" v-on:action-click="$emit('open-invitation')">
-      <h2 slot="title">There’s nobody here</h2>
+      <template v-slot:title> <h2>There’s nobody here</h2> </template>
       To get started, invite students to join {{ classroom.name }}.
-      <span slot="cta">Invite students</span>
+      <template v-slot:cta> <span>Invite students</span> </template>
     </empty-message>
 
     <!-- "Remove student" confirmation modal -->
@@ -80,13 +82,15 @@
         }"
         fade-color="rgba(30, 30, 33, .85)"
       >
-        <h1 slot="header">Remove {{ (studentRemoval.student || {}).name }}?</h1>
+        <template v-slot:header>
+          <h1>Remove {{ (studentRemoval.student || {}).name }}?</h1>
+        </template>
 
         {{ (studentRemoval.student || {}).name }} will lose access to AP Computer science, and you’ll
         lose access to {{ (studentRemoval.student || { name: '' }).name.split(' ')[0] }}’s solutions
         and other classroom features.
 
-        <template slot="buttons">
+        <template v-slot:buttons>
           <bold-button type="gray" v-on:click="studentRemoval.open = false">Cancel</bold-button>
           <bold-button
             type="red"

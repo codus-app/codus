@@ -6,7 +6,7 @@
         v-bind:allSolved="isCategoryComplete(cat.name)"
         v-on:change="$emit('change')"
       >
-        <template slot="name">{{ cat.displayName }}</template>
+        <template v-slot:name>{{ cat.displayName }}</template>
 
         <li v-for="prob in cat.problems" v-bind:key="prob.name">
           <problem-link

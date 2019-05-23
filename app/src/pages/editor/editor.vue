@@ -135,16 +135,16 @@
           v-on:expand="outputCollapsed = false"
           v-on:collapse="outputCollapsed = true"
         >
-          <template slot="title">Output</template>
+          <template v-slot:title>Output</template>
           <div class="error-message">{{ errorMessage }}</div>
         </window>
       </transition>
 
       <portal to="modal-target">
         <modal v-bind:open="deletionConfirmOpen" v-on:close="deletionConfirmOpen = false">
-          <h1 slot="header">Delete this solution?</h1>
+          <template v-slot:header> <h1>Delete this solution?</h1> </template>
           Your solution to this problem will be reset. This cannot be undone.
-          <template slot="buttons">
+          <template v-slot:buttons>
             <bold-button type="red" v-on:click="reset">Delete</bold-button>
           </template>
         </modal>

@@ -1,7 +1,7 @@
 <template>
   <div class="cards-dashboard classroom page" v-bind:class="{ unfetched: !fetched }">
     <classroom-header>
-      <template slot="actions">
+      <template v-slot:actions>
         <icon-file-plus v-on:click="$emit('create-assignment')"></icon-file-plus>
         <icon-settings></icon-settings>
       </template>
@@ -34,9 +34,9 @@
       </draggable>
     </simplebar>
     <empty-message v-else-if="fetched" v-on:action-click="$emit('create-assignment')">
-      <h2 slot="title">There’s nothing here</h2>
+      <template v-slot:title> <h2>There’s nothing here</h2> </template>
       To get started, create your first assignment.
-      <span slot="cta">Create assignment</span>
+      <template v-slot:cta> <span>Create assignment</span> </template>
     </empty-message>
 
 
@@ -54,12 +54,14 @@
         }"
         fade-color="rgba(30, 30, 33, .85)"
       >
-        <h1 slot="header">Delete {{ (assignmentDeletion.assignment || {}).name }}?</h1>
+        <template v-slot:header>
+          <h1>Delete {{ (assignmentDeletion.assignment || {}).name }}?</h1>
+        </template>
 
         This assignment will be permanently erased. Students’ solutions to this assignment’s
         individual problems will be preserved.
 
-        <template slot="buttons">
+        <template v-slot:buttons>
           <bold-button type="gray" v-on:click="assignmentDeletion.open = false">Cancel</bold-button>
           <bold-button
             type="red"

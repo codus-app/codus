@@ -93,12 +93,12 @@
             }"
             fade-color="rgba(30, 30, 33, .85)"
           >
-            <h1 slot="header">Leave {{ (classroom || {}).name }}?</h1>
+            <template v-slot:header> <h1>Leave {{ (classroom || {}).name }}?</h1> </template>
             You’ll completely lose access to {{ (classroom || {}).name }}. You can rejoin
             {{ (classroom || {}).name }} later with the classroom code, but some of your classroom
             data may be permanently erased.
 
-            <template slot="buttons">
+            <template v-slot:buttons>
               <bold-button type="gray" v-on:click="leaveModalOpen = false">Cancel</bold-button>
               <bold-button
                 type="red"
