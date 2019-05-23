@@ -9,8 +9,8 @@ export default {
   computed: {
     styleProps() {
       return this.axis === 'y'
-        ? ['height', 'minHeight', 'maxHeight', 'paddingTop', 'paddingBottom', 'marginTop', 'marginBottom']
-        : ['width', 'minWidth', 'maxWidth', 'paddingLeft', 'paddingRight', 'marginLeft', 'marginRight'];
+        ? ['height', 'paddingTop', 'paddingBottom', 'marginTop', 'marginBottom']
+        : ['width', 'paddingLeft', 'paddingRight', 'marginLeft', 'marginRight'];
     },
   },
 
@@ -33,12 +33,15 @@ export default {
       // Capture element width/height
       Object.assign(el.style, { position: 'absolute', opacity: '0' });
       const { width, height } = el.getBoundingClientRect();
-      const { minWidth, maxWidth, minHeight, maxHeight } = getComputedStyle(el);
       // Set to 0 width or height
       Object.assign(el.style, {
         ...this.getStyleObject('0'),
         overflow: 'hidden',
         position: null,
+        minWidth: 'auto',
+        maxWidth: 'auto',
+        minHeight: 'auto',
+        maxHeight: 'auto',
       });
       // Wait for styles to apply
       (() => {})(el.offsetHeight);
@@ -46,14 +49,14 @@ export default {
       Object.assign(el.style, {
         ...this.transition('in'),
         ...this.getStyleObject(null),
-        ...this.axis === 'x' && { width: `${width}px`, minWidth, maxWidth },
-        ...this.axis === 'y' && { height: `${height}px`, minHeight, maxHeight },
+        ...this.axis === 'x' && { width: `${width}px` },
+        ...this.axis === 'y' && { height: `${height}px` },
         opacity: null,
       });
       // Wait for transition to complete
       await delay(this.transitionDuration);
       // Clean up
-      ['height', 'width', 'transition', 'overflow']
+      ['height', 'minHeight', 'maxHeight', 'width', 'minWidth', 'maxWidth', 'transition', 'overflow', 'minWidth']
         .forEach((prop) => { el.style[prop] = null; });
       done();
     },
@@ -61,10 +64,9 @@ export default {
     async leave(el, done) {
       // Make height or width explicit
       const { width, height } = el.getBoundingClientRect();
-      const { minWidth, maxWidth, minHeight, maxHeight } = getComputedStyle(el);
       Object.assign(el.style, {
-        ...this.axis === 'x' && { width: `${width}px`, minWidth, maxWidth },
-        ...this.axis === 'y' && { height: `${height}px`, minHeight, maxHeight },
+        ...this.axis === 'x' && { width: `${width}px`, minWidth: 'auto', maxWidth: 'auto' },
+        ...this.axis === 'y' && { height: `${height}px`, minHeight: 'auto', maxHeight: 'auto' },
         overflow: 'hidden',
       });
       // Wait for styles to apply
