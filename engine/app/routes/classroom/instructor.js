@@ -206,10 +206,22 @@ module.exports.assignments = {
     }
 
     const mongoStudents = await User.model.find().where('classroom').equals(req.classroom._id);
-    const studentSolutions = await Solution.model
+    let auth0Students = getUsers.byIds(mongoStudents.map(s => s.userId));
+    let studentSolutions = Solution.model
       .find()
       .where('user').in(mongoStudents.map(s => s._id))
       .where('problem').in(assignment.problems.map(p => p._id));
+
+    [auth0Students, studentSolutions] = await Promise.all([auth0Students, studentSolutions]);
+
+    const getUsername = s => auth0Students
+      .find(s2 => s2.user_id
+        // Find the mongo user with a matching ObjectID
+        === mongoStudents.find(({ _id }) => _id.equals(s.user))
+        // ...in order to retreive auth0 userId, which is used to find the auth0 user
+          .userId)
+      // and finally extract just its username
+      .username;
 
     return res.json({
       data: {
@@ -222,10 +234,10 @@ module.exports.assignments = {
           studentSolutions: {
             correct: studentSolutions
               .filter(s => s.problem.equals(p._id) && s.passed === true)
-              .map(s => mongoStudents.find(({ _id }) => _id.equals(s.user)).userId),
+              .map(getUsername),
             incorrect: studentSolutions
               .filter(s => s.problem === p._id && s.passed === false)
-              .map(s => mongoStudents.find(({ _id }) => _id.equals(s.user)).userId),
+              .map(getUsername),
           },
         })),
         numProblems: assignment.numProblems,
