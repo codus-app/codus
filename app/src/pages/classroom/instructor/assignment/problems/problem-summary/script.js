@@ -4,6 +4,7 @@ export default {
   props: {
     problem: Object,
     expanded: Boolean,
+    totalStudents: Number,
   },
 
   computed: {

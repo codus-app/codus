@@ -4,6 +4,7 @@
       v-for="problem in assignment.problems"
       v-bind:key="problem.name"
       v-bind:problem="problem"
+      v-bind:total-students="classroom.students.length"
 
       v-bind:expanded="expandedProblem === problem.name"
       v-on:expand="expandedProblem = problem.name"

@@ -22,7 +22,7 @@
 
     <router-view
       v-if="assignmentFetched"
-      v-bind:assignment="assignment"
+      v-bind="{ classroom, assignment }"
     ></router-view>
   </div>
 </template>

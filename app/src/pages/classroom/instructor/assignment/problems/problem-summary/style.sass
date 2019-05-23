@@ -14,12 +14,12 @@
     padding: .3rem 1rem
     display: flex
     align-items: center
-    justify-content: space-between
     cursor: pointer
     transition: background .2s, padding .2s
 
     .label
       width: 15ch
+      margin: 0 .75rem
       padding: .325rem .75rem
       border-radius: 3.5px
       text-align: center
@@ -30,6 +30,30 @@
       background: #18181b
       color: transparentize($light-text-primary, .15)
       transition: background .3s, color .3s
+
+    .bar-wrapper
+      flex: 1 1 auto
+      position: relative
+      display: flex
+      align-items: center
+
+      &.incorrect
+        justify-content: flex-end
+
+      &.correct
+        justify-content: flex-start
+
+      .bar
+        height: 5px
+        min-width: 5px
+        border-radius: 2.5px
+
+        &.incorrect
+          background: linear-gradient(to left, #c13434, #df4141)
+
+        &.correct
+          background: linear-gradient(to right, #1db965, #4dfb9b)
+
 
 
   .bottom-content

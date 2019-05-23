@@ -2,12 +2,33 @@
   <div class="problem-summary" v-bind:class="{ expanded }">
     <div
       class="top"
+      v-bind:class="{ empty: !correct.length && !incorrect.length }"
       v-on:click="toggle"
     >
-      <div class="incorrect"></div>
+      <div class="bar-wrapper incorrect">
+        <div
+          class="bar incorrect"
+          v-bind:style="{
+            width: `${incorrect.length / totalStudents * 100}%`,
+            backgroundSize: `${Math.min(totalStudents / incorrect.length, 50) * 100}% 5px`,
+          }"
+        ></div>
+      </div>
+
       <div class="label">{{ problem.name }}</div>
-      <div class="correct"></div>
+
+      <div class="bar-wrapper correct">
+        <div
+          class="bar correct"
+          v-bind:style="{
+            width: `${correct.length / totalStudents * 100}%`,
+            backgroundSize: `${Math.min(totalStudents / correct.length, 50) * 100}% 5px`,
+          }"
+        ></div>
+      </div>
     </div>
+
+
 
     <transition-expand axis="y" v-bind:transition-duration="300">
       <div class="bottom-content" v-if="expanded">
