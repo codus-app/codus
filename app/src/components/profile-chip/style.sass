@@ -11,6 +11,7 @@
   margin-right: .45rem
   margin-bottom: .45rem
   cursor: pointer
+  transition: background .25s
 
   .picture
     width: $height
@@ -26,4 +27,12 @@
     font-weight: 500
     font-size: .725rem
     color: rgba(206, 207, 209, .65)
+    transition: color .25s
     transform: translateY(-.075em)
+
+
+  &:hover
+    background: $dark-4
+
+    .name
+      color: rgba(206, 207, 209, .85)
