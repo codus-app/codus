@@ -1,7 +1,14 @@
 @import 'src/styles/variables'
 
+.classroom.page
+  height: 100%
+  display: flex
+  flex-direction: column
+  padding-bottom: 0
+
 .classroom-header
   margin-top: .5rem
+  flex: 0 0 auto
 
 .due-date
   display: flex
@@ -16,3 +23,14 @@
     width: .9rem
     height: .9rem
     margin-right: .3rem
+
+.tab-switcher
+  flex: 0 0 auto
+
+.tab-page
+  flex: 1 1 auto
+  min-height: 0
+
+.assignment-page
+  overflow-y: scroll
+  padding-bottom: 1.75rem

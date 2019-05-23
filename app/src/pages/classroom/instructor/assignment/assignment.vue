@@ -20,10 +20,12 @@
       v-bind:selected="$route.meta.tabId"
     ></tab-switcher>
 
-    <router-view
-      v-if="assignmentFetched"
-      v-bind="{ classroom, assignment }"
-    ></router-view>
+    <simplebar class="tab-page">
+      <router-view
+        v-if="assignmentFetched"
+        v-bind="{ classroom, assignment }"
+      ></router-view>
+    </simplebar>
   </div>
 </template>
 
