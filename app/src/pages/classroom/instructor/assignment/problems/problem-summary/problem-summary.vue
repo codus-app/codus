@@ -11,7 +11,20 @@
 
     <transition-expand axis="y" v-bind:transition-duration="300">
       <div class="bottom-content" v-if="expanded">
-        Inside
+        <div class="half incorrrect-solutions">
+          <profile-chip
+            v-for="username in problem.studentSolutions.correct"
+            v-bind:key="username"
+            v-bind="getUser(username)"
+          ></profile-chip>
+        </div>
+        <div class="half correct-solutions">
+          <profile-chip
+            v-for="username in problem.studentSolutions.incorrect"
+            v-bind:key="username"
+            v-bind="getUser(username)"
+          ></profile-chip>
+        </div>
       </div>
     </transition-expand>
   </div>
