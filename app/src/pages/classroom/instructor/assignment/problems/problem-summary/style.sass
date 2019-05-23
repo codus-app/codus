@@ -19,9 +19,37 @@
     transition: background .2s, padding .2s
 
   .bottom-content
+    position: relative
     min-height: 7rem
     max-height: 12.5rem
-    padding: .75rem 1rem
+    padding: .75rem 0
+    display: flex
+    align-items: stretch
+
+    .half
+      flex: 1 1 0
+      padding: 0 1rem
+
+      &:first-child
+        text-align: right
+
+      h4
+        margin: 0 0 .7rem
+        font-family: $font-lato
+        font-weight: 600
+        font-size: .7rem
+        color: transparentize($light-text-primary, .15)
+        text-align: center
+
+    .separator
+      position: absolute
+      width: 2px
+      height: 75%
+      top: 50%
+      left: 50%
+      transform: translate(-50%, -50%)
+      background: transparentize($dark-2, .4)
+
 
   &:not(.expanded):hover
     .top

@@ -12,19 +12,30 @@
     <transition-expand axis="y" v-bind:transition-duration="300">
       <div class="bottom-content" v-if="expanded">
         <div class="half incorrrect-solutions">
+          <h4>
+            {{ incorrect.length || 'No' }} incorrect solution<!--
+         --><template v-if="incorrect.length !== 1">s</template>
+          </h4>
           <profile-chip
-            v-for="username in problem.studentSolutions.correct"
+            v-for="username in incorrect"
             v-bind:key="username"
             v-bind="getUser(username)"
           ></profile-chip>
         </div>
+
         <div class="half correct-solutions">
+          <h4>
+            {{ correct.length || 'No' }} correct solution<!--
+         --><template v-if="correct.length !== 1">s</template>
+          </h4>
           <profile-chip
-            v-for="username in problem.studentSolutions.incorrect"
+            v-for="username in correct"
             v-bind:key="username"
             v-bind="getUser(username)"
           ></profile-chip>
         </div>
+
+        <div class="separator"></div>
       </div>
     </transition-expand>
   </div>

@@ -6,7 +6,12 @@ export default {
     expanded: Boolean,
   },
 
-  computed: mapGetters(['getUser']),
+  computed: {
+    ...mapGetters(['getUser']),
+
+    correct() { return this.problem.studentSolutions.correct; },
+    incorrect() { return this.problem.studentSolutions.incorrect; },
+  },
 
   methods: {
     expand() { this.$emit('expand'); },
