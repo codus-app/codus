@@ -18,7 +18,8 @@
     transition: background .2s, padding .2s
 
     .label
-      width: 15ch
+      min-width: 15ch
+      max-width: 15ch
       margin: 0 .75rem
       padding: .325rem .75rem
       border-radius: 3.5px
@@ -27,9 +28,11 @@
       font-family: $font-nunito
       font-weight: 600
       font-size: .7rem
+      overflow: hidden
+      text-overflow: ellipsis
       background: #18181b
       color: transparentize($light-text-primary, .15)
-      transition: background .3s, color .3s
+      transition: background .3s, color .3s, max-width .3s
 
     .bar-wrapper
       flex: 1 1 auto
@@ -107,6 +110,7 @@
       .label
         background: $dark-1
         color: $light-text-secondary
+        max-width: 20ch
 
     &:first-child
       margin-top: 0
