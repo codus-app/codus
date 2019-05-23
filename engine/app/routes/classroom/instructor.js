@@ -236,7 +236,7 @@ module.exports.assignments = {
               .filter(s => s.problem.equals(p._id) && s.passed === true)
               .map(getUsername),
             incorrect: studentSolutions
-              .filter(s => s.problem === p._id && s.passed === false)
+              .filter(s => s.problem.equals(p._id) && s.passed === false)
               .map(getUsername),
           },
         })),
