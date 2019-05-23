@@ -70,10 +70,7 @@
             class="assignment"
             v-for="assignment in displayAssignments.slice(0, 3)"
             v-bind:key="assignment.id"
-            v-bind:to="{
-              name: 'classroom-assignment-details',
-              params: { ...$route.params, assignmentId: assignment.id },
-            }"
+            v-bind:to="`/classroom/${$route.params.classroomCode}/assignments/${assignment.id}`"
           >
             <div class="icon"><icon-clipboard></icon-clipboard></div>
             <div class="info">
