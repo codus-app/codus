@@ -18,7 +18,7 @@ export default {
     ...mapMutations(['userFetched']),
     async fetch() {
       if (this.classroom !== null && !this.classroom.fetched) await this.fetchClassroom(this.code);
-      this.classroom.students.forEach(s => this.userFetched(s));
+      if (this.classroom !== null) this.classroom.students.forEach(s => this.userFetched(s));
     },
   },
 
