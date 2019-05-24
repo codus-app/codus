@@ -148,6 +148,7 @@ module.exports.classrooms = {
 
 async function fetchAssignment(code, classroom, shouldPopulate = false) {
   if (code.length !== 8) throw new HTTPError(400, 'Assignment code must be an 8-character code');
+  if (/[^0-9a-f]/i.test(code)) throw new HTTPError(400, 'Assignment code must be hexadecimal');
 
   const assignmentPromise = Assignment.model
     .findOne()
