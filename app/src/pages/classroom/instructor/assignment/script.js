@@ -13,10 +13,10 @@ export default {
     classroomFetched() { return this.classroom.fetched || false; },
     id() { return this.$route.params.assignmentId; },
     assignment() {
-      if (!this.classroomFetched) return false;
-      return this.classroom.assignments.find(({ id }) => id === this.id);
+      if (!this.classroomFetched) return null;
+      return this.classroom.assignments.find(({ id }) => id === this.id) || null;
     },
-    assignmentFetched() { return this.assignment.fetched || false; },
+    assignmentFetched() { return (this.assignment || {}).fetched || false; },
   },
 
   methods: {
@@ -43,5 +43,6 @@ export default {
 
   components: {
     'tab-switcher': require('./tabs.vue').default,
+    'not-found': require('../../../404/404.vue').default,
   },
 };

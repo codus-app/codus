@@ -1,5 +1,5 @@
 <template>
-  <div class="cards-dashboard classroom page">
+  <div class="cards-dashboard classroom page" v-if="assignment !== null || !classroomFetched">
     <classroom-header v-if="classroomFetched">
       <template v-slot:subtitle>{{ assignment.name }}</template>
       <template v-slot:actions>
@@ -27,6 +27,8 @@
       ></router-view>
     </simplebar>
   </div>
+
+  <not-found v-else></not-found>
 </template>
 
 <script src="./script.js"></script>
