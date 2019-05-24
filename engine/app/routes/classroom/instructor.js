@@ -252,6 +252,7 @@ module.exports.assignments = {
     const { name, description, dueDate = null, problems: rawProblems } = req.body;
 
     if (!name) return new HTTPError(400, 'Name is required').handle(res);
+    if (description && description.length > 1000) return new HTTPError(400, 'Max description length is 1000 bytes');
     if (dueDate && Number.isNaN(Number(new Date(dueDate)))) return new HTTPError(400, `Date '${dueDate}' could not be parsed`).handle(res);
     if (!rawProblems || !rawProblems.length) return new HTTPError(400, 'Problems is required').handle(res);
 
@@ -307,6 +308,7 @@ module.exports.assignments = {
 
     // Initial validation
     if (name === null) return new HTTPError(400, 'Name cannot be blank').handle(res);
+    if (description && description.length > 1000) return new HTTPError(400, 'Max description length is 1000 bytes');
     if (rawProblems === null || (rawProblems && rawProblems.length === 0)) return new HTTPError(400, 'Problems cannot be blank').handle(res);
     if (dueDate && Number.isNaN(Number(new Date(dueDate)))) return new HTTPError(400, `Date '${dueDate}' could not be parsed`).handle(res);
 
