@@ -13,9 +13,9 @@
     <tab-switcher
       v-if="classroomFetched"
       v-bind:tabs="[
-        { name: 'details', link: { name: 'classroom-assignment-details', params } },
+        { name: 'assignment', link: { name: 'classroom-assignment-info', params } },
         { name: 'problems', link: { name: 'classroom-assignment-problems', params } },
-        { name: 'students', link: { name: 'classroom-assignment-students', params } },
+        // { name: 'students', link: { name: 'classroom-assignment-students', params } },
       ]"
       v-bind:selected="$route.meta.tabId"
     ></tab-switcher>

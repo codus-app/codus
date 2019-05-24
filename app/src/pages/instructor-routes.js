@@ -36,10 +36,10 @@ export default [
         meta: {},
         children: [
           {
-            path: 'details',
-            name: 'classroom-assignment-details',
-            component: require('./classroom/instructor/assignment/details/details.vue').default,
-            meta: { protected: true, tabId: 'details' },
+            path: 'info',
+            name: 'classroom-assignment-info',
+            component: require('./classroom/instructor/assignment/info/info.vue').default,
+            meta: { protected: true, tabId: 'assignment' },
           },
           {
             path: 'problems',
