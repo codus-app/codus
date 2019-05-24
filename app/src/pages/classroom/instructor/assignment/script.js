@@ -31,6 +31,16 @@ export default {
     });
   },
 
+  watch: {
+    classroom(classroom, oldClassroom) {
+      const [oldIds, newIds] = [oldClassroom, classroom]
+        .map(c => (c.assignments || []).map(a => a.id));
+      if (oldIds.includes(this.id) && !newIds.includes(this.id)) {
+        this.$router.replace({ name: 'classroom-assignments', params: this.params });
+      }
+    },
+  },
+
   components: {
     'tab-switcher': require('./tabs.vue').default,
   },
