@@ -10,21 +10,19 @@
       </template>
     </classroom-header>
 
-    <tab-switcher
-      v-if="classroomFetched"
-      v-bind:tabs="[
-        { name: 'assignment', link: { name: 'classroom-assignment-info', params } },
-        { name: 'problems', link: { name: 'classroom-assignment-problems', params } },
-        // { name: 'students', link: { name: 'classroom-assignment-students', params } },
-      ]"
-      v-bind:selected="$route.meta.tabId"
-    ></tab-switcher>
+    <simplebar class="assignment-content">
+      <div class="problems-list" v-if="assignmentFetched">
+        <problem-summary
+          v-for="problem in assignment.problems"
+          v-bind:key="problem.name"
+          v-bind:problem="problem"
+          v-bind:total-students="classroom.students.length"
 
-    <simplebar class="tab-page">
-      <router-view
-        v-if="assignmentFetched"
-        v-bind="{ classroom, assignment }"
-      ></router-view>
+          v-bind:expanded="expandedProblem === problem.name"
+          v-on:expand="expandedProblem = problem.name"
+          v-on:collapse="expandedProblem = expandedProblem === problem.name ? null : expandedProblem"
+        ></problem-summary>
+      </div>
     </simplebar>
   </div>
 

@@ -32,29 +32,9 @@ export default [
       },
       {
         path: 'assignments/:assignmentId',
+        name: 'classroom-assignment',
         component: require('./classroom/instructor/assignment/assignment.vue').default,
         meta: {},
-        children: [
-          {
-            path: 'info',
-            name: 'classroom-assignment-info',
-            component: require('./classroom/instructor/assignment/info/info.vue').default,
-            meta: { protected: true, tabId: 'assignment' },
-          },
-          {
-            path: 'problems',
-            alias: '/',
-            name: 'classroom-assignment-problems',
-            component: require('./classroom/instructor/assignment/problems/problems.vue').default,
-            meta: { protected: true, tabId: 'problems' },
-          },
-          {
-            path: 'students',
-            name: 'classroom-assignment-students',
-            component: require('./classroom/instructor/assignment/students/students.vue').default,
-            meta: { protected: true, tabId: 'students' },
-          },
-        ],
       },
     ],
   },

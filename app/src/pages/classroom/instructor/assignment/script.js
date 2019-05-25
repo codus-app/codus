@@ -6,6 +6,7 @@ export default {
 
   data: () => ({
     dateFormat: { month: 'short', day: 'numeric' },
+    expandedProblem: null,
   }),
 
   computed: {
@@ -42,7 +43,7 @@ export default {
   },
 
   components: {
-    'tab-switcher': require('./tabs.vue').default,
+    'problem-summary': require('./problem-summary/problem-summary.vue').default,
     'not-found': require('../../../404/404.vue').default,
   },
 };
