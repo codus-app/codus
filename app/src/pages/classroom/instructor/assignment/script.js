@@ -44,10 +44,17 @@ export default {
       }
     },
 
+    updateDescriptionHeight() {
+      const rem = parseFloat(getComputedStyle(document.body).fontSize);
+      this.$refs.descriptionArea.style.height = 'auto';
+      this.$refs.descriptionArea.style.height = `${this.$refs.descriptionArea.scrollHeight / rem}rem`;
+    },
+
     updated() {
       this.name = (this.assignment || {}).name;
       this.description = (this.assignment || {}).description;
       if (this.name) this.$nextTick(this.updateHeaderInputWidth);
+      if (this.description) this.$nextTick(this.updateDescriptionHeight);
     },
   },
 

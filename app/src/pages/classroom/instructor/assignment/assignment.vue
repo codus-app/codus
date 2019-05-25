@@ -22,7 +22,15 @@
         </div>
       </template>
     </classroom-header>
-    <p class="description">{{ assignment.description }}</p>
+
+    <textarea
+      class="description"
+      ref="descriptionArea"
+      v-model="description"
+      placeholder="Add a description"
+      v-on:blur="save"
+      v-on:input="updateDescriptionHeight"
+    ></textarea>
 
     <simplebar class="assignment-content">
       <div class="problems-list" v-if="assignmentFetched">
