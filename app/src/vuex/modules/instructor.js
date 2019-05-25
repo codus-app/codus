@@ -163,6 +163,15 @@ export default {
       commit('assignmentFetched', { classroom, assignment });
     },
 
+    async mutateAssignment({ commit }, { classroom, assignment }) {
+      if (!assignment.id) throw new Error('Assignment ID is required');
+      const updated = await api.put({
+        endpoint: `/classroom/${classroom}/assignments/${assignment.id}`,
+        body: assignment,
+      });
+      commit('assignmentFetched', { classroom, assignment: updated });
+    },
+
     /** Change the order of the assignments in a classroom */
     async reorderAssignments({ commit }, { classroom, ids }) {
       // Mock reordering API response so that changes are immediately applied client-side
