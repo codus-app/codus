@@ -1,7 +1,14 @@
 <template>
   <div class="cards-dashboard classroom page" v-if="assignment !== null">
     <classroom-header>
-      <template v-slot:subtitle>{{ assignment.name }}</template>
+      <template v-slot:subtitle>
+        <input
+          type="text"
+          v-model="name"
+          placeholder="Name this assignment"
+          v-on:blur="save"
+        >
+      </template>
       <template v-slot:actions>
         <div class="due-date">
           <icon-calendar></icon-calendar>

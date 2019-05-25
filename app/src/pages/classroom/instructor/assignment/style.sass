@@ -10,6 +10,23 @@
     margin: .5rem 0
     flex: 0 0 auto
 
+    input
+      max-width: 100%
+      background: transparent
+      font: inherit
+      border: 0
+      outline: 0
+      color: inherit
+      overflow: hidden
+      text-overflow: ellipsis
+
+      &::placeholder
+        color: transparentize($white, .89)
+        transition: color .2s
+
+      &:focus::placeholder
+        color: transparentize($white, .85)
+
     .due-date
       display: flex
       align-items: center

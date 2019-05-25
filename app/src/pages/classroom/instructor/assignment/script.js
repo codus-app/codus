@@ -7,6 +7,8 @@ export default {
   data: () => ({
     dateFormat: { month: 'short', day: 'numeric' },
     expandedProblem: null,
+    name: '',
+    description: '',
   }),
 
   computed: {
@@ -21,7 +23,16 @@ export default {
   },
 
   methods: {
-    ...mapActions(['fetchAssignment']),
+    ...mapActions(['fetchAssignment', 'mutateAssignment']),
+
+    save() {
+      if (this.name !== this.assignment.name || this.description !== this.assignment.description) {
+        this.mutateAssignment({
+          classroom: this.classroom.code,
+          assignment: { id: this.id, name: this.name, description: this.description },
+        });
+      }
+    },
   },
 
   async created() {
@@ -39,6 +50,10 @@ export default {
       if (oldIds.includes(this.id) && !newIds.includes(this.id)) {
         this.$router.replace({ name: 'classroom-assignments', params: this.params });
       }
+    },
+    assignment() {
+      this.name = this.assignment.name;
+      this.description = this.assignment.description;
     },
   },
 
