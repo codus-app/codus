@@ -27,6 +27,8 @@ export default {
     ...mapActions(['fetchAssignment', 'mutateAssignment']),
 
     save() {
+      if (!this.name) { this.name = this.assignment.name; this.$nextTick(this.updated); }
+
       if (this.name !== this.assignment.name || this.description !== this.assignment.description) {
         this.mutateAssignment({
           classroom: this.classroom.code,
