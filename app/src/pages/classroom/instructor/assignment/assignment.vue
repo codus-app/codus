@@ -3,10 +3,12 @@
     <classroom-header>
       <template v-slot:subtitle>
         <input
+          ref="headerInput"
           type="text"
           v-model="name"
           placeholder="Name this assignment"
           v-on:blur="save"
+          v-on:input="updateHeaderInputWidth"
         >
       </template>
       <template v-slot:actions>

@@ -9,6 +9,7 @@ export default {
     expandedProblem: null,
     name: '',
     description: '',
+    textCanvas: document.createElement('canvas'),
   }),
 
   computed: {
@@ -33,6 +34,15 @@ export default {
         });
       }
     },
+
+    updateHeaderInputWidth() {
+      const ctx = this.textCanvas.getContext('2d');
+      const rem = parseFloat(getComputedStyle(document.body).fontSize);
+      ctx.font = `${rem * 1.35}px 'lato', sans-serif`;
+      if (this.$refs.headerInput) {
+        this.$refs.headerInput.style.width = `${(ctx.measureText(this.name).width / rem) * 1.05}rem`;
+      }
+    },
   },
 
   async created() {
@@ -54,6 +64,7 @@ export default {
     assignment() {
       this.name = this.assignment.name;
       this.description = this.assignment.description;
+      this.updateHeaderInputWidth();
     },
   },
 
