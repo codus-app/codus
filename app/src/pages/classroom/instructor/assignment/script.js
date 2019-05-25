@@ -43,9 +43,16 @@ export default {
         this.$refs.headerInput.style.width = `${(ctx.measureText(this.name).width / rem) * 1.05}rem`;
       }
     },
+
+    updated() {
+      this.name = (this.assignment || {}).name;
+      this.description = (this.assignment || {}).description;
+      if (this.name) this.$nextTick(this.updateHeaderInputWidth);
+    },
   },
 
   async created() {
+    this.updated();
     if (!this.classroomFetched) await new Promise(resolve => this.$watch('classroomFetched', (f) => { if (f) resolve(); }));
     this.fetchAssignment({
       classroom: this.classroom.code,
@@ -61,11 +68,8 @@ export default {
         this.$router.replace({ name: 'classroom-assignments', params: this.params });
       }
     },
-    assignment() {
-      this.name = this.assignment.name;
-      this.description = this.assignment.description;
-      this.updateHeaderInputWidth();
-    },
+
+    assignment() { this.updated(); },
   },
 
   components: {
