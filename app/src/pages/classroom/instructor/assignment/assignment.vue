@@ -10,6 +10,10 @@
           v-on:blur="save"
           v-on:input="updateHeaderInputWidth"
         >
+        <span
+          class="cta"
+          v-on:click="$refs.headerInput.focus();"
+        >Change</span>
       </template>
       <template v-slot:actions>
         <div class="due-date">

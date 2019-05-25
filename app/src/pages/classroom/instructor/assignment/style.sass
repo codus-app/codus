@@ -27,6 +27,24 @@
       &:focus::placeholder
         color: transparentize($white, .85)
 
+      &:focus + .cta
+        display: none
+
+    .cta
+      display: inline-block
+      font-family: $font-lato
+      font-size: .6rem
+      font-weight: 500
+      color: transparentize($light-text-primary, .8)
+      text-transform: uppercase
+      letter-spacing: .06em
+      transform: translateY(-.15rem)
+      cursor: pointer
+      transition: color .2s
+
+      &:hover
+        color: transparentize($light-text-primary, .75)
+
     .due-date
       display: flex
       align-items: center
