@@ -41,7 +41,7 @@
           v-bind:title="`Reset solution <kbd>${$nativizeShortcut('mod+Shift+backspace')}</kbd>`"
         />
         <!-- Settings button -->
-        <icon-settings class="button"/>
+        <!-- <icon-settings class="button"/> -->
         <!-- Save status indicator -->
         <save-status v-bind:status="saveStatus"/>
         <!-- Problem label (warmup > AddOne) -->
