@@ -304,43 +304,25 @@ module.exports.assignments = {
   async put(req, res) {
     const { assignmentCode } = req.params;
     // Get new values
-    const { name, description, dueDate, problems: rawProblems } = req.body;
+    const { name, description, dueDate } = req.body;
 
     // Initial validation
     if (name === null) return new HTTPError(400, 'Name cannot be blank').handle(res);
     if (description && description.length > 1000) return new HTTPError(400, 'Max description length is 1000 bytes');
-    if (rawProblems === null || (rawProblems && rawProblems.length === 0)) return new HTTPError(400, 'Problems cannot be blank').handle(res);
     if (dueDate && Number.isNaN(Number(new Date(dueDate)))) return new HTTPError(400, `Date '${dueDate}' could not be parsed`).handle(res);
 
     let assignment;
-    // If we're not rewriting the problems list, we'll need the old list
-    const shouldPopulate = !rawProblems;
     try {
-      assignment = await fetchAssignment(assignmentCode, req.classroom, shouldPopulate);
+      assignment = await fetchAssignment(assignmentCode, req.classroom);
     } catch (e) {
       if (e.statusCode) return e.handle(res);
       return new HTTPError('Something went wrong').handle(res);
-    }
-
-    // Get the IDs of all of the problems we're adding to the assignment
-    let problems;
-    let categories;
-    if (rawProblems) {
-      try {
-        ({ problems, categories } = await fetchProblems(rawProblems));
-      } catch (e) {
-        if (e.statusCode) return e.handle(res);
-        return new HTTPError('Something went wrong').handle(res);
-      }
     }
 
     Assignment.updateItem(assignment, {
       name,
       description,
       dueDate: dueDate && new Date(dueDate).toISOString(),
-      problems: rawProblems && problems.map(p => p._id),
-    }, {
-      fields: ['name', 'description', 'dueDate', ...rawProblems ? ['problems'] : []],
     }, (error) => {
       if (error) new HTTPError('Something went wrong').handle(res);
       else {
@@ -348,12 +330,8 @@ module.exports.assignments = {
           ...assignment.toObject(),
           _id: undefined,
           classroom: req.classroom.code,
-          id: this.code,
-          // Problem info is in a different place depending on whether or not it's being replaced
-          problems: rawProblems
-            ? problems.map(p => publicizeProblem(p, categories.find(c => c._id.equals(p.category))))
-            : assignment.problems.map(p => publicizeProblem(p, p.category)),
-          numProblems: assignment.numProblems,
+          id: assignment.code,
+          problems: undefined,
           createdAt: assignment.createdAt,
         } });
       }
