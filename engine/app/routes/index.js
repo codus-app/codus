@@ -55,9 +55,9 @@ module.exports = (app) => {
   app.post('/api/user', routes.api.users.post);
 
   app.get('/api/user/solutions', auth0(), routes.api.userSolutions.list);
-  app.get('/api/user/solution/:category/:problem', auth0(), routes.api.userSolutions.get);
-  app.put('/api/user/solution/:category/:problem', auth0(), routes.api.userSolutions.put);
-  app.get('/api/user/solution/check/:category/:problem', auth0(), routes.api.userSolutions.check);
+  app.get('/api/user/solutions/:category/:problem', auth0(), routes.api.userSolutions.get);
+  app.put('/api/user/solutions/:category/:problem', auth0(), routes.api.userSolutions.put);
+  app.get('/api/user/solutions/:category/:problem/check', auth0(), routes.api.userSolutions.check);
 
   // '/users' endpoints return information about other users
 

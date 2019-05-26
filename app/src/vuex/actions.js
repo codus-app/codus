@@ -51,7 +51,7 @@ export default {
 
   // Populate problem and solution info for a given problem
   async fetchSolution({ commit }, { category, problem }) {
-    const solution = await api.get({ endpoint: `user/solution/${category}/${problem}` });
+    const solution = await api.get({ endpoint: `user/solutions/${category}/${problem}` });
     // Update problem info for the problem this solution came from
     const { problem: problemFetched } = solution;
     commit('problemFetched', problemFetched);
@@ -65,7 +65,7 @@ export default {
   async saveSolution({ commit }, { problem, category, code }) {
     commit('beginSolutionSave');
     const { passed } = await api.put({
-      endpoint: `user/solution/${category}/${problem}`,
+      endpoint: `user/solutions/${category}/${problem}`,
       body: { code },
     });
     commit('updateSolution', { problem, category, code });
@@ -78,7 +78,7 @@ export default {
     const {
       tests, passed, error, solution,
     } = await api.get({
-      endpoint: `user/solution/check/${category}/${problem}`,
+      endpoint: `user/solutions/${category}/${problem}/check`,
     });
     commit('updateSolved', { problem, category, passed });
     commit('updateTestResults', { problem, category, tests, error, code: solution.code });
