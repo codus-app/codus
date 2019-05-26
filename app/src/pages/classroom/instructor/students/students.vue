@@ -86,7 +86,7 @@
           <h1>Remove {{ (studentRemoval.student || {}).name }}?</h1>
         </template>
 
-        {{ (studentRemoval.student || {}).name }} will lose access to AP Computer science, and you’ll
+        {{ (studentRemoval.student || {}).name }} will lose access to {{ classroom.name }}, and you’ll
         lose access to {{ (studentRemoval.student || { name: '' }).name.split(' ')[0] }}’s solutions
         and other classroom features.
 
