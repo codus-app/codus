@@ -1,8 +1,8 @@
 const keystone = require('keystone');
 const auth0 = require('../auth');
 
-const { category, problem, userSolution } = require('./problems');
-const user = require('./user');
+const { categories, problems, userSolutions } = require('./problems');
+const users = require('./user');
 const {
   fetchUser,
   enforceRole,
@@ -15,10 +15,10 @@ const {
 
 const routes = {
   api: {
-    category,
-    problem,
-    user,
-    userSolution,
+    categories,
+    problems,
+    users,
+    userSolutions,
     classroom: { instructor: instructorRoutes, student: studentRoutes },
   },
 };
@@ -42,28 +42,28 @@ module.exports = (app) => {
 
   // These endpoints query the problem database and return public information
 
-  app.get('/api/categories', routes.api.category.list);
-  app.get('/api/category/:name', routes.api.category.get);
+  app.get('/api/categories', routes.api.categories.list);
+  app.get('/api/category/:name', routes.api.categories.get);
 
-  app.get('/api/problem/:category/:name', routes.api.problem.get);
+  app.get('/api/problem/:category/:name', routes.api.problems.get);
 
   // '/user' endpoints work with the user making the request
 
-  app.get('/api/user', auth0(), routes.api.user.authenticated.get);
-  app.patch('/api/user', auth0(), routes.api.user.authenticated.patch);
-  app.put('/api/user/profile-image', auth0(), routes.api.user.authenticated.putProfileImage);
-  app.post('/api/user', routes.api.user.post);
+  app.get('/api/user', auth0(), routes.api.users.authenticated.get);
+  app.patch('/api/user', auth0(), routes.api.users.authenticated.patch);
+  app.put('/api/user/profile-image', auth0(), routes.api.users.authenticated.putProfileImage);
+  app.post('/api/user', routes.api.users.post);
 
-  app.get('/api/user/solutions', auth0(), routes.api.userSolution.list);
-  app.get('/api/user/solution/:category/:problem', auth0(), routes.api.userSolution.get);
-  app.put('/api/user/solution/:category/:problem', auth0(), routes.api.userSolution.put);
-  app.get('/api/user/solution/check/:category/:problem', auth0(), routes.api.userSolution.check);
+  app.get('/api/user/solutions', auth0(), routes.api.userSolutions.list);
+  app.get('/api/user/solution/:category/:problem', auth0(), routes.api.userSolutions.get);
+  app.put('/api/user/solution/:category/:problem', auth0(), routes.api.userSolutions.put);
+  app.get('/api/user/solution/check/:category/:problem', auth0(), routes.api.userSolutions.check);
 
   // '/users' endpoints return information about other users
 
-  app.get('/api/users/:username', routes.api.user.get);
-  app.get('/api/user-check/username/:username', routes.api.user.checkUsername);
-  app.get('/api/user-check/email/:email', routes.api.user.checkEmail);
+  app.get('/api/users/:username', routes.api.users.get);
+  app.get('/api/user-check/username/:username', routes.api.users.checkUsername);
+  app.get('/api/user-check/email/:email', routes.api.users.checkEmail);
 
   // '/classroom' endpoints work with classrooms
 

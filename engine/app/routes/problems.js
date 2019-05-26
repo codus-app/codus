@@ -14,7 +14,7 @@ const Solution = keystone.list('Solution');
 // Routes for retrieving public information about categories
 
 
-module.exports.category = {
+module.exports.categories = {
   async list(req, res) {
     const [categories, problems] = await Promise.all([
       Category.model
@@ -63,7 +63,7 @@ module.exports.category = {
 // Routes for retrieving public information about problems
 
 
-module.exports.problem = {
+module.exports.problems = {
   async get(req, res) {
     // Find category document which we will use for locating associated problems
     const category = await Category.model
@@ -88,7 +88,7 @@ module.exports.problem = {
 // Routes for retrieving and manipulating users' solutions to problems
 
 
-module.exports.userSolution = {
+module.exports.userSolutions = {
   async list(req, res) {
     const user = await User.model
       .findOne()
