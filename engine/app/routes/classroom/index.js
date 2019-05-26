@@ -59,8 +59,8 @@ async function fetchClassroom(req, res, next) {
     }
   // For students, if no classroom is passed, use the classroom to which the student belongs
   } else if (role === 'student') {
-    if (!req.user2.classroom) return new HTTPError(404, "You're not a member of a classroom").handle(res);
-    classroom = await Classroom.model.findById(req.user2.classroom.toString());
+    if (!req.user2.classroom) classroom = null;
+    else classroom = await Classroom.model.findById(req.user2.classroom.toString());
   } else {
     return new HTTPError(400, 'classroomCode is required').handle(res);
   }
