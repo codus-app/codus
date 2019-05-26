@@ -440,4 +440,40 @@ module.exports.studentSolutions = {
     });
   },
 
+  async get(req, res) {
+    const userId = (await getUser.byUsername(req.params.username)).user_id;
+    const user = await User.model
+      .findOne()
+      .where('userId').equals(userId)
+      .populate('classroom');
+
+    if (!user.classroom || !user.classroom.instructor.equals(req.user2._id)) return new HTTPError(403, `User '${req.params.username}' does not belong to any classrooms you own`).handle(res);
+
+    const problemCategory = await Category.model
+      .findOne()
+      .where('name').equals(req.params.category);
+    if (!problemCategory) return new HTTPError(404, `Category '${req.params.category}' was not found`).handle(res);
+
+    const problem = await Problem.model
+      .findOne()
+      .where('category').equals(problemCategory._id)
+      .where('name').equals(req.params.problem);
+    if (!problem) return new HTTPError(404, `Problem '${req.params.category}/${req.params.problem}' was not found`).handle(res);
+
+    const solution = await Solution.model
+      .findOne()
+      .where('user').equals(user._id)
+      .where('problem').equals(problem._id)
+      .select('-_id -__v');
+    if (!solution) return new HTTPError(404, `Solution by user '${req.params.username}' to problem '${req.params.category}/${req.params.problem}' was not found`).handle(res);
+
+    return res.json({
+      data: {
+        ...solution.toObject(),
+        user: undefined,
+        userId: undefined,
+        problem: publicizeProblem(problem, problemCategory),
+      },
+    });
+  },
 };
