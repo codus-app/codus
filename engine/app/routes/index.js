@@ -85,6 +85,7 @@ module.exports = (app) => {
   app.delete('/api/classroom/:classroomCode/students/:username', instructorMiddleware2, instructor.classrooms.removeUser);
   app.get('/api/classroom/students/:username/solutions', instructorMiddleware, instructor.studentSolutions.list);
   app.get('/api/classroom/students/:username/solutions/:category/:problem', instructorMiddleware, instructor.studentSolutions.get);
+  app.get('/api/classroom/students/:username/solutions/:category/:problem/check', instructorMiddleware, instructor.studentSolutions.check);
 
   // Assignments
   app.get('/api/classroom/:classroomCode/assignments', instructorMiddleware2, instructor.assignments.list);

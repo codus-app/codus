@@ -221,6 +221,9 @@ module.exports.userSolutions = {
       .where('problem').equals(problem._id);
     if (!solution) return new HTTPError(404, `No solution to problem '${req.params.category}/${req.params.problem}' was found for authenticated user ${req.user.sub}`).handle(res);
 
+
+    // NOTE: this code duplicated in instructor.js for checking student solutions!
+
     let error;
     let results;
     let testCases;
