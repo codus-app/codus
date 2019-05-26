@@ -12,7 +12,7 @@ Solution.add({
   passed: { type: Types.Boolean, initial: true },
 });
 
-Solution.schema.methods.check = async function checkSolution() {
+Solution.schema.methods.check = async function checkSolution(saveResults = true) {
   const problem = await keystone.list('Problem').model
     .findById(this.problem.toString());
 
@@ -29,12 +29,15 @@ Solution.schema.methods.check = async function checkSolution() {
     .map((t, i) => ({ ...t, hidden: problem.testCases2[i].hidden }));
   const passed = tests.every(t => t.pass);
 
-  return new Promise((resolve, reject) => {
-    Solution.updateItem(this, { passed }, (error) => {
-      if (error) reject(error);
-      else resolve({ tests, passed: this.passed });
+  if (saveResults) {
+    return new Promise((resolve, reject) => {
+      Solution.updateItem(this, { passed }, (error) => {
+        if (error) reject(error);
+        else resolve({ tests, passed });
+      });
     });
-  });
+  }
+  return Promise.resolve({ tests, passed });
 };
 
 Solution.register();
