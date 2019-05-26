@@ -128,11 +128,11 @@ module.exports.userSolutions = {
       .findOne()
       .where('userId').equals(req.user.sub);
 
-    const solution = await Solution.model
+    const solution = (await Solution.model
       .findOne()
       .where('user').equals(user._id)
       .where('problem').equals(problem._id)
-      .select('-_id -__v')
+      .select('-_id -__v'))
       // When there's no existing user solution, code should be null
       || { toObject: () => ({ code: null, passed: false }) };
 
@@ -221,41 +221,35 @@ module.exports.userSolutions = {
       .where('problem').equals(problem._id);
     if (!solution) return new HTTPError(404, `No solution to problem '${req.params.category}/${req.params.problem}' was found for authenticated user ${req.user.sub}`).handle(res);
 
+    let error;
+    let results;
+    let testCases;
+
     try {
-      // Check solution
-      const results = await solution.check();
-      // Return results
-      return res.json({
-        data: {
-          passed: results.passed,
-          tests: results.tests.map(t => ({
-            ...t,
-            // Censor 'expected' and 'value' from hidden test cases
-            ...t.hidden && { expected: undefined, value: undefined },
-          })),
-          error: null,
-          solution: {
-            code: solution.code,
-            problem: publicizeProblem(problem),
-          },
-        },
-      });
+      results = await solution.check();
+
+      testCases = results.tests
+        .map(t => (t.hidden
+          ? { ...t, expected: undefined, value: undefined }
+          : t));
+      error = null;
     } catch (e) {
-      // If check failed (due to error) return that error
-      return res.json({
-        data: {
-          passed: false,
-          tests: problem.testCases2
-            .map(tc => (!tc.hidden
-              ? { value: null, expected: tc.result, pass: false, hidden: false }
-              : { pass: false, hidden: true })),
-          error: e.message,
-          solution: {
-            code: solution.code,
-            problem: publicizeProblem(problem),
-          },
-        },
-      });
+      // Check failed (due to error)
+      results = undefined;
+      testCases = problem.testCases2
+        .map(tc => (!tc.hidden
+          ? { pass: false, hidden: true }
+          : { value: null, expected: tc.result, pass: false, hidden: false }));
+      error = e.message;
     }
+
+    return res.json({
+      data: {
+        passed: error ? false : results.passed,
+        tests: testCases,
+        error,
+        solution: { code: solution.code, problem: publicizeProblem(problem) },
+      },
+    });
   },
 };
