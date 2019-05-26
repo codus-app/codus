@@ -75,11 +75,17 @@ module.exports = (app) => {
   const instructorMiddleware = [...auth0(), fetchUser, enforceRole('instructor')];
   const instructorMiddleware2 = [...instructorMiddleware, fetchClassroom];
 
+  // Classrooms
   app.get('/api/classroom/classrooms', instructorMiddleware, instructor.classrooms.list);
   app.post('/api/classroom/classrooms', instructorMiddleware, instructor.classrooms.post);
   // app.get('/api/classrom/:classroomCode') defined below
   app.delete('/api/classroom/:classroomCode', instructorMiddleware2, instructor.classrooms.delete);
+
+  // Students
   app.delete('/api/classroom/:classroomCode/students/:username', instructorMiddleware2, instructor.classrooms.removeUser);
+  app.get('/api/classroom/students/:username/solutions', instructorMiddleware, instructor.studentSolutions.list);
+
+  // Assignments
   app.get('/api/classroom/:classroomCode/assignments', instructorMiddleware2, instructor.assignments.list);
   app.get('/api/classroom/:classroomCode/assignments/:assignmentCode', instructorMiddleware2, instructor.assignments.get);
   app.post('/api/classroom/:classroomCode/assignments', instructorMiddleware2, instructor.assignments.post);

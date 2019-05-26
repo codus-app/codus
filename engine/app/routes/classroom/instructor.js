@@ -6,6 +6,7 @@ const { ObjectID } = keystone.mongoose.mongo;
 const User = keystone.list('User');
 const Classroom = keystone.list('Classroom');
 const Assignment = keystone.list('Assignment');
+const Category = keystone.list('Category');
 const Problem = keystone.list('Problem');
 const Solution = keystone.list('Solution');
 
@@ -408,4 +409,35 @@ module.exports.assignments = {
         })),
     });
   },
+};
+
+module.exports.studentSolutions = {
+  async list(req, res) {
+    const { username } = req.params;
+
+    const userId = (await getUser.byUsername(username)).user_id;
+    const user = await User.model
+      .findOne()
+      .where('userId').equals(userId)
+      .populate('classroom');
+
+    if (!user.classroom || !user.classroom.instructor.equals(req.user2._id)) return new HTTPError(403, `User '${username}' does not belong to any classrooms you own`).handle(res);
+
+    const solutions = await Solution.model
+      .find()
+      .where('user').equals(user._id)
+      .select('-_id -__v')
+      .populate({ path: 'problem', populate: { path: 'category' } });
+
+    return res.json({
+      data: solutions
+        .filter(s => s.problem)
+        .map(s => ({
+          ...s.toObject(),
+          user: undefined,
+          problem: { category: s.problem.category.name, name: s.problem.name },
+        })),
+    });
+  },
+
 };
