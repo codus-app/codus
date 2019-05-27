@@ -8,6 +8,7 @@ export default {
     classrooms: [],
     classroomsFetched: false,
     selectedCode: null,
+    studentSolutions: {}, // { username: [solutions] }
   },
 
   mutations: {
@@ -110,10 +111,31 @@ export default {
           .filter(({ id }) => id !== assignmentId),
       });
     },
+
+    studentSolutionsFetched(state, { username, solutions }) {
+      Vue.set(state.studentSolutions, username, solutions);
+    },
+
+    studentSolutionFetched(state, { username, category, problemName, solution }) {
+      // If there's no list of this student's solutions, start one
+      if (!state.studentSolutions[username]) state.solutions[username] = [];
+
+      const index = state.studentSolutions[username]
+        .findIndex(({ problem }) => problem.category === category && problem.name === problemName);
+      // Problem hasn't been fetched
+      if (index === -1) state.studentSolutions[username].push(solution);
+      // Problem has already been fetched
+      else {
+        state.studentSolutions[username][index] = {
+          ...state.studentSolutions[username][index],
+          ...solution,
+        };
+      }
+    },
   },
 
-  /** Fetch a list of all managed classrooms from the API */
   actions: {
+    /** Fetch a list of all managed classrooms from the API */
     async fetchClassrooms({ commit }) {
       const classrooms = await api.get({ endpoint: '/classroom/classrooms' });
       commit('classroomsFetched', classrooms);
@@ -189,6 +211,21 @@ export default {
     async deleteAssignment({ commit }, { classroom, id }) {
       const { success } = await api.delete({ endpoint: `/classroom/${classroom}/assignments/${id}` });
       if (success) commit('assignmentDeleted', { classroom, id });
+    },
+
+    async fetchStudentSolutions({ commit }, { username }) {
+      const solutions = await api.get({ endpoint: `/classroom/students/${username}/solutions` });
+      commit('studentSolutionsFetched', { username, solutions });
+    },
+
+    async fetchStudentSolution({ commit }, { username, category, problemName }) {
+      const solution = await api.get({ endpoint: `/classroom/students/${username}/solutions/${category}/${problemName}` });
+      commit('studentSolutionFetched', { username, category, problemName, solution });
+    },
+
+    async checkStudentSolution(_, { username, category, problemName }) {
+      const result = await api.get({ endpoint: `/classroom/students/${username}/solutions/${category}/${problemName}/check` });
+      return result;
     },
   },
 

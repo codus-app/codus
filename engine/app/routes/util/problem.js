@@ -41,7 +41,7 @@ module.exports = {
   /** Parse a problem from a string or object and throw an error if unsupported format is passed */
   parseProblem: (problem) => {
     if (typeof problem === 'string') {
-      if ((problem.match(/\//g) || []).length !== 1) throw new Error(`Problem string ${util.inspect(problem)} is not formatted as 'category/ProblemName'`);
+      if ((problem.match(/\//g) || []).length !== 1) throw new Error(`Problem string ${util.inspect(problem)} is not formatted as 'category/problemName'`);
       else {
         const [category, problemName] = problem.trim().split('/');
         return { category, problemName };
