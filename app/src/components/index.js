@@ -22,6 +22,9 @@ import './icons';
 import Sidebar from './sidebar/sidebar.vue';
 Vue.component('sidebar', Sidebar);
 
+import Editor from './editor/editor.vue';
+Vue.component('editor', Editor);
+
 import RadialProgress from './radial-progress/radial-progress.vue';
 Vue.component('radial-progress', RadialProgress);
 
