@@ -1,0 +1,105 @@
+import debounce from 'debounce';
+import { mapState, mapGetters, mapActions } from 'vuex';
+
+
+export default {
+  data: () => ({
+    fetched: false,
+    code: '',
+    saveStatus: 'unsaved',
+  }),
+
+  computed: {
+    ...mapGetters(['getSolution', 'getCategory', 'getProblem', 'getTestResults', 'isSolved']),
+    ...mapState(['solutionCheckInProgress']),
+
+    // TODO: better category stuff
+    category() { return this.$route.params.category; },
+    categoryName() {
+      return this.fetched
+        ? this.getCategory(this.category).displayName
+        : this.category;
+    },
+    problemName() { return this.$route.params.name; },
+    problem() {
+      return this.fetched
+        ? this.getProblem(this.category, this.problemName)
+        : null;
+    },
+    solved() { return this.isSolved(this.category, this.problemName); },
+
+    testResults() { return this.getTestResults(this.category, this.problemName); },
+
+    remoteCode() { return (this.getSolution(this.category, this.problemName) || {}).code; },
+  },
+
+  methods: {
+    ...mapActions(['fetchSolution', 'saveSolution', 'checkSolution']),
+
+    /* eslint-disable max-len */
+    onInput(value) {
+      this.code = value;
+      if (this.code !== this.remoteCode // The code has changed since last save
+        && !(this.code === this.baseCode && !this.remoteCode) // If no solution is saved, only create once code deviates from base
+      ) {
+        this.debouncedSave();
+        this.saveStatus = 'saving';
+      }
+    },
+    /* eslint-enable */
+
+    async save() {
+      try {
+        await this.saveSolution({
+          problem: this.problemName,
+          category: this.category,
+          code: this.code,
+        });
+        this.saveStatus = 'saved';
+      } catch (e) {
+        this.saveStatus = 'error';
+        throw e;
+      }
+    },
+
+    debouncedSave: debounce(function save2() { this.save(); }, 750),
+
+    async solutionCheck() {
+      // Save current code!
+      await this.save();
+      // Now check once the save completes
+      this.checkSolution({ problem: this.problemName, category: this.category });
+    },
+
+    async init() {
+      this.fetched = false;
+      await this.$root.fetchPromise;
+      await this.fetchSolution({ category: this.category, problem: this.problemName });
+      this.fetched = true;
+      this.code = this.remoteCode || this.baseCode;
+      // "unsaved" if there's no remote code, otherwise we start out with "saved"
+      this.saveStatus = this.remoteCode === null ? 'unsaved' : 'saved';
+      // If the problem is in the list of the users's "solved" problems we know all of the test
+      // results have passed even if the solution hasn't been checked in this session
+      if (this.solved && !this.testResults.tests.length) {
+        this.$store.commit('updateTestResults', {
+          category: this.category,
+          problem: this.problemName,
+          tests: this.problem.testCases
+            .map(({ result }) => ({ value: result, expected: result, pass: true }))
+            .concat(new Array(this.numHiddenTests)
+              .fill(null)
+              .map(() => ({ hidden: true, pass: true }))),
+          code: this.remoteCode,
+        });
+      }
+    },
+  },
+
+  created() {
+    // Fetch info, populate code, all that
+    this.init();
+    // Re-initialize when problem changes, even if editor isn't created/destroyed
+    this.$watch(vm => `${vm.problemName}/${vm.category}`, () => this.init());
+  },
+};

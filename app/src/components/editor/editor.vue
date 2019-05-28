@@ -1,5 +1,5 @@
 <template>
-  <div class="editor-page">
+  <div class="editor-container">
     <!-- Problem browser -->
     <div class="problem-browser" v-bind:class="{ collapsed: problemBrowserCollapsed }">
       <div class="head">Problems</div>
@@ -18,11 +18,11 @@
       <!-- Top bar -->
       <div class="top-bar">
         <!-- Run button -->
-        <spinner v-if="solutionCheckInProgress"></spinner>
+        <spinner v-if="checkInProgress"></spinner>
         <icon-play
           v-else
           class="button"
-          v-on:click="solutionCheck"
+          v-on:click="$emit('solutionCheck')"
           v-tippy="{ delay: [400, 0] }"
           v-bind:title="`Run <kbd>${$nativizeShortcut('mod+Enter')}</kbd>`"
         />
@@ -40,8 +40,6 @@
           v-tippy="{ delay: [400, 0] }"
           v-bind:title="`Reset solution <kbd>${$nativizeShortcut('mod+Shift+backspace')}</kbd>`"
         />
-        <!-- Settings button -->
-        <!-- <icon-settings class="button"/> -->
         <!-- Save status indicator -->
         <save-status v-bind:status="saveStatus"/>
         <!-- Problem label (warmup > AddOne) -->
@@ -60,13 +58,13 @@
         ref="codemirror"
         v-bind:class="{ 'problem-browser-collapsed': problemBrowserCollapsed }"
         v-bind:value="code"
-        v-on:input="onInput"
-        v-bind:options="cmOptions"
+        v-on:input="$emit('input', $event);"
+        v-bind:options="{ ...cmConfig, readOnly }"
       ></codemirror>
 
       <!-- List on the right side of the editor -->
       <simplebar class="cards-scroll" ref="cards-scroll">
-        <div class="cards">
+        <div class="cards" v-if="fetched">
           <transition v-on:enter="findReplaceEnter" v-on:leave="findReplaceLeave">
             <find-replace-card
               v-if="mounted && findReplaceOpen"
@@ -75,20 +73,19 @@
             ></find-replace-card> <!-- Wait for mount so that $refs.codemirror is defined -->
           </transition>
           <problem-overview-card
-            v-if="fetched"
             v-bind:problem="problem"
             v-bind:progress="progress"
           ></problem-overview-card>
 
-          <div class="message" v-if="fetched" v-bind:class="{ run: testResults.length }">
+          <div class="message" v-bind:class="{ run: testResults.length }">
             <div class="title">Tests</div>
 
             <div class="help">
               <div class="line-1">It looks like you haven't tested this code yet.</div>
               <div>
                 Press <icon-play
-                  v-on:click="solutionCheck"
-                  v-bind:class="{ checking: solutionCheckInProgress }"
+                  v-on:click="$emit('solutionCheck')"
+                  v-bind:class="{ checking: checkInProgress }"
                 ></icon-play> to test your solution
               </div>
             </div>
@@ -96,7 +93,6 @@
 
           <div
             class="tests"
-            v-if="fetched"
             v-bind:class="{ outdated: testResults.length && code !== testedCode }"
           >
             <test-case-card
