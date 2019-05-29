@@ -1,5 +1,6 @@
 import debounce from 'debounce';
-import { mapGetters, mapActions } from 'vuex';
+import dedent from 'dedent';
+import { mapState, mapGetters, mapActions } from 'vuex';
 
 
 export default {
@@ -31,6 +32,19 @@ export default {
     testResults() { return this.getTestResults(this.category, this.problemName); },
 
     remoteCode() { return (this.getSolution(this.category, this.problemName) || {}).code; },
+
+    // The "starting" code for the problem
+    baseCode() {
+      const parameters = this.problem.parameters.map(p => `${p.type} ${p.name}`);
+      const base = dedent`
+        public class ${this.problem.name} {
+          public ${this.problem.resultType} main(${parameters.join(', ')}) {
+            // Your code here
+          }
+        }
+      `;
+      return `${base}\n`;
+    },
   },
 
   methods: {

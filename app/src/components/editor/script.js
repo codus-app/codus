@@ -1,5 +1,3 @@
-import dedent from 'dedent';
-
 import cmConfig from './codemirror-config';
 import findReplaceTransition from './components/find-replace-card/transition';
 
@@ -49,19 +47,6 @@ export default {
     progress() {
       if (!this.testResults.tests.length) return 0;
       return this.testResults.tests.filter(t => t.pass).length / this.testResults.tests.length;
-    },
-
-    // The "starting" code for the problem
-    baseCode() {
-      const parameters = this.problem.parameters.map(p => `${p.type} ${p.name}`);
-      const base = dedent`
-        public class ${this.problem.name} {
-          public ${this.problem.resultType} main(${parameters.join(', ')}) {
-            // Your code here
-          }
-        }
-      `;
-      return `${base}\n`;
     },
 
     // The version of the user's code that's on the server
