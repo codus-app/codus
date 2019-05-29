@@ -118,7 +118,7 @@ export default {
 
     studentSolutionFetched(state, { username, category, problemName, solution }) {
       // If there's no list of this student's solutions, start one
-      if (!state.studentSolutions[username]) state.solutions[username] = [];
+      if (!state.studentSolutions[username]) state.studentSolutions[username] = [];
 
       const index = state.studentSolutions[username]
         .findIndex(({ problem }) => problem.category === category && problem.name === problemName);
@@ -220,6 +220,10 @@ export default {
 
     async fetchStudentSolution({ commit }, { username, category, problemName }) {
       const solution = await api.get({ endpoint: `/classroom/students/${username}/solutions/${category}/${problemName}` });
+      // Update problem info for the problem this solution came from
+      const { problem: problemFetched } = solution;
+      commit('problemFetched', problemFetched, { root: true });
+      // Record this student's solution to this problem
       commit('studentSolutionFetched', { username, category, problemName, solution });
     },
 
