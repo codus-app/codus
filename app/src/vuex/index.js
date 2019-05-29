@@ -30,7 +30,6 @@ export default new Vuex.Store({
     // Stores the results of evaluating test cases for each tested problem
     // Keys are of the form 'category/problemName'
     testResults: {},
-    solutionCheckInProgress: false, // Is the solution currently being checked?
 
     // Stores profile information fetched for other users
     // Keys are users' usernames

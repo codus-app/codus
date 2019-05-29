@@ -11,7 +11,7 @@
 
       solved,
       testResults,
-      checkInProgress: solutionCheckInProgress,
+      checkInProgress,
     }"
     v-on:input="onInput"
     v-on:solutionCheck="solutionCheck"

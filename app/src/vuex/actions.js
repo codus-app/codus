@@ -74,7 +74,6 @@ export default {
   },
 
   async checkSolution({ commit }, { problem, category }) {
-    commit('beginSolutionCheck');
     const {
       tests, passed, error, solution,
     } = await api.get({
@@ -82,7 +81,6 @@ export default {
     });
     commit('updateSolved', { problem, category, passed });
     commit('updateTestResults', { problem, category, tests, error, code: solution.code });
-    commit('endSolutionCheck');
   },
 
   async fetchUser({ commit }, { username }) {

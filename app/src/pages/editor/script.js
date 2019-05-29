@@ -1,5 +1,5 @@
 import debounce from 'debounce';
-import { mapState, mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 
 export default {
@@ -7,11 +7,11 @@ export default {
     fetched: false,
     code: '',
     saveStatus: 'unsaved',
+    checkInProgress: false,
   }),
 
   computed: {
     ...mapGetters(['getSolution', 'getCategory', 'getProblem', 'getTestResults', 'isSolved']),
-    ...mapState(['solutionCheckInProgress']),
 
     // TODO: better category stuff
     category() { return this.$route.params.category; },
@@ -65,10 +65,12 @@ export default {
     debouncedSave: debounce(function save2() { this.save(); }, 750),
 
     async solutionCheck() {
+      this.checkInProgress = true;
       // Save current code!
       await this.save();
       // Now check once the save completes
-      this.checkSolution({ problem: this.problemName, category: this.category });
+      await this.checkSolution({ problem: this.problemName, category: this.category });
+      this.checkInProgress = false;
     },
 
     async init() {

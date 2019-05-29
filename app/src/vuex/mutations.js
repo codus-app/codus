@@ -94,15 +94,12 @@ export default {
   },
   endSolutionSave(state) { state.user.solutionSaveInProgress = false; },
 
-
-  beginSolutionCheck(state) { state.solutionCheckInProgress = true; },
   updateTestResults(state, { category, problem, tests, error = null, code }) {
     state.testResults = {
       ...state.testResults,
       [`${category}/${problem}`]: { tests, code, error },
     };
   },
-  endSolutionCheck(state) { state.solutionCheckInProgress = false; },
 
   userFetched(state, payload) {
     Vue.set(state.users, payload.username, { ...state.users[payload.username], ...payload });
