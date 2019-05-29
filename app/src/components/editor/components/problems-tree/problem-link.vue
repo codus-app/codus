@@ -2,7 +2,10 @@
   <router-link
     class="problem-link"
     v-bind:class="{ solved }"
-    v-bind:to="`/problem/${categoryName}/${name}`"
+    v-bind:to="{
+      name: $route.name,
+      params: { ...$route.params, category: categoryName, name },
+    }"
   >
     <component
       v-bind:is="solved ? 'icon-check' : (solutionBegun ? 'icon-file-text' : 'icon-file')"
