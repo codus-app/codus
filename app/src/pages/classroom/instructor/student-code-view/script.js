@@ -69,8 +69,10 @@ export default {
         }));
     },
 
-    studentName() {
-      return this.classroom.students.find(({ username }) => username === this.studentUsername).name;
+    student() {
+      return this.classroom.students
+        .find(({ username }) => username === this.studentUsername)
+        || null;
     },
   },
 
@@ -91,17 +93,21 @@ export default {
     async init() {
       this.fetched = false;
       await this.$root.fetchPromise;
-      if (!this.contentFetched) { await this.fetchContent(); }
-      if (!this.fetchedStudents.includes(this.studentUsername)) {
-        this.fetchStudentSolutions({ username: this.studentUsername });
+      try {
+        if (!this.contentFetched) { await this.fetchContent(); }
+        if (!this.fetchedStudents.includes(this.studentUsername)) {
+          this.fetchStudentSolutions({ username: this.studentUsername });
+        }
+        await this.fetchStudentSolution({
+          username: this.studentUsername,
+          category: this.categoryId,
+          problemName: this.problemName,
+        });
+        this.fetched = true;
+      } catch {
+        this.fetched = 'failed';
       }
-      await this.fetchStudentSolution({
-        username: this.studentUsername,
-        category: this.categoryId,
-        problemName: this.problemName,
-      });
-      this.fetched = true;
-      if (this.solved && !this.testResults.tests.length) {
+      if (this.fetched === true && this.solved && !this.testResults.tests.length) {
         this.testResults = {
           tests: this.problem.testCases
             .map(({ result }) => ({ value: result, expected: result, pass: true }))
@@ -118,5 +124,9 @@ export default {
   created() {
     this.init();
     this.$watch(vm => `${vm.problemName}/${vm.categoryId}`, () => this.init());
+  },
+
+  components: {
+    'not-found': require('../../../404/404.vue').default,
   },
 };

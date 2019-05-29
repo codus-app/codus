@@ -245,7 +245,8 @@ export default {
 
     /* eslint-disable max-len */
     getStudentSolution: state => (username, searchCategory, searchProblem) => (state.studentSolutions[username] || [])
-      .find(({ problem }) => (problem.category.name || problem.category) === searchCategory && problem.name === searchProblem),
+      .find(({ problem }) => (problem.category.name || problem.category) === searchCategory && problem.name === searchProblem)
+      || null,
     /* eslint-enable */
 
     // Students whose solutions have been fetched

@@ -1,9 +1,9 @@
 <template>
   <editor
-    v-if="contentFetched"
+    v-if="studentSolution !== null && student !== null"
     read-only
     v-bind="{
-      fetched,
+      fetched: !!fetched,
       code,
       remoteCode: code,
 
@@ -19,15 +19,16 @@
         solved: solvedProblems,
         solutionsBegun,
       },
-      breadcrumbs: classroom.fetched ? [studentName, categoryName, problemName] : undefined,
+      breadcrumbs: classroom.fetched ? [student.name, categoryName, problemName] : undefined,
     }"
     v-on:solutionCheck="solutionCheck"
   >
     <template
       v-if="classroom.fetched"
       v-slot:tree-header
-    >{{ studentName.split(/\s/)[0] }}'s Solutions</template>
+    >{{ student.name.split(/\s/)[0] }}'s Solutions</template>
   </editor>
+  <not-found v-else-if="fetched === 'failed' || (classroom.fetched && student === null)"></not-found>
 </template>
 
 <script src="./script.js"></script>
