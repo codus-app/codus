@@ -240,5 +240,10 @@ export default {
     },
 
     getClassroom: state => c => state.classrooms.find(({ code }) => code === c) || null,
+
+    /* eslint-disable max-len */
+    getStudentSolution: state => (username, searchCategory, searchProblem) => (state.studentSolutions[username] || [])
+      .find(({ problem }) => problem.category.name === searchCategory && problem.name === searchProblem),
+    /* eslint-enable */
   },
 };
