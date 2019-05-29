@@ -19,6 +19,7 @@
         solved: solvedProblems,
         solutionsBegun,
       },
+      breadcrumbs: classroom.fetched ? [studentName, categoryName, problemName] : undefined,
     }"
     v-on:solutionCheck="solutionCheck"
   >
