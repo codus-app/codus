@@ -9,7 +9,10 @@
         v-bind:title="`Close Sidebar <kbd>${$nativizeShortcut('mod+\\')}</kbd>`"
       ></icon-chevrons-left>
       <simplebar class="problems-scroll" ref="problems-scroll">
-        <problems-tree v-on:change="recalculateProblemsScroll"></problems-tree>
+        <problems-tree
+          v-bind="content"
+          v-on:change="recalculateProblemsScroll"
+        ></problems-tree>
       </simplebar>
     </div>
 

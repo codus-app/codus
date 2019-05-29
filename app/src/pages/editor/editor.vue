@@ -12,6 +12,12 @@
       solved,
       testResults,
       checkInProgress,
+
+      content: {
+        categories,
+        solved: user.solved,
+        solutionsBegun: user.solutionsBegun,
+      },
     }"
     v-on:input="onInput"
     v-on:solutionCheck="solutionCheck"

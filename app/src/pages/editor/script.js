@@ -13,6 +13,7 @@ export default {
 
   computed: {
     ...mapGetters(['getSolution', 'getCategory', 'getProblem', 'getTestResults', 'isSolved']),
+    ...mapState(['categories', 'user', 'contentFetched']),
 
     // TODO: better category stuff
     category() { return this.$route.params.category; },
@@ -48,7 +49,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['fetchSolution', 'saveSolution', 'checkSolution']),
+    ...mapActions(['fetchContent', 'fetchSolution', 'saveSolution', 'checkSolution']),
 
     /* eslint-disable max-len */
     onInput(value) {
@@ -90,6 +91,7 @@ export default {
     async init() {
       this.fetched = false;
       await this.$root.fetchPromise;
+      if (!this.contentFetched) this.fetchContent();
       await this.fetchSolution({ category: this.category, problem: this.problemName });
       this.fetched = true;
       this.code = this.remoteCode || this.baseCode;

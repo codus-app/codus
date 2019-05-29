@@ -4,8 +4,9 @@ import findReplaceTransition from './components/find-replace-card/transition';
 export default {
   props: {
     // Data
+    // TODO: more thorough validation
     fetched: { type: Boolean, default: true },
-    code: String,
+    code: { String },
     remoteCode: String,
     saveStatus: String,
 
@@ -15,6 +16,15 @@ export default {
     solved: Boolean,
     testResults: Object,
     checkInProgress: Boolean,
+
+    content: {
+      type: Object,
+      validator: value => value
+        && value.categories !== undefined
+        && value.solved !== undefined
+        && value.solutionsBegun !== undefined,
+      required: true,
+    },
 
     // Configuration
     readOnly: Boolean,
