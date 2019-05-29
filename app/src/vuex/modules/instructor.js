@@ -118,7 +118,7 @@ export default {
 
     studentSolutionFetched(state, { username, category, problemName, solution }) {
       // If there's no list of this student's solutions, start one
-      if (!state.studentSolutions[username]) state.studentSolutions[username] = [];
+      if (!state.studentSolutions[username]) Vue.set(state.studentSolutions, username, []);
 
       const index = state.studentSolutions[username]
         .findIndex(({ problem }) => problem.category === category && problem.name === problemName);
@@ -241,9 +241,14 @@ export default {
 
     getClassroom: state => c => state.classrooms.find(({ code }) => code === c) || null,
 
+    getStudentSolutions: state => username => state.studentSolutions[username],
+
     /* eslint-disable max-len */
     getStudentSolution: state => (username, searchCategory, searchProblem) => (state.studentSolutions[username] || [])
-      .find(({ problem }) => problem.category.name === searchCategory && problem.name === searchProblem),
+      .find(({ problem }) => (problem.category.name || problem.category) === searchCategory && problem.name === searchProblem),
     /* eslint-enable */
+
+    // Students whose solutions have been fetched
+    fetchedStudents: state => Object.keys(state.studentSolutions),
   },
 };

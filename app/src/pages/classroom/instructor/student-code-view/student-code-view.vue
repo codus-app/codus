@@ -1,5 +1,6 @@
 <template>
   <editor
+    v-if="contentFetched"
     read-only
     v-bind="{
       fetched,
@@ -12,6 +13,12 @@
       solved,
       testResults,
       checkInProgress,
+
+      content: {
+        categories: solutionCategories,
+        solved: solvedProblems,
+        solutionsBegun,
+      },
     }"
     v-on:solutionCheck="solutionCheck"
   >
