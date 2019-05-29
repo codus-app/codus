@@ -2,22 +2,19 @@ export default {
   props: { active: Boolean, allSolved: Boolean },
 
   data: () => ({
-    windowSize: [window.innerWidth, window.innerHeight],
     expanded: false,
-    mounted: false,
+
+    childrenHeight: 0,
     transitionDuration: 350,
   }),
 
-  computed: {
-    childrenHeight() {
-      (() => {})(this.windowSize);
-      return (this.expanded && this.mounted)
+  methods: {
+    recomputeHeight() {
+      this.childrenHeight = this.expanded
         ? `${this.$refs.children.getBoundingClientRect().height}px`
         : 0;
     },
   },
-
-  methods: { onResize() { this.windowSize = [window.innerWidth, window.innerHeight]; } },
 
   watch: {
     expanded() {
@@ -25,17 +22,16 @@ export default {
     },
   },
 
-  created() {
-    if (this.active) {
-      this.transitionDuration = 0;
-      this.expanded = true;
-      setTimeout(() => { this.transitionDuration = 350; }, 500);
-    }
+  async mounted() {
+    this.recomputeHeight();
+    window.addEventListener('resize', this.recomputeHeight);
+
     this.expanded = this.active;
-    window.addEventListener('resize', this.onResize);
-  },
-  mounted() {
-    setTimeout(() => { this.mounted = true; }, window.safari ? 500 : 0);
+
+    // Re-evaluate size when 'expanded' changes and when children element resizes
+    this.$watch('expanded', this.recomputeHeight);
+    new ResizeObserver(this.recomputeHeight)
+      .observe(this.$refs.children);
   },
   destroyed() { window.removeEventListener('resize', this.onResize); },
 };
