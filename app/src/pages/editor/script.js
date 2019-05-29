@@ -93,6 +93,7 @@ export default {
               .fill(null)
               .map(() => ({ hidden: true, pass: true }))),
           code: this.remoteCode,
+          error: null,
         });
       }
     },

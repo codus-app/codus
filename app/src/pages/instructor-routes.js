@@ -36,6 +36,15 @@ export default [
         component: require('./classroom/instructor/assignment/assignment.vue').default,
         meta: {},
       },
+      {
+        path: 'students/:username/solutions/:category/:name',
+        name: 'student-code-view',
+        component: require('./classroom/instructor/student-code-view/student-code-view.vue').default,
+        meta: {
+          collapseSidebar: true,
+          protected: true,
+        },
+      },
     ],
   },
 ];
