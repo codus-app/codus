@@ -2,7 +2,7 @@
   <div class="editor-container">
     <!-- Problem browser -->
     <div class="problem-browser" v-bind:class="{ collapsed: problemBrowserCollapsed }">
-      <div class="head">Problems</div>
+      <div class="head"><slot name="tree-header">Problems</slot></div>
       <icon-chevrons-left
         v-on:click="problemBrowserCollapsed = true"
         v-tippy="{ delay: [400, 0] }"
@@ -46,7 +46,7 @@
         <!-- Save status indicator -->
         <save-status v-bind:status="saveStatus"/>
         <!-- Problem label (warmup > AddOne) -->
-        <breadcrumbs v-bind:crumbs="[categoryName, problemName]"></breadcrumbs>
+        <breadcrumbs v-bind:crumbs="breadcrumbs || [categoryName, problemName]"></breadcrumbs>
         <!-- "Open sidebar" button -->
         <div class="open-sidebar" v-bind:class="{ collapsed: !problemBrowserCollapsed }">
           <icon-menu

@@ -28,6 +28,7 @@ export default {
 
     // Configuration
     readOnly: Boolean,
+    breadcrumbs: Array,
   },
 
   data: () => ({
