@@ -1,6 +1,8 @@
 import { mapState, mapGetters, mapActions } from 'vuex';
 
 export default {
+  props: ['classroom'],
+
   data: () => ({
     fetched: false,
     checkInProgress: false,
@@ -65,6 +67,10 @@ export default {
           category: s.problem.category,
           name: s.problem.name,
         }));
+    },
+
+    studentName() {
+      return this.classroom.students.find(({ username }) => username === this.studentUsername).name;
     },
   },
 
