@@ -57,14 +57,14 @@ export default {
       return (this.getStudentSolutions(this.studentUsername) || [])
         .filter(s => s.passed)
         .map(s => ({
-          category: s.problem.category,
+          category: (s.problem.category.name || s.problem.category),
           name: s.problem.name,
         }));
     },
     solutionsBegun() {
       return (this.getStudentSolutions(this.studentUsername) || [])
         .map(s => ({
-          category: s.problem.category,
+          category: (s.problem.category.name || s.problem.category),
           name: s.problem.name,
         }));
     },
