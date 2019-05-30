@@ -40,6 +40,15 @@
           <profile-chip
             v-for="username in incorrect"
             v-bind:key="username"
+            v-bind:link="{
+              name: 'student-code-view',
+              params: {
+                ...$route.params,
+                username,
+                category: problem.category.name,
+                name: problem.name,
+              },
+            }"
             v-bind="getUser(username)"
           ></profile-chip>
         </div>
@@ -52,6 +61,15 @@
           <profile-chip
             v-for="username in correct"
             v-bind:key="username"
+            v-bind:link="{
+              name: 'student-code-view',
+              params: {
+                ...$route.params,
+                username,
+                category: problem.category.name,
+                name: problem.name,
+              },
+            }"
             v-bind="getUser(username)"
           ></profile-chip>
         </div>
