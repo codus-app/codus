@@ -3,5 +3,6 @@ export default {
     username: String,
     picture: String,
     name: String,
+    link: [String, Object],
   },
 };

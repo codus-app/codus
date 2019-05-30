@@ -1,5 +1,5 @@
 <template>
-  <router-link class="profile-chip" v-bind:to="{ name: 'profile', params: { username }}">
+  <router-link class="profile-chip" v-bind:to="link || { name: 'profile', params: { username }}">
     <div class="picture" v-bind:style="{
       backgroundImage: `url(${picture})`,
       // Darken the default avatar image for contrast with the background
