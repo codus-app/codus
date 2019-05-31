@@ -105,7 +105,7 @@ export default {
           problem: this.problemName,
           tests: this.problem.testCases
             .map(({ result }) => ({ value: result, expected: result, pass: true }))
-            .concat(new Array(this.numHiddenTests)
+            .concat(new Array(this.problem.numHidden)
               .fill(null)
               .map(() => ({ hidden: true, pass: true }))),
           code: this.remoteCode,

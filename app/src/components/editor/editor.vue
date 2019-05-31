@@ -80,7 +80,7 @@
             v-bind:progress="progress"
           ></problem-overview-card>
 
-          <div class="message" v-bind:class="{ run: testResults.length }">
+          <div class="message" v-bind:class="{ run: testResults.tests.length }">
             <div class="title">Tests</div>
 
             <div class="help">
@@ -96,7 +96,7 @@
 
           <div
             class="tests"
-            v-bind:class="{ outdated: testResults.length && code !== testedCode }"
+            v-bind:class="{ outdated: testResults.tests.length && code !== testedCode }"
           >
             <test-case-card
               v-for="(t, i) in tests"
@@ -109,12 +109,12 @@
             <div
               class="hidden-tests"
               v-bind:class="{
-                passed: testResults.length && numHiddenTestsPassed === numHiddenTests,
-                failed: testResults.length && numHiddenTestsPassed !== numHiddenTests,
+                passed: testResults.tests.length && numHiddenTestsPassed === numHiddenTests,
+                failed: testResults.tests.length && numHiddenTestsPassed !== numHiddenTests,
               }"
               v-if="numHiddenTests"
             >
-              <span v-if="testResults.length">{{ numHiddenTestsPassed }}/</span><!--
+              <span v-if="testResults.tests.length">{{ numHiddenTestsPassed }}/</span><!--
            -->{{ numHiddenTests }} hidden test cases
             </div>
           </div>
