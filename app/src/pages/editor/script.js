@@ -9,7 +9,7 @@ export default {
     code: '',
     saveStatus: 'unsaved',
     checkInProgress: false,
-    solvedModalOpen: false,
+    solvedModalOpen: true,
   }),
 
   computed: {

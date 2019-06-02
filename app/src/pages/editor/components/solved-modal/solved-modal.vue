@@ -8,17 +8,22 @@
           backgroundColor: '#f7f7f7',
           color: '#2e2e33',
           width: '14rem',
-          padding: '10rem 1.25rem 2rem',
+          padding: '10rem 1.25rem 1.5rem',
         }"
+        fade-color="rgba(12, 12, 12, .65)"
       >
         <div class="illustration">
           <div class="center">
             <icon-check-circle></icon-check-circle>
           </div>
-          <div class="ring1"></div>
-          <div class="ring2"></div>
-          <div class="ring3"></div>
-          <div class="ring4"></div>
+
+          <div class="rings">
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="cutout"></div>
+          </div>
         </div>
         <h2>Congratulations!</h2>
         <p>You’ve solved this problem. Don’t stop now; move on to the next one!</p>

@@ -1,31 +1,82 @@
 @import 'src/styles/variables'
 
-.illustration
-  display: none
+.solved-modal
+  h2
+    font-family: $font-lato
+    font-weight: 700
+    font-size: 1rem
+    margin: 0 0 .3rem
 
-h2
-  font-family: $font-lato
-  font-weight: 700
-  font-size: 1rem
-  margin: 0 0 .3rem
+  p
+    font-family: $font-nunito
+    font-weight: 400
+    font-size: .75rem
+    opacity: .75
+    letter-spacing: -.03em
+    margin: 0 0 1.3rem
 
-p
-  font-family: $font-nunito
-  font-weight: 400
-  font-size: .75rem
-  opacity: .75
-  letter-spacing: -.03em
-  margin: 0 0 1.3rem
+  a.onward
+    background: $green-bg
+    border-radius: 6px
+    box-shadow: 0 .15rem .6rem -.15rem rgba(55, 141, 93, .6)
+    padding: .5rem 1.7rem
 
-a.onward
-  background: $green-bg
-  border-radius: 6px
-  box-shadow: 0 .15rem .6rem -.15rem rgba(55, 141, 93, .6)
-  padding: .5rem 1.7rem
+    font-family: $font-lato
+    font-weight: 700
+    font-size: .65rem
+    text-transform: uppercase
+    letter-spacing: .08em
+    color: $light-text-primary
 
-  font-family: $font-lato
-  font-weight: 700
-  font-size: .65rem
-  text-transform: uppercase
-  letter-spacing: .08em
-  color: $light-text-primary
+
+  .illustration
+    position: absolute
+    z-index: -1
+    top: 5.5rem
+    left: 50%
+
+    .center
+      position: absolute
+      z-index: 2
+      transform: translate(-50%, -50%)
+      width: 6rem
+      height: 6rem
+      border-radius: 3rem
+      background: $green-solid
+      box-shadow: 0 0 1.5rem 0 transparentize($green-text, .5)
+
+      display: flex
+      align-items: center
+      justify-content: center
+
+      .feather
+        width: 2.6rem
+        height: 2.6rem
+        opacity: .3
+
+    .rings
+      position: absolute
+      z-index: 1
+
+    .ring
+      position: absolute
+      transform: translate(-50%, -50%)
+      border-radius: 50%
+      border: 2px solid #2bc772
+
+    @for $i from 1 through 4
+      .ring:nth-child(#{$i})
+        $size: 6rem - .5rem + (3.5rem * $i)
+        width: $size
+        height: $size
+        opacity: .5 - (.1 * $i)
+
+
+    .cutout
+      width: 10rem
+      height: 10rem
+      background: #f7f7f7
+      position: absolute
+      transform-origin: top left
+      $skew: 8deg
+      transform: rotate(45deg + $skew / 2) skew(0, -$skew)
