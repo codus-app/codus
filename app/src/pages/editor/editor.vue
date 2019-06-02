@@ -1,27 +1,37 @@
 <template>
-  <editor
-    v-bind="{
-      fetched,
-      code,
-      remoteCode,
-      saveStatus,
+  <div class="editor-page">
+    <editor
+      v-bind="{
+        fetched,
+        code,
+        remoteCode,
+        saveStatus,
 
-      problem,
-      categoryName,
+        problem,
+        categoryName,
 
-      solved,
-      testResults,
-      checkInProgress,
+        solved,
+        testResults,
+        checkInProgress,
 
-      content: {
-        categories,
-        solved: user.solved,
-        solutionsBegun: user.solutionsBegun,
-      },
-    }"
-    v-on:input="onInput"
-    v-on:solutionCheck="solutionCheck"
-  ></editor>
+        content: {
+          categories,
+          solved: user.solved,
+          solutionsBegun: user.solutionsBegun,
+        },
+      }"
+      v-on:input="onInput"
+      v-on:solutionCheck="solutionCheck"
+    ></editor>
+
+    <solved-modal
+      v-bind:open="solvedModalOpen"
+      v-on:close="solvedModalOpen = false"
+      v-bind:nextUrl="'/'"
+    ></solved-modal>
+  </div>
 </template>
 
 <script src="./script.js"></script>
+
+<style scoped lang="sass" src="./style.sass"></style>

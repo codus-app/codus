@@ -9,6 +9,7 @@ export default {
     code: '',
     saveStatus: 'unsaved',
     checkInProgress: false,
+    solvedModalOpen: false,
   }),
 
   computed: {
@@ -120,5 +121,9 @@ export default {
     this.init();
     // Re-initialize when problem changes, even if editor isn't created/destroyed
     this.$watch(vm => `${vm.problemName}/${vm.category}`, () => this.init());
+  },
+
+  components: {
+    'solved-modal': require('./components/solved-modal/solved-modal.vue').default,
   },
 };
