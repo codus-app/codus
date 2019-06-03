@@ -32,7 +32,7 @@
         ? { ...this.$route, params: { ...this.$route.params, ...this.nextProblem }}
         : ''"
     >
-      <template v-if="!nextProblem">
+      <template v-if="solved && !nextProblem">
         <h2>Congratulations!</h2>
         <p>
           You've solved all the problems! We're always writing new problems, so be sure to check
