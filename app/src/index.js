@@ -3,9 +3,6 @@
 
 // Polyfills
 import 'babel-polyfill';
-import 'promise-polyfill';
-import 'abortcontroller-polyfill';
-import 'whatwg-fetch';
 import ElementQueries from 'css-element-queries/src/ElementQueries';
 ElementQueries.listen();
 import ResizeObserver from 'resize-observer-polyfill';
