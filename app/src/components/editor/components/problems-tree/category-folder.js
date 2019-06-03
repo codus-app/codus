@@ -14,6 +14,9 @@ export default {
         ? `${this.$refs.children.getBoundingClientRect().height}px`
         : 0;
     },
+
+    expand() { this.expanded = true; },
+    collapse() { this.expanded = false; },
   },
 
   watch: {

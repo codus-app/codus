@@ -23,6 +23,9 @@ export default {
         .find(({ name }) => name === searchCategory).problems.length
         === this.solved.filter(({ category }) => category === searchCategory).length;
     },
+
+    expandCategory(category) { this.$refs[category][0].expand(); },
+    collapseCategory(category) { this.$refs[category][0].collapse(); },
   },
 
   components: {

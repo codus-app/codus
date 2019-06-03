@@ -122,6 +122,17 @@ export default {
     },
   },
 
+  watch: {
+    category(cat, oldCat) {
+      // This system is somewhat sinful but makes way more sense in this case than lifting
+      // "expanded" state all the way up here and duplicating that logic
+      if (!this.$refs.editor.$refs['problems-tree'].$refs[cat][0].expanded) {
+        this.$refs.editor.$refs['problems-tree'].expandCategory(cat);
+        this.$refs.editor.$refs['problems-tree'].collapseCategory(oldCat);
+      }
+    },
+  },
+
   created() {
     // Fetch info, populate code, all that
     this.init();

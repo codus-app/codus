@@ -2,6 +2,7 @@
   <ul class="problems-tree">
     <li v-for="cat in categories" v-bind:key="cat.name">
       <category-folder
+        v-bind:ref="cat.name"
         v-bind:active="cat.name === $route.params.category"
         v-bind:allSolved="isCategoryComplete(cat.name)"
         v-on:change="$emit('change')"

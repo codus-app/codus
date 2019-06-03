@@ -1,6 +1,7 @@
 <template>
   <div class="editor-page">
     <editor
+      ref="editor"
       v-bind="{
         fetched,
         code,

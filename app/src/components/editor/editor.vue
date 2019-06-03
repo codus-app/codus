@@ -10,6 +10,7 @@
       ></icon-chevrons-left>
       <simplebar class="problems-scroll" ref="problems-scroll">
         <problems-tree
+          ref="problems-tree"
           v-bind="content"
           v-on:change="recalculateProblemsScroll"
         ></problems-tree>
