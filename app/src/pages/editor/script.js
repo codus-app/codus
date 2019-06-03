@@ -13,10 +13,10 @@ export default {
   }),
 
   computed: {
-    ...mapGetters(['getSolution', 'getCategory', 'getProblem', 'getTestResults', 'isSolved']),
+    ...mapGetters(['getSolution', 'getCategory', 'getProblem', 'getTestResults', 'isSolved', 'getNextUnsolvedProblem']),
     ...mapState(['categories', 'user', 'contentFetched']),
 
-    // TODO: better category stuff
+    // TODO: better category variable naming
     category() { return this.$route.params.category; },
     categoryName() {
       return this.fetched
@@ -46,6 +46,10 @@ export default {
         }
       `;
       return `${base}\n`;
+    },
+
+    nextProblem() {
+      return this.getNextUnsolvedProblem(this.category, this.problemName);
     },
   },
 

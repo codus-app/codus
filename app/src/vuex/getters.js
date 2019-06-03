@@ -38,4 +38,20 @@ export default {
   getTestResults: state => (category, problem) => state.testResults[`${category}/${problem}`] || { tests: [], code: null, error: null },
 
   getUser: state => username => state.users[username] || {},
+
+  getNextUnsolvedProblem: (state, getters) => (category, problem) => {
+    // Aggregate problems into ordered list of { category, name, solved }
+    const allProblems = state.categories.flatMap(c => c.problems.map(p => ({
+      category: c.name,
+      name: p.name,
+      solved: getters.isSolved(c.name, p.name),
+    })));
+    // Find the problem in question
+    const index = allProblems
+      .findIndex(({ category: category2, name }) => category2 === category && name === problem);
+    // All problems after, then all problems before
+    const nextProblems = [...allProblems.slice(index + 1), ...allProblems.slice(0, index)];
+    // First unsolved; null if all are solved
+    return nextProblems.filter(p => !p.solved)[0] || null;
+  },
 };
