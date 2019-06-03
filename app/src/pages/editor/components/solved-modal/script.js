@@ -1,3 +1,3 @@
 export default {
-  props: { open: Boolean, nextUrl: String },
+  props: { open: Boolean, nextUrl: [String, Object] },
 };

@@ -27,7 +27,9 @@
     <solved-modal
       v-bind:open="solvedModalOpen"
       v-on:close="solvedModalOpen = false"
-      v-bind:nextUrl="'/'"
+      v-bind:nextUrl="nextProblem
+        ? { ...this.$route, params: { ...this.$route.params, ...this.nextProblem }}
+        : ''"
     ></solved-modal>
   </div>
 </template>
