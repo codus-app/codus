@@ -74,6 +74,7 @@
     .rings
       position: absolute
       z-index: 1
+      transition: opacity .65s, transform .9s
 
     .ring
       position: absolute
@@ -104,3 +105,35 @@
 
   &.modal-wrapper /deep/ div.content
     margin: 0
+
+
+  &:not(.open)
+    .rings
+      transform: scale(.9)
+      opacity: 0
+
+  &.open
+    .illustration .center
+      opacity: 0
+      animation: spin-in .65s .125s cubic-bezier(.165, .84, .16, 1.16) forwards
+
+      @keyframes spin-in
+        from
+          transform: translate(-50%, -50%) rotate(-800deg) scale(.15)
+          opacity: 0
+
+        75%
+          opacity: 1
+
+        to
+          transform: translate(-50%, -50%)
+          opacity: 1
+
+
+    .rings
+      opacity: 1
+      transform: scale(1)
+      transition-delay: .55s
+
+    &.modal-wrapper /deep/ .modal
+      transition: transform .6s cubic-bezier(.165, .885, .16, 1), opacity .45s
