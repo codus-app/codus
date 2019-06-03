@@ -17,3 +17,15 @@ export default {
     console.log(`Problem solved in ${timeElapsed}s. (total: ${problemsSolved})`);
   },
 };
+
+window.addEventListener('unload', () => {
+  const data = JSON.stringify({
+    problemsSolved,
+    problemTimes,
+    userId: store.state.auth.profile.sub,
+    gamification: localStorage.gamify === 'true',
+  });
+  //             Strip trailing slash
+  const url = `${CODUS_API_BASE.replace(/\/$/g, '')}/stats-log`;
+  navigator.sendBeacon(url, data);
+}, false);
