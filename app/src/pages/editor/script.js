@@ -3,6 +3,7 @@ import dedent from 'dedent';
 import { mapState, mapGetters, mapActions } from 'vuex';
 import ab from '../../ab';
 
+let startTime = null;
 
 export default {
   data: () => ({
@@ -87,6 +88,7 @@ export default {
 
     async solutionCheck() {
       this.checkInProgress = true;
+      const wasSolved = this.solved;
       // Save current code!
       await this.save();
       // Now check once the save completes
@@ -94,6 +96,8 @@ export default {
       this.checkInProgress = false;
 
       if (this.solved && ab.gamify) setTimeout(() => { this.solvedModalOpen = true; }, 500);
+      // Record data point
+      if (this.solved && !wasSolved) ab.problemSolved((new Date() - startTime) / 1000);
     },
 
     async init() {
@@ -103,6 +107,7 @@ export default {
       await this.fetchSolution({ category: this.category, problem: this.problemName });
       this.fetched = true;
       this.solvedModalOpen = false;
+      startTime = new Date();
       this.code = this.remoteCode || this.baseCode;
       // "unsaved" if there's no remote code, otherwise we start out with "saved"
       this.saveStatus = this.remoteCode === null ? 'unsaved' : 'saved';
