@@ -85,14 +85,10 @@
     "vuex": "^3.1.0",
     "whatwg-fetch": "^3.0.0"
   },
+  "browserslist": "last 5 Chrome versions, last 5 Firefox versions",
   "babel": {
     "presets": [
-      [
-        "@babel/preset-env",
-        {
-          "targets": "> 0.25%, not dead"
-        }
-      ]
+      "@babel/preset-env"
     ]
   },
   "eslintConfig": {
