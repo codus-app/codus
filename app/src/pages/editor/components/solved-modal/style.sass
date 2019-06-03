@@ -1,49 +1,50 @@
 @import 'src/styles/variables'
 
 .solved-modal
-  h2
-    font-family: $font-lato
-    font-weight: 700
-    font-size: 1rem
-    margin: 0 0 .3rem
+  & /deep/
+    h2
+      font-family: $font-lato
+      font-weight: 700
+      font-size: 1rem
+      margin: 0 0 .3rem
 
-  p
-    font-family: $font-nunito
-    font-weight: 400
-    font-size: .75rem
-    opacity: .75
-    letter-spacing: -.03em
-    margin: 0 0 1.3rem
+    p
+      font-family: $font-nunito
+      font-weight: 400
+      font-size: .75rem
+      opacity: .75
+      letter-spacing: -.03em
+      margin: 0 0 1.3rem
 
-  a.onward
-    display: inline-block
-    background: $green-bg
-    border-radius: 6px
-    box-shadow: 0 .15rem .6rem -.15rem rgba(55, 141, 93, .6)
-    padding: .5rem 1.7rem
+    a.onward
+      display: inline-block
+      background: $green-bg
+      border-radius: 6px
+      box-shadow: 0 .15rem .6rem -.15rem rgba(55, 141, 93, .6)
+      padding: .5rem 1.7rem
 
-    font-family: $font-lato
-    font-weight: 700
-    font-size: .65rem
-    text-transform: uppercase
-    letter-spacing: .08em
-    color: $light-text-primary
-    transform: translateY(.01%)
-    transition: transform .35s
+      font-family: $font-lato
+      font-weight: 700
+      font-size: .65rem
+      text-transform: uppercase
+      letter-spacing: .08em
+      color: $light-text-primary
+      transform: translateY(.01%)
+      transition: transform .35s
 
-    &:hover
-      transform: translateY(-5%)
+      &:hover
+        transform: translateY(-5%)
 
-      & ~ .illustration .rings .ring
-        transform: translate(-50%, -50%) scale(1.05)
-        opacity: .65
-        transition-timing-function: ease-out
-        transition-duration: .3s .4s
+        & ~ .illustration .rings .ring
+          transform: translate(-50%, -50%) scale(1.05)
+          opacity: .65
+          transition-timing-function: ease-out
+          transition-duration: .3s .4s
 
-        @for $i from 1 through 4
-          &:nth-child(#{$i})
-            transition-delay: .6s * ($i - 1) / ($i + 3)
-            opacity: .5 + (.15 * (1 / ($i * $i)))
+          @for $i from 1 through 4
+            &:nth-child(#{$i})
+              transition-delay: .6s * ($i - 1) / ($i + 3)
+              opacity: .5 + (.15 * (1 / ($i * $i)))
 
 
   .illustration

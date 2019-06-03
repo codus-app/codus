@@ -12,9 +12,11 @@
         }"
         fade-color="rgba(12, 12, 12, .65)"
       >
-        <h2>Congratulations!</h2>
-        <p>You’ve solved this problem. Don’t stop now; move on to the next one!</p>
-        <router-link class="onward" v-bind:to="nextUrl">Onward!</router-link>
+        <slot>
+          <h2>Congratulations!</h2>
+          <p>You’ve solved this problem. Don’t stop now; move on to the next one!</p>
+          <router-link class="onward" v-bind:to="nextUrl">Onward!</router-link>
+        </slot>
 
 
         <div class="illustration">

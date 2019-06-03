@@ -30,7 +30,16 @@
       v-bind:nextUrl="nextProblem
         ? { ...this.$route, params: { ...this.$route.params, ...this.nextProblem }}
         : ''"
-    ></solved-modal>
+    >
+      <template v-if="!nextProblem">
+        <h2>Congratulations!</h2>
+        <p>
+          You've solved all the problems! We're always writing new problems, so be sure to check
+          back later.
+        </p>
+        <router-link class="onward" to="/">Go home</router-link>
+      </template>
+    </solved-modal>
   </div>
 </template>
 
