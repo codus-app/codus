@@ -1,6 +1,7 @@
 import debounce from 'debounce';
 import dedent from 'dedent';
 import { mapState, mapGetters, mapActions } from 'vuex';
+import ab from '../../ab';
 
 
 export default {
@@ -91,7 +92,8 @@ export default {
       // Now check once the save completes
       await this.checkSolution({ problem: this.problemName, category: this.category });
       this.checkInProgress = false;
-      if (this.solved) setTimeout(() => { this.solvedModalOpen = true; }, 500);
+
+      if (this.solved && ab.gamify) setTimeout(() => { this.solvedModalOpen = true; }, 500);
     },
 
     async init() {
