@@ -1,4 +1,5 @@
 const keystone = require('keystone');
+const bodyParser = require('body-parser');
 
 require('dotenv').config();
 
@@ -20,6 +21,7 @@ keystone.import('models');
 
 keystone.set('routes', require('./routes')); // eslint-disable-line import/newline-after-import
 keystone.set('handle uploads', false);
+keystone.set('pre:bodyparser', (app) => { app.use(bodyParser.text()); });
 
 keystone.set('nav', {
   content: ['problems', 'categories'],

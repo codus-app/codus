@@ -20,6 +20,7 @@ const routes = {
     users,
     userSolutions,
     classroom: { instructor: instructorRoutes, student: studentRoutes },
+    ab: { post: require('./ab-log.js') }, // eslint-disable-line global-require
   },
 };
 
@@ -39,6 +40,7 @@ module.exports = (app) => {
 
 
   app.get('/api', (req, res) => res.json({ status: 'ok' }));
+  app.post('/api/stats-log', routes.api.ab.post);
 
   // These endpoints query the problem database and return public information
 
