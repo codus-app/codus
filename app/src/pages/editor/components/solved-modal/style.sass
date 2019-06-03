@@ -16,6 +16,7 @@
     margin: 0 0 1.3rem
 
   a.onward
+    display: inline-block
     background: $green-bg
     border-radius: 6px
     box-shadow: 0 .15rem .6rem -.15rem rgba(55, 141, 93, .6)
@@ -27,6 +28,22 @@
     text-transform: uppercase
     letter-spacing: .08em
     color: $light-text-primary
+    transform: translateY(.01%)
+    transition: transform .35s
+
+    &:hover
+      transform: translateY(-5%)
+
+      & ~ .illustration .rings .ring
+        transform: translate(-50%, -50%) scale(1.05)
+        opacity: .65
+        transition-timing-function: ease-out
+        transition-duration: .3s .4s
+
+        @for $i from 1 through 4
+          &:nth-child(#{$i})
+            transition-delay: .6s * ($i - 1) / ($i + 3)
+            opacity: .5 + (.15 * (1 / ($i * $i)))
 
 
   .illustration
@@ -62,21 +79,28 @@
       position: absolute
       transform: translate(-50%, -50%)
       border-radius: 50%
-      border: 2px solid #2bc772
+      border: 2px solid
+      opacity: .5
+      transition: transform .3s, opacity .3s
 
     @for $i from 1 through 4
       .ring:nth-child(#{$i})
         $size: 6rem - .5rem + (3.5rem * $i)
         width: $size
         height: $size
-        opacity: .5 - (.1 * $i)
+        $opacity-multiplier: 1 - (.2 * $i)
+        border-color: transparentize(#2bc772, (1 - $opacity-multiplier))
 
 
     .cutout
-      width: 10rem
-      height: 10rem
+      width: 15rem
+      height: 15rem
       background: #f7f7f7
       position: absolute
       transform-origin: top left
       $skew: 8deg
       transform: rotate(45deg + $skew / 2) skew(0, -$skew)
+
+
+  &.modal-wrapper /deep/ div.content
+    margin: 0
