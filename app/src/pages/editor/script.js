@@ -9,7 +9,7 @@ export default {
     code: '',
     saveStatus: 'unsaved',
     checkInProgress: false,
-    solvedModalOpen: true,
+    solvedModalOpen: false,
   }),
 
   computed: {
@@ -91,6 +91,7 @@ export default {
       // Now check once the save completes
       await this.checkSolution({ problem: this.problemName, category: this.category });
       this.checkInProgress = false;
+      if (this.solved) setTimeout(() => { this.solvedModalOpen = true; }, 500);
     },
 
     async init() {
@@ -99,6 +100,7 @@ export default {
       if (!this.contentFetched) this.fetchContent();
       await this.fetchSolution({ category: this.category, problem: this.problemName });
       this.fetched = true;
+      this.solvedModalOpen = false;
       this.code = this.remoteCode || this.baseCode;
       // "unsaved" if there's no remote code, otherwise we start out with "saved"
       this.saveStatus = this.remoteCode === null ? 'unsaved' : 'saved';
