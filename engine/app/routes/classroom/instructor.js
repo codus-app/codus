@@ -104,11 +104,21 @@ module.exports.classrooms = {
     });
   },
 
+  /** Rename a classroom */
   async putName(req, res) {
     const { name } = req.body;
     Classroom.updateItem(req.classroom, { name }, (error) => {
       if (error) new HTTPError('Something went wrong').handle(res);
       else res.json({ data: { name } });
+    });
+  },
+
+  /** Regenerate classroom code */
+  async regenerateCode(req, res) {
+    const newCode = await generateInviteCode();
+    Classroom.updateItem(req.classroom, { code: newCode }, (error) => {
+      if (error) new HTTPError('Something went wrong').handle(res);
+      else res.json({ data: { code: newCode } });
     });
   },
 
