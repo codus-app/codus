@@ -187,7 +187,7 @@ export default {
 
     async mutateAssignment({ commit }, { classroom, assignment }) {
       if (!assignment.id) throw new Error('Assignment ID is required');
-      const updated = await api.put({
+      const updated = await api.patch({
         endpoint: `/classroom/${classroom}/assignments/${assignment.id}`,
         body: assignment,
       });

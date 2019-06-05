@@ -310,7 +310,7 @@ module.exports.assignments = {
   },
 
   /** Update an assignment with new field values */
-  async put(req, res) {
+  async patch(req, res) {
     const { assignmentCode } = req.params;
     // Get new values
     const { name, description, dueDate } = req.body;
