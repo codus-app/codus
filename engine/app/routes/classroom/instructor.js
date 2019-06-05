@@ -104,6 +104,14 @@ module.exports.classrooms = {
     });
   },
 
+  async putName(req, res) {
+    const { name } = req.body;
+    Classroom.updateItem(req.classroom, { name }, (error) => {
+      if (error) new HTTPError('Something went wrong').handle(res);
+      else res.json({ data: { name } });
+    });
+  },
+
   /** Remove a classroom */
   async delete(req, res) {
     // Remove all students from classroom
