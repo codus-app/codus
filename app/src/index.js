@@ -154,7 +154,3 @@ frame.id = 'localstorage';
 frame.style.display = 'none';
 frame.onload = () => frame.setAttribute('loaded', '');
 document.body.appendChild(frame);
-
-// AB
-import ab from './ab';
-window.ab = ab;

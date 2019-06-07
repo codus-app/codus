@@ -1,9 +1,6 @@
 import debounce from 'debounce';
 import dedent from 'dedent';
 import { mapState, mapGetters, mapActions } from 'vuex';
-import ab from '../../ab';
-
-let startTime = null;
 
 export default {
   data: () => ({
@@ -95,9 +92,7 @@ export default {
       await this.checkSolution({ problem: this.problemName, category: this.category });
       this.checkInProgress = false;
 
-      if (this.solved && ab.gamify) setTimeout(() => { this.solvedModalOpen = true; }, 500);
-      // Record data point
-      if (this.solved && !wasSolved) ab.problemSolved((new Date() - startTime) / 1000);
+      if (this.solved && !wasSolved) setTimeout(() => { this.solvedModalOpen = true; }, 500);
     },
 
     async init() {
