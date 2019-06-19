@@ -102,7 +102,6 @@ export default {
       await this.fetchSolution({ category: this.category, problem: this.problemName });
       this.fetched = true;
       this.solvedModalOpen = false;
-      startTime = new Date();
       this.code = this.remoteCode || this.baseCode;
       // "unsaved" if there's no remote code, otherwise we start out with "saved"
       this.saveStatus = this.remoteCode === null ? 'unsaved' : 'saved';
