@@ -11,7 +11,7 @@
         v-on:input="onInput"
       >
 
-      <div class="indicator-wrapper">
+      <div class="indicator-wrapper" v-if="charLimit != null || status !== 'neutral'">
         <component class="indicator" v-if="charLimit == null" v-bind:is="{
           neutral: undefined,
           success: 'icon-check',
