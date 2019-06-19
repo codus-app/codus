@@ -4,6 +4,7 @@ export default {
 
     title: String,
     placeholder: String,
+    disabled: Boolean,
     message: String,
     status: {
       type: String,

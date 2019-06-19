@@ -7,6 +7,7 @@
         v-bind:id="_uid"
         v-bind:placeholder="placeholder"
         v-bind:value="value"
+        v-bind:disabled="disabled"
         v-on:input="onInput"
       >
 
