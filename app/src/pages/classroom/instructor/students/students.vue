@@ -6,7 +6,7 @@
     <classroom-header>
       <template v-slot:actions>
         <icon-user-plus v-on:click="$emit('open-invitation')"></icon-user-plus>
-        <icon-settings></icon-settings>
+        <icon-settings v-on:click="$emit('open-settings')"></icon-settings>
       </template>
     </classroom-header>
 

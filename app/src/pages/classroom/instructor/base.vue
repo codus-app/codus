@@ -4,6 +4,7 @@
       v-bind:classroom="classroom"
       v-on:open-invitation="invitationOpen = true"
       v-on:create-assignment="assignmentCreationOpen = true"
+      v-on:open-settings="settingsOpen = true"
     ></router-view>
 
     <classroom-invitation-modal
@@ -17,6 +18,12 @@
       v-on:close="assignmentCreationOpen = false"
       v-bind:classroom="classroom"
     ></assignment-creation-modal>
+
+    <classroom-settings-modal
+      v-bind:open="settingsOpen"
+      v-on:close="settingsOpen = false"
+      v-bind:classroom="classroom"
+    ></classroom-settings-modal>
   </div>
 
   <not-found v-else></not-found>

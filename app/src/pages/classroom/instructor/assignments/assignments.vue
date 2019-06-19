@@ -3,7 +3,7 @@
     <classroom-header>
       <template v-slot:actions>
         <icon-file-plus v-on:click="$emit('create-assignment')"></icon-file-plus>
-        <icon-settings></icon-settings>
+        <icon-settings v-on:click="$emit('open-settings')"></icon-settings>
       </template>
     </classroom-header>
 

@@ -72,6 +72,9 @@ Vue.component('classroom-invitation-modal', ClassroomInvitation);
 import ClassroomAssignmentCreate from './classroom/assignment-create/assignment-create.vue';
 Vue.component('assignment-creation-modal', ClassroomAssignmentCreate);
 
+import ClassroomSettings from './classroom/settings/settings.vue';
+Vue.component('classroom-settings-modal', ClassroomSettings);
+
 // Transition effects
 
 import './transitions';

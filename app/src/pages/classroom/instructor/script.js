@@ -5,6 +5,7 @@ export default {
   data: () => ({
     invitationOpen: false,
     assignmentCreationOpen: false,
+    settingsOpen: false,
   }),
 
   computed: {
