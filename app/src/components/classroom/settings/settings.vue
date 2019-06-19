@@ -12,6 +12,27 @@
     v-bind:wide="true"
   >
     <template v-slot:header><h2>Classroom settings</h2></template>
+    <div class="controls">
+
+      <div class="group classroom-name">
+        <text-input
+          title="Classroom name"
+          placeholder="Enter a name"
+          v-model="classroomName"
+        ></text-input>
+        <bold-button type="green">Save</bold-button>
+      </div>
+
+      <div class="group invite-code">
+        <text-input
+          title="Invite code"
+          v-bind:value="classroomInviteCode"
+          disabled
+          ref="inviteInput"
+        ></text-input>
+        <bold-button type="green">Regenerate</bold-button>
+      </div>
+    </div>
   </modal>
 </template>
 
