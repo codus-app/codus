@@ -45,6 +45,24 @@ export default {
       return true;
     },
 
+    classroomCodeChanged(state, { oldCode, code }) {
+      const index = state.classrooms.findIndex(c => c.code === oldCode);
+      if (index === -1) return false;
+      Vue.set(state.classrooms, index, { ...state.classrooms[index], code });
+      if (state.selectedCode === oldCode) {
+        state.selectedCode = code;
+        localStorage.setItem('instructor-context', state.selectedCode);
+      }
+      if (window.app && window.app.$router) {
+        const router = window.app.$router;
+        router.replace({
+          name: router.currentRoute.name,
+          params: { ...router.currentRoute.params, classroomCode: code },
+        });
+      }
+      return true;
+    },
+
     switchClassroom(state, newCode) {
       if (!state.classrooms.map(({ code }) => code).includes(newCode)) state.selectedCode = null;
       else state.selectedCode = newCode;
@@ -160,6 +178,11 @@ export default {
     async deleteClassroom({ commit }, code) {
       const { success } = await api.delete({ endpoint: `/classroom/${code}` });
       if (success) commit('classroomDeleted', code);
+    },
+
+    async regenerateCode({ commit }, oldClassroomCode) {
+      const { code } = await api.post({ endpoint: `/classroom/${oldClassroomCode}/regenerateCode` });
+      commit('classroomCodeChanged', { oldCode: oldClassroomCode, code });
     },
 
     /** Remove a student from a classroom */
