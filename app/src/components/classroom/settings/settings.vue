@@ -30,7 +30,7 @@
           disabled
           ref="inviteInput"
         ></text-input>
-        <bold-button type="green">Regenerate</bold-button>
+        <bold-button type="green" v-on:click="codeRegen">Regenerate</bold-button>
       </div>
     </div>
   </modal>
