@@ -81,7 +81,7 @@ module.exports = (app) => {
   // app.get('/api/classrom/:classroomCode') defined below
   app.put('/api/classroom/:classroomCode/name', instructorMiddleware2, instructor.classrooms.putName);
   app.delete('/api/classroom/:classroomCode', instructorMiddleware2, instructor.classrooms.delete);
-  app.post('/api/classroom/:classroomCode/regenerate', instructorMiddleware2, instructor.classrooms.regenerateCode);
+  app.post('/api/classroom/:classroomCode/regenerateCode', instructorMiddleware2, instructor.classrooms.regenerateCode);
 
   // Students
   app.delete('/api/classroom/:classroomCode/students/:username', instructorMiddleware2, instructor.classrooms.removeUser);
