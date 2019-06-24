@@ -20,7 +20,11 @@
           placeholder="Enter a name"
           v-model="classroomName"
         ></text-input>
-        <bold-button type="green">Save</bold-button>
+        <bold-button
+          type="green"
+          v-bind:disabled="classroomName === classroom.name"
+          v-on:click="saveName"
+        >Save</bold-button>
       </div>
 
       <div class="group invite-code">
