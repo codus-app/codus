@@ -45,3 +45,14 @@ button
 
       &:hover
         background: lighten(#1d1e1f, 1.5%)
+
+  &:disabled
+    cursor: not-allowed
+
+    &.bg.green,
+    &.bg.red,
+    &.bg.gray
+      background: transparentize($white, .8)
+
+      &:hover
+        background: transparentize($white, .775)
