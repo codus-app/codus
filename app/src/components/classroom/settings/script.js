@@ -14,11 +14,11 @@ export default {
   },
 
   methods: {
-    ...mapActions(['regenerateCode']),
+    ...mapActions(['renameClassroom', 'regenerateCode']),
     codeRegen() { this.regenerateCode(this.classroom.code); },
 
     saveName() {
-      console.log('hey!');
+      this.renameClassroom({ code: this.classroom.code, newName: this.classroomName });
     },
   },
 
