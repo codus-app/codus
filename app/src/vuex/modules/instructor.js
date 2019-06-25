@@ -174,12 +174,6 @@ export default {
       return classroom;
     },
 
-    /** Delete a classroom */
-    async deleteClassroom({ commit }, code) {
-      const { success } = await api.delete({ endpoint: `/classroom/${code}` });
-      if (success) commit('classroomDeleted', code);
-    },
-
     /** Change a classroom's name */
     async renameClassroom({ commit }, { code, newName }) {
       const { name: assignedName } = await api.put({ endpoint: `/classroom/${code}/name`, body: { name: newName } });
@@ -190,6 +184,12 @@ export default {
     async regenerateCode({ commit }, oldClassroomCode) {
       const { code } = await api.post({ endpoint: `/classroom/${oldClassroomCode}/regenerateCode` });
       commit('classroomCodeChanged', { oldCode: oldClassroomCode, code });
+    },
+
+    /** Delete a classroom */
+    async deleteClassroom({ commit }, code) {
+      const { success } = await api.delete({ endpoint: `/classroom/${code}` });
+      if (success) commit('classroomDeleted', code);
     },
 
     /** Remove a student from a classroom */
