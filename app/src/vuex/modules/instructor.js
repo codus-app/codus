@@ -180,6 +180,13 @@ export default {
       if (success) commit('classroomDeleted', code);
     },
 
+    /** Change a classroom's name */
+    async renameClassroom({ commit }, { code, newName }) {
+      const { name: assignedName } = await api.put({ endpoint: `/classroom/${code}/name`, body: { name: newName } });
+      if (assignedName) commit('mutateClassroom', { code, name: assignedName });
+    },
+
+    /** Refresh a classroom's code with a randomly selected new code */
     async regenerateCode({ commit }, oldClassroomCode) {
       const { code } = await api.post({ endpoint: `/classroom/${oldClassroomCode}/regenerateCode` });
       commit('classroomCodeChanged', { oldCode: oldClassroomCode, code });
