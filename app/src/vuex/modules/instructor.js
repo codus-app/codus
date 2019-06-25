@@ -12,6 +12,7 @@ export default {
   },
 
   mutations: {
+    /** Create / update multiple classrooms in the store with newly fetched values */
     classroomsFetched(state, payload) {
       // An index of codes of classrooms that are already represented in Vuex
       const storedCodes = state.classrooms.map(c => c.code);
@@ -31,12 +32,14 @@ export default {
       }
     },
 
+    /** Create or update a classroom in the store with new values */
     mutateClassroom(state, payload) {
       const index = state.classrooms.findIndex(c => c.code === payload.code);
       if (index === -1) state.classrooms = [...state.classrooms, payload];
       else Vue.set(state.classrooms, index, { ...state.classrooms[index], ...payload });
     },
 
+    /** Remove a classroom from Vuex after it's been deleted remotely */
     classroomDeleted(state, code) {
       const index = state.classrooms.findIndex(c => c.code === code);
       if (index === -1) return false;
@@ -45,6 +48,10 @@ export default {
       return true;
     },
 
+    /**
+     * Smoothly handle a classroom code reassignment so that everything still points to the right
+     * place
+     */
     classroomCodeChanged(state, { oldCode, code }) {
       const index = state.classrooms.findIndex(c => c.code === oldCode);
       if (index === -1) return false;
@@ -63,12 +70,14 @@ export default {
       return true;
     },
 
+    /** Switch which classroom is the selectedClassroom in Vuex */
     switchClassroom(state, newCode) {
       if (!state.classrooms.map(({ code }) => code).includes(newCode)) state.selectedCode = null;
       else state.selectedCode = newCode;
       localStorage.setItem('instructor-context', state.selectedCode);
     },
 
+    /** Remove a student from Vuex once they've been removed from a classroom */
     userRemoved(state, { classroom, username }) {
       const index = state.classrooms.findIndex(c => c.code === classroom);
       if (index === -1) return false;
@@ -79,6 +88,7 @@ export default {
       return true;
     },
 
+    /** Hydrate a stored assignment object with additional details once they've been fetched */
     assignmentFetched(state, { classroom: classroomCode, assignment }) {
       const classroomIndex = state.classrooms.findIndex(c => c.code === classroomCode);
       if (classroomIndex === -1) throw new Error(`Classroom ${classroomCode} not found`);
@@ -95,6 +105,7 @@ export default {
       }
     },
 
+    /** Update the Vuex-recorded order of assignments once it's been changed on the server */
     assignmentsReordered(state, { classroom: classroomCode, assignments: newAssignments }) {
       const index = state.classrooms.findIndex(c => c.code === classroomCode);
       if (index === -1) throw new Error(`Classroom ${classroomCode} not found`);
@@ -118,6 +129,7 @@ export default {
       return true;
     },
 
+    /** Remove an assignment from Vuex state once it's been deleted */
     assignmentDeleted(state, { classroom: classroomCode, id: assignmentId }) {
       const index = state.classrooms.findIndex(c => c.code === classroomCode);
       if (index === -1) throw new Error(`Classroom ${classroomCode} not found`);
@@ -134,6 +146,7 @@ export default {
       Vue.set(state.studentSolutions, username, solutions);
     },
 
+    /** Record more detailed info once details of a single student solution have been fetched */
     studentSolutionFetched(state, { username, category, problemName, solution }) {
       // If there's no list of this student's solutions, start one
       if (!state.studentSolutions[username]) Vue.set(state.studentSolutions, username, []);
@@ -215,6 +228,7 @@ export default {
       commit('assignmentFetched', { classroom, assignment });
     },
 
+    /** Update one or more attributes of an assignment (name, description, dueDate) */
     async mutateAssignment({ commit }, { classroom, assignment }) {
       if (!assignment.id) throw new Error('Assignment ID is required');
       const updated = await api.patch({
@@ -243,11 +257,13 @@ export default {
       if (success) commit('assignmentDeleted', { classroom, id });
     },
 
+    /** Fetch all of one student's problem solutions */
     async fetchStudentSolutions({ commit }, { username }) {
       const solutions = await api.get({ endpoint: `/classroom/students/${username}/solutions` });
       commit('studentSolutionsFetched', { username, solutions });
     },
 
+    /** Fetch detailed info about one of a student's problem solutions */
     async fetchStudentSolution({ commit }, { username, category, problemName }) {
       const solution = await api.get({ endpoint: `/classroom/students/${username}/solutions/${category}/${problemName}` });
       // Update problem info for the problem this solution came from
@@ -257,6 +273,7 @@ export default {
       commit('studentSolutionFetched', { username, category, problemName, solution });
     },
 
+    /** Verify the correctness of a student's solution to a single problem */
     async checkStudentSolution(_, { username, category, problemName }) {
       const result = await api.get({ endpoint: `/classroom/students/${username}/solutions/${category}/${problemName}/check` });
       return result;
@@ -264,16 +281,20 @@ export default {
   },
 
   getters: {
+    // Get the currently selected classroom
     selectedClassroom(state) {
       if (state.selectedCode === null) return null;
       return state.classrooms.find(({ code }) => code === state.selectedCode) || null;
     },
 
+    // Get the classroom for a given code
     getClassroom: state => c => state.classrooms.find(({ code }) => code === c) || null,
 
+    // All of a student's solutions
     getStudentSolutions: state => username => state.studentSolutions[username],
 
     /* eslint-disable max-len */
+    // A student's solution to a given problem
     getStudentSolution: state => (username, searchCategory, searchProblem) => (state.studentSolutions[username] || [])
       .find(({ problem }) => (problem.category.name || problem.category) === searchCategory && problem.name === searchProblem)
       || null,
