@@ -1,7 +1,7 @@
 <template>
   <router-link
     class="sb-link" v-bind:class="{ collapsed, disabled, 'loose-match': meta.looseMatch }"
-    v-bind:to="replaceParams(path)"
+    v-bind:to="path ? replaceParams(path) : ''"
     v-bind:title="meta.label"
     v-tippy="{
       placement: 'right',
@@ -13,7 +13,7 @@
     v-on:mouseleave.native="() => { if ($el._tippy) $el._tippy.hide(); }"
   >
     <!-- Selection indicator (highlights active route) -->
-    <div class="indicator" v-if="!collapsed"></div>
+    <div class="indicator" v-if="path && !collapsed"></div>
     <!-- Icon -->
     <component v-bind:is="`icon-${meta.icon}`"></component>
     <!-- Label -->
