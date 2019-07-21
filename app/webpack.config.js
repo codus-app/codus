@@ -6,6 +6,13 @@ const webpack = require('webpack');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
+const replacements = {
+  NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+  CODUS_LANDING_URL: JSON.stringify(process.env.CODUS_LANDING_URL),
+  CODUS_APP_URL: JSON.stringify(process.env.CODUS_APP_URL),
+  CODUS_API_BASE: JSON.stringify(process.env.CODUS_API_BASE),
+};
+
 module.exports = {
   mode: process.env.NODE_ENV || 'development',
   entry: path.join(__dirname, 'src'),
@@ -45,6 +52,14 @@ module.exports = {
         loaders: [
           'file-loader?name=[path][name].html&context=src',
           'extract-loader',
+          {
+            loader: 'string-replace-loader',
+            options: {
+              multiple: Object
+                .entries(replacements)
+                .map(([k, v]) => ({ search: k, replace: v.replace(/"/g, '\\"') })),
+            },
+          },
           'html-loader',
         ],
       },
@@ -70,12 +85,7 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.DefinePlugin({
-      NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-      CODUS_LANDING_URL: JSON.stringify(process.env.CODUS_LANDING_URL),
-      CODUS_APP_URL: JSON.stringify(process.env.CODUS_APP_URL),
-      CODUS_API_BASE: JSON.stringify(process.env.CODUS_API_BASE),
-    }),
+    new webpack.DefinePlugin(replacements),
     new VueLoaderPlugin(),
     new CopyWebpackPlugin(['static/**/*']),
   ],
