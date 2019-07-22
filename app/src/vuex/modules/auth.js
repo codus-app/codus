@@ -1,6 +1,8 @@
-/* global CODUS_LANDING_URL */
+/* global CODUS_LANDING_URL, BASE_DOMAIN */
 import auth0 from 'auth0-js';
 import jwtDecode from 'jwt-decode';
+import Cookies from 'js-cookie';
+window.Cookies = Cookies;
 
 export const webAuth = new auth0.WebAuth({
   domain: 'codus.auth0.com',
@@ -18,10 +20,10 @@ export default {
 
   state: {
     res: null,
-    accessToken: localStorage.getItem('access_token'),
-    idToken: localStorage.getItem('id_token'),
-    profile: localStorage.getItem('id_token')
-      ? jwtDecode(localStorage.getItem('id_token'))
+    accessToken: Cookies.get('access_token'),
+    idToken: Cookies.get('id_token'),
+    profile: Cookies.get('id_token')
+      ? jwtDecode(Cookies.get('id_token'))
       : {},
   },
 
@@ -54,7 +56,7 @@ export default {
     loginCallback({ commit, dispatch }, res) {
       // Store basic login info
       commit('loggedIn', res);
-      dispatch('toLocalStorage');
+      dispatch('toCookies');
       setTimeout(() => { window.location.hash = ''; }, 250);
     },
 
@@ -66,7 +68,7 @@ export default {
             dispatch('logout');
           } else {
             commit('loggedIn', authResult);
-            dispatch('toLocalStorage');
+            dispatch('toCookies');
             window.location.hash = '';
             resolve();
           }
@@ -77,7 +79,7 @@ export default {
     logout({ commit, dispatch }) {
       // Remove login info
       commit('logout');
-      dispatch('toLocalStorage');
+      dispatch('toCookies');
 
       webAuth.logout({
         returnTo: CODUS_LANDING_URL,
@@ -97,30 +99,21 @@ export default {
       });
     },
 
-    // Copy current state to localStorage for cross-request storage
-    // Includes applying a 'logged out' state to localStorage
-    toLocalStorage({ state }) {
-      const payload = { set: {}, remove: [] };
+    // Store current state as cookies shared across all subdomains
+    // Copy current state to cookies for cross-request storage
+    // Includes applying a 'logged out' state
+    toCookies({ state }) {
+      const options = { domain: BASE_DOMAIN };
 
-      function localify(stateKey, destKey = stateKey, json = false) {
-        if (state[stateKey] === null) {
-          localStorage.removeItem(destKey);
-          payload.remove.push(destKey);
-        } else {
-          localStorage.setItem(destKey, json ? JSON.stringify(state[stateKey]) : state[stateKey]);
-          payload.set[destKey] = state[stateKey];
-        }
-      }
-
-      localify('res', 'res', true); // The entire authentication response
-      localify('idToken', 'id_token');
-      localify('accessToken', 'access_token');
-
-      const frame = document.querySelector('iframe#localstorage');
-      // Already loaded!
-      if (frame.hasAttribute('loaded')) frame.contentWindow.postMessage(payload, CODUS_LANDING_URL);
-      // If not, wait
-      else frame.addEventListener('load', () => frame.contentWindow.postMessage(payload, CODUS_LANDING_URL));
+      // Response
+      if (state.res === null) Cookies.remove('res', options);
+      else Cookies.set('res', state.res, options);
+      // ID token
+      if (state.idToken === null) Cookies.remove('id_token', options);
+      else Cookies.set('id_token', state.idToken, options);
+      // Access token
+      if (state.accessToken === null) Cookies.remove('access_token', options);
+      else Cookies.set('access_token', state.accessToken, options);
     },
   },
 

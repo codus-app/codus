@@ -1,4 +1,3 @@
-/* global CODUS_LANDING_URL */
 /* eslint-disable import/first */
 
 // Polyfills
@@ -14,7 +13,6 @@ import { mapState, mapGetters, mapActions } from 'vuex';
 
 // HTML
 import './index.html';
-import './localstorage-iframe.html';
 
 // Styles
 import './style.sass';
@@ -146,11 +144,3 @@ window.app = new Vue({
 // API
 import * as api from './api'; // eslint-disable-line import/first
 window.api = api;
-
-// Auth
-const frame = document.createElement('iframe');
-frame.src = `${CODUS_LANDING_URL}/localstorage-iframe.html`;
-frame.id = 'localstorage';
-frame.style.display = 'none';
-frame.onload = () => frame.setAttribute('loaded', '');
-document.body.appendChild(frame);

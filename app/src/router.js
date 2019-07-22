@@ -1,6 +1,7 @@
 /* global CODUS_LANDING_URL */
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import Cookies from 'js-cookie';
 
 import store from './vuex';
 import { webAuth } from './vuex/modules/auth';
@@ -46,8 +47,8 @@ mainRouter.beforeEach(async (to, from, next) => {
     await new Promise((resolve) => {
       webAuth.parseHash({
         hash: window.location.hash,
-        state: localStorage.state, // localstorage-iframe receives and stores these values
-        nonce: localStorage.nonce,
+        state: Cookies.get('state'),
+        nonce: Cookies.get('nonce'),
       }, (err, res) => {
         if (res) store.dispatch('auth/loginCallback', res); // hash was found and parseable
         resolve();
