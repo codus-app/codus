@@ -43,7 +43,7 @@ mainRouter.beforeEach(async (to, from, next) => {
   }
 
   // Parse login information if necessary
-  if (window.location.hash) {
+  if (window.location.hash.startsWith('#access_token')) {
     await new Promise((resolve) => {
       webAuth.parseHash({
         hash: window.location.hash,
