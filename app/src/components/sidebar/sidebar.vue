@@ -38,6 +38,14 @@
             v-bind="{ ...r, collapsed, replaceParams }"
           ></sidebar-link>
         </template>
+
+        <template v-else-if="!collapsed">
+          <h2>Classroom</h2>
+          <div class="sb-link green" v-on:click="$root.$emit('joinClassroom')">
+            <icon-plus></icon-plus>
+            <span v-bind:style="{ transform: 'translateX(-.15rem)' }">Join classroom</span>
+          </div>
+        </template>
       </template>
 
       <!-- Links for instructor accounts -->

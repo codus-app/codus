@@ -33,4 +33,4 @@ export default {
 };
 </script>
 
-<style scoped lang="sass" src="./sidebar-link.sass"></style>
+<style lang="sass" src="./sidebar-link.sass"></style>
