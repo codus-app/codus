@@ -59,6 +59,7 @@ window.app = new Vue({
 
   data: () => ({
     fetchPromise: undefined,
+    classroomJoinOpen: false,
   }),
 
   computed: {
@@ -137,6 +138,8 @@ window.app = new Vue({
       .then(() => { if (this.role) this.switchRoutes(this.role); });
 
     ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(name => document.addEventListener(name, e => e.preventDefault()));
+
+    this.$on('joinClassroom', () => { this.classroomJoinOpen = true; });
   },
 });
 
