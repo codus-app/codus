@@ -58,7 +58,7 @@ module.exports = {
             options: {
               multiple: Object
                 .entries(replacements)
-                .map(([k, v]) => ({ search: k, replace: v.replace(/"/g, '\\"') })),
+                .map(([k, v]) => ({ search: k, replace: (v || '').replace(/"/g, '\\"') })),
             },
           },
           'html-loader',
