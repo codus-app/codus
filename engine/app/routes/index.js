@@ -106,6 +106,7 @@ module.exports = (app) => {
   app.get('/api/classroom', studentMiddleware, fetchClassroom, student.classroom.get);
   // app.get('/api/classrom/:classroomCode') defined below
   app.get('/api/classroom/leave', studentMiddleware, fetchClassroom, student.classroom.leave);
+  app.get('/api/classroom/assignments', studentMiddleware, fetchClassroom, student.assignments.list);
 
   // "Switched" routes available to students and instructors with different handlers for each
 

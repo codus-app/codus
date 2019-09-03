@@ -3,6 +3,7 @@ const keystone = require('keystone');
 const User = keystone.list('User');
 const Classroom = keystone.list('Classroom');
 
+const instructorHandlers = require('./instructor');
 const HTTPError = require('../util/error');
 
 module.exports.classroom = {
@@ -92,6 +93,21 @@ module.exports.classroom = {
     User.updateItem(req.user2, { classroom: null }, (error) => {
       if (error) return new HTTPError('Something went wrong').handle(res);
       return res.json({ data: null });
+    });
+  },
+};
+
+
+module.exports.assignments = {
+  list(req, res) {
+    // Use instructor assignments list method
+    instructorHandlers.assignments.list(req, {
+      // Fake res.json in order to process result
+      json({ data: assignments }) {
+        res.json({
+          data: assignments.map(a => ({ ...a, classroom: undefined })),
+        });
+      },
     });
   },
 };
