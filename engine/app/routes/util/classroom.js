@@ -28,9 +28,7 @@ module.exports.generateInviteCode = async function generateInviteCode(length = 6
 /**
  * Fetch an assignment using an assignment code and a classroom object.
  */
-module.exports.fetchAssignment = async function fetchAssignment(
-  code, classroom, shouldPopulate = false,
-) {
+module.exports.fetchAssignment = async function fetchAssignment(code, classroom, shouldPopulate) {
   if (code.length !== 8) throw new HTTPError(400, 'Assignment code must be an 8-character code');
   if (/[^0-9a-f]/i.test(code)) throw new HTTPError(400, 'Assignment code must be hexadecimal');
 

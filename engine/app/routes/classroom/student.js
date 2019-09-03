@@ -4,6 +4,7 @@ const User = keystone.list('User');
 const Classroom = keystone.list('Classroom');
 
 const instructorHandlers = require('./instructor');
+const { fetchAssignment } = require('../util/classroom');
 const HTTPError = require('../util/error');
 
 module.exports.classroom = {
@@ -107,6 +108,29 @@ module.exports.assignments = {
         res.json({
           data: assignments.map(a => ({ ...a, classroom: undefined })),
         });
+      },
+    });
+  },
+
+  async get(req, res) {
+    let assignment;
+    try {
+      assignment = await fetchAssignment(req.params.assignmentCode, req.classroom, true);
+    } catch (e) {
+      if (e.statusCode) return e.handle(res);
+      return new HTTPError('Something went wrong').handle(res);
+    }
+
+    return res.json({
+      data: {
+        ...assignment.toObject(),
+        classroom: undefined,
+        _id: undefined,
+        id: assignment.code,
+        problems: assignment.problems.map(p => ({
+          category: p.category.name,
+          name: p.name,
+        })),
       },
     });
   },
