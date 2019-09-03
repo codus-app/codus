@@ -4,6 +4,11 @@ const HTTPError = require('../util/error');
 const User = keystone.list('User');
 const Classroom = keystone.list('Classroom');
 
+
+/**
+ * [MIDDLEWARE] Fetch the info that the database has about the authenticated user and add it to the
+ * request object
+ */
 async function fetchUser(req, res, next) {
   req.user2 = await User.model
     .findOne()
@@ -11,7 +16,9 @@ async function fetchUser(req, res, next) {
   next();
 }
 
-/** Protect a route on the condition that the authenticated user has a given role */
+/**
+ * [MIDDLEWARE] Protect a route on the condition that the authenticated user has a given role.
+ */
 function enforceRole(role) {
   return async (req, res, next) => {
     // Require userFetch middleware to precede this middleware
@@ -23,8 +30,8 @@ function enforceRole(role) {
 }
 
 /**
- * Use a different route handler depending on whether the authenticated user is a student or an
- * instructor
+ * [MIDDLEWARE] Use a different route handler depending on whether the authenticated user is a
+ * student or an instructor
  */
 function roleSwitch(handlers) {
   return async (req, res) => {
@@ -36,8 +43,8 @@ function roleSwitch(handlers) {
 }
 
 /**
- * Fetch a classroom from a code passed in a classroomCode paramater. For students, fall back to the
- * classroom they belong to.
+ * [MIDDLEWARE] Fetch a classroom from a code passed in a classroomCode paramater. For students,
+ * fall back to the classroom they belong to.
  */
 async function fetchClassroom(req, res, next) {
   let classroom;
