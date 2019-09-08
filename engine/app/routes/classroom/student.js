@@ -2,8 +2,9 @@ const keystone = require('keystone');
 
 const User = keystone.list('User');
 const Classroom = keystone.list('Classroom');
+const Assignment = keystone.list('Assignment');
+const Solution = keystone.list('Solution');
 
-const instructorHandlers = require('./instructor');
 const { fetchAssignment } = require('../util/classroom');
 const HTTPError = require('../util/error');
 
@@ -100,15 +101,39 @@ module.exports.classroom = {
 
 
 module.exports.assignments = {
-  list(req, res) {
-    // Use instructor assignments list method
-    instructorHandlers.assignments.list(req, {
-      // Fake res.json in order to process result
-      json({ data: assignments }) {
-        res.json({
-          data: assignments.map(a => ({ ...a, classroom: undefined })),
-        });
-      },
+  async list(req, res) {
+    const assignments = await Assignment.model
+      .find()
+      .where('classroom').equals(req.classroom._id)
+      .sort('sortOrder')
+      .populate('problems')
+      .select('-__v');
+
+    const allProblemsAssigned = assignments.map(p => (p.problems.map(({ _id }) => _id))).flat();
+    const solutions = await Solution.model
+      .find()
+      .where('user').equals(req.user2._id)
+      .where('problem').in(allProblemsAssigned);
+
+    return res.json({
+      data: assignments.map(a => ({
+        ...a.toObject(),
+        classroom: undefined,
+        _id: undefined,
+        id: a.code,
+        problems: undefined,
+        numProblems: a.numProblems,
+        createdAt: a.createdAt,
+
+        // An assignment is “solved” if the number of problems in the assignment is equal to the
+        // number of the user's successful solutions that solve problems in this assignment
+        solved: a.numProblems === solutions
+          .filter(({ passed }) => passed)
+          .filter(({ problem }) => a.problems.map(p => p._id.toString())
+            // Problem is included in this assignment
+            .includes(problem.toString()))
+          .length,
+      })),
     });
   },
 
