@@ -1,26 +1,33 @@
 <template>
   <div class="cards-dashboard classroom page" v-bind:class="{ unfetched: !fetched }">
     <classroom-header>
-      <template v-slot:actions>
+      <template v-slot:actions v-if="editable">
         <icon-file-plus v-on:click="$emit('create-assignment')"></icon-file-plus>
         <icon-settings v-on:click="$emit('open-settings')"></icon-settings>
+      </template>
+      <template v-slot:actions v-else>
+        <icon-more></icon-more>
       </template>
     </classroom-header>
 
     <simplebar v-if="assignments.length">
       <draggable
         class="assignments-list"
-        v-model="assignments"
+        v-bind:value="assignments"
+        v-on:input="$emit('reorder', $event)"
         v-bind:animation="200"
         handle=".draggable-area"
         v-on:start="dragging = true; expandedId = overrideCollapse ? expandedId : null"
         v-on:end="dragging = false; overrideCollapse = false"
+        v-bind:disabled="!editable"
       >
         <assignment-list-item
           v-for="assignment in assignments"
           v-bind:key="assignment.id"
 
           v-bind:assignment="assignment"
+
+          v-bind:editable="editable"
 
           v-bind:expanded="!overrideCollapse && expandedId === assignment.id"
           v-bind:class="{ 'drag-active': dragging }"
@@ -33,16 +40,23 @@
         ></assignment-list-item>
       </draggable>
     </simplebar>
-    <empty-message v-else-if="fetched" v-on:action-click="$emit('create-assignment')">
-      <template v-slot:title> <h2>There’s nothing here</h2> </template>
-      To get started, create your first assignment.
-      <template v-slot:cta> <span>Create assignment</span> </template>
-    </empty-message>
+
+    <template v-else-if="fetched">
+      <empty-message v-if="editable" v-on:action-click="$emit('create-assignment')">
+        <template v-slot:title> <h2>There’s nothing here</h2> </template>
+        To get started, create your first assignment.
+        <template v-slot:cta> <span>Create assignment</span> </template>
+      </empty-message>
+      <empty-message v-else>
+        <template v-slot:title> <h2>There's nothing here</h2> </template>
+        No assignments have been posted yet! Check back later.
+      </empty-message>
+    </template>
 
 
     <!-- "Delete assignment" confirmation modal -->
 
-    <portal to="modal-target">
+    <portal to="modal-target" v-if="editable">
       <modal
         class="delete-modal" ref="deleteModal"
         v-bind:open="assignmentDeletion.open" v-on:close="assignmentDeletion.open = false"
@@ -65,11 +79,7 @@
           <bold-button type="gray" v-on:click="assignmentDeletion.open = false">Cancel</bold-button>
           <bold-button
             type="red"
-            v-on:click="deleteAssignment({
-              classroom: classroom.code,
-              id: assignmentDeletion.assignment.id
-            })
-              .then(() => { assignmentDeletion.open = false; })"
+            v-on:click="$emit('deleteAssignment', assignmentDeletion.assignment.id)"
           >Delete</bold-button>
         </template>
       </modal>

@@ -1,8 +1,8 @@
-import { createNamespacedHelpers } from 'vuex';
-const { mapActions } = createNamespacedHelpers('classroom/instructor');
-
 export default {
-  props: { classroom: Object },
+  props: {
+    assignments: Array,
+    fetched: Boolean,
+  },
 
   data: () => ({
     expandedId: null,
@@ -14,22 +14,9 @@ export default {
   }),
 
   computed: {
-    fetched() { return this.classroom.fetched || false; },
-
-    assignments: {
-      get() { return this.classroom.assignments || []; },
-      set(value) {
-        this.reorderAssignments({
-          classroom: this.classroom.code,
-          ids: value.map(assignment => assignment.id),
-        });
-      },
-    },
   },
 
   methods: {
-    ...mapActions(['reorderAssignments', 'deleteAssignment']),
-
     dragPress(id) {
       if (id === this.expandedId) {
         this.overrideCollapse = true;
@@ -40,6 +27,12 @@ export default {
         document.addEventListener('mouseup', release);
       }
     },
+  },
+
+  created() {
+    this.$on('deletionComplete', () => {
+      this.assignmentDeletion.open = false;
+    });
   },
 
   components: {
