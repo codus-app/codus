@@ -128,10 +128,10 @@ module.exports.assignments = {
         // An assignment is “solved” if the number of problems in the assignment is equal to the
         // number of the user's successful solutions that solve problems in this assignment
         solved: a.numProblems === solutions
-          .filter(({ passed }) => passed)
-          .filter(({ problem }) => a.problems.map(p => p._id.toString())
+          .filter(s => s.passed)
+          .filter(s => a.problems.map(p => p._id.toString())
             // Problem is included in this assignment
-            .includes(problem.toString()))
+            .includes(s.problem.toString()))
           .length,
       })),
     });
@@ -146,6 +146,15 @@ module.exports.assignments = {
       return new HTTPError('Something went wrong').handle(res);
     }
 
+    const problemsAssigned = assignment.problems.map(({ _id }) => _id);
+    const solutions = await Solution.model
+      .find()
+      .where('user').equals(req.user2._id)
+      .where('problem').in(problemsAssigned);
+    const solvedIds = solutions
+      .filter(s => s.passed)
+      .map(s => s.problem.toString());
+
     return res.json({
       data: {
         ...assignment.toObject(),
@@ -155,6 +164,7 @@ module.exports.assignments = {
         problems: assignment.problems.map(p => ({
           category: p.category.name,
           name: p.name,
+          solved: solvedIds.includes(p._id.toString()),
         })),
       },
     });
