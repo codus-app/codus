@@ -26,7 +26,7 @@
               class="image"
               v-bind:style="{
                 'background-image': `url(${student.picture})`,
-                ...student.picture.endsWith('avatar.svg') && { filter: 'brightness(80%)' },
+                ...(student.picture || '').endsWith('avatar.svg') && { filter: 'brightness(80%)' },
               }"
             ></div>
             <div class="info">
