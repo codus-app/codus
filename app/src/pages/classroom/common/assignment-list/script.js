@@ -15,6 +15,7 @@ export default {
 
   computed: {
     fetched() { return this.classroom.fetched || false; },
+
     assignments: {
       get() { return this.classroom.assignments || []; },
       set(value) {
