@@ -27,7 +27,7 @@ export default [
       {
         path: 'assignments',
         name: 'classroom-assignments',
-        component: require('./classroom/instructor/assignments/assignments.vue').default,
+        component: require('./classroom/common/assignments/assignments.vue').default,
         meta: { icon: 'inbox', label: 'Assignments', category: `${namespace}/classroom`, looseMatch: true, protected: true },
       },
       {
