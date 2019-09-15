@@ -8,7 +8,7 @@
          cancelled drag only if the click lasted longer than 600ms. -->
     <div
       class="top draggable-area"
-      v-on:click="() => { if (!expanded || clickDuration() < 600) toggle(); holdStart = null; }"
+      v-on:click="() => { if (!expanded || !editable || clickDuration() < 600) toggle(); holdStart = null; }"
       v-on:mousedown="
         holdTimeout = setTimeout(() => { $emit('dragPress'); }, 200);
         holdStart = new Date();
@@ -32,6 +32,7 @@
         ></icon-more>
         <icon-menu
           class="reorder"
+          v-if="editable"
           v-on:mousedown="$emit('dragPress'); $event.stopPropagation();"
           v-on:click="$event.stopPropagation()"
           v-on:contextmenu="$event.preventDefault()"
@@ -42,14 +43,7 @@
         v-bind:target-name="`more-${_uid}`"
         v-bind:theme="expanded ? 'codus-context-contrast' : null"
         placement="bottom-end"
-        v-bind:items="[
-          {
-            icon: 'external-link', label: 'Open',
-            onclick: () => $router.push(link),
-          },
-          { icon: 'copy', label: 'Copy link', onclick: copyLink },
-          { icon: 'trash', label: 'Delete', onclick: () => $emit('delete') },
-        ]"
+        v-bind:items="contextItems"
     ></context-menu>
     </div>
 

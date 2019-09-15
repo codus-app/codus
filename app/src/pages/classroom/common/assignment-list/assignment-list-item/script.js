@@ -22,6 +22,28 @@ export default {
     },
 
     link() { return `/classroom/${this.$route.params.classroomCode}/assignments/${this.assignment.id}`; },
+
+    contextItems() {
+      if (this.editable) {
+        return [
+          {
+            icon: 'external-link',
+            label: 'Open',
+            onclick: () => this.$router.push(this.link),
+          },
+          { icon: 'copy', label: 'Copy link', onclick: this.copyLink },
+          { icon: 'trash', label: 'Delete', onclick: () => this.$emit('delete') },
+        ];
+      }
+
+      return [
+        {
+          icon: 'play',
+          label: 'Start assignment',
+          onclick: () => alert('TODO'),
+        },
+      ];
+    },
   },
 
   methods: {

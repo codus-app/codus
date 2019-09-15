@@ -16,6 +16,8 @@ export default {
 
   methods: {
     dragPress(id) {
+      if (!this.editable) return;
+
       if (id === this.expandedId) {
         this.overrideCollapse = true;
         const release = () => {
