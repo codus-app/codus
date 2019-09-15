@@ -6,6 +6,7 @@ export default {
   props: {
     assignment: { type: Object, required: true },
     expanded: { type: Boolean },
+    editable: { type: Boolean },
   },
 
   data: () => ({

@@ -2,6 +2,7 @@ export default {
   props: {
     assignments: Array,
     fetched: Boolean,
+    editable: Boolean,
   },
 
   data: () => ({
@@ -12,9 +13,6 @@ export default {
     // “Delete assignment” confirmation modal
     assignmentDeletion: { open: false, assignment: null },
   }),
-
-  computed: {
-  },
 
   methods: {
     dragPress(id) {
