@@ -1,5 +1,5 @@
 <template>
-  <div class="classroom-header">
+  <div class="classroom-header" v-if="classroom">
     <h1 v-bind:class="{ 'has-subtitle': $slots.subtitle }">
       <router-link v-bind:to="{ name: 'classroom-overview', params: $route.params }">
         {{ classroom.name }}
@@ -14,12 +14,9 @@
 
 <script>
 
-import { createNamespacedHelpers } from 'vuex';
-const { mapGetters } = createNamespacedHelpers('classroom/instructor');
-
 export default {
-  computed: {
-    ...mapGetters({ classroom: 'selectedClassroom' }),
+  props: {
+    classroom: { type: Object, required: true }
   },
 };
 

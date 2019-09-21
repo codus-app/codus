@@ -1,6 +1,7 @@
 <template>
   <assignment-list
     ref="list"
+    v-bind:classroom="classroom"
     v-bind:assignments="classroom.assignments || []"
     v-bind:editable="true"
     v-bind:fetched="classroom.fetched"

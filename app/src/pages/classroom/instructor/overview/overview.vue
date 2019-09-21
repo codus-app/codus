@@ -3,7 +3,7 @@
     class="cards-dashboard classroom page"
     v-bind:class="{ unfetched: !fetched }"
   >
-    <classroom-header>
+    <classroom-header v-bind:classroom="classroom">
       <template v-slot:actions>
         <icon-user-plus v-on:click="$emit('open-invitation')"></icon-user-plus>
         <icon-file-plus v-on:click="$emit('create-assignment')"></icon-file-plus>

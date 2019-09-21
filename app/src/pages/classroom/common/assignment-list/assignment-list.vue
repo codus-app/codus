@@ -1,6 +1,6 @@
 <template>
   <div class="cards-dashboard classroom page" v-bind:class="{ unfetched: !fetched }">
-    <classroom-header>
+    <classroom-header v-bind:classroom="classroom">
       <template v-slot:actions v-if="editable">
         <icon-file-plus v-on:click="$emit('create-assignment')"></icon-file-plus>
         <icon-settings v-on:click="$emit('open-settings')"></icon-settings>

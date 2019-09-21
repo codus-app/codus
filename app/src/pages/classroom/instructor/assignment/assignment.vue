@@ -1,6 +1,6 @@
 <template>
   <div class="cards-dashboard classroom page" v-if="assignment !== null">
-    <classroom-header>
+    <classroom-header v-bind:classroom="classroom">
       <template v-slot:subtitle>
         <input
           ref="headerInput"

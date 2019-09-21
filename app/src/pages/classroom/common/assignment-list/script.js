@@ -1,5 +1,6 @@
 export default {
   props: {
+    classroom: Object,
     assignments: Array,
     fetched: Boolean,
     editable: Boolean,
