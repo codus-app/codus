@@ -6,6 +6,8 @@ export default {
   state: {
     classroom: null,
     classroomFetched: false,
+    assignments: [],
+    assignmentsFetched: false,
   },
 
   mutations: {
@@ -19,6 +21,13 @@ export default {
 
     classroomLeft(state) {
       state.classroom = null;
+      state.assignments = [];
+      state.assignmentsFetched = false;
+    },
+
+    assignmentsFetched(state, payload) {
+      state.assignments = payload;
+      state.assignmentsFetched = true;
     },
   },
 
@@ -40,6 +49,12 @@ export default {
       const resp = await api.get({ endpoint: '/classroom/leave' });
       commit('classroomLeft');
       return resp;
+    },
+
+    async fetchAssignments({ commit }) {
+      const assignments = await api.get({ endpoint: '/classroom/assignments' });
+      commit('assignmentsFetched', assignments);
+      return assignments;
     },
   },
 };
