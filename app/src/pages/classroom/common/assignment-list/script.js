@@ -40,4 +40,11 @@ export default {
     'assignment-list-item': require('./assignment-list-item/assignment-list-item.vue').default,
     'empty-message': require('../empty/empty.vue').default,
   },
+
+  watch: {
+    expandedId(id, oldId) {
+      if (id !== null) this.$emit('expanded', this.assignments.find(a => a.id === id));
+      if (oldId !== null) this.$emit('collapsed', this.assignments.find(a => a.id === oldId));
+    },
+  },
 };
