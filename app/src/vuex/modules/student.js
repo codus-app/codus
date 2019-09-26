@@ -29,6 +29,24 @@ export default {
       state.assignments = payload;
       state.assignmentsFetched = true;
     },
+
+    assignmentFetched(state, payload) {
+      const assignmentIndex = state.assignments.findIndex(a => a.id === payload.id);
+      // Merge with existing assignment if it can be found
+      if (assignmentIndex >= 0) {
+        state.assignments[assignmentIndex] = {
+          ...state.assignments[assignmentIndex],
+          ...payload,
+        };
+      // If this assignment has not yet been fetched, put it into the array
+      } else {
+        state.assignments = [
+          ...state.assignments.filter(a => a.sortOrder <= payload.sortOrder),
+          payload,
+          ...state.assignments.filter(a => (a.sortOrder || Infinity) > payload.sortOrder),
+        ];
+      }
+    },
   },
 
   actions: {
@@ -55,6 +73,13 @@ export default {
       const assignments = await api.get({ endpoint: '/classroom/assignments' });
       commit('assignmentsFetched', assignments);
       return assignments;
+    },
+
+    // Fetch more info about an assignment including info about which problems have been solved
+    async fetchAssignment({ commit }, assignmentCode) {
+      const assignment = await api.get({ endpoint: `/classroom/assignments/${assignmentCode}` });
+      commit('assignmentFetched', assignment);
+      return assignment;
     },
   },
 };
