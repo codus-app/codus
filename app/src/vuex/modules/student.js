@@ -26,7 +26,11 @@ export default {
     },
 
     assignmentsFetched(state, payload) {
-      state.assignments = payload;
+      if (!state.assignments.length) state.assignments = payload;
+      else {
+        state.assignments = payload
+          .map(a => ({ ...a, ...state.assignments.find(a2 => a2.id === a.id) }));
+      }
       state.assignmentsFetched = true;
     },
 
