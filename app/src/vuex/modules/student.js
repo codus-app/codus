@@ -41,12 +41,13 @@ export default {
         state.assignments[assignmentIndex] = {
           ...state.assignments[assignmentIndex],
           ...payload,
+          fetched: true,
         };
       // If this assignment has not yet been fetched, put it into the array
       } else {
         state.assignments = [
           ...state.assignments.filter(a => a.sortOrder <= payload.sortOrder),
-          payload,
+          { ...payload, fetched: true },
           ...state.assignments.filter(a => (a.sortOrder || Infinity) > payload.sortOrder),
         ];
       }
