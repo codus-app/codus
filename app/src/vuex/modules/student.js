@@ -1,3 +1,4 @@
+import Vue from 'vue';
 import * as api from '../../api';
 
 export default {
@@ -38,11 +39,11 @@ export default {
       const assignmentIndex = state.assignments.findIndex(a => a.id === payload.id);
       // Merge with existing assignment if it can be found
       if (assignmentIndex >= 0) {
-        state.assignments[assignmentIndex] = {
+        Vue.set(state.assignments, assignmentIndex, {
           ...state.assignments[assignmentIndex],
           ...payload,
           fetched: true,
-        };
+        });
       // If this assignment has not yet been fetched, put it into the array
       } else {
         state.assignments = [
