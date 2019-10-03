@@ -11,6 +11,8 @@ export default {
 
   methods: {
     ...mapActions(['fetchAssignments', 'fetchAssignment']),
+
+    fetch(assignment) { return this.fetchAssignment(assignment.id); },
   },
 
   async mounted() {
