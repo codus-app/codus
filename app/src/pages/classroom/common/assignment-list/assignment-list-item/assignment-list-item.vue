@@ -44,7 +44,7 @@
         v-bind:theme="expanded ? 'codus-context-contrast' : null"
         placement="bottom-end"
         v-bind:items="contextItems"
-    ></context-menu>
+      ></context-menu>
     </div>
 
     <transition-expand axis="y" v-bind:transition-duration="300">
@@ -58,6 +58,12 @@
             {{ assignment.description.trim() || 'No description' }}
           </div>
           <router-link class="link" v-bind:to="link">View assignment</router-link>
+        </div>
+
+        <div class="right student-problems-overview" v-if="!editable && assignment.problems && assignment.problems.length">
+          <div class="category" v-for="category in assignmentCategories" v-bind:key="category">
+            <h3>{{ category }}</h3>
+          </div>
         </div>
       </div>
     </transition-expand>
