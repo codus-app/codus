@@ -1,6 +1,8 @@
 /* global CODUS_APP_URL */
 import dayjs from 'dayjs';
+import { mapState } from 'vuex';
 import { formatDueDate } from '../../../../../helpers';
+
 
 export default {
   props: {
@@ -15,6 +17,8 @@ export default {
   }),
 
   computed: {
+    ...mapState(['contentFetched', 'categories']),
+
     overdue() {
       const date = dayjs(this.assignment.dueDate);
       const now = Date.now();
@@ -44,6 +48,28 @@ export default {
         },
       ];
     },
+
+    assignmentProblems() {
+      if (!this.contentFetched || !this.assignment.problems || !this.assignment.problems.length) {
+        return {};
+      }
+
+      const problemsByCategory = {};
+      this.assignment.problems.forEach(({ category, name, solved }) => {
+        if (!problemsByCategory[category]) problemsByCategory[category] = [];
+        problemsByCategory[category].push({ name, solved });
+      });
+      return problemsByCategory;
+    },
+
+    assignmentCategories() {
+      const cats = this.categories;
+      return Object.keys(this.assignmentProblems)
+        // Order categories in the proper order
+        .sort((cat1, cat2) => cats.indexOf(cat1) - cats.indexOf(cat2));
+    },
+
+    categoryProblems(cat) { return this.assignmentProblems[cat]; },
   },
 
   methods: {
