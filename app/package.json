@@ -56,7 +56,7 @@
     "webpack-dev-server": "^3.10.1"
   },
   "dependencies": {
-    "auth0-js": "^9.12.2",
+    "auth0-js": "^9.13.2",
     "babel-polyfill": "^6.26.0",
     "codemirror": "^5.51.0",
     "css-element-queries": "^1.2.3",
