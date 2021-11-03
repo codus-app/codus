@@ -32,7 +32,7 @@
     "mongoose": "^5.7.1",
     "multer": "^1.4.2",
     "multer-s3": "^2.9.0",
-    "validator": "^10.11.0"
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "eslint": "^5.16.0",
