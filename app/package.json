@@ -75,7 +75,7 @@
     "simplebar": "^3.1.5",
     "simplebar-vue": "^0.1.6",
     "url-join": "^4.0.1",
-    "validator": "^10.11.0",
+    "validator": "^13.7.0",
     "vue": "^2.6.11",
     "vue-codemirror": "^4.0.6",
     "vue-feather-icons": "^4.22.0",
